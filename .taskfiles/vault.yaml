@@ -3,21 +3,11 @@ version: '3'
 
 tasks:
   install:
-    desc: fresh install vault auths/engines/backends
+    desc: fresh install vault k8s auth/roles
     cmds:
       - task vault:disable-k8s-auth
       - task vault:enable-k8s-auth
-    #   - task vault:disable-intca
-    #   - task vault:enable-intca
-    #   - task vault:disable-k8s-approle
-    #   - task vault:enable-k8s-approle
-    #   - task vault:add-kv-secrets
-  refresh-kv:
-    desc: refresh kv values
-    cmds:
-      - task vault:disable-kv
-      - task vault:enable-kv
-      - task vault:add-kv-secrets
+      - task vault:add-k8s-roles
   status:
     desc: vault status
     cmds:
@@ -28,51 +18,6 @@ tasks:
       - vault operator unseal {{.VAULT_UNSEAL_KEY_1}}
       - vault operator unseal {{.VAULT_UNSEAL_KEY_2}}
       - vault operator unseal {{.VAULT_UNSEAL_KEY_3}}
-  enable-rootca:
-    desc: setup root ca pki engine
-    cmds:
-      # ROOT CA
-      - vault secrets disable pki/root_ca
-      - vault secrets enable -path=pki/root_ca pki
-      - vault secrets tune -max-lease-ttl=87600h pki/root_ca
-      - vault write -field=certificate pki/root_ca/root/generate/internal common_name="svc" ttl=87600h > ca_cert.crt
-      - vault write pki/root_ca/config/urls issuing_certificates="{{ .VAULT_ADDR }}/v1/pki/ca" crl_distribution_points="{{ .VAULT_ADDR }}/v1/pki/crl"
-      - rm "{{.ROOT_DIR}}"/ca_cert.crt
-#   disable-intca:
-#     desc: remove cluster intermediate ca pki engine
-#     cmds:
-#       - vault secrets disable pki/{{.ENVIRONMENT}}
-#       - kubectl create namespace cert-manager || true
-#       - kubectl -n cert-manager delete secret vault-root-ca || true
-#   enable-intca:
-#     desc: enable intermediate ca pki engine for k8s cluster
-#     cmds:
-#       - vault secrets disable pki/{{.ENVIRONMENT}}
-#       - vault secrets enable -path=pki/{{.ENVIRONMENT}} pki
-#       - vault secrets tune -max-lease-ttl=43800h pki/{{.ENVIRONMENT}}
-#       - vault write -format=json pki/{{.ENVIRONMENT}}/intermediate/generate/internal common_name="{{.DOMAIN}}" | jq -r '.data.csr' > {{.ENVIRONMENT}}_pki_intermediate.csr
-#       - vault write -format=json pki/root_ca/root/sign-intermediate csr=@{{.ENVIRONMENT}}_pki_intermediate.csr format=pem_bundle ttl="43800h" | jq -r '.data.certificate' > {{.ENVIRONMENT}}_ca.cert.pem
-#       - vault write pki/{{.ENVIRONMENT}}/intermediate/set-signed certificate=@{{.ENVIRONMENT}}_ca.cert.pem
-#       - vault write pki/{{.ENVIRONMENT}}/roles/default issuer_ref="$(vault read -field=default pki/{{.ENVIRONMENT}}/config/issuers)" allowed_domains="{{.DOMAIN}}" allow_bare_domains=true allow_subdomains=true max_ttl="720h"
-#       - kubectl -n cert-manager create secret generic vault-root-ca --from-file=ca.cert.pem={{.ENVIRONMENT}}_ca.cert.pem
-#       - rm "{{.ROOT_DIR}}"/{{.ENVIRONMENT}}_ca.cert.pem
-#       - rm "{{.ROOT_DIR}}"/{{.ENVIRONMENT}}_pki_intermediate.csr
-#   disable-k8s-approle:
-#     desc: disable k8s approles
-#     cmds:
-#       - vault auth disable approle/{{.ENVIRONMENT}}
-#       # cert-manager
-#       - kubectl -n ingress delete secret cert-manager-vault-approle || true
-#   enable-k8s-approle:
-#     desc: enable k8s approles
-#     cmds:
-#       - vault auth enable -path=approle/{{.ENVIRONMENT}} approle
-#       # private issuer
-#       - echo "path \"pki/{{.ENVIRONMENT}}/sign/default\" { capabilities = [\"update\"] }" | vault policy write cert-manager -
-#       - vault write auth/approle/{{.ENVIRONMENT}}/role/cert-manager token_policies="cert-manager" token_ttl=1h token_max_ttl=4h
-#       - kubectl create namespace ingress || true
-#       - kubectl -n ingress create secret generic cert-manager-vault-approle --from-literal=secretId=$(vault write -force -field=secret_id auth/approle/{{.ENVIRONMENT}}/role/cert-manager/secret-id)
-#       - ROLE_ID=$(vault read -field role_id auth/approle/{{.ENVIRONMENT}}/role/cert-manager/role-id ) envsubst < {{.ROOT_DIR}}/tmpl/vault-issuer.yaml | kubectl apply -f -
   enable-k8s-auth:
     desc: configure vault k8s auth for cluster
     cmds:
@@ -89,6 +34,15 @@ tasks:
     desc: disable k8s auth
     cmds:
       - vault auth disable kubernetes/{{.ENVIRONMENT}}
+  add-k8s-roles:
+    desc: add k8s roles
+    cmds:
+      # flux-system
+      - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/flux-system
+          bound_service_account_names=vault-auth
+          bound_service_account_namespaces=flux-system
+          policies=shared-secrets,flux-system,default
+          ttl=1440h
   enable-ldap:
     desc: configure vault ldap auth
     cmds:
@@ -469,4 +423,3 @@ tasks:
           PROXMOX_STORAGECLASS_NAME="${PROXMOX_STORAGECLASS_NAME}"
           PROXMOX_STORAGECLASS_STORAGE="${PROXMOX_STORAGECLASS_STORAGE}"
           PROXMOX_STORAGECLASS_FSTYPE="${PROXMOX_STORAGECLASS_FSTYPE}"
-

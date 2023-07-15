@@ -12,13 +12,13 @@ tasks:
     deps: [check]
     desc: Flux bootstrap
     cmds:      
-      - kubectl apply --server-side --kustomize={{.PROJECT_DIR}}/kubernetes/bootstrap
+      - kubectl apply --server-side --kustomize={{.ROOT_DIR}}/kubernetes/bootstrap
 
   install:
     deps: [bootstrap]
     desc: Flux install
     cmds:
-      - kubectl apply --server-side --kustomize={{.PROJECT_DIR}}/kubernetes/flux/config
+      - kubectl apply --server-side --kustomize={{.ROOT_DIR}}/kubernetes/flux/config
 
   gr-sync:
     desc: Sync Flux GitRepositories
