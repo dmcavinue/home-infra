@@ -14,10 +14,30 @@ k3s_server_manifests_urls:
     filename: custom-prometheus-prometheusrules.yaml
   - url: https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.66.0/example/prometheus-operator-crd/monitoring.coreos.com_servicemonitors.yaml
     filename: custom-prometheus-servicemonitors.yaml
+  - url: https://github.com/jetstack/cert-manager/releases/download/v1.11.1/cert-manager.crds.yaml
+    filename: cert-manager.crds.yaml
+  - url: https://raw.githubusercontent.com/kubernetes-sigs/gateway-api/v0.7.1/config/crd/experimental/gateway.networking.k8s.io_gatewayclasses.yaml
+    filename: gateway.networking.k8s.io_gatewayclasses.yaml
+  - url: https://raw.githubusercontent.com/kubernetes-sigs/gateway-api/v0.7.1/config/crd/experimental/gateway.networking.k8s.io_gateways.yaml
+    filename: gateway.networking.k8s.io_gateways.yaml
+  - url: https://raw.githubusercontent.com/kubernetes-sigs/gateway-api/v0.7.1/config/crd/experimental/gateway.networking.k8s.io_httproutes.yaml
+    filename: gateway.networking.k8s.io_httproutes.yaml
+  - url: https://raw.githubusercontent.com/kubernetes-sigs/gateway-api/v0.7.1/config/crd/experimental/gateway.networking.k8s.io_referencegrants.yaml
+    filename: gateway.networking.k8s.io_referencegrants.yaml
+  - url: https://raw.githubusercontent.com/kubernetes-sigs/gateway-api/v0.7.1/config/crd/experimental/gateway.networking.k8s.io_grpcroutes.yaml
+    filename: gateway.networking.k8s.io_grpcroutes.yaml
+  - url: https://raw.githubusercontent.com/kubernetes-sigs/gateway-api/v0.7.1/config/crd/experimental/gateway.networking.k8s.io_tlsroutes.yaml
+    filename: gateway.networking.k8s.io_tlsroutes.yaml
+  - url: https://raw.githubusercontent.com/kubernetes-sigs/gateway-api/v0.7.1/config/crd/experimental/gateway.networking.k8s.io_tcproutes.yaml
+    filename: gateway.networking.k8s.io_tcproutes.yaml
+  - url: https://raw.githubusercontent.com/kubernetes-sigs/gateway-api/v0.7.1/config/crd/experimental/gateway.networking.k8s.io_udproutes.yaml
+    filename: gateway.networking.k8s.io_udproutes.yaml
+  - url: https://raw.githubusercontent.com/external-secrets/kubernetes-external-secrets/master/charts/kubernetes-external-secrets/crds/kubernetes-client.io_externalsecrets_crd.yaml
+    filename: kubernetes-client.io_externalsecrets_crd.yaml
+
 # /var/lib/rancher/k3s/server/manifests
 k3s_server_manifests_templates:
   - custom-cilium-helmchart.yaml.j2
   - custom-cilium-l2.yaml.j2
   - custom-coredns-helmchart.yaml.j2
-  - custom-externalsecrets-helmchart.yaml.j2
-# /var/lib/rancher/k3s/agent/pod-manifests
+  - custom-external-secrets-helmchart.yaml.j2

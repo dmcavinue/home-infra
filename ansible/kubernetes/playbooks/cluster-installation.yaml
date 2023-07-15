@@ -69,7 +69,7 @@
       loop:
         - { name: cilium, kind: HelmChart, namespace: kube-system }
         - { name: coredns, kind: HelmChart, namespace: kube-system }
-        - { name: externalsecrets, kind: HelmChart, namespace: kube-system }
+        - { name: external-secrets, kind: HelmChart, namespace: kube-system }
         - { name: policy, kind: CiliumL2AnnouncementPolicy }
         - { name: pool, kind: CiliumLoadBalancerIPPool }
 
