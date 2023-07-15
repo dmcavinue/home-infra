@@ -1,0 +1,73 @@
+---
+# https://docs.k3s.io/helm
+apiVersion: helm.cattle.io/v1
+kind: HelmChart
+metadata:
+  name: cilium
+  namespace: kube-system
+spec:
+  repo: https://helm.cilium.io/
+  chart: cilium
+  # renovate: datasource=helm depName=cilium registryUrl=https://helm.cilium.io
+  version: "1.14.0-rc.0"
+  targetNamespace: kube-system
+  bootstrap: true
+  valuesContent: |-
+    autoDirectNodeRoutes: true
+    bpf:
+      masquerade: true
+    bgp:
+      enabled: false
+    cluster:
+      name: kubernetes
+      id: 1
+    containerRuntime:
+      integration: containerd
+      socketPath: /var/run/k3s/containerd/containerd.sock
+    gatewayAPI:
+      enabled: true
+    endpointRoutes:
+      enabled: true
+    hubble:
+      enabled: true
+      metrics:
+        enableOpenMetrics: true
+        enabled:
+          - dns:query;ignoreAAAA
+          - drop
+          - tcp
+          - flow
+          - port-distribution
+          - icmp
+          - http
+        serviceMonitor:
+          enabled: true
+          interval: 30s
+      relay:
+        enabled: true
+        rollOutPods: true
+      ui:
+        enabled: true
+        rollOutPods: true
+    ipam:
+      mode: kubernetes
+    ipv4NativeRoutingCIDR: "{{ k3s_server['cluster-cidr'] }}"
+    k8sServiceHost: "{{ k3s_registration_address }}"
+    k8sServicePort: 443
+    kubeProxyReplacement: strict
+    kubeProxyReplacementHealthzBindAddr: 0.0.0.0:10256
+    l2announcements:
+      enabled: true
+      leaseDuration: 120s
+      leaseRenewDeadline: 60s
+      leaseRetryPeriod: 1s
+    loadBalancer:
+      algorithm: maglev
+      mode: dsr
+    localRedirectPolicy: true
+    operator:
+      rollOutPods: true
+    rollOutCiliumPods: true
+    securityContext:
+      privileged: true
+    tunnel: disabled

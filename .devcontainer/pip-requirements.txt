@@ -1,0 +1,5 @@
+cffi
+PyYAML
+yamllint
+pre-commit
+kubernetes

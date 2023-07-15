@@ -1,0 +1,24 @@
+---
+version: "3"
+
+vars:
+  CLUSTER_DIR: "{{.ROOT_DIR}}/kubernetes"
+  ANSIBLE_DIR: "{{.ROOT_DIR}}/ansible"
+
+env:
+  KUBECONFIG: ./kubeconfig
+
+dotenv: [".env"]
+
+includes:
+  ansible: .taskfiles/ansible.yaml
+  externalsecrets: .taskfiles/externalsecrets.yaml
+  flux: .taskfiles/flux.yaml
+  kubernetes: .taskfiles/kubernetes.yaml
+  vault: .taskfiles/vault.yaml
+
+tasks:
+
+  default:
+    silent: true
+    cmds: ["task -l"]

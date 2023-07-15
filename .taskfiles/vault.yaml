@@ -1,0 +1,508 @@
+---
+version: '3'
+
+tasks:
+  install:
+    desc: fresh install vault auths/engines/backends
+    cmds:
+      - task vault:disable-k8s-auth
+      - task vault:enable-k8s-auth
+      - task vault:disable-intca
+      - task vault:enable-intca
+      - task vault:disable-k8s-approle
+      - task vault:enable-k8s-approle
+      - task vault:add-kv-secrets
+  refresh-kv:
+    desc: refresh kv values
+    cmds:
+      - task vault:disable-kv
+      - task vault:enable-kv
+      - task vault:add-kv-secrets
+  status:
+    desc: vault status
+    cmds:
+      - vault status
+  unseal:
+    desc: vault unseal
+    cmds:
+      - vault operator unseal {{.VAULT_UNSEAL_KEY_1}}
+      - vault operator unseal {{.VAULT_UNSEAL_KEY_2}}
+      - vault operator unseal {{.VAULT_UNSEAL_KEY_3}}
+  enable-rootca:
+    desc: setup root ca pki engine
+    cmds:
+      # ROOT CA
+      - vault secrets disable pki/root_ca
+      - vault secrets enable -path=pki/root_ca pki
+      - vault secrets tune -max-lease-ttl=87600h pki/root_ca
+      - vault write -field=certificate pki/root_ca/root/generate/internal common_name="svc" ttl=87600h > ca_cert.crt
+      - vault write pki/root_ca/config/urls issuing_certificates="{{ .VAULT_ADDR }}/v1/pki/ca" crl_distribution_points="{{ .VAULT_ADDR }}/v1/pki/crl"
+      - rm "{{.PROJECT_DIR}}"/ca_cert.crt
+  disable-intca:
+    desc: remove cluster intermediate ca pki engine
+    cmds:
+      - vault secrets disable pki/{{.ENVIRONMENT}}
+      - kubectl create namespace cert-manager || true
+      - kubectl -n cert-manager delete secret vault-root-ca || true
+  enable-intca:
+    desc: enable intermediate ca pki engine for k8s cluster
+    cmds:
+      - vault secrets disable pki/{{.ENVIRONMENT}}
+      - vault secrets enable -path=pki/{{.ENVIRONMENT}} pki
+      - vault secrets tune -max-lease-ttl=43800h pki/{{.ENVIRONMENT}}
+      - vault write -format=json pki/{{.ENVIRONMENT}}/intermediate/generate/internal common_name="{{.DOMAIN}}" | jq -r '.data.csr' > {{.ENVIRONMENT}}_pki_intermediate.csr
+      - vault write -format=json pki/root_ca/root/sign-intermediate csr=@{{.ENVIRONMENT}}_pki_intermediate.csr format=pem_bundle ttl="43800h" | jq -r '.data.certificate' > {{.ENVIRONMENT}}_ca.cert.pem
+      - vault write pki/{{.ENVIRONMENT}}/intermediate/set-signed certificate=@{{.ENVIRONMENT}}_ca.cert.pem
+      - vault write pki/{{.ENVIRONMENT}}/roles/default issuer_ref="$(vault read -field=default pki/{{.ENVIRONMENT}}/config/issuers)" allowed_domains="{{.DOMAIN}}" allow_bare_domains=true allow_subdomains=true max_ttl="720h"
+      - kubectl -n cert-manager create secret generic vault-root-ca --from-file=ca.cert.pem={{.ENVIRONMENT}}_ca.cert.pem
+      - rm "{{.PROJECT_DIR}}"/{{.ENVIRONMENT}}_ca.cert.pem
+      - rm "{{.PROJECT_DIR}}"/{{.ENVIRONMENT}}_pki_intermediate.csr
+  disable-k8s-approle:
+    desc: disable k8s approles
+    cmds:
+      - vault auth disable approle/{{.ENVIRONMENT}}
+      # cert-manager
+      - kubectl -n ingress delete secret cert-manager-vault-approle || true
+  enable-k8s-approle:
+    desc: enable k8s approles
+    cmds:
+      - vault auth enable -path=approle/{{.ENVIRONMENT}} approle
+      # private issuer
+      - echo "path \"pki/{{.ENVIRONMENT}}/sign/default\" { capabilities = [\"update\"] }" | vault policy write cert-manager -
+      - vault write auth/approle/{{.ENVIRONMENT}}/role/cert-manager token_policies="cert-manager" token_ttl=1h token_max_ttl=4h
+      - kubectl create namespace ingress || true
+      - kubectl -n ingress create secret generic cert-manager-vault-approle --from-literal=secretId=$(vault write -force -field=secret_id auth/approle/{{.ENVIRONMENT}}/role/cert-manager/secret-id)
+      - ROLE_ID=$(vault read -field role_id auth/approle/{{.ENVIRONMENT}}/role/cert-manager/role-id ) envsubst < {{.PROJECT_DIR}}/tmpl/vault-issuer.yaml | kubectl apply -f -
+  enable-k8s-auth:
+    desc: configure vault k8s auth for cluster
+    cmds:
+      - vault auth enable -path=kubernetes/{{.ENVIRONMENT}} kubernetes
+      - kubectl create namespace security || true
+      - kubectl -n security apply -f {{.PROJECT_DIR}}/tmpl/vault-auth.yaml
+      - kubectl -n security get secret vault-auth-token -o jsonpath="{.data['ca\.crt']}" | base64 -d > ca.crt
+      - vault write auth/kubernetes/{{.ENVIRONMENT}}/config
+          token_reviewer_jwt="$(kubectl -n security get secret vault-auth-token -o jsonpath=\"{.data.token}\" | base64 -d; echo)"
+          kubernetes_host="https://{{.K3S_HA_SAN}}"
+          kubernetes_ca_cert=@ca.crt
+          disable_iss_validation=true
+      - rm ca.crt
+  disable-k8s-auth:
+    desc: disable k8s auth
+    cmds:
+      - vault auth disable kubernetes/{{.ENVIRONMENT}}
+  enable-ldap:
+    desc: configure vault ldap auth
+    cmds:
+      - vault auth disable ldap
+      - vault auth enable ldap
+      - vault write auth/ldap/config
+          url="ldaps://{{.LDAP_SERVER}}"
+          userattr=uid
+          userdn="cn=users,{{.LDAP_ROOT}}"
+          discoverdn=true
+          groupdn="cn=groups,{{.LDAP_ROOT}}"
+          groupfilter='(&(objectClass=posixGroup)(memberUid={{printf "{{.Username}}"}}))'
+          groupattr="uid"
+          binddn="uid={{.LDAP_ADMIN_USERNAME}},cn=users,{{.LDAP_ROOT}}"
+          bindpass="{{.LDAP_ADMIN_PASSWORD}}"
+          insecure_tls=false
+          starttls=true
+      - vault write auth/ldap/groups/vault-admin policies=admin
+      - vault policy write admin {{.PROJECT_DIR}}/tmpl/vault-admin.hcl
+  disable-database-engine:
+    desc: disable vault database engine
+    cmds:
+      - vault secrets disable databases/{{.ENVIRONMENT}}
+  enable-database-engine:
+    desc: enable vault database engine
+    cmds:
+      - vault secrets enable -path=databases/{{.ENVIRONMENT}} database
+  add-database-connections:
+    desc: add vault database connections
+    cmds:
+      # postgresql/home_assistant
+      - vault write databases/{{.ENVIRONMENT}}/config/home_assistant
+          plugin_name="postgresql-database-plugin"
+          allowed_roles="home-assistant"
+          connection_url="postgresql://{{`{{username}}`}}:{{`{{password}}`}}@{{.POSTGRES_LB_IP}}:5432/home_assistant"
+          username="postgres"
+          password="{{.POSTGRES_PASSWORD}}"
+          username_template="{{`{{.RoleName}}`}}-{{`{{random 8}}`}}"
+      - vault write databases/{{.ENVIRONMENT}}/roles/home-assistant
+          db_name="home_assistant"
+          creation_statements="CREATE ROLE \"{{`{{name}}`}}\" WITH LOGIN PASSWORD '{{`{{password}}`}}' VALID UNTIL '{{`{{expiration}}`}}'; GRANT role_home_assistant TO \"{{`{{name}}`}}\"; SET ROLE role_home_assistant;"
+          revocation_statements="REVOKE role_home_assistant FROM \"{{`{{name}}`}}\"; DROP ROLE \"{{`{{name}}`}}\";"
+          default_ttl="1h"
+          max_ttl="1h"
+      # postgresql/immich
+      - vault write databases/{{.ENVIRONMENT}}/config/immich
+          plugin_name="postgresql-database-plugin"
+          allowed_roles="immich"
+          connection_url="postgresql://{{`{{username}}`}}:{{`{{password}}`}}@{{.POSTGRES_LB_IP}}:5432/immich"
+          username="postgres"
+          password="{{.POSTGRES_PASSWORD}}"
+          username_template="{{`{{.RoleName}}`}}-{{`{{random 8}}`}}"
+      - vault write databases/{{.ENVIRONMENT}}/roles/immich
+          db_name="immich"
+          creation_statements="CREATE ROLE \"{{`{{name}}`}}\" WITH LOGIN PASSWORD '{{`{{password}}`}}' VALID UNTIL '{{`{{expiration}}`}}';, GRANT role_immich TO \"{{`{{name}}`}}\"; SET ROLE role_immich;"
+          revocation_statements="REVOKE role_immich FROM \"{{`{{name}}`}}\"; DROP ROLE \"{{`{{name}}`}}\";"
+          default_ttl="1h"
+          max_ttl="1h"
+      # postgresql/windmill
+      - vault write databases/{{.ENVIRONMENT}}/config/windmill
+          plugin_name="postgresql-database-plugin"
+          allowed_roles="windmill"
+          connection_url="postgresql://{{`{{username}}`}}:{{`{{password}}`}}@{{.POSTGRES_LB_IP}}:5432/windmill"
+          username="postgres"
+          password="{{.POSTGRES_PASSWORD}}"
+          username_template="{{`{{.RoleName}}`}}-{{`{{random 8}}`}}"
+      - vault write databases/{{.ENVIRONMENT}}/roles/windmill
+          db_name="windmill"
+          creation_statements="CREATE ROLE \"{{`{{name}}`}}\" WITH LOGIN PASSWORD '{{`{{password}}`}}' VALID UNTIL '{{`{{expiration}}`}}'; GRANT role_windmill TO \"{{`{{name}}`}}\"; SET ROLE role_windmill;"
+          revocation_statements="REVOKE role_windmill FROM \"{{`{{name}}`}}\"; DROP ROLE \"{{`{{name}}`}}\";"
+          default_ttl="1h"
+          max_ttl="1h"
+  disable-kv:
+    desc: disable kv secrets engine
+    cmds:
+      - vault secrets disable kv/
+      - vault policy delete databases-postgresql
+      - vault policy delete default-demo
+  enable-kv:
+    desc: enable kv secrets engine
+    cmds:
+      - vault secrets enable -path=kv/ kv-v2
+  add-kv-secrets:
+    desc: add kv secrets
+    cmds:
+      # shared secrets
+      - echo "path \"kv/data/cluster/{{.ENVIRONMENT}}\" { capabilities = [\"read\", \"list\"] }" | vault policy write shared-secrets -
+      - vault kv put -mount=kv cluster/{{.ENVIRONMENT}}
+          ALERTMANAGER_SLACK_WEBHOOK="${ALERTMANAGER_SLACK_WEBHOOK}"
+          CILIUM_ADMIN_LB_IP="${CILIUM_ADMIN_LB_IP}"
+          CILIUM_IP_POOL="${CILIUM_IP_POOL}"
+          CILIUM_LB_IP="${CILIUM_LB_IP}"
+          CLOUDFLARE_EMAIL="${CLOUDFLARE_EMAIL}"
+          DNS_SERVER="${DNS_SERVER}"
+          DOCKER_PRIVATE_REGISTRY="${DOCKER_PRIVATE_REGISTRY}"
+          DOMAIN="${DOMAIN}"
+          INFLUXDB_PASSWORD="${INFLUXDB_PASSWORD}"
+          INFLUXDB_USER="${INFLUXDB_USER}"
+          K3S_HA_VIP="${K3S_HA_VIP}"
+          LOCAL_DOMAIN="${LOCAL_DOMAIN}"
+          METALLB_LB_RANGE="${METALLB_LB_RANGE}"
+          MQTT_LB_IP="${MQTT_LB_IP}"
+          MQTT_PASSWORD="${MQTT_PASSWORD}"
+          MQTT_USERNAME="${MQTT_USERNAME}"
+          NEXTDNS_ID="${NEXTDNS_ID}"
+          NFS_BACKUP_PATH="${NFS_BACKUP_PATH}"
+          NFS_CCTV_PATH="${NFS_CCTV_PATH}"
+          NFS_HOST="${NFS_HOST}"
+          NFS_IMMICH_PATH="${NFS_IMMICH_PATH}"
+          NFS_PHOTOS_PATH="${NFS_PHOTOS_PATH}"
+          NFS_PROMETHEUS_PATH="${NFS_PROMETHEUS_PATH}"
+          NFS_SHARED_PATH="${NFS_SHARED_PATH}"
+          NFS_VIDEOS_PATH="${NFS_VIDEOS_PATH}"
+          POSTGRES_LB_IP="${POSTGRES_LB_IP}"
+          RSYSLOG_LB_IP="${RSYSLOG_LB_IP}"
+          RTLTCP_LB_IP="${RTLTCP_LB_IP}"
+      # vault-auth
+      - echo "path \"kv/data/databases/*\" { capabilities = [\"read\", \"list\"] }" | vault policy write databases -
+      - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/databases
+          bound_service_account_names=vault-auth
+          bound_service_account_namespaces=databases
+          policies=databases,default
+          ttl=1440h
+      - echo "path \"kv/data/development/*\" { capabilities = [\"read\", \"list\"] }" | vault policy write development -
+      - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/development
+          bound_service_account_names=vault-auth
+          bound_service_account_namespaces=development
+          policies=development,default
+          ttl=1440h
+      - echo "path \"kv/data/flux-system/*\" { capabilities = [\"read\", \"list\"] }" | vault policy write flux-system -
+      - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/flux-system
+          bound_service_account_names=vault-auth
+          bound_service_account_namespaces=flux-system
+          policies=shared-secrets,flux-system,default
+          ttl=1440h
+      - echo "path \"kv/data/home-automation/*\" { capabilities = [\"read\", \"list\"] }" | vault policy write home-automation -
+      - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/home-automation
+          bound_service_account_names=vault-auth
+          bound_service_account_namespaces=home-automation
+          policies=home-automation,default
+          ttl=1440h
+      - echo "path \"kv/data/media/*\" { capabilities = [\"read\", \"list\"] }" | vault policy write media -
+      - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/media
+          bound_service_account_names=vault-auth
+          bound_service_account_namespaces=media
+          policies=media,default
+          ttl=1440h
+      - echo "path \"kv/data/observability/*\" { capabilities = [\"read\", \"list\"] }" | vault policy write observability -
+      - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/observability
+          bound_service_account_names=vault-auth
+          bound_service_account_namespaces=observability
+          policies=observability,default
+          ttl=1440h
+      - echo "path \"kv/data/security/*\" { capabilities = [\"read\", \"list\"] }" | vault policy write security -
+      - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/security
+          bound_service_account_names=vault-auth
+          bound_service_account_namespaces=security
+          policies=security,default
+          ttl=1440h
+      - echo "path \"kv/data/cert-manager/*\" { capabilities = [\"read\", \"list\"] }" | vault policy write cert-manager -
+      - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/cert-manager
+          bound_service_account_names=vault-auth
+          bound_service_account_namespaces=cert-manager
+          policies=cert-manager,default
+          ttl=1440h
+      - echo "path \"kv/data/csi-proxmox/*\" { capabilities = [\"read\", \"list\"] }" | vault policy write csi-proxmox -
+      - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/csi-proxmox
+          bound_service_account_names=vault-auth
+          bound_service_account_namespaces=csi-proxmox
+          policies=csi-proxmox,default
+          ttl=1440h
+      # pki issuer
+      - echo -e "path \"pki/{{.ENVIRONMENT}}/issue/default\" { capabilities = [\"create\", \"update\", \"read\", \"list\"]}" | vault policy write pki-issuer -
+      # cert-manager/cloudflare
+      - vault kv put -mount=kv/ cert-manager/cloudflare
+          CLOUDFLARE_TOKEN="${CLOUDFLARE_TOKEN}"
+      # databases/postgresql
+      - vault kv put -mount=kv/ databases/postgresql
+          POSTGRES_PASSWORD="{{.POSTGRES_PASSWORD}}"
+      - echo "path \"kv/data/databases/postgresql\" { capabilities = [\"read\", \"list\"] }" | vault policy write databases-postgresql -
+      - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/databases-postgresql
+          bound_service_account_names=postgresql
+          bound_service_account_namespaces=databases
+          policies=databases-postgresql,pki-issuer,default
+          ttl=1440h
+      # development/windmill
+      - vault kv put -mount=kv/ development/windmill
+          DATABASE_URL="${WINDMILL_DATABASE_URL}"
+      - echo -e "path \"kv/data/development/windmill\" { capabilities = [\"read\", \"list\"] }\npath \"databases/{{.ENVIRONMENT}}/creds/windmill\" { capabilities = [\"read\", \"list\"] }" | vault policy write development-windmill -
+      - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/development-windmill
+          bound_service_account_names=windmill
+          bound_service_account_namespaces=development
+          policies=development-windmill,default
+          ttl=1440h
+      # flux-system
+      - vault kv put -mount=kv/ flux-system/notification
+          FLUX_SLACK_WEBHOOK="${FLUX_SLACK_WEBHOOK}"
+      # home-automation/frigate
+      - vault kv put -mount=kv/ home-automation/frigate
+          DVR_URL="{{.FRIGATE_DVR_URL}}"
+          CAM1_NAME="{{.FRIGATE_CAM1_NAME}}"
+          CAM1_ID="{{.FRIGATE_CAM1_ID}}"
+          CAM2_NAME="{{.FRIGATE_CAM2_NAME}}"
+          CAM2_ID="{{.FRIGATE_CAM2_ID}}"
+          CAM3_NAME="{{.FRIGATE_CAM3_NAME}}"
+          CAM3_ID="{{.FRIGATE_CAM3_ID}}"
+          CAM4_NAME="{{.FRIGATE_CAM4_NAME}}"
+          CAM4_ID="{{.FRIGATE_CAM4_ID}}"
+          CAM5_NAME="{{.FRIGATE_CAM5_NAME}}"
+          CAM5_ID="{{.FRIGATE_CAM5_ID}}"
+          CAM6_NAME="{{.FRIGATE_CAM6_NAME}}"
+          CAM6_ID="{{.FRIGATE_CAM6_ID}}"
+          CAM7_NAME="{{.FRIGATE_CAM7_NAME}}"
+          CAM7_ID="{{.FRIGATE_CAM7_ID}}"
+          CAM8_NAME="{{.FRIGATE_CAM8_NAME}}"
+          CAM8_ID="{{.FRIGATE_CAM8_ID}}"
+          CAM9_NAME="{{.FRIGATE_CAM9_NAME}}"
+          CAM9_ID="{{.FRIGATE_CAM9_ID}}"
+          MQTT_USERNAME="mqtt"
+          MQTT_PASSWORD="{{.MQTT_PWD}}"
+      - echo "path \"kv/data/home-automation/frigate\" { capabilities = [\"read\", \"list\"] }" | vault policy write home-automation-frigate -
+      - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/home-automation-frigate
+          bound_service_account_names=frigate
+          bound_service_account_namespaces=home-automation
+          policies=home-automation-frigate,default
+          ttl=1440h
+      # home-automation/home-assistant
+      - vault kv put -mount=kv/ home-automation/home-assistant
+          ALARM_CODE="${HASS_ALARM_CODE}"
+          GIT_REPO="${HASS_GIT_REPO}"
+          DEPLOY_KEY_B64="${HASS_DEPLOY_KEY_B64}"
+          HACS_TOKEN="${HASS_HACS_TOKEN}"
+          LDAP_ROOT="${LDAP_ROOT}"
+          LOCAL_DOMAIN="${LOCAL_DOMAIN}"
+          LOCATION_LAT="${HASS_LOCATION_LAT}"
+          LOCATION_LONG="${HASS_LOCATION_LONG}"
+          POSTGRES_USER="${HASS_POSTGRES_USER}"
+          POSTGRES_PASSWORD="${HASS_POSTGRES_PASSWORD}"
+      - echo -e "path \"sys/renew\" { capabilities = [\"update\"] }\npath \"kv/data/home-automation/home-assistant\" { capabilities = [\"read\", \"list\"] }\npath \"databases/{{.ENVIRONMENT}}/creds/home-assistant\" { capabilities = [\"read\", \"list\"] }" | vault policy write home-automation-home-assistant -
+      - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/home-automation-home-assistant
+          bound_service_account_names=home-assistant
+          bound_service_account_namespaces=home-automation
+          policies=home-automation-home-assistant,default
+          ttl=1440h
+      # home-automation/mosquitto
+      - vault kv put -mount=kv/ home-automation/mosquitto
+          MQTT_LB_IP="${MQTT_LB_IP}"
+          MQTT_USERNAME="${MQTT_USERNAME}"
+          MQTT_PASSWORD="${MQTT_PASSWORD}"
+      - echo "path \"kv/data/home-automation/mosquitto\" { capabilities = [\"read\", \"list\"] }" | vault policy write home-automation-mosquitto -
+      - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/home-automation-mosquitto
+          bound_service_account_names=mosquitto
+          bound_service_account_namespaces=home-automation
+          policies=home-automation-mosquitto,default
+          ttl=1440h
+      # home-automation/rtlamr-collect
+      - vault kv put -mount=kv/ home-automation/rtlamr-collect
+          RTLAMR_METERS="${RTLAMR_METERS}"
+          RTLAMR_MSGTYPE="${RTLAMR_MSGTYPE}"
+          INFLUXDB_USER="${INFLUXDB_USER}"
+          INFLUXDB_PASSWORD="${INFLUXDB_PASSWORD}"
+      - echo "path \"kv/data/home-automation/rtlamr-collect\" { capabilities = [\"read\", \"list\"] }" | vault policy write home-automation-rtlamr-collect -
+      - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/home-automation-rtlamr-collect
+          bound_service_account_names=rtlamr-collect
+          bound_service_account_namespaces=home-automation
+          policies=home-automation-rtlamr-collect,default
+          ttl=1440h
+      # home-automation/tidbyt-proxy
+      - vault kv put -mount=kv/ home-automation/tidbyt-proxy
+          TIDBYT_API_KEY="${TIDBYT_API_KEY}"
+          TIDBYT_DEVICE_ID="${TIDBYT_DEVICE_ID}"
+      - echo "path \"kv/data/home-automation/tidbyt-proxy\" { capabilities = [\"read\", \"list\"] }" | vault policy write home-automation-tidbyt-proxy -
+      - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/home-automation-tidbyt-proxy
+          bound_service_account_names=tidbyt-proxy
+          bound_service_account_namespaces=home-automation
+          policies=home-automation-tidbyt-proxy,default
+          ttl=1440h
+      # home-automation/unifi-downloader
+      - vault kv put -mount=kv/ home-automation/unifi-downloader
+          UNIFI_DOWNLOADER_HOST="${UNIFI_DOWNLOADER_HOST}"
+          UNIFI_DOWNLOADER_USERNAME="${UNIFI_DOWNLOADER_USERNAME}"
+          UNIFI_DOWNLOADER_PASSWORD="${UNIFI_DOWNLOADER_PASSWORD}"
+      - echo "path \"kv/data/home-automation/unifi-downloader\" { capabilities = [\"read\", \"list\"] }" | vault policy write home-automation-unifi-downloader -
+      - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/home-automation-unifi-downloader
+          bound_service_account_names=unifi-downloader
+          bound_service_account_namespaces=home-automation
+          policies=home-automation-unifi-downloader,default
+          ttl=1440h
+      # media/immich
+      - vault kv put -mount=kv/ media/immich
+          IMMICH_POSTGRES_USER="${IMMICH_POSTGRES_USER}"
+          IMMICH_POSTGRES_PASSWORD="${IMMICH_POSTGRES_PASSWORD}"
+          IMMICH_POSTGRES_DATABASE="${IMMICH_POSTGRES_DATABASE}"
+          IMMICH_JWT_SECRET="${IMMICH_JWT_SECRET}"
+          IMMICH_TYPESENSE_API_KEY="${IMMICH_TYPESENSE_API_KEY}"
+      - echo -e "path \"kv/data/media/immich\" { capabilities = [\"read\", \"list\"] }\npath \"databases/{{.ENVIRONMENT}}/creds/immich\" { capabilities = [\"read\", \"list\"] }" | vault policy write media-immich -
+      - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/media-immich
+          bound_service_account_names=immich
+          bound_service_account_namespaces=media
+          policies=media-immich,default
+          ttl=1440h
+      # media/typesense
+      - vault kv put -mount=kv/ media/typesense
+          IMMICH_TYPESENSE_API_KEY="${IMMICH_TYPESENSE_API_KEY}"
+      - echo "path \"kv/data/media/typesense\" { capabilities = [\"read\", \"list\"] }" | vault policy write media-typesense -
+      - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/media-typesense
+          bound_service_account_names=typesense
+          bound_service_account_namespaces=media
+          policies=media-typesense,default
+          ttl=1440h
+      # observability/grafana
+      - vault kv put -mount=kv/ observability/grafana
+          LDAP_SERVER="${LDAP_SERVER}"
+          LDAP_ADMIN_USERNAME="${LDAP_ADMIN_USERNAME}"
+          LDAP_ADMIN_PASSWORD="${LDAP_ADMIN_PASSWORD}"
+          LDAP_ROOT="${LDAP_ROOT}"
+      - echo "path \"kv/data/observability/grafana\" { capabilities = [\"read\", \"list\"] }" | vault policy write observability-grafana -
+      - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/observability-grafana
+          bound_service_account_names=grafana
+          bound_service_account_namespaces=observability
+          policies=observability-grafana,default
+          ttl=1440h
+      # observability/influxdb
+      - vault kv put -mount=kv/ observability/influxdb
+          INFLUXDB_USER="${INFLUXDB_USER}"
+          INFLUXDB_PASSWORD="${INFLUXDB_PASSWORD}"
+      - echo "path \"kv/data/observability/influxdb\" { capabilities = [\"read\", \"list\"] }" | vault policy write observability-influxdb -
+      - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/observability-influxdb
+          bound_service_account_names=influxdb
+          bound_service_account_namespaces=observability
+          policies=observability-influxdb,default
+          ttl=1440h
+      # observability/loki
+      - vault kv put -mount=kv/ observability/loki
+          LOKI_MINIO_REGION_NAME="${LOKI_MINIO_REGION_NAME}"
+          LOKI_MINIO_ACCESS_KEY="${LOKI_MINIO_ACCESS_KEY}"
+          LOKI_MINIO_SECRET_KEY="${LOKI_MINIO_SECRET_KEY}"
+      - echo "path \"kv/data/observability/loki\" { capabilities = [\"read\", \"list\"] }" | vault policy write observability-loki -
+      - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/observability-loki
+          bound_service_account_names=loki
+          bound_service_account_namespaces=observability
+          policies=observability-loki,default
+          ttl=1440h
+      # observability/prometheus
+      - echo -e "path \"/sys/metrics\" { capabilities = [\"read\"] }" | vault policy write observability-prometheus -
+      - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/observability-prometheus
+          bound_service_account_names=kube-prometheus-stack-prometheus
+          bound_service_account_namespaces=observability
+          policies=observability-prometheus,default
+          ttl=1440h
+      # observability/thanos
+      - vault kv put -mount=kv/ observability/thanos
+          MINIO_REGION_NAME="${MINIO_REGION_NAME}"
+          MINIO_ACCESS_KEY="${MINIO_ACCESS_KEY}"
+          MINIO_SECRET_KEY="${MINIO_SECRET_KEY}"
+      # security/dex
+      - vault kv put -mount=kv/ security/dex
+          LDAP_SERVER="${LDAP_SERVER}"
+          LDAP_ROOT="${LDAP_ROOT}"
+          LDAP_ADMIN_USERNAME="${LDAP_ADMIN_USERNAME}"
+          LDAP_ADMIN_PASSWORD="${LDAP_ADMIN_PASSWORD}"
+          DEX_OAUTH2_CLIENT_SECRET="${DEX_OAUTH2_CLIENT_SECRET}"
+          DEX_K8S_AUTHENTICATOR_CLIENT_SECRET="${DEX_K8S_AUTHENTICATOR_CLIENT_SECRET}"
+          OAUTH2_COOKIE_SECRET="${OAUTH2_COOKIE_SECRET}"
+      - echo "path \"kv/data/security/dex\" { capabilities = [\"read\", \"list\"] }" | vault policy write security-dex -
+      - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/security-dex
+          bound_service_account_names=dex
+          bound_service_account_namespaces=security
+          policies=security-dex,default
+          ttl=1440h
+      # csi-proxmox/proxmox-csi-plugin
+      - vault kv put -mount=kv/ csi-proxmox/proxmox-csi-plugin
+          PROXMOX_URL="${PROXMOX_URL}"
+          PROXMOX_TOKEN_ID="${PROXMOX_TOKEN_ID}"
+          PROXMOX_TOKEN="${PROXMOX_TOKEN}"
+          PROXMOX_REGION="${PROXMOX_REGION}"
+          PROXMOX_ZONE="${PROXMOX_ZONE}"
+          PROXMOX_STORAGECLASS_NAME="${PROXMOX_STORAGECLASS_NAME}"
+          PROXMOX_STORAGECLASS_STORAGE="${PROXMOX_STORAGECLASS_STORAGE}"
+          PROXMOX_STORAGECLASS_FSTYPE="${PROXMOX_STORAGECLASS_FSTYPE}"
+
+  get-kv:
+    var:
+      PATH: "secrets"
+    desc: get kv from provided path
+    cmds:
+      - vault kv get {{.PATH}}
+  read:
+    var:
+      PATH: ""
+    desc: read path
+    cmds:
+      - vault read {{.PATH}}
+  list-policies:
+    desc: get policies
+    cmds:
+      - vault policy list
+  list-leases:
+    var:
+      DB: "home-assistant"
+    desc: get leases
+    cmds:
+      - vault list sys/leases/lookup/databases/{{.ENVIRONMENT}}/creds/{{.DB}}
+  revoke-lease:
+    var:
+      DB: "home-assistant"
+      NAME: ""
+    desc: revoke leases
+    cmds:
+      - vault lease revoke sys/leases/lookup/databases/{{.ENVIRONMENT}}/creds/{{.DB}}/{{.NAME}}
+  revoke-all-leases:
+    var:
+      DB: "home-assistant"
+    desc: revoke leases
+    cmds:
+      - vault lease revoke -prefix databases/{{.ENVIRONMENT}}/creds/{{.DB}}

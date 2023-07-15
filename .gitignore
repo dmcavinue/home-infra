@@ -1,0 +1,10 @@
+# temp folders
+.private/
+# ansible
+xanmanning.k3s*
+# kubernetes
+kubeconfig*
+kubernetes/schemas
+# extras
+config.xml
+.env

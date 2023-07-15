@@ -1,0 +1,55 @@
+---
+version: '3'
+
+env:
+  ANSIBLE_CONFIG: "{{.ANSIBLE_DIR}}/ansible.cfg"
+  KUBECONFIG: "{{.PROJECT_DIR}}/{{.ENVIRONMENT}}.kubeconfig"
+
+vars:
+  ANSIBLE_PLAYBOOK_DIR: "{{.ANSIBLE_DIR}}/kubernetes/playbooks"
+  ANSIBLE_INVENTORY_DIR: "{{.ANSIBLE_DIR}}/kubernetes/inventory"
+  ANSIBLE_HOSTS_FILE: "{{.ANSIBLE_INVENTORY_DIR}}/hosts.yaml"
+
+tasks:
+  ping:
+    cmds:
+      - "ansible all -i {{.ANSIBLE_HOSTS_FILE}} --one-line -m ping -v"
+    silent: true
+
+  uptime:
+    deps: [ping]
+    cmds:
+      - "ansible all -i {{.ANSIBLE_HOSTS_FILE}} --one-line -a uptime"
+    silent: true
+
+  reboot:
+    deps: [ping]
+    cmds:
+      - "ansible all -i {{.ANSIBLE_HOSTS_FILE}} --one-line -m ansible.builtin.reboot"
+    silent: true
+
+  prepare:
+    deps: [ping]
+    cmds:
+      - "ansible-playbook -i {{.ANSIBLE_HOSTS_FILE}} {{.ANSIBLE_PLAYBOOK_DIR}}/cluster-prepare.yaml -b"
+
+  install:
+    deps: [prepare]
+    cmds:
+      - "ansible-playbook -i {{.ANSIBLE_HOSTS_FILE}} {{.ANSIBLE_PLAYBOOK_DIR}}/cluster-installation.yaml -b"
+      - "kubectl apply -f https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.64.0/example/prometheus-operator-crd/monitoring.coreos.com_podmonitors.yaml"
+      - "kubectl apply -f https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.64.0/example/prometheus-operator-crd/monitoring.coreos.com_prometheusrules.yaml"
+      - "kubectl apply -f https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.64.0/example/prometheus-operator-crd/monitoring.coreos.com_servicemonitors.yaml"
+      - "kubectl apply -f https://github.com/jetstack/cert-manager/releases/download/v1.11.1/cert-manager.crds.yaml"
+      - "kubectl apply -f https://raw.githubusercontent.com/kubernetes-sigs/gateway-api/v0.6.1/config/crd/standard/gateway.networking.k8s.io_gatewayclasses.yaml"
+      - "kubectl apply -f https://raw.githubusercontent.com/kubernetes-sigs/gateway-api/v0.6.1/config/crd/standard/gateway.networking.k8s.io_gateways.yaml"
+      - "kubectl apply -f https://raw.githubusercontent.com/kubernetes-sigs/gateway-api/v0.6.1/config/crd/standard/gateway.networking.k8s.io_httproutes.yaml"
+      - "kubectl apply -f https://raw.githubusercontent.com/kubernetes-sigs/gateway-api/v0.6.1/config/crd/standard/gateway.networking.k8s.io_referencegrants.yaml"
+      - "kubectl apply -f https://raw.githubusercontent.com/external-secrets/kubernetes-external-secrets/master/charts/kubernetes-external-secrets/crds/kubernetes-client.io_externalsecrets_crd.yaml"
+    silent: true
+
+  reset:
+    deps: [ping]
+    cmds:
+      - "ansible-playbook -i {{.ANSIBLE_HOSTS_FILE}} {{.ANSIBLE_PLAYBOOK_DIR}}/cluster-nuke.yaml -b"
+    silent: true

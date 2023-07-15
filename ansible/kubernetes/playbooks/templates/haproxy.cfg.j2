@@ -1,0 +1,25 @@
+global
+  log /dev/log  local0
+  log /dev/log  local1 notice
+  stats socket /var/lib/haproxy/stats level admin
+  chroot /var/lib/haproxy
+  user {{ haproxy_user }}
+  group {{ haproxy_group }}
+  daemon
+
+frontend {{ haproxy_frontend_name }}
+    bind {{ haproxy_frontend_bind_address }}:{{ haproxy_frontend_port }}
+    mode {{ haproxy_frontend_mode }}
+    default_backend {{ haproxy_backend_name }}
+    option tcplog
+    timeout client 10s
+
+backend {{ haproxy_backend_name }}
+    mode {{ haproxy_backend_mode }}
+    balance {{ haproxy_backend_balance_method }}
+    option tcp-check
+    timeout connect 10s
+    timeout server 10s
+{% for backend in haproxy_backend_servers %}
+    server {{ backend.name }} {{ backend.address }} check fall 3 rise 2
+{% endfor %}
