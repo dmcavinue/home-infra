@@ -3,6 +3,23 @@ version: "3"
 
 tasks:
 
+  check:
+    desc: Flux Preflight check
+    cmds:
+      - flux check --pre
+
+  bootstrap:
+    deps: [check]
+    desc: Flux bootstrap
+    cmds:      
+      - kubectl apply --server-side --kustomize={{.PROJECT_DIR}}/kubernetes/bootstrap
+
+  install:
+    deps: [check, bootstrap]
+    desc: Flux bootstrap
+    cmds:
+      - kubectl apply --kustomize={{.PROJECT_DIR}}/k8s/clusters/{{.ENVIRONMENT}}
+
   gr-sync:
     desc: Sync Flux GitRepositories
     cmd: |
