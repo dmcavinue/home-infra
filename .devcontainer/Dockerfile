@@ -3,7 +3,7 @@ FROM docker.io/fluxcd/flux-cli:v2.0.0-rc.1 as flux
 FROM docker.io/alpine/helm:3.12.1 as helm
 FROM docker.io/bitnami/kubectl:1.27.3 as kubectl
 FROM docker.io/hashicorp/vault:1.14.0 as vault
-FROM docker.io/mikefarah/yq:4.34.1 as yq
+FROM docker.io/mikefarah/yq:4.34.2 as yq
 
 # base image
 FROM docker:24.0.3-dind-rootless
