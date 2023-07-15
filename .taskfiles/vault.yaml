@@ -7,11 +7,11 @@ tasks:
     cmds:
       - task vault:disable-k8s-auth
       - task vault:enable-k8s-auth
-      - task vault:disable-intca
-      - task vault:enable-intca
-      - task vault:disable-k8s-approle
-      - task vault:enable-k8s-approle
-      - task vault:add-kv-secrets
+    #   - task vault:disable-intca
+    #   - task vault:enable-intca
+    #   - task vault:disable-k8s-approle
+    #   - task vault:enable-k8s-approle
+    #   - task vault:add-kv-secrets
   refresh-kv:
     desc: refresh kv values
     cmds:
@@ -37,52 +37,51 @@ tasks:
       - vault secrets tune -max-lease-ttl=87600h pki/root_ca
       - vault write -field=certificate pki/root_ca/root/generate/internal common_name="svc" ttl=87600h > ca_cert.crt
       - vault write pki/root_ca/config/urls issuing_certificates="{{ .VAULT_ADDR }}/v1/pki/ca" crl_distribution_points="{{ .VAULT_ADDR }}/v1/pki/crl"
-      - rm "{{.PROJECT_DIR}}"/ca_cert.crt
-  disable-intca:
-    desc: remove cluster intermediate ca pki engine
-    cmds:
-      - vault secrets disable pki/{{.ENVIRONMENT}}
-      - kubectl create namespace cert-manager || true
-      - kubectl -n cert-manager delete secret vault-root-ca || true
-  enable-intca:
-    desc: enable intermediate ca pki engine for k8s cluster
-    cmds:
-      - vault secrets disable pki/{{.ENVIRONMENT}}
-      - vault secrets enable -path=pki/{{.ENVIRONMENT}} pki
-      - vault secrets tune -max-lease-ttl=43800h pki/{{.ENVIRONMENT}}
-      - vault write -format=json pki/{{.ENVIRONMENT}}/intermediate/generate/internal common_name="{{.DOMAIN}}" | jq -r '.data.csr' > {{.ENVIRONMENT}}_pki_intermediate.csr
-      - vault write -format=json pki/root_ca/root/sign-intermediate csr=@{{.ENVIRONMENT}}_pki_intermediate.csr format=pem_bundle ttl="43800h" | jq -r '.data.certificate' > {{.ENVIRONMENT}}_ca.cert.pem
-      - vault write pki/{{.ENVIRONMENT}}/intermediate/set-signed certificate=@{{.ENVIRONMENT}}_ca.cert.pem
-      - vault write pki/{{.ENVIRONMENT}}/roles/default issuer_ref="$(vault read -field=default pki/{{.ENVIRONMENT}}/config/issuers)" allowed_domains="{{.DOMAIN}}" allow_bare_domains=true allow_subdomains=true max_ttl="720h"
-      - kubectl -n cert-manager create secret generic vault-root-ca --from-file=ca.cert.pem={{.ENVIRONMENT}}_ca.cert.pem
-      - rm "{{.PROJECT_DIR}}"/{{.ENVIRONMENT}}_ca.cert.pem
-      - rm "{{.PROJECT_DIR}}"/{{.ENVIRONMENT}}_pki_intermediate.csr
-  disable-k8s-approle:
-    desc: disable k8s approles
-    cmds:
-      - vault auth disable approle/{{.ENVIRONMENT}}
-      # cert-manager
-      - kubectl -n ingress delete secret cert-manager-vault-approle || true
-  enable-k8s-approle:
-    desc: enable k8s approles
-    cmds:
-      - vault auth enable -path=approle/{{.ENVIRONMENT}} approle
-      # private issuer
-      - echo "path \"pki/{{.ENVIRONMENT}}/sign/default\" { capabilities = [\"update\"] }" | vault policy write cert-manager -
-      - vault write auth/approle/{{.ENVIRONMENT}}/role/cert-manager token_policies="cert-manager" token_ttl=1h token_max_ttl=4h
-      - kubectl create namespace ingress || true
-      - kubectl -n ingress create secret generic cert-manager-vault-approle --from-literal=secretId=$(vault write -force -field=secret_id auth/approle/{{.ENVIRONMENT}}/role/cert-manager/secret-id)
-      - ROLE_ID=$(vault read -field role_id auth/approle/{{.ENVIRONMENT}}/role/cert-manager/role-id ) envsubst < {{.PROJECT_DIR}}/tmpl/vault-issuer.yaml | kubectl apply -f -
+      - rm "{{.ROOT_DIR}}"/ca_cert.crt
+#   disable-intca:
+#     desc: remove cluster intermediate ca pki engine
+#     cmds:
+#       - vault secrets disable pki/{{.ENVIRONMENT}}
+#       - kubectl create namespace cert-manager || true
+#       - kubectl -n cert-manager delete secret vault-root-ca || true
+#   enable-intca:
+#     desc: enable intermediate ca pki engine for k8s cluster
+#     cmds:
+#       - vault secrets disable pki/{{.ENVIRONMENT}}
+#       - vault secrets enable -path=pki/{{.ENVIRONMENT}} pki
+#       - vault secrets tune -max-lease-ttl=43800h pki/{{.ENVIRONMENT}}
+#       - vault write -format=json pki/{{.ENVIRONMENT}}/intermediate/generate/internal common_name="{{.DOMAIN}}" | jq -r '.data.csr' > {{.ENVIRONMENT}}_pki_intermediate.csr
+#       - vault write -format=json pki/root_ca/root/sign-intermediate csr=@{{.ENVIRONMENT}}_pki_intermediate.csr format=pem_bundle ttl="43800h" | jq -r '.data.certificate' > {{.ENVIRONMENT}}_ca.cert.pem
+#       - vault write pki/{{.ENVIRONMENT}}/intermediate/set-signed certificate=@{{.ENVIRONMENT}}_ca.cert.pem
+#       - vault write pki/{{.ENVIRONMENT}}/roles/default issuer_ref="$(vault read -field=default pki/{{.ENVIRONMENT}}/config/issuers)" allowed_domains="{{.DOMAIN}}" allow_bare_domains=true allow_subdomains=true max_ttl="720h"
+#       - kubectl -n cert-manager create secret generic vault-root-ca --from-file=ca.cert.pem={{.ENVIRONMENT}}_ca.cert.pem
+#       - rm "{{.ROOT_DIR}}"/{{.ENVIRONMENT}}_ca.cert.pem
+#       - rm "{{.ROOT_DIR}}"/{{.ENVIRONMENT}}_pki_intermediate.csr
+#   disable-k8s-approle:
+#     desc: disable k8s approles
+#     cmds:
+#       - vault auth disable approle/{{.ENVIRONMENT}}
+#       # cert-manager
+#       - kubectl -n ingress delete secret cert-manager-vault-approle || true
+#   enable-k8s-approle:
+#     desc: enable k8s approles
+#     cmds:
+#       - vault auth enable -path=approle/{{.ENVIRONMENT}} approle
+#       # private issuer
+#       - echo "path \"pki/{{.ENVIRONMENT}}/sign/default\" { capabilities = [\"update\"] }" | vault policy write cert-manager -
+#       - vault write auth/approle/{{.ENVIRONMENT}}/role/cert-manager token_policies="cert-manager" token_ttl=1h token_max_ttl=4h
+#       - kubectl create namespace ingress || true
+#       - kubectl -n ingress create secret generic cert-manager-vault-approle --from-literal=secretId=$(vault write -force -field=secret_id auth/approle/{{.ENVIRONMENT}}/role/cert-manager/secret-id)
+#       - ROLE_ID=$(vault read -field role_id auth/approle/{{.ENVIRONMENT}}/role/cert-manager/role-id ) envsubst < {{.ROOT_DIR}}/tmpl/vault-issuer.yaml | kubectl apply -f -
   enable-k8s-auth:
     desc: configure vault k8s auth for cluster
     cmds:
       - vault auth enable -path=kubernetes/{{.ENVIRONMENT}} kubernetes
-      - kubectl create namespace security || true
-      - kubectl -n security apply -f {{.PROJECT_DIR}}/tmpl/vault-auth.yaml
-      - kubectl -n security get secret vault-auth-token -o jsonpath="{.data['ca\.crt']}" | base64 -d > ca.crt
+      - kubectl -n kube-system apply -f {{.ROOT_DIR}}/kubernetes/templates/vault-auth.yaml
+      - kubectl -n kube-system get secret vault-auth-token -o jsonpath="{.data['ca\.crt']}" | base64 -d > ca.crt
       - vault write auth/kubernetes/{{.ENVIRONMENT}}/config
-          token_reviewer_jwt="$(kubectl -n security get secret vault-auth-token -o jsonpath=\"{.data.token}\" | base64 -d; echo)"
-          kubernetes_host="https://{{.K3S_HA_SAN}}"
+          token_reviewer_jwt="$(kubectl -n kube-system get secret vault-auth-token -o jsonpath=\"{.data.token}\" | base64 -d; echo)"
+          kubernetes_host="https://{{.VIP_IP}}"
           kubernetes_ca_cert=@ca.crt
           disable_iss_validation=true
       - rm ca.crt
@@ -108,7 +107,7 @@ tasks:
           insecure_tls=false
           starttls=true
       - vault write auth/ldap/groups/vault-admin policies=admin
-      - vault policy write admin {{.PROJECT_DIR}}/tmpl/vault-admin.hcl
+      - vault policy write admin {{.ROOT_DIR}}/tmpl/vault-admin.hcl
   disable-database-engine:
     desc: disable vault database engine
     cmds:
@@ -471,38 +470,3 @@ tasks:
           PROXMOX_STORAGECLASS_STORAGE="${PROXMOX_STORAGECLASS_STORAGE}"
           PROXMOX_STORAGECLASS_FSTYPE="${PROXMOX_STORAGECLASS_FSTYPE}"
 
-  get-kv:
-    var:
-      PATH: "secrets"
-    desc: get kv from provided path
-    cmds:
-      - vault kv get {{.PATH}}
-  read:
-    var:
-      PATH: ""
-    desc: read path
-    cmds:
-      - vault read {{.PATH}}
-  list-policies:
-    desc: get policies
-    cmds:
-      - vault policy list
-  list-leases:
-    var:
-      DB: "home-assistant"
-    desc: get leases
-    cmds:
-      - vault list sys/leases/lookup/databases/{{.ENVIRONMENT}}/creds/{{.DB}}
-  revoke-lease:
-    var:
-      DB: "home-assistant"
-      NAME: ""
-    desc: revoke leases
-    cmds:
-      - vault lease revoke sys/leases/lookup/databases/{{.ENVIRONMENT}}/creds/{{.DB}}/{{.NAME}}
-  revoke-all-leases:
-    var:
-      DB: "home-assistant"
-    desc: revoke leases
-    cmds:
-      - vault lease revoke -prefix databases/{{.ENVIRONMENT}}/creds/{{.DB}}
