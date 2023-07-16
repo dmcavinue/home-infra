@@ -131,34 +131,9 @@ tasks:
       # shared secrets
       - echo "path \"kv/data/cluster/{{.ENVIRONMENT}}\" { capabilities = [\"read\", \"list\"] }" | vault policy write shared-secrets -
       - vault kv put -mount=kv cluster/{{.ENVIRONMENT}}
-          ALERTMANAGER_SLACK_WEBHOOK="${ALERTMANAGER_SLACK_WEBHOOK}"
-          CILIUM_ADMIN_LB_IP="${CILIUM_ADMIN_LB_IP}"
-          CILIUM_IP_POOL="${CILIUM_IP_POOL}"
-          CILIUM_LB_IP="${CILIUM_LB_IP}"
-          CLOUDFLARE_EMAIL="${CLOUDFLARE_EMAIL}"
-          DNS_SERVER="${DNS_SERVER}"
-          DOCKER_PRIVATE_REGISTRY="${DOCKER_PRIVATE_REGISTRY}"
           DOMAIN="${DOMAIN}"
-          INFLUXDB_PASSWORD="${INFLUXDB_PASSWORD}"
-          INFLUXDB_USER="${INFLUXDB_USER}"
-          K3S_HA_VIP="${K3S_HA_VIP}"
           LOCAL_DOMAIN="${LOCAL_DOMAIN}"
-          METALLB_LB_RANGE="${METALLB_LB_RANGE}"
-          MQTT_LB_IP="${MQTT_LB_IP}"
-          MQTT_PASSWORD="${MQTT_PASSWORD}"
-          MQTT_USERNAME="${MQTT_USERNAME}"
-          NEXTDNS_ID="${NEXTDNS_ID}"
-          NFS_BACKUP_PATH="${NFS_BACKUP_PATH}"
-          NFS_CCTV_PATH="${NFS_CCTV_PATH}"
-          NFS_HOST="${NFS_HOST}"
-          NFS_IMMICH_PATH="${NFS_IMMICH_PATH}"
-          NFS_PHOTOS_PATH="${NFS_PHOTOS_PATH}"
-          NFS_PROMETHEUS_PATH="${NFS_PROMETHEUS_PATH}"
-          NFS_SHARED_PATH="${NFS_SHARED_PATH}"
-          NFS_VIDEOS_PATH="${NFS_VIDEOS_PATH}"
-          POSTGRES_LB_IP="${POSTGRES_LB_IP}"
-          RSYSLOG_LB_IP="${RSYSLOG_LB_IP}"
-          RTLTCP_LB_IP="${RTLTCP_LB_IP}"
+          DOCKER_PRIVATE_REGISTRY="${DOCKER_PRIVATE_REGISTRY}"
       # vault-auth
       - echo "path \"kv/data/databases/*\" { capabilities = [\"read\", \"list\"] }" | vault policy write databases -
       - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/databases
