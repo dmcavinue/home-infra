@@ -6,9 +6,9 @@ metadata:
   namespace: flux-system
 spec:
   interval: 30m
-  url: ssh://git@github.com/dmcavinue/home-infra
   ref:
     branch: main
+  url: https://github.com/dmcavinue/home-infra
   ignore: |
     # exclude all
     /*
