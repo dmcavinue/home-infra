@@ -193,6 +193,7 @@ tasks:
       - echo -e "path \"pki/{{.ENVIRONMENT}}/issue/default\" { capabilities = [\"create\", \"update\", \"read\", \"list\"]}" | vault policy write pki-issuer -
       # cert-manager/cloudflare
       - vault kv put -mount=kv/ cert-manager/cloudflare
+          CLOUDFLARE_EMAIL="${CLOUDFLARE_EMAIL}"
           CLOUDFLARE_TOKEN="${CLOUDFLARE_TOKEN}"
       # databases/postgresql
       - vault kv put -mount=kv/ databases/postgresql
