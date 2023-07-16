@@ -3,7 +3,6 @@ version: '3'
 
 env:
   ANSIBLE_CONFIG: "{{.ANSIBLE_DIR}}/ansible.cfg"
-  KUBECONFIG: "{{.ROOT_DIR}}/{{.ENVIRONMENT}}.kubeconfig"
 
 vars:
   ANSIBLE_PLAYBOOK_DIR: "{{.ANSIBLE_DIR}}/kubernetes/playbooks"
