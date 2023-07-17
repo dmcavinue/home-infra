@@ -177,9 +177,6 @@ tasks:
       # flux-system
       - vault kv put -mount=kv/ flux-system/notification
           FLUX_SLACK_WEBHOOK="${FLUX_SLACK_WEBHOOK}"
-      - vault kv put -mount=kv/ flux-system/{{.ENVIRONMENT}}
-          GITHUB_DEPLOY_KEY="${FLUX_GITHUB_DEPLOY_KEY}"
-          GITHUB_KNOWN_HOSTS="${FLUX_GITHUB_KNOWN_HOSTS}"
 
       # databases/postgresql
       - vault kv put -mount=kv/ databases/postgresql
