@@ -167,12 +167,12 @@ tasks:
     cmds:
       # shared secrets
       - vault kv put -mount=kv cluster/{{.ENVIRONMENT}}
+          CLOUDFLARE_EMAIL="${CLOUDFLARE_EMAIL}"
           DOMAIN="${DOMAIN}"
           LOCAL_DOMAIN="${LOCAL_DOMAIN}"
           DOCKER_PRIVATE_REGISTRY="${DOCKER_PRIVATE_REGISTRY}"
       # cert-manager
-      - vault kv put -mount=kv/ cert-manager/cloudflare
-          CLOUDFLARE_EMAIL="${CLOUDFLARE_EMAIL}"
+      - vault kv put -mount=kv/ cert-manager/cloudflare          
           CLOUDFLARE_TOKEN="${CLOUDFLARE_TOKEN}"
       # flux-system
       - vault kv put -mount=kv/ flux-system/notification
