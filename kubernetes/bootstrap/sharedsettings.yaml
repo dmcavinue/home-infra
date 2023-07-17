@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: shared-settings
+  name: cluster-settings
   namespace: flux-system
 data:
   TIMEZONE: "America/New_York"

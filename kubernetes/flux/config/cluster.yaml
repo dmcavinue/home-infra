@@ -31,8 +31,8 @@ spec:
   postBuild:
     substituteFrom:
       - kind: ConfigMap
-        name: shared-settings
+        name: cluster-settings
         optional: false
       - kind: Secret
-        name: shared-secrets
+        name: cluster-secrets
         optional: false
