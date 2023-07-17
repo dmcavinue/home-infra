@@ -189,12 +189,18 @@ tasks:
           bound_service_account_namespaces=csi-proxmox
           policies=csi-proxmox,default
           ttl=1440h
-      # pki issuer
-      - echo -e "path \"pki/{{.ENVIRONMENT}}/issue/default\" { capabilities = [\"create\", \"update\", \"read\", \"list\"]}" | vault policy write pki-issuer -
       # cert-manager/cloudflare
       - vault kv put -mount=kv/ cert-manager/cloudflare
           CLOUDFLARE_EMAIL="${CLOUDFLARE_EMAIL}"
           CLOUDFLARE_TOKEN="${CLOUDFLARE_TOKEN}"
+      # flux-system
+      - vault kv put -mount=kv/ flux-system/notification
+          FLUX_SLACK_WEBHOOK="${FLUX_SLACK_WEBHOOK}"
+      - vault kv put -mount=kv/ flux-system/{{.ENVIRONMENT}}
+          GITHUB_DEPLOY_KEY="${FLUX_GITHUB_DEPLOY_KEY}"
+          GITHUB_KNOWN_HOSTS="${FLUX_GITHUB_KNOWN_HOSTS}"
+      # pki issuer
+      - echo -e "path \"pki/{{.ENVIRONMENT}}/issue/default\" { capabilities = [\"create\", \"update\", \"read\", \"list\"]}" | vault policy write pki-issuer -
       # databases/postgresql
       - vault kv put -mount=kv/ databases/postgresql
           POSTGRES_PASSWORD="{{.POSTGRES_PASSWORD}}"
@@ -213,9 +219,6 @@ tasks:
           bound_service_account_namespaces=development
           policies=development-windmill,default
           ttl=1440h
-      # flux-system
-      - vault kv put -mount=kv/ flux-system/notification
-          FLUX_SLACK_WEBHOOK="${FLUX_SLACK_WEBHOOK}"
       # home-automation/frigate
       - vault kv put -mount=kv/ home-automation/frigate
           DVR_URL="{{.FRIGATE_DVR_URL}}"
