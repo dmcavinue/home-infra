@@ -169,14 +169,20 @@ tasks:
       - vault kv put -mount=kv cluster/{{.ENVIRONMENT}}
           CLOUDFLARE_EMAIL="${CLOUDFLARE_EMAIL}"
           DOMAIN="${DOMAIN}"
-          LOCAL_DOMAIN="${LOCAL_DOMAIN}"
           DOCKER_PRIVATE_REGISTRY="${DOCKER_PRIVATE_REGISTRY}"
+          EMQX_LB_IP="${EMQX_LB_IP}"
+          LOCAL_DOMAIN="${LOCAL_DOMAIN}"
       # cert-manager
       - vault kv put -mount=kv/ cert-manager/cloudflare          
           CLOUDFLARE_TOKEN="${CLOUDFLARE_TOKEN}"
       # flux-system
       - vault kv put -mount=kv/ flux-system/notification
           FLUX_SLACK_WEBHOOK="${FLUX_SLACK_WEBHOOK}"
+      # database/emqx
+      - vault kv put -mount=kv/ database/emqx
+          admin_password="{{.EMQX_ADMIN_PASSWORD}}"
+          user_1_username="{{.EMQX_USER1_NAME}}"
+          user_1_password="{{.EMQX_USER1_PASSWORD}}"
 
       # databases/postgresql
       - vault kv put -mount=kv/ databases/postgresql

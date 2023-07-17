@@ -36,20 +36,11 @@ spec:
     service:
       type: LoadBalancer
       annotations:
-        external-dns.alpha.kubernetes.io/hostname: emqx.devbu.io
-        io.cilium/lb-ipam-ips: 192.168.42.204
+        io.cilium/lb-ipam-ips: ${MQTT_LB_IP}
       externalTrafficPolicy: Cluster
     ingress:
       dashboard:
-        enabled: true
-        ingressClassName: nginx
-        path: /
-        pathType: Prefix
-        hosts:
-          - &host emqx.devbu.io
-        tls:
-          - hosts:
-              - *host
+        enabled: false
     metrics:
       enabled: true
     persistence:
