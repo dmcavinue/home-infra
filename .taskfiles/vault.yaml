@@ -2,8 +2,8 @@
 version: '3'
 
 tasks:
-  install:
-    desc: fresh install vault k8s auth/roles
+  bootstrap:
+    desc: bootstrap auth/roles
     cmds:
       - task vault:disable-k8s-auth
       - task vault:enable-k8s-auth

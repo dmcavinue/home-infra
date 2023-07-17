@@ -10,6 +10,6 @@ Based off [this](https://github.com/onedr0p/flux-cluster-template) template.
 **Install**
 ```bash
 task ansible:install
-task vault:install
+task vault:bootstrap
 task flux:install
 ```
