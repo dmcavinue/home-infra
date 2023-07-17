@@ -36,6 +36,7 @@ tasks:
     deps: [prepare]
     cmds:
       - "ansible-playbook -i {{.ANSIBLE_HOSTS_FILE}} {{.ANSIBLE_PLAYBOOK_DIR}}/cluster-installation.yaml -b"
+      - "task kubernetes:install-crds"
     silent: true
 
   reset:

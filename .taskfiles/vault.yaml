@@ -18,31 +18,7 @@ tasks:
       - vault operator unseal {{.VAULT_UNSEAL_KEY_1}}
       - vault operator unseal {{.VAULT_UNSEAL_KEY_2}}
       - vault operator unseal {{.VAULT_UNSEAL_KEY_3}}
-  enable-k8s-auth:
-    desc: configure vault k8s auth for cluster
-    cmds:
-      - vault auth enable -path=kubernetes/{{.ENVIRONMENT}} kubernetes
-      - kubectl -n kube-system apply -f {{.ROOT_DIR}}/kubernetes/templates/vault-auth.yaml
-      - kubectl -n kube-system get secret vault-auth-token -o jsonpath="{.data['ca\.crt']}" | base64 -d > ca.crt
-      - vault write auth/kubernetes/{{.ENVIRONMENT}}/config
-          token_reviewer_jwt="$(kubectl -n kube-system get secret vault-auth-token -o jsonpath=\"{.data.token}\" | base64 -d; echo)"
-          kubernetes_host="https://{{.VIP_IP}}"
-          kubernetes_ca_cert=@ca.crt
-          disable_iss_validation=true
-      - rm ca.crt
-  disable-k8s-auth:
-    desc: disable k8s auth
-    cmds:
-      - vault auth disable kubernetes/{{.ENVIRONMENT}}
-  add-k8s-roles:
-    desc: add k8s roles
-    cmds:
-      # flux-system
-      - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/flux-system
-          bound_service_account_names=vault-auth
-          bound_service_account_namespaces=flux-system
-          policies=shared-secrets,flux-system,default
-          ttl=1440h
+  # ldap
   enable-ldap:
     desc: configure vault ldap auth
     cmds:
@@ -62,6 +38,66 @@ tasks:
           starttls=true
       - vault write auth/ldap/groups/vault-admin policies=admin
       - vault policy write admin {{.ROOT_DIR}}/tmpl/vault-admin.hcl
+  # k8s auth
+  enable-k8s-auth:
+    desc: configure vault k8s auth for cluster
+    cmds:
+      - vault auth enable -path=kubernetes/{{.ENVIRONMENT}} kubernetes
+      - kubectl -n kube-system apply -f {{.ROOT_DIR}}/kubernetes/templates/vault-auth.yaml
+      - kubectl -n kube-system get secret vault-auth-token -o jsonpath="{.data['ca\.crt']}" | base64 -d > ca.crt
+      - vault write auth/kubernetes/{{.ENVIRONMENT}}/config
+          token_reviewer_jwt="$(kubectl -n kube-system get secret vault-auth-token -o jsonpath=\"{.data.token}\" | base64 -d; echo)"
+          kubernetes_host="https://{{.VIP_IP}}"
+          kubernetes_ca_cert=@ca.crt
+          disable_iss_validation=true
+      - rm ca.crt
+  disable-k8s-auth:
+    desc: disable k8s auth
+    cmds:
+      - vault auth disable kubernetes/{{.ENVIRONMENT}}
+  add-k8s-roles:
+    desc: add k8s roles/policies
+    cmds:
+      # flux-system
+      - echo "path \"kv/data/cluster/{{.ENVIRONMENT}}\" { capabilities = [\"read\", \"list\"] }" | vault policy write shared-secrets -
+      - echo "path \"kv/data/flux-system/*\" { capabilities = [\"read\", \"list\"] }" | vault policy write flux-system -
+      - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/flux-system
+          bound_service_account_names=vault-auth
+          bound_service_account_namespaces=flux-system
+          policies=shared-secrets,flux-system,default
+          ttl=1440h
+      # namespace policies
+      - echo "path \"kv/data/database/*\" { capabilities = [\"read\", \"list\"] }" | vault policy write database -
+      - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/database
+          bound_service_account_names=vault-auth
+          bound_service_account_namespaces=database
+          policies=database,default
+          ttl=1440h
+      - echo "path \"kv/data/home-automation/*\" { capabilities = [\"read\", \"list\"] }" | vault policy write home-automation -
+      - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/home-automation
+          bound_service_account_names=vault-auth
+          bound_service_account_namespaces=home-automation
+          policies=home-automation,default
+          ttl=1440h
+      - echo "path \"kv/data/media/*\" { capabilities = [\"read\", \"list\"] }" | vault policy write media -
+      - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/media
+          bound_service_account_names=vault-auth
+          bound_service_account_namespaces=media
+          policies=media,default
+          ttl=1440h
+      - echo "path \"kv/data/monitoring/*\" { capabilities = [\"read\", \"list\"] }" | vault policy write monitoring -
+      - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/monitoring
+          bound_service_account_names=vault-auth
+          bound_service_account_namespaces=monitoring
+          policies=monitoring,default
+          ttl=1440h
+      - echo "path \"kv/data/cert-manager/*\" { capabilities = [\"read\", \"list\"] }" | vault policy write cert-manager -
+      - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/cert-manager
+          bound_service_account_names=vault-auth
+          bound_service_account_namespaces=cert-manager
+          policies=cert-manager,default
+          ttl=1440h
+  # database
   disable-database-engine:
     desc: disable vault database engine
     cmds:
@@ -115,6 +151,7 @@ tasks:
           revocation_statements="REVOKE role_windmill FROM \"{{`{{name}}`}}\"; DROP ROLE \"{{`{{name}}`}}\";"
           default_ttl="1h"
           max_ttl="1h"
+  # kv
   disable-kv:
     desc: disable kv secrets engine
     cmds:
@@ -129,67 +166,11 @@ tasks:
     desc: add kv secrets
     cmds:
       # shared secrets
-      - echo "path \"kv/data/cluster/{{.ENVIRONMENT}}\" { capabilities = [\"read\", \"list\"] }" | vault policy write shared-secrets -
       - vault kv put -mount=kv cluster/{{.ENVIRONMENT}}
           DOMAIN="${DOMAIN}"
           LOCAL_DOMAIN="${LOCAL_DOMAIN}"
           DOCKER_PRIVATE_REGISTRY="${DOCKER_PRIVATE_REGISTRY}"
-      # vault-auth
-      - echo "path \"kv/data/databases/*\" { capabilities = [\"read\", \"list\"] }" | vault policy write databases -
-      - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/databases
-          bound_service_account_names=vault-auth
-          bound_service_account_namespaces=databases
-          policies=databases,default
-          ttl=1440h
-      - echo "path \"kv/data/development/*\" { capabilities = [\"read\", \"list\"] }" | vault policy write development -
-      - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/development
-          bound_service_account_names=vault-auth
-          bound_service_account_namespaces=development
-          policies=development,default
-          ttl=1440h
-      - echo "path \"kv/data/flux-system/*\" { capabilities = [\"read\", \"list\"] }" | vault policy write flux-system -
-      - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/flux-system
-          bound_service_account_names=vault-auth
-          bound_service_account_namespaces=flux-system
-          policies=shared-secrets,flux-system,default
-          ttl=1440h
-      - echo "path \"kv/data/home-automation/*\" { capabilities = [\"read\", \"list\"] }" | vault policy write home-automation -
-      - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/home-automation
-          bound_service_account_names=vault-auth
-          bound_service_account_namespaces=home-automation
-          policies=home-automation,default
-          ttl=1440h
-      - echo "path \"kv/data/media/*\" { capabilities = [\"read\", \"list\"] }" | vault policy write media -
-      - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/media
-          bound_service_account_names=vault-auth
-          bound_service_account_namespaces=media
-          policies=media,default
-          ttl=1440h
-      - echo "path \"kv/data/observability/*\" { capabilities = [\"read\", \"list\"] }" | vault policy write observability -
-      - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/observability
-          bound_service_account_names=vault-auth
-          bound_service_account_namespaces=observability
-          policies=observability,default
-          ttl=1440h
-      - echo "path \"kv/data/security/*\" { capabilities = [\"read\", \"list\"] }" | vault policy write security -
-      - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/security
-          bound_service_account_names=vault-auth
-          bound_service_account_namespaces=security
-          policies=security,default
-          ttl=1440h
-      - echo "path \"kv/data/cert-manager/*\" { capabilities = [\"read\", \"list\"] }" | vault policy write cert-manager -
-      - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/cert-manager
-          bound_service_account_names=vault-auth
-          bound_service_account_namespaces=cert-manager
-          policies=cert-manager,default
-          ttl=1440h
-      - echo "path \"kv/data/csi-proxmox/*\" { capabilities = [\"read\", \"list\"] }" | vault policy write csi-proxmox -
-      - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/csi-proxmox
-          bound_service_account_names=vault-auth
-          bound_service_account_namespaces=csi-proxmox
-          policies=csi-proxmox,default
-          ttl=1440h
-      # cert-manager/cloudflare
+      # cert-manager
       - vault kv put -mount=kv/ cert-manager/cloudflare
           CLOUDFLARE_EMAIL="${CLOUDFLARE_EMAIL}"
           CLOUDFLARE_TOKEN="${CLOUDFLARE_TOKEN}"
@@ -199,8 +180,7 @@ tasks:
       - vault kv put -mount=kv/ flux-system/{{.ENVIRONMENT}}
           GITHUB_DEPLOY_KEY="${FLUX_GITHUB_DEPLOY_KEY}"
           GITHUB_KNOWN_HOSTS="${FLUX_GITHUB_KNOWN_HOSTS}"
-      # pki issuer
-      - echo -e "path \"pki/{{.ENVIRONMENT}}/issue/default\" { capabilities = [\"create\", \"update\", \"read\", \"list\"]}" | vault policy write pki-issuer -
+
       # databases/postgresql
       - vault kv put -mount=kv/ databases/postgresql
           POSTGRES_PASSWORD="{{.POSTGRES_PASSWORD}}"
@@ -210,15 +190,7 @@ tasks:
           bound_service_account_namespaces=databases
           policies=databases-postgresql,pki-issuer,default
           ttl=1440h
-      # development/windmill
-      - vault kv put -mount=kv/ development/windmill
-          DATABASE_URL="${WINDMILL_DATABASE_URL}"
-      - echo -e "path \"kv/data/development/windmill\" { capabilities = [\"read\", \"list\"] }\npath \"databases/{{.ENVIRONMENT}}/creds/windmill\" { capabilities = [\"read\", \"list\"] }" | vault policy write development-windmill -
-      - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/development-windmill
-          bound_service_account_names=windmill
-          bound_service_account_namespaces=development
-          policies=development-windmill,default
-          ttl=1440h
+
       # home-automation/frigate
       - vault kv put -mount=kv/ home-automation/frigate
           DVR_URL="{{.FRIGATE_DVR_URL}}"
@@ -377,28 +349,3 @@ tasks:
           MINIO_REGION_NAME="${MINIO_REGION_NAME}"
           MINIO_ACCESS_KEY="${MINIO_ACCESS_KEY}"
           MINIO_SECRET_KEY="${MINIO_SECRET_KEY}"
-      # security/dex
-      - vault kv put -mount=kv/ security/dex
-          LDAP_SERVER="${LDAP_SERVER}"
-          LDAP_ROOT="${LDAP_ROOT}"
-          LDAP_ADMIN_USERNAME="${LDAP_ADMIN_USERNAME}"
-          LDAP_ADMIN_PASSWORD="${LDAP_ADMIN_PASSWORD}"
-          DEX_OAUTH2_CLIENT_SECRET="${DEX_OAUTH2_CLIENT_SECRET}"
-          DEX_K8S_AUTHENTICATOR_CLIENT_SECRET="${DEX_K8S_AUTHENTICATOR_CLIENT_SECRET}"
-          OAUTH2_COOKIE_SECRET="${OAUTH2_COOKIE_SECRET}"
-      - echo "path \"kv/data/security/dex\" { capabilities = [\"read\", \"list\"] }" | vault policy write security-dex -
-      - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/security-dex
-          bound_service_account_names=dex
-          bound_service_account_namespaces=security
-          policies=security-dex,default
-          ttl=1440h
-      # csi-proxmox/proxmox-csi-plugin
-      - vault kv put -mount=kv/ csi-proxmox/proxmox-csi-plugin
-          PROXMOX_URL="${PROXMOX_URL}"
-          PROXMOX_TOKEN_ID="${PROXMOX_TOKEN_ID}"
-          PROXMOX_TOKEN="${PROXMOX_TOKEN}"
-          PROXMOX_REGION="${PROXMOX_REGION}"
-          PROXMOX_ZONE="${PROXMOX_ZONE}"
-          PROXMOX_STORAGECLASS_NAME="${PROXMOX_STORAGECLASS_NAME}"
-          PROXMOX_STORAGECLASS_STORAGE="${PROXMOX_STORAGECLASS_STORAGE}"
-          PROXMOX_STORAGECLASS_FSTYPE="${PROXMOX_STORAGECLASS_FSTYPE}"
