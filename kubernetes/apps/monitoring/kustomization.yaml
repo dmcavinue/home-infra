@@ -5,7 +5,7 @@ kind: Kustomization
 resources:
   # Pre Flux-Kustomizations
   - ./namespace.yaml
-  - ./externalksecret.yaml
+  - ./externalsecret.yaml
   # Flux-Kustomizations
   #- ./grafana/ks.yaml
   #- ./kube-prometheus-stack/ks.yaml
