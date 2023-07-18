@@ -95,6 +95,12 @@ tasks:
           bound_service_account_namespaces=cert-manager
           policies=cert-manager,default
           ttl=1440h
+      - echo "path \"kv/data/kube-system/*\" { capabilities = [\"read\", \"list\"] }" | vault policy write kube-system -
+      - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/kube-system
+          bound_service_account_names=vault-auth
+          bound_service_account_namespaces=kube-system
+          policies=kube-system,default
+          ttl=1440h
   # database
   disable-database-engine:
     desc: disable vault database engine
