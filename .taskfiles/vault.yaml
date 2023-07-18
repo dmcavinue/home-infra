@@ -58,7 +58,6 @@ tasks:
   add-k8s-roles:
     desc: add k8s roles/policies
     cmds:
-      # flux-system
       - echo "path \"kv/data/cluster/{{.ENVIRONMENT}}\" { capabilities = [\"read\", \"list\"] }" | vault policy write cluster-secrets -
       - echo "path \"kv/data/flux-system/*\" { capabilities = [\"read\", \"list\"] }" | vault policy write flux-system -
       - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/flux-system
@@ -66,7 +65,6 @@ tasks:
           bound_service_account_namespaces=flux-system
           policies=cluster-secrets,flux-system,default
           ttl=1440h
-      # namespace policies
       - echo "path \"kv/data/database/*\" { capabilities = [\"read\", \"list\"] }" | vault policy write database -
       - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/database
           bound_service_account_names=vault-auth
@@ -170,6 +168,7 @@ tasks:
           CLOUDFLARE_EMAIL="${CLOUDFLARE_EMAIL}"
           DOMAIN="${DOMAIN}"
           DOCKER_PRIVATE_REGISTRY="${DOCKER_PRIVATE_REGISTRY}"
+          ENVIRONMENT="${ENVIRONMENT}"
           EMQX_LB_IP="${EMQX_LB_IP}"
           LOCAL_DOMAIN="${LOCAL_DOMAIN}"
       # cert-manager
