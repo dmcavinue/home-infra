@@ -56,7 +56,7 @@ spec:
       enabled: true
       replicaCount: 1
     compactor:
-      enabled: true
+      enabled: false
       extraFlags:
         - --compact.concurrency=4
         - --delete-delay=30m
