@@ -196,6 +196,10 @@ tasks:
       - vault kv put -mount=kv/ database/cloudnative-pg
           POSTGRES_SUPER_USER="{{.POSTGRES_SUPER_USER}}"
           POSTGRES_SUPER_PASS="{{.POSTGRES_SUPER_PASS}}"
+          POSTGRES_HASS_USER="{{.POSTGRES_HASS_USER}}"
+          POSTGRES_HASS_PASS="{{.POSTGRES_HASS_PASS}}"
+          POSTGRES_IMMICH_USER="{{.POSTGRES_IMMICH_USER}}"
+          POSTGRES_IMMICH_PASS="{{.POSTGRES_IMMICH_PASS}}"
 
       # databases/postgresql
       - vault kv put -mount=kv/ databases/postgresql

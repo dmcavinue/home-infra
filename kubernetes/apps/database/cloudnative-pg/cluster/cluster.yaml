@@ -15,10 +15,10 @@ spec:
   primaryUpdateStrategy: unsupervised
   bootstrap:
     initdb:
-      database: home_assistant
-      owner: home-assistant
+      database: immich
+      owner: immich
       secret:
-        name: db-home-assistant
+        name: db-immich
   storage:
     size: 10Gi
     storageClass: local-path
