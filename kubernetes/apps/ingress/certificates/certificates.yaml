@@ -1,0 +1,30 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: "${DOMAIN/./-}"
+  namespace: ingress
+spec:
+  secretName: "${DOMAIN/./-}-tls"
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  commonName: "${DOMAIN}"
+  dnsNames:
+  - "${DOMAIN}"
+  - "*.${DOMAIN}"
+# ---
+# apiVersion: cert-manager.io/v1
+# kind: Certificate
+# metadata:
+#   name: "${LOCAL_DOMAIN/./-}"
+#   namespace: ingress
+# spec:
+#   secretName: "${LOCAL_DOMAIN/./-}-tls"
+#   issuerRef:
+#     name: letsencrypt-production
+#     kind: ClusterIssuer
+#   commonName: "${LOCAL_DOMAIN}"
+#   dnsNames:
+#   - "${LOCAL_DOMAIN}"
+#   - "*.${LOCAL_DOMAIN}"
