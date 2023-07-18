@@ -8,8 +8,7 @@ spec:
   addresses:
     - type: "IPAddress"
       value: "${CILIUM_LB_IP}"
-  gatewayClassName: cilium
-  gatewayAddress: "${CILIUM_LB_IP}" 
+  gatewayClassName: cilium 
   listeners:
     - allowedRoutes:
         namespaces:
