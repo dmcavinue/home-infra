@@ -6,7 +6,7 @@ metadata:
   namespace: monitoring
 spec:
   parentRefs:
-    - name: cilium-admin-ingressgateway
+    - name: cilium-ingressgateway
       namespace: ingress
   hostnames: ["thanos.${DOMAIN}"]
   rules:

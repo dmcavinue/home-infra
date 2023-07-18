@@ -35,7 +35,7 @@ metadata:
   namespace: home-automation
 spec:
   parentRefs:
-    - name: cilium-admin-ingressgateway
+    - name: cilium-ingressgateway
       namespace: ingress
   hostnames: ["hass-code.${DOMAIN}"]
   rules:
