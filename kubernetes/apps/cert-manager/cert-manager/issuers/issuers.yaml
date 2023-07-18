@@ -15,7 +15,7 @@ spec:
             email: "${CLOUDFLARE_EMAIL}"
             apiKeySecretRef:
               name: cloudflare-secret
-              key: api-key
+              key: CLOUDFLARE_TOKEN
 ---
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
@@ -33,4 +33,4 @@ spec:
             email: "${CLOUDFLARE_EMAIL}"
             apiKeySecretRef:
               name: cloudflare-secret
-              key: api-key
+              key: CLOUDFLARE_TOKEN
