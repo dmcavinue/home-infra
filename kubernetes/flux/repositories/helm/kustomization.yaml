@@ -6,6 +6,7 @@ resources:
   - ./bitnami.yaml
   - ./bjw-s.yaml
   - ./cilium.yaml
+  - ./cloudnative-pg.yaml
   - ./descheduler.yaml
   - ./emqx.yaml
   - ./external-dns.yaml

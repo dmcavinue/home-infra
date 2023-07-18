@@ -191,6 +191,10 @@ tasks:
           admin_password="{{.EMQX_ADMIN_PASSWORD}}"
           user_1_username="{{.EMQX_USER1_NAME}}"
           user_1_password="{{.EMQX_USER1_PASSWORD}}"
+      # database/cloudnative-pg
+      - vault kv put -mount=kv/ database/cloudnative-pg
+          POSTGRES_SUPER_USER="{{.POSTGRES_SUPER_USER}}"
+          POSTGRES_SUPER_PASS="{{.POSTGRES_SUPER_PASS}}"
 
       # databases/postgresql
       - vault kv put -mount=kv/ databases/postgresql
@@ -201,7 +205,6 @@ tasks:
           bound_service_account_namespaces=databases
           policies=databases-postgresql,pki-issuer,default
           ttl=1440h
-
       # home-automation/frigate
       - vault kv put -mount=kv/ home-automation/frigate
           DVR_URL="{{.FRIGATE_DVR_URL}}"
@@ -337,26 +340,3 @@ tasks:
           bound_service_account_namespaces=observability
           policies=observability-influxdb,default
           ttl=1440h
-      # observability/loki
-      - vault kv put -mount=kv/ observability/loki
-          LOKI_MINIO_REGION_NAME="${LOKI_MINIO_REGION_NAME}"
-          LOKI_MINIO_ACCESS_KEY="${LOKI_MINIO_ACCESS_KEY}"
-          LOKI_MINIO_SECRET_KEY="${LOKI_MINIO_SECRET_KEY}"
-      - echo "path \"kv/data/observability/loki\" { capabilities = [\"read\", \"list\"] }" | vault policy write observability-loki -
-      - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/observability-loki
-          bound_service_account_names=loki
-          bound_service_account_namespaces=observability
-          policies=observability-loki,default
-          ttl=1440h
-      # observability/prometheus
-      - echo -e "path \"/sys/metrics\" { capabilities = [\"read\"] }" | vault policy write observability-prometheus -
-      - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/observability-prometheus
-          bound_service_account_names=kube-prometheus-stack-prometheus
-          bound_service_account_namespaces=observability
-          policies=observability-prometheus,default
-          ttl=1440h
-      # observability/thanos
-      - vault kv put -mount=kv/ observability/thanos
-          MINIO_REGION_NAME="${MINIO_REGION_NAME}"
-          MINIO_ACCESS_KEY="${MINIO_ACCESS_KEY}"
-          MINIO_SECRET_KEY="${MINIO_SECRET_KEY}"
