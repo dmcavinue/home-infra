@@ -177,6 +177,7 @@ tasks:
     cmds:
       # shared secrets
       - vault kv put -mount=kv cluster/{{.ENVIRONMENT}}
+          CILIUM_LB_IP="${CILIUM_LB_IP}"
           CLOUDFLARE_EMAIL="${CLOUDFLARE_EMAIL}"
           DOMAIN="${DOMAIN}"
           DOCKER_PRIVATE_REGISTRY="${DOCKER_PRIVATE_REGISTRY}"
