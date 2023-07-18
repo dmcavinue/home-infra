@@ -101,6 +101,12 @@ tasks:
           bound_service_account_namespaces=kube-system
           policies=kube-system,default
           ttl=1440h
+      - echo "path \"kv/data/ingress/*\" { capabilities = [\"read\", \"list\"] }" | vault policy write ingress -
+      - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/ingress
+          bound_service_account_names=vault-auth
+          bound_service_account_namespaces=ingress
+          policies=ingress,default
+          ttl=1440h
   # database
   disable-database-engine:
     desc: disable vault database engine
