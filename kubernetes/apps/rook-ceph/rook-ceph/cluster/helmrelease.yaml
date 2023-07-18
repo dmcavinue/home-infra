@@ -48,6 +48,12 @@ spec:
             enabled: true
       crashCollector:
         disable: false
+      mgr:
+        modules:
+          - name: pg_autoscaler
+            enabled: true
+          - name: rook
+            enabled: true
       dashboard:
         enabled: true
         urlPrefix: /
