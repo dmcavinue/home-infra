@@ -20,6 +20,11 @@ tasks:
     cmds:
       - kubectl apply --server-side --kustomize={{.ROOT_DIR}}/kubernetes/flux/config
 
+  sync:
+    desc: Sync flux-system with the Git Repository
+    cmds:
+      - flux reconcile source git home-kubernetes
+
   gr-sync:
     desc: Sync Flux GitRepositories
     cmd: |
