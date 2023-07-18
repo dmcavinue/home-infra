@@ -61,21 +61,12 @@ spec:
           serviceMonitor:
             enabled: true
       ui:
-        enabled: true
-        rollOutPods: true
-        ingress:
-          enabled: true
-          className: nginx
-          hosts:
-            - &host hubble.devbu.io
-          tls:
-            - hosts:
-                - *host
+        enabled: false
     ipam:
       mode: kubernetes
     ipv4NativeRoutingCIDR: 10.32.0.0/16
-    k8sServiceHost: 192.168.9.20
-    k8sServicePort: 443
+    k8sServiceHost: ${VIP_IP}
+    k8sServicePort: ${VIP_PORT}
     kubeProxyReplacement: strict
     kubeProxyReplacementHealthzBindAddr: 0.0.0.0:10256
     l2announcements:
