@@ -65,11 +65,11 @@ tasks:
           bound_service_account_namespaces=flux-system
           policies=cluster-secrets,flux-system,default
           ttl=1440h
-      - echo "path \"kv/data/database/*\" { capabilities = [\"read\", \"list\"] }" | vault policy write database -
+      - echo "path \"kv/data/database/*\" { capabilities = [\"read\", \"list\"] } " | vault policy write database -
       - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/database
           bound_service_account_names=vault-auth
           bound_service_account_namespaces=database
-          policies=database,default
+          policies=database,media,default
           ttl=1440h
       - echo "path \"kv/data/home-automation/*\" { capabilities = [\"read\", \"list\"] }" | vault policy write home-automation -
       - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/home-automation
