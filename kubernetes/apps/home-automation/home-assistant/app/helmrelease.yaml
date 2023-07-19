@@ -34,8 +34,8 @@ spec:
       annotations:
         reloader.stakater.com/auto: "true"
     image:
-      repository: ghcr.io/onedr0p/home-assistant
-      tag: 2023.7.2@sha256:d6627e982c70dc963b4e15f223f56efb33d4b353c6ad9927b6f5be0c45f94a3b
+      repository: ghcr.io/home-assistant/home-assistant
+      tag: 2023.7.2
     env:
       TZ: America/New_York
     envFrom:
@@ -56,11 +56,11 @@ spec:
         enabled: false
       startup:
         enabled: false
-    podSecurityContext:
-      runAsUser: 568
-      runAsGroup: 568
-      fsGroup: 568
-      fsGroupChangePolicy: OnRootMismatch
+    # podSecurityContext:
+    #   runAsUser: 568
+    #   runAsGroup: 568
+    #   fsGroup: 568
+    #   fsGroupChangePolicy: OnRootMismatch
     volumeClaimTemplates:
       - name: config
         mountPath: /config
