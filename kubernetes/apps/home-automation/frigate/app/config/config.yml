@@ -7,8 +7,8 @@ logger:
 mqtt:
   host: emqx.database.svc.cluster.local
   topic_prefix: frigate
-  user: { FRIGATE_MQTT_USERNAME }
-  password: { FRIGATE_MQTT_PASSWORD }
+  user: "{ FRIGATE_MQTT_USERNAME }"
+  password: "{ FRIGATE_MQTT_PASSWORD }"
 
 database:
   path: /data/frigate.db
@@ -33,36 +33,36 @@ objects:
 go2rtc:
   streams:
     # doorbell_front
-    { FRIGATE_CAM1_NAME }:
+    "{ FRIGATE_CAM1_NAME }":
       - "rtspx://{ FRIGATE_DVR_URL }/{ FRIGATE_CAM1_ID }"
     # doorbell_patio
-    { FRIGATE_CAM2_NAME }:
+    "{ FRIGATE_CAM2_NAME }":
       - "rtspx://{ FRIGATE_DVR_URL }/{ FRIGATE_CAM2_ID }"
     # basement_door
-    { FRIGATE_CAM3_NAME }:
+    "{ FRIGATE_CAM3_NAME }":
       - "rtspx://{ FRIGATE_DVR_URL }/{ FRIGATE_CAM3_ID }"
     # rear
-    { FRIGATE_CAM4_NAME }:
+    "{ FRIGATE_CAM4_NAME }":
       - "rtspx://{ FRIGATE_DVR_URL }/{ FRIGATE_CAM4_ID }"
     # kitchen
-    { FRIGATE_CAM5_NAME }:
+    "{ FRIGATE_CAM5_NAME }":
       - "rtspx://{ FRIGATE_DVR_URL }/{ FRIGATE_CAM5_ID }"
     # upstairs
-    { FRIGATE_CAM6_NAME }:
+    "{ FRIGATE_CAM6_NAME }":
       - "rtspx://{ FRIGATE_DVR_URL }/{ FRIGATE_CAM6_ID }"
     # driveway
-    { FRIGATE_CAM7_NAME }:
+    "{ FRIGATE_CAM7_NAME }":
       - "rtspx://{ FRIGATE_DVR_URL }/{ FRIGATE_CAM7_ID }"
     # basement
-    { FRIGATE_CAM8_NAME }:
+    "{ FRIGATE_CAM8_NAME }":
       - "rtspx://{ FRIGATE_DVR_URL }/{ FRIGATE_CAM8_ID }"
     # package
-    { FRIGATE_CAM9_NAME }:
+    "{ FRIGATE_CAM9_NAME }":
       - "rtspx://{ FRIGATE_DVR_URL }/{ FRIGATE_CAM9_ID }"
 
 cameras:
   # doorbell_front
-  { FRIGATE_CAM1_NAME }:
+  "{ FRIGATE_CAM1_NAME }":
     ffmpeg:
       inputs:
         - path: "rtsp://127.0.0.1:8554/{ FRIGATE_CAM1_NAME }"
@@ -95,7 +95,7 @@ cameras:
       mask:
         - 712,447,711,388,960,410,960,167,902,156,699,238,248,245,0,274,0,425
   # doorbell_patio
-  { FRIGATE_CAM2_NAME }:
+  "{ FRIGATE_CAM2_NAME }":
     ffmpeg:
       inputs:
         - path: "rtsp://127.0.0.1:8554/{ FRIGATE_CAM2_NAME }"
@@ -143,7 +143,7 @@ cameras:
       mask:
         - 0,0,0,296,418,368,960,367,960,0
   # basement_door
-  { FRIGATE_CAM3_NAME }:
+  "{ FRIGATE_CAM3_NAME }":
     ffmpeg:
       inputs:
         - path: "rtsp://127.0.0.1:8554/{ FRIGATE_CAM3_NAME }"
@@ -176,7 +176,7 @@ cameras:
       mask:
         - 0,0,0,354,248,199,857,209,884,0
   # rear
-  { FRIGATE_CAM4_NAME }:
+  "{ FRIGATE_CAM4_NAME }":
     ffmpeg:
       inputs:
         - path: "rtsp://127.0.0.1:8554/{ FRIGATE_CAM4_NAME }"
@@ -235,7 +235,7 @@ cameras:
         - 0,0,215,0,213,30,158,30,0,313
         - 561,665,556,720,653,720,656,661
   # kitchen
-  { FRIGATE_CAM5_NAME }:
+  "{ FRIGATE_CAM5_NAME }":
     ffmpeg:
       inputs:
         - path: "rtsp://127.0.0.1:8554/{ FRIGATE_CAM5_NAME }"
@@ -258,7 +258,7 @@ cameras:
       retain:
         default: 14
   # upstairs
-  { FRIGATE_CAM6_NAME }:
+  "{ FRIGATE_CAM6_NAME }":
     ffmpeg:
       inputs:
         - path: "rtsp://127.0.0.1:8554/{ FRIGATE_CAM6_NAME }"
@@ -285,7 +285,7 @@ cameras:
         - person
         - dog
   # driveway
-  { FRIGATE_CAM7_NAME }:
+  "{ FRIGATE_CAM7_NAME }":
     ffmpeg:
       inputs:
         - path: "rtsp://127.0.0.1:8554/{ FRIGATE_CAM7_NAME }"
@@ -338,7 +338,7 @@ cameras:
         - dog
         - car
   # basement
-  { FRIGATE_CAM8_NAME }:
+  "{ FRIGATE_CAM8_NAME }":
     ffmpeg:
       inputs:
         - path: "rtsp://127.0.0.1:8554/{ FRIGATE_CAM8_NAME }"
