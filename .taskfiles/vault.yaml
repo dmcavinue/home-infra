@@ -185,6 +185,7 @@ tasks:
           EMQX_LB_IP="{{.EMQX_LB_IP}}"
           POSTGRES_LB_IP="{{.POSTGRES_LB_IP}}"
           LOCAL_DOMAIN="{{.LOCAL_DOMAIN}}"
+          NFS_SERVER_IP="{{.NFS_SERVER_IP}}"
           SERVER_CIDR="{{.SERVER_CIDR}}"
           VIP_IP="{{.VIP_IP}}"
           VIP_PORT="{{.VIP_PORT}}"
