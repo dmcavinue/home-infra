@@ -247,10 +247,7 @@ tasks:
           CAM7_ID="{{.FRIGATE_CAM7_ID}}"
           CAM8_NAME="{{.FRIGATE_CAM8_NAME}}"
           CAM8_ID="{{.FRIGATE_CAM8_ID}}"
-          CAM9_NAME="{{.FRIGATE_CAM9_NAME}}"
-          CAM9_ID="{{.FRIGATE_CAM9_ID}}"
-          MQTT_USERNAME="mqtt"
-          MQTT_PASSWORD="{{.MQTT_PWD}}"
+          PLUS_API_KEY="{{.FRIGATE_PLUS_API_KEY}}"
       - echo "path \"kv/data/home-automation/frigate\" { capabilities = [\"read\", \"list\"] }" | vault policy write home-automation-frigate -
       - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/home-automation-frigate
           bound_service_account_names=frigate
