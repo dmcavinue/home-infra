@@ -183,7 +183,6 @@ tasks:
           DOCKER_PRIVATE_REGISTRY="{{.DOCKER_PRIVATE_REGISTRY}}"
           ENVIRONMENT="{{.ENVIRONMENT}}"
           EMQX_LB_IP="{{.EMQX_LB_IP}}"
-          POSTGRES_LB_IP="{{.POSTGRES_LB_IP}}"
           LOCAL_DOMAIN="{{.LOCAL_DOMAIN}}"
           NFS_SERVER_IP="{{.NFS_SERVER_IP}}"
           SERVER_CIDR="{{.SERVER_CIDR}}"
@@ -200,24 +199,17 @@ tasks:
           admin_password="{{.EMQX_ADMIN_PASSWORD}}"
           user_1_username="{{.EMQX_USER1_NAME}}"
           user_1_password="{{.EMQX_USER1_PASSWORD}}"
-      # database/cloudnative-pg
-      - vault kv put -mount=kv/ database/cloudnative-pg
-          POSTGRES_SUPER_USER="{{.POSTGRES_SUPER_USER}}"
-          POSTGRES_SUPER_PASS="{{.POSTGRES_SUPER_PASS}}"
-          POSTGRES_HASS_USER="{{.POSTGRES_HASS_USER}}"
-          POSTGRES_HASS_PASS="{{.POSTGRES_HASS_PASS}}"
-          POSTGRES_IMMICH_USER="{{.POSTGRES_IMMICH_USER}}"
-          POSTGRES_IMMICH_PASS="{{.POSTGRES_IMMICH_PASS}}"
       # media/immich
       - vault kv put -mount=kv/ media/immich
-          IMMICH_POSTGRES_USER="{{.IMMICH_POSTGRES_USER}}"
-          IMMICH_POSTGRES_PASSWORD="{{.IMMICH_POSTGRES_PASSWORD}}"
           IMMICH_JWT_SECRET="{{.IMMICH_JWT_SECRET}}"
           IMMICH_TYPESENSE_API_KEY="{{.IMMICH_TYPESENSE_API_KEY}}"
+          IMMICH_POSTGRES_SUPER_USER="{{.IMMICH_POSTGRES_SUPER_USER}}"
+          IMMICH_POSTGRES_SUPER_PASSWORD="{{.IMMICH_POSTGRES_SUPER_PASSWORD}}"
+          IMMICH_POSTGRES_USER="{{.IMMICH_POSTGRES_USER}}"
+          IMMICH_POSTGRES_PASSWORD="{{.IMMICH_POSTGRES_PASSWORD}}"
+
       # home-automation/home-assistant
       - vault kv put -mount=kv/ home-automation/home-assistant
-          HASS_POSTGRES_USER="{{.HASS_POSTGRES_USER}}"
-          HASS_POSTGRES_PASSWORD="{{.HASS_POSTGRES_PASSWORD}}"
           ALARM_CODE="{{.HASS_ALARM_CODE}}"
           GIT_REPO="{{.HASS_GIT_REPO}}"
           DEPLOY_KEY_B64="{{.HASS_DEPLOY_KEY_B64}}"
