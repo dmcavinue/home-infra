@@ -207,9 +207,12 @@ tasks:
           IMMICH_POSTGRES_SUPER_PASSWORD="{{.IMMICH_POSTGRES_SUPER_PASSWORD}}"
           IMMICH_POSTGRES_USER="{{.IMMICH_POSTGRES_USER}}"
           IMMICH_POSTGRES_PASSWORD="{{.IMMICH_POSTGRES_PASSWORD}}"
-
       # home-automation/home-assistant
       - vault kv put -mount=kv/ home-automation/home-assistant
+          HASS_POSTGRES_SUPER_USER="{{.HASS_POSTGRES_SUPER_USER}}"
+          HASS_POSTGRES_SUPER_PASSWORD="{{.HASS_POSTGRES_SUPER_PASSWORD}}"
+          HASS_POSTGRES_USER="{{.HASS_POSTGRES_USER}}"
+          HASS_POSTGRES_PASSWORD="{{.HASS_POSTGRES_PASSWORD}}"
           ALARM_CODE="{{.HASS_ALARM_CODE}}"
           GIT_REPO="{{.HASS_GIT_REPO}}"
           DEPLOY_KEY_B64="{{.HASS_DEPLOY_KEY_B64}}"
@@ -218,16 +221,6 @@ tasks:
           LOCAL_DOMAIN="{{.LOCAL_DOMAIN}}"
           LOCATION_LAT="{{.HASS_LOCATION_LAT}}"
           LOCATION_LONG="{{.HASS_LOCATION_LONG}}"
-
-      # databases/postgresql
-      - vault kv put -mount=kv/ databases/postgresql
-          POSTGRES_PASSWORD="{{.POSTGRES_PASSWORD}}"
-      - echo "path \"kv/data/databases/postgresql\" { capabilities = [\"read\", \"list\"] }" | vault policy write databases-postgresql -
-      - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/databases-postgresql
-          bound_service_account_names=postgresql
-          bound_service_account_namespaces=databases
-          policies=databases-postgresql,pki-issuer,default
-          ttl=1440h
       # home-automation/frigate
       - vault kv put -mount=kv/ home-automation/frigate
           DVR_URL="{{.FRIGATE_DVR_URL}}"
@@ -248,41 +241,7 @@ tasks:
           CAM8_NAME="{{.FRIGATE_CAM8_NAME}}"
           CAM8_ID="{{.FRIGATE_CAM8_ID}}"
           PLUS_API_KEY="{{.FRIGATE_PLUS_API_KEY}}"
-      - echo "path \"kv/data/home-automation/frigate\" { capabilities = [\"read\", \"list\"] }" | vault policy write home-automation-frigate -
-      - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/home-automation-frigate
-          bound_service_account_names=frigate
-          bound_service_account_namespaces=home-automation
-          policies=home-automation-frigate,default
-          ttl=1440h
-      # home-automation/home-assistant
-      - vault kv put -mount=kv/ home-automation/home-assistant
-          ALARM_CODE="{{.HASS_ALARM_CODE}}"
-          GIT_REPO="{{.HASS_GIT_REPO}}"
-          DEPLOY_KEY_B64="{{.HASS_DEPLOY_KEY_B64}}"
-          HACS_TOKEN="{{.HASS_HACS_TOKEN}}"
-          LDAP_ROOT="{{.LDAP_ROOT}}"
-          LOCAL_DOMAIN="{{.LOCAL_DOMAIN}}"
-          LOCATION_LAT="{{.HASS_LOCATION_LAT}}"
-          LOCATION_LONG="{{.HASS_LOCATION_LONG}}"
-          POSTGRES_USER="{{.HASS_POSTGRES_USER}}"
-          POSTGRES_PASSWORD="{{.HASS_POSTGRES_PASSWORD}}"
-      - echo -e "path \"sys/renew\" { capabilities = [\"update\"] }\npath \"kv/data/home-automation/home-assistant\" { capabilities = [\"read\", \"list\"] }\npath \"databases/{{.ENVIRONMENT}}/creds/home-assistant\" { capabilities = [\"read\", \"list\"] }" | vault policy write home-automation-home-assistant -
-      - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/home-automation-home-assistant
-          bound_service_account_names=home-assistant
-          bound_service_account_namespaces=home-automation
-          policies=home-automation-home-assistant,default
-          ttl=1440h
-      # home-automation/mosquitto
-      - vault kv put -mount=kv/ home-automation/mosquitto
-          MQTT_LB_IP="{{.MQTT_LB_IP}}"
-          MQTT_USERNAME="{{.MQTT_USERNAME}}"
-          MQTT_PASSWORD="{{.MQTT_PASSWORD}}"
-      - echo "path \"kv/data/home-automation/mosquitto\" { capabilities = [\"read\", \"list\"] }" | vault policy write home-automation-mosquitto -
-      - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/home-automation-mosquitto
-          bound_service_account_names=mosquitto
-          bound_service_account_namespaces=home-automation
-          policies=home-automation-mosquitto,default
-          ttl=1440h
+
       # home-automation/rtlamr-collect
       - vault kv put -mount=kv/ home-automation/rtlamr-collect
           RTLAMR_METERS="{{.RTLAMR_METERS}}"
@@ -316,7 +275,6 @@ tasks:
           bound_service_account_namespaces=home-automation
           policies=home-automation-unifi-downloader,default
           ttl=1440h
-
       # observability/grafana
       - vault kv put -mount=kv/ observability/grafana
           LDAP_SERVER="{{.LDAP_SERVER}}"
