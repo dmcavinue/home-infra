@@ -177,23 +177,23 @@ tasks:
     cmds:
       # shared secrets
       - vault kv put -mount=kv cluster/{{.ENVIRONMENT}}
-          CILIUM_LB_IP="${CILIUM_LB_IP}"
-          CLOUDFLARE_EMAIL="${CLOUDFLARE_EMAIL}"
-          DOMAIN="${DOMAIN}"
-          DOCKER_PRIVATE_REGISTRY="${DOCKER_PRIVATE_REGISTRY}"
-          ENVIRONMENT="${ENVIRONMENT}"
-          EMQX_LB_IP="${EMQX_LB_IP}"
-          POSTGRES_LB_IP="${POSTGRES_LB_IP}"
-          LOCAL_DOMAIN="${LOCAL_DOMAIN}"
-          SERVER_CIDR="${SERVER_CIDR}"
-          VIP_IP="${VIP_IP}"
-          VIP_PORT="${VIP_PORT}"
+          CILIUM_LB_IP="{{.CILIUM_LB_IP}}"
+          CLOUDFLARE_EMAIL="{{.CLOUDFLARE_EMAIL}}"
+          DOMAIN="{{.DOMAIN}}"
+          DOCKER_PRIVATE_REGISTRY="{{.DOCKER_PRIVATE_REGISTRY}}"
+          ENVIRONMENT="{{.ENVIRONMENT}}"
+          EMQX_LB_IP="{{.EMQX_LB_IP}}"
+          POSTGRES_LB_IP="{{.POSTGRES_LB_IP}}"
+          LOCAL_DOMAIN="{{.LOCAL_DOMAIN}}"
+          SERVER_CIDR="{{.SERVER_CIDR}}"
+          VIP_IP="{{.VIP_IP}}"
+          VIP_PORT="{{.VIP_PORT}}"
       # cert-manager
       - vault kv put -mount=kv/ cert-manager/cloudflare          
-          CLOUDFLARE_TOKEN="${CLOUDFLARE_TOKEN}"
+          CLOUDFLARE_TOKEN="{{.CLOUDFLARE_TOKEN}}"
       # flux-system
       - vault kv put -mount=kv/ flux-system/notification
-          FLUX_SLACK_WEBHOOK="${FLUX_SLACK_WEBHOOK}"
+          FLUX_SLACK_WEBHOOK="{{.SLACK_WEBHOOK}}"
       # database/emqx
       - vault kv put -mount=kv/ database/emqx
           admin_password="{{.EMQX_ADMIN_PASSWORD}}"
@@ -248,16 +248,16 @@ tasks:
           ttl=1440h
       # home-automation/home-assistant
       - vault kv put -mount=kv/ home-automation/home-assistant
-          ALARM_CODE="${HASS_ALARM_CODE}"
-          GIT_REPO="${HASS_GIT_REPO}"
-          DEPLOY_KEY_B64="${HASS_DEPLOY_KEY_B64}"
-          HACS_TOKEN="${HASS_HACS_TOKEN}"
-          LDAP_ROOT="${LDAP_ROOT}"
-          LOCAL_DOMAIN="${LOCAL_DOMAIN}"
-          LOCATION_LAT="${HASS_LOCATION_LAT}"
-          LOCATION_LONG="${HASS_LOCATION_LONG}"
-          POSTGRES_USER="${HASS_POSTGRES_USER}"
-          POSTGRES_PASSWORD="${HASS_POSTGRES_PASSWORD}"
+          ALARM_CODE="{{.HASS_ALARM_CODE}}"
+          GIT_REPO="{{.HASS_GIT_REPO}}"
+          DEPLOY_KEY_B64="{{.HASS_DEPLOY_KEY_B64}}"
+          HACS_TOKEN="{{.HASS_HACS_TOKEN}}"
+          LDAP_ROOT="{{.LDAP_ROOT}}"
+          LOCAL_DOMAIN="{{.LOCAL_DOMAIN}}"
+          LOCATION_LAT="{{.HASS_LOCATION_LAT}}"
+          LOCATION_LONG="{{.HASS_LOCATION_LONG}}"
+          POSTGRES_USER="{{.HASS_POSTGRES_USER}}"
+          POSTGRES_PASSWORD="{{.HASS_POSTGRES_PASSWORD}}"
       - echo -e "path \"sys/renew\" { capabilities = [\"update\"] }\npath \"kv/data/home-automation/home-assistant\" { capabilities = [\"read\", \"list\"] }\npath \"databases/{{.ENVIRONMENT}}/creds/home-assistant\" { capabilities = [\"read\", \"list\"] }" | vault policy write home-automation-home-assistant -
       - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/home-automation-home-assistant
           bound_service_account_names=home-assistant
@@ -266,9 +266,9 @@ tasks:
           ttl=1440h
       # home-automation/mosquitto
       - vault kv put -mount=kv/ home-automation/mosquitto
-          MQTT_LB_IP="${MQTT_LB_IP}"
-          MQTT_USERNAME="${MQTT_USERNAME}"
-          MQTT_PASSWORD="${MQTT_PASSWORD}"
+          MQTT_LB_IP="{{.MQTT_LB_IP}}"
+          MQTT_USERNAME="{{.MQTT_USERNAME}}"
+          MQTT_PASSWORD="{{.MQTT_PASSWORD}}"
       - echo "path \"kv/data/home-automation/mosquitto\" { capabilities = [\"read\", \"list\"] }" | vault policy write home-automation-mosquitto -
       - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/home-automation-mosquitto
           bound_service_account_names=mosquitto
@@ -277,10 +277,10 @@ tasks:
           ttl=1440h
       # home-automation/rtlamr-collect
       - vault kv put -mount=kv/ home-automation/rtlamr-collect
-          RTLAMR_METERS="${RTLAMR_METERS}"
-          RTLAMR_MSGTYPE="${RTLAMR_MSGTYPE}"
-          INFLUXDB_USER="${INFLUXDB_USER}"
-          INFLUXDB_PASSWORD="${INFLUXDB_PASSWORD}"
+          RTLAMR_METERS="{{.RTLAMR_METERS}}"
+          RTLAMR_MSGTYPE="{{.RTLAMR_MSGTYPE}}"
+          INFLUXDB_USER="{{.INFLUXDB_USER}}"
+          INFLUXDB_PASSWORD="{{.INFLUXDB_PASSWORD}}"
       - echo "path \"kv/data/home-automation/rtlamr-collect\" { capabilities = [\"read\", \"list\"] }" | vault policy write home-automation-rtlamr-collect -
       - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/home-automation-rtlamr-collect
           bound_service_account_names=rtlamr-collect
@@ -289,8 +289,8 @@ tasks:
           ttl=1440h
       # home-automation/tidbyt-proxy
       - vault kv put -mount=kv/ home-automation/tidbyt-proxy
-          TIDBYT_API_KEY="${TIDBYT_API_KEY}"
-          TIDBYT_DEVICE_ID="${TIDBYT_DEVICE_ID}"
+          TIDBYT_API_KEY="{{.TIDBYT_API_KEY}}"
+          TIDBYT_DEVICE_ID="{{.TIDBYT_DEVICE_ID}}"
       - echo "path \"kv/data/home-automation/tidbyt-proxy\" { capabilities = [\"read\", \"list\"] }" | vault policy write home-automation-tidbyt-proxy -
       - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/home-automation-tidbyt-proxy
           bound_service_account_names=tidbyt-proxy
@@ -299,9 +299,9 @@ tasks:
           ttl=1440h
       # home-automation/unifi-downloader
       - vault kv put -mount=kv/ home-automation/unifi-downloader
-          UNIFI_DOWNLOADER_HOST="${UNIFI_DOWNLOADER_HOST}"
-          UNIFI_DOWNLOADER_USERNAME="${UNIFI_DOWNLOADER_USERNAME}"
-          UNIFI_DOWNLOADER_PASSWORD="${UNIFI_DOWNLOADER_PASSWORD}"
+          UNIFI_DOWNLOADER_HOST="{{.UNIFI_DOWNLOADER_HOST}}"
+          UNIFI_DOWNLOADER_USERNAME="{{.UNIFI_DOWNLOADER_USERNAME}}"
+          UNIFI_DOWNLOADER_PASSWORD="{{.UNIFI_DOWNLOADER_PASSWORD}}"
       - echo "path \"kv/data/home-automation/unifi-downloader\" { capabilities = [\"read\", \"list\"] }" | vault policy write home-automation-unifi-downloader -
       - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/home-automation-unifi-downloader
           bound_service_account_names=unifi-downloader
@@ -310,11 +310,11 @@ tasks:
           ttl=1440h
       # media/immich
       - vault kv put -mount=kv/ media/immich
-          IMMICH_POSTGRES_USER="${IMMICH_POSTGRES_USER}"
-          IMMICH_POSTGRES_PASSWORD="${IMMICH_POSTGRES_PASSWORD}"
-          IMMICH_POSTGRES_DATABASE="${IMMICH_POSTGRES_DATABASE}"
-          IMMICH_JWT_SECRET="${IMMICH_JWT_SECRET}"
-          IMMICH_TYPESENSE_API_KEY="${IMMICH_TYPESENSE_API_KEY}"
+          IMMICH_POSTGRES_USER="{{.IMMICH_POSTGRES_USER}}"
+          IMMICH_POSTGRES_PASSWORD="{{.IMMICH_POSTGRES_PASSWORD}}"
+          IMMICH_POSTGRES_DATABASE="{{.IMMICH_POSTGRES_DATABASE}}"
+          IMMICH_JWT_SECRET="{{.IMMICH_JWT_SECRET}}"
+          IMMICH_TYPESENSE_API_KEY="{{.IMMICH_TYPESENSE_API_KEY}}"
       - echo -e "path \"kv/data/media/immich\" { capabilities = [\"read\", \"list\"] }\npath \"databases/{{.ENVIRONMENT}}/creds/immich\" { capabilities = [\"read\", \"list\"] }" | vault policy write media-immich -
       - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/media-immich
           bound_service_account_names=immich
@@ -323,7 +323,7 @@ tasks:
           ttl=1440h
       # media/typesense
       - vault kv put -mount=kv/ media/typesense
-          IMMICH_TYPESENSE_API_KEY="${IMMICH_TYPESENSE_API_KEY}"
+          IMMICH_TYPESENSE_API_KEY="{{.IMMICH_TYPESENSE_API_KEY}}"
       - echo "path \"kv/data/media/typesense\" { capabilities = [\"read\", \"list\"] }" | vault policy write media-typesense -
       - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/media-typesense
           bound_service_account_names=typesense
@@ -332,10 +332,10 @@ tasks:
           ttl=1440h
       # observability/grafana
       - vault kv put -mount=kv/ observability/grafana
-          LDAP_SERVER="${LDAP_SERVER}"
-          LDAP_ADMIN_USERNAME="${LDAP_ADMIN_USERNAME}"
-          LDAP_ADMIN_PASSWORD="${LDAP_ADMIN_PASSWORD}"
-          LDAP_ROOT="${LDAP_ROOT}"
+          LDAP_SERVER="{{.LDAP_SERVER}}"
+          LDAP_ADMIN_USERNAME="{{.LDAP_ADMIN_USERNAME}}"
+          LDAP_ADMIN_PASSWORD="{{.LDAP_ADMIN_PASSWORD}}"
+          LDAP_ROOT="{{.LDAP_ROOT}}"
       - echo "path \"kv/data/observability/grafana\" { capabilities = [\"read\", \"list\"] }" | vault policy write observability-grafana -
       - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/observability-grafana
           bound_service_account_names=grafana
@@ -344,8 +344,8 @@ tasks:
           ttl=1440h
       # observability/influxdb
       - vault kv put -mount=kv/ observability/influxdb
-          INFLUXDB_USER="${INFLUXDB_USER}"
-          INFLUXDB_PASSWORD="${INFLUXDB_PASSWORD}"
+          INFLUXDB_USER="{{.INFLUXDB_USER}}"
+          INFLUXDB_PASSWORD="{{.INFLUXDB_PASSWORD}}"
       - echo "path \"kv/data/observability/influxdb\" { capabilities = [\"read\", \"list\"] }" | vault policy write observability-influxdb -
       - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/observability-influxdb
           bound_service_account_names=influxdb
