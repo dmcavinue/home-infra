@@ -12,5 +12,5 @@ spec:
     - "immich.${DOMAIN}"
   rules:
     - backendRefs:
-        - name: immich-server
-          port: 3001
+        - name: immich-web
+          port: 3000
