@@ -15,12 +15,12 @@ spec:
   primaryUpdateStrategy: unsupervised
   bootstrap:
     initdb:
+      database: immich
+      owner: immich
       postInitApplicationSQLRefs:
         secretRefs:
-        - name: bootstrap-immich
+        - name: bootstrap-sql
           key: immich.sql
-        - name: bootstrap-home-assistant
-          key: home-assistant.sql
   storage:
     size: 10Gi
     storageClass: local-path
