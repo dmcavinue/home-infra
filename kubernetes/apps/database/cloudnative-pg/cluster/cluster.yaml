@@ -17,8 +17,10 @@ spec:
     initdb:
       postInitApplicationSQLRefs:
         secretRefs:
-        - name: bootstrap-sql
+        - name: bootstrap-immich
           key: immich.sql
+        - name: bootstrap-home-assistant
+          key: home-assistant.sql
   storage:
     size: 10Gi
     storageClass: local-path
