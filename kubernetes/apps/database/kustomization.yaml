@@ -9,3 +9,4 @@ resources:
   # Flux-Kustomizations
   - ./cloudnative-pg/ks.yaml
   - ./emqx/ks.yaml
+  - ./redis/ks.yaml
