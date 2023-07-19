@@ -39,4 +39,6 @@ spec:
       postInitApplicationSQLRefs:
         secretRefs:
         - name: bootstrap-sql
-          key: bootstrap.sql
+          key: immich.sql
+        - name: bootstrap-sql
+          key: home_assistant.sql
