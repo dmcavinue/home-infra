@@ -76,8 +76,8 @@ spec:
     #     type: hostPath
     #     hostPath: /dev/serial/by-id/usb-0658_0200-if00
     #     hostPathType: CharDevice
-    nodeSelector:
-      feature.node.kubernetes.io/zwave: "true"
+    # nodeSelector:
+    #   feature.node.kubernetes.io/zwave: "true"
     resources:
       requests:
         cpu: 10m
