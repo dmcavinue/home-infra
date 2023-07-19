@@ -11,6 +11,17 @@ spec:
   hostnames:
     - "immich.${DOMAIN}"
   rules:
-    - backendRefs:
-        - name: immich-web
-          port: 3000
+  - matches:
+    - path:
+        type: PathPrefix
+        value: /api
+    backendRefs:
+    - name: immich-server
+      port: 3001
+  - matches:
+    - path:
+        type: PathPrefix
+        value: /
+    backendRefs:
+    - name: immich-web
+      port: 3000
