@@ -19,7 +19,7 @@ spec:
       owner: immich
       postInitApplicationSQLRefs:
         secretRefs:
-        - name: bootstrap-immich
+        - name: bootstrap-sql
           key: immich.sql
   storage:
     size: 10Gi
