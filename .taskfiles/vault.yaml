@@ -208,6 +208,12 @@ tasks:
           POSTGRES_HASS_PASS="{{.POSTGRES_HASS_PASS}}"
           POSTGRES_IMMICH_USER="{{.POSTGRES_IMMICH_USER}}"
           POSTGRES_IMMICH_PASS="{{.POSTGRES_IMMICH_PASS}}"
+      # media/immich
+      - vault kv put -mount=kv/ media/immich
+          IMMICH_POSTGRES_USER="{{.IMMICH_POSTGRES_USER}}"
+          IMMICH_POSTGRES_PASSWORD="{{.IMMICH_POSTGRES_PASSWORD}}"
+          IMMICH_JWT_SECRET="{{.IMMICH_JWT_SECRET}}"
+          IMMICH_TYPESENSE_API_KEY="{{.IMMICH_TYPESENSE_API_KEY}}"
 
       # databases/postgresql
       - vault kv put -mount=kv/ databases/postgresql
@@ -309,28 +315,7 @@ tasks:
           bound_service_account_namespaces=home-automation
           policies=home-automation-unifi-downloader,default
           ttl=1440h
-      # media/immich
-      - vault kv put -mount=kv/ media/immich
-          IMMICH_POSTGRES_USER="{{.IMMICH_POSTGRES_USER}}"
-          IMMICH_POSTGRES_PASSWORD="{{.IMMICH_POSTGRES_PASSWORD}}"
-          IMMICH_POSTGRES_DATABASE="{{.IMMICH_POSTGRES_DATABASE}}"
-          IMMICH_JWT_SECRET="{{.IMMICH_JWT_SECRET}}"
-          IMMICH_TYPESENSE_API_KEY="{{.IMMICH_TYPESENSE_API_KEY}}"
-      - echo -e "path \"kv/data/media/immich\" { capabilities = [\"read\", \"list\"] }\npath \"databases/{{.ENVIRONMENT}}/creds/immich\" { capabilities = [\"read\", \"list\"] }" | vault policy write media-immich -
-      - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/media-immich
-          bound_service_account_names=immich
-          bound_service_account_namespaces=media
-          policies=media-immich,default
-          ttl=1440h
-      # media/typesense
-      - vault kv put -mount=kv/ media/typesense
-          IMMICH_TYPESENSE_API_KEY="{{.IMMICH_TYPESENSE_API_KEY}}"
-      - echo "path \"kv/data/media/typesense\" { capabilities = [\"read\", \"list\"] }" | vault policy write media-typesense -
-      - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/media-typesense
-          bound_service_account_names=typesense
-          bound_service_account_namespaces=media
-          policies=media-typesense,default
-          ttl=1440h
+
       # observability/grafana
       - vault kv put -mount=kv/ observability/grafana
           LDAP_SERVER="{{.LDAP_SERVER}}"
