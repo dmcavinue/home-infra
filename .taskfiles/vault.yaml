@@ -75,7 +75,7 @@ tasks:
       - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/home-automation
           bound_service_account_names=vault-auth
           bound_service_account_namespaces=home-automation
-          policies=home-automation,default
+          policies=database,home-automation,default
           ttl=1440h
       - echo "path \"kv/data/media/*\" { capabilities = [\"read\", \"list\"] }" | vault policy write media -
       - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/media
