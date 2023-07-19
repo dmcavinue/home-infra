@@ -19,8 +19,6 @@ spec:
         secretRefs:
         - name: bootstrap-sql
           key: immich.sql
-        - name: bootstrap-sql
-          key: home_assistant.sql
   storage:
     size: 10Gi
     storageClass: local-path
