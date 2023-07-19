@@ -35,3 +35,8 @@ spec:
     config:
       data:
         INHERITED_ANNOTATIONS: kyverno.io/ignore
+    initdb:
+      postInitApplicationSQLRefs:
+        secretRefs:
+        - name: bootstrap-sql
+          key: immich.sql
