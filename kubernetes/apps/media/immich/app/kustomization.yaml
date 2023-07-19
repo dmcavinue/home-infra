@@ -9,6 +9,6 @@ resources:
   - ./nfs-pvc.yaml
   - ./typesense
   # - ./server
-  - ./microservices
-  - ./machine-learning
+  # - ./microservices
+  # - ./machine-learning
   - ./web
