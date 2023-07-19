@@ -37,11 +37,6 @@ spec:
     image:
       repository: ghcr.io/immich-app/immich-proxy
       tag: v1.67.2
-    envFrom:
-      - configMapRef:
-          name: *configMap
-      - secretRef:
-          name: *secret
     service:
       main:
         ports:
