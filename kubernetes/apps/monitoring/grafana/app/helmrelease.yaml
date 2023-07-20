@@ -43,8 +43,6 @@ spec:
       GF_DATE_FORMATS_INTERVAL_YEAR: "YYYY"
     admin:
       existingSecret: grafana
-    ldap:
-      enabled: true
     grafana.ini:
       analytics:
         check_for_updates: false
@@ -54,6 +52,10 @@ spec:
         enabled: false
       auth.anonymous:
         enabled: false
+      auth.ldap:
+        enabled: true
+        allow_sign_up: true
+        config_file: /etc/grafana/ldap.toml
       news:
         news_feed_enabled: false
     # extraVolumeMounts:
