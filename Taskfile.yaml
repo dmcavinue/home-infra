@@ -15,6 +15,7 @@ includes:
   externalsecrets: .taskfiles/externalsecrets.yaml
   flux: .taskfiles/flux.yaml
   kubernetes: .taskfiles/kubernetes.yaml
+  proxmox: .taskfiles/proxmox.yaml
   vault: .taskfiles/vault.yaml
 
 tasks:

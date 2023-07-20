@@ -1,0 +1,9 @@
+---
+version: "3"
+
+tasks:
+
+  status:
+    desc: Get proxmox status
+    cmds:
+      - "echo foo"
