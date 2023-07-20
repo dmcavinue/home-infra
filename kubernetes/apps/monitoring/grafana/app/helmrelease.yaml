@@ -41,6 +41,8 @@ spec:
       GF_DATE_FORMATS_INTERVAL_DAY: "DD/MM"
       GF_DATE_FORMATS_INTERVAL_MONTH: "MM-YYYY"
       GF_DATE_FORMATS_INTERVAL_YEAR: "YYYY"
+    admin:
+      existingSecret: grafana
     grafana.ini:
       analytics:
         check_for_updates: false
@@ -53,18 +55,8 @@ spec:
       auth.ldap:
         enabled: true
         allow_sign_up: true
-        config_file: /secrets/ldap.toml
       news:
         news_feed_enabled: false
-    extraVolumeMounts:
-      - name: grafana-config
-        mountPath: /secrets
-        subPath: ldap.toml
-        readOnly: true
-    extraVolumes:
-      - name: grafana-config
-        secret:
-          secretName: grafana-config
     dashboardProviders:
       dashboardproviders.yaml:
         apiVersion: 1
