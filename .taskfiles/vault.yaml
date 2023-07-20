@@ -107,6 +107,12 @@ tasks:
           bound_service_account_namespaces=ingress
           policies=ingress,default
           ttl=1440h
+      - echo "path \"secret/{{.ENVIRONMENT}}/data/volsync/*\" { capabilities = [\"read\", \"list\"] }" | vault policy write volsync -
+      - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/volsync
+          bound_service_account_names=vault-auth
+          bound_service_account_namespaces=volsync
+          policies=volsync,default
+          ttl=1440h
   # database
 #   disable-database-engine:
 #     desc: disable vault database engine
