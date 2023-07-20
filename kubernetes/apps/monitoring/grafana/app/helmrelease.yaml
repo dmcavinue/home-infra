@@ -59,16 +59,16 @@ spec:
       news:
         news_feed_enabled: false
     extraVolumeMounts:
-      - name: ldap-config
-        mountPath: /secrets/ldap.toml
+      - name: ldap
+        mountPath: /etc/grafana/ldap.toml
         subPath: ldap.toml
         readOnly: true
     extraVolumes:
-      - name: ldap-config
+      - name: ldap
         secret:
           secretName: grafana
           items:
-            - key: ldap.toml
+            - key: ldap-toml
               path: ldap.toml
     dashboardProviders:
       dashboardproviders.yaml:
