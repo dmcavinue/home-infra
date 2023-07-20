@@ -60,7 +60,7 @@ spec:
         news_feed_enabled: false
     extraVolumeMounts:
       - name: ldap-config
-        mountPath: /secrets/ldap.toml
+        mountPath: /secrets
         subPath: ldap.toml
         readOnly: true
     extraVolumes:
