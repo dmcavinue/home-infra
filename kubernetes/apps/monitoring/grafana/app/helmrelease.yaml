@@ -55,8 +55,21 @@ spec:
       auth.ldap:
         enabled: true
         allow_sign_up: true
+        config_file: /secrets/ldap.toml
       news:
         news_feed_enabled: false
+    extraVolumeMounts:
+      - name: ldap-config
+        mountPath: /secrets/ldap.toml
+        subPath: ldap.toml
+        readOnly: true
+    extraVolumes:
+      - name: ldap-config
+        secret:
+          secretName: grafana
+          items:
+            - key: ldap.toml
+              path: ldap.toml
     dashboardProviders:
       dashboardproviders.yaml:
         apiVersion: 1
