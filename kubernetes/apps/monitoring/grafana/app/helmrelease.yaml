@@ -43,6 +43,8 @@ spec:
       GF_DATE_FORMATS_INTERVAL_YEAR: "YYYY"
     admin:
       existingSecret: grafana
+    ldap:
+      enabled: true
     grafana.ini:
       analytics:
         check_for_updates: false
