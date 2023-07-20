@@ -241,6 +241,12 @@ tasks:
           CAM8_NAME="{{.FRIGATE_CAM8_NAME}}"
           CAM8_ID="{{.FRIGATE_CAM8_ID}}"
           PLUS_API_KEY="{{.FRIGATE_PLUS_API_KEY}}"
+      # monitoring/grafana
+      - vault kv put -mount=kv/ monitoring/grafana
+          LDAP_SERVER="{{.GRAFANA_LDAP_SERVER}}"
+          LDAP_USERNAME="{{.GRAFANA_LDAP_SERVER}}"
+          LDAP_PASSWORD="{{.GRAFANA_LDAP_SERVER}}"
+          LDAP_ROOT="{{.GRAFANA_LDAP_SERVER}}"
 
       # home-automation/rtlamr-collect
       - vault kv put -mount=kv/ home-automation/rtlamr-collect
@@ -274,18 +280,6 @@ tasks:
           bound_service_account_names=unifi-downloader
           bound_service_account_namespaces=home-automation
           policies=home-automation-unifi-downloader,default
-          ttl=1440h
-      # observability/grafana
-      - vault kv put -mount=kv/ observability/grafana
-          LDAP_SERVER="{{.LDAP_SERVER}}"
-          LDAP_ADMIN_USERNAME="{{.LDAP_ADMIN_USERNAME}}"
-          LDAP_ADMIN_PASSWORD="{{.LDAP_ADMIN_PASSWORD}}"
-          LDAP_ROOT="{{.LDAP_ROOT}}"
-      - echo "path \"kv/data/observability/grafana\" { capabilities = [\"read\", \"list\"] }" | vault policy write observability-grafana -
-      - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/observability-grafana
-          bound_service_account_names=grafana
-          bound_service_account_namespaces=observability
-          policies=observability-grafana,default
           ttl=1440h
       # observability/influxdb
       - vault kv put -mount=kv/ observability/influxdb
