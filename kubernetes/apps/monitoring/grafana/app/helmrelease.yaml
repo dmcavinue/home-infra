@@ -55,12 +55,12 @@ spec:
       auth.ldap:
         enabled: true
         allow_sign_up: true
-        config_file: /secrets/ldap.toml
+        config_file: /etc/grafana/ldap.toml
       news:
         news_feed_enabled: false
     extraVolumeMounts:
-      - mountPath: /secrets/ldap.toml
-        name: ldap-config
+      - name: ldap-config
+        mountPath: /etc/grafana/ldap.toml
         subPath: ldap.toml
         readOnly: true
     extraVolumes:
