@@ -7,5 +7,5 @@ resources:
   - ./namespace.yaml
   - ./externalsecret.yaml
   # Flux-Kustomizations
-  - ./certificates
+  #- ./certificates
   - ./gateways
