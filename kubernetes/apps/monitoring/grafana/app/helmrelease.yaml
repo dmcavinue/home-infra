@@ -61,7 +61,6 @@ spec:
     extraVolumeMounts:
       - name: ldap-config
         mountPath: /secrets
-        subPath: ldap.toml
         readOnly: true
     extraVolumes:
       - name: ldap-config
