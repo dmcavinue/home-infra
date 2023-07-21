@@ -1,0 +1,57 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: tidbyt-proxy
+  namespace: home-automation
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 1.5.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  maxHistory: 2
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    image:
+      repository: "${DOCKER_PRIVATE_REGISTRY}/tidbyt-proxy"
+      tag: v0.0.3
+      pullPolicy: IfNotPresent
+    controller:
+      replicas: 1
+    nameOverride: tidbyt-proxy
+    envFrom:
+      - secretRef:
+          name: tidbyt-proxy
+    service:
+      main:
+        nameOverride: tidbyt-proxy
+        ports:
+          http:
+            port: 8080
+    serviceAccount:
+      create: true
+      name: tidbyt-proxy
+    resources:
+      limits:
+        memory: 128Mi
+      requests:
+        cpu: 500m
+        memory: 64Mi
+    securityContext:
+      allowPrivilegeEscalation: false
+      runAsUser: 1001
+      runAsGroup: 1001
