@@ -7,5 +7,6 @@ resources:
   - ./externalsecret.yaml
   - ./helmrelease.yaml
   - ./httproute.yaml
+  - ./volsync.yaml
 patchesStrategicMerge:
   - ./patches/addons.yaml

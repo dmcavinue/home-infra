@@ -2,7 +2,7 @@
 apiVersion: external-secrets.io/v1beta1
 kind: ExternalSecret
 metadata:
-  name: frigate-restic
+  name: home-assistant-restic
   namespace: home-automation
 spec:
   refreshInterval: "30m"
@@ -10,31 +10,31 @@ spec:
     name: vault-kv-backend
     kind: SecretStore
   target:
-    name: frigate-restic-secret
+    name: home-assistant-restic-secret
     template:
       engineVersion: v2
       data:
-        RESTIC_REPOSITORY: '{{ .RESTIC_URL }}/frigate'
-        RESTIC_PASSWORD: '{{ .RESTIC_FRIGATE_PASSWORD }}'
+        RESTIC_REPOSITORY: '{{ .RESTIC_URL }}/home-assistant'
+        RESTIC_PASSWORD: '{{ .RESTIC_HASS_PASSWORD }}'
   dataFrom:
     - extract:
         key: /volsync/volsync
     - extract:
-        key: /volsync/frigate
+        key: /volsync/home-assistant
 ---
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationSource
 metadata:
-  name: frigate
+  name: home-assistant
   namespace: home-automation
 spec:
-  sourcePVC: config-frigate-0
+  sourcePVC: config-home-assistant-0
   trigger:
     schedule: "0 7 * * *"
   restic:
     copyMethod: Snapshot
     pruneIntervalDays: 7
-    repository: frigate-restic-secret
+    repository: home-assistant-restic-secret
     cacheCapacity: 8Gi
     cacheStorageClassName: local-path
     volumeSnapshotClassName: csi-ceph-blockpool

@@ -77,7 +77,7 @@ tasks:
       - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/home-automation
           bound_service_account_names=vault-auth
           bound_service_account_namespaces=home-automation
-          policies=volsync-frigate,database,home-automation,default
+          policies=volsync-frigate,volsync-home-assistant,database,home-automation,default
           ttl=1440h
       - echo "path \"secret/{{.ENVIRONMENT}}/data/media/*\" { capabilities = [\"read\", \"list\"] }" | vault policy write media -
       - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/media
@@ -111,6 +111,7 @@ tasks:
           ttl=1440h
       - echo "path \"secret/{{.ENVIRONMENT}}/data/volsync/*\" { capabilities = [\"read\", \"list\"] }" | vault policy write volsync -
       - echo "path \"secret/{{.ENVIRONMENT}}/data/volsync/frigate\" { capabilities = [\"read\", \"list\"] }" | vault policy write volsync-frigate -
+      - echo "path \"secret/{{.ENVIRONMENT}}/data/volsync/home-assistant\" { capabilities = [\"read\", \"list\"] }" | vault policy write volsync-home-assistant-
       - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/volsync
           bound_service_account_names=vault-auth
           bound_service_account_namespaces=volsync
@@ -261,6 +262,9 @@ tasks:
           RESTIC_URL="{{.RESTIC_URL}}"
       - vault kv put -mount=secret/{{.ENVIRONMENT}} volsync/frigate
           RESTIC_FRIGATE_PASSWORD="{{.RESTIC_FRIGATE_PASSWORD}}"
+      - vault kv put -mount=secret/{{.ENVIRONMENT}} volsync/home-assistant
+          RESTIC_HASS_PASSWORD="{{.RESTIC_HASS_PASSWORD}}"
+
     #   # home-automation/rtlamr-collect
     #   - vault kv put -mount=secret/{{.ENVIRONMENT}} home-automation/rtlamr-collect
     #       RTLAMR_METERS="{{.RTLAMR_METERS}}"
