@@ -19,6 +19,8 @@ spec:
   dataFrom:
     - extract:
         key: /volsync/volsync
+    - extract:
+        key: /volsync/frigate
 ---
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationSource
