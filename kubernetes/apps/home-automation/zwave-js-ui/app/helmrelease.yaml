@@ -72,14 +72,14 @@ spec:
         accessMode: ReadWriteOnce
         size: 1Gi
         storageClass: ceph-block
-    # persistence:
-    #   usb:
-    #     enabled: true
-    #     type: hostPath
-    #     hostPath: /dev/serial/by-id/usb-0658_0200-if00
-    #     hostPathType: CharDevice
-    # nodeSelector:
-    #   feature.node.kubernetes.io/zwave: "true"
+    persistence:
+      usb:
+        enabled: true
+        type: hostPath
+        hostPath: /dev/serial/by-id//dev/serial/by-id/usb-Silicon_Labs_CP2102N_USB_to_UART_Bridge_Controller_0030b5ff1aa4eb11a16526259da30875-if00-port0    
+        hostPathType: CharDevice
+    nodeSelector:    
+      feature.node.kubernetes.io/skyconnect=true
     resources:
       requests:
         cpu: 10m

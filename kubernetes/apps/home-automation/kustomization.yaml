@@ -12,4 +12,4 @@ resources:
   - ./home-assistant/ks.yaml
   - ./tidbyt-proxy/ks.yaml
   - ./unifi-downloader/ks.yaml
-  #- ./zwave-js-ui/ks.yaml
+  - ./zwave-js-ui/ks.yaml
