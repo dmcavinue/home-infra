@@ -252,9 +252,9 @@ tasks:
           ADMIN_USER="{{.GRAFANA_ADMIN_USER}}"
           ADMIN_PASSWORD="{{.GRAFANA_ADMIN_PASSWORD}}"
           LDAP_SERVER="{{.GRAFANA_LDAP_SERVER}}"
-          LDAP_USERNAME="{{.GRAFANA_LDAP_SERVER}}"
-          LDAP_PASSWORD="{{.GRAFANA_LDAP_SERVER}}"
-          LDAP_ROOT="{{.GRAFANA_LDAP_SERVER}}"
+          LDAP_USERNAME="{{.GRAFANA_LDAP_USERNAME}}"
+          LDAP_PASSWORD="{{.GRAFANA_LDAP_PASSWORD}}"
+          LDAP_ROOT="{{.GRAFANA_LDAP_ROOT}}"
 
     #   # home-automation/rtlamr-collect
     #   - vault kv put -mount=secret/{{.ENVIRONMENT}} home-automation/rtlamr-collect
