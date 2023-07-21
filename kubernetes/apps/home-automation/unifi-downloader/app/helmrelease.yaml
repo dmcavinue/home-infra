@@ -36,11 +36,6 @@ spec:
         cpu: "250m"
       limits:
         memory: "128Mi"
-    securityContext:
-      allowPrivilegeEscalation: false
-      runAsUser: 10000
-      runAsGroup: 10000
-      fsGroup: 10000
     volumeClaimTemplates:
       - name: download-path
         mountPath: /download
