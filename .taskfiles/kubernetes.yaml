@@ -19,7 +19,7 @@ tasks:
                 "name": "debug",
                 "image": "alpine:3",
                 "command": [
-                  "/bin/bash"
+                  "/bin/cat"
                 ],
                 "stdin": true,
                 "stdinOnce": true,
