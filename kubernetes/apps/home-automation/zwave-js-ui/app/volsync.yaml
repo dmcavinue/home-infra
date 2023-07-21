@@ -1,0 +1,44 @@
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: zwavejs-restic
+  namespace: home-automation
+spec:
+  refreshInterval: "30m"
+  secretStoreRef:
+    name: vault-kv-backend
+    kind: SecretStore
+  target:
+    name: zwavejs-restic-secret
+    template:
+      engineVersion: v2
+      data:
+        RESTIC_REPOSITORY: '{{ .RESTIC_URL }}/zwavejs'
+        RESTIC_PASSWORD: '{{ .RESTIC_ZWAVEJS_PASSWORD }}'
+  dataFrom:
+    - extract:
+        key: /volsync/volsync
+    - extract:
+        key: /volsync/zwavejs
+---
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationSource
+metadata:
+  name: zwavejs
+  namespace: home-automation
+spec:
+  sourcePVC: config-zwavejs-0
+  trigger:
+    schedule: "0 7 * * *"
+  restic:
+    copyMethod: Snapshot
+    pruneIntervalDays: 7
+    repository: zwavejs-restic-secret
+    cacheCapacity: 8Gi
+    cacheStorageClassName: local-path
+    volumeSnapshotClassName: csi-ceph-blockpool
+    storageClassName: ceph-block
+    retain:
+      daily: 7
+      within: 3d

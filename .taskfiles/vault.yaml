@@ -112,6 +112,7 @@ tasks:
       - echo "path \"secret/{{.ENVIRONMENT}}/data/volsync/*\" { capabilities = [\"read\", \"list\"] }" | vault policy write volsync -
       - echo "path \"secret/{{.ENVIRONMENT}}/data/volsync/frigate\" { capabilities = [\"read\", \"list\"] }" | vault policy write volsync-frigate -
       - echo "path \"secret/{{.ENVIRONMENT}}/data/volsync/home-assistant\" { capabilities = [\"read\", \"list\"] }" | vault policy write volsync-home-assistant -
+      - echo "path \"secret/{{.ENVIRONMENT}}/data/volsync/zwavejs\" { capabilities = [\"read\", \"list\"] }" | vault policy write volsync-zwavejs -
       - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/volsync
           bound_service_account_names=vault-auth
           bound_service_account_namespaces=volsync
@@ -264,6 +265,8 @@ tasks:
           RESTIC_FRIGATE_PASSWORD="{{.RESTIC_FRIGATE_PASSWORD}}"
       - vault kv put -mount=secret/{{.ENVIRONMENT}} volsync/home-assistant
           RESTIC_HASS_PASSWORD="{{.RESTIC_HASS_PASSWORD}}"
+      - vault kv put -mount=secret/{{.ENVIRONMENT}} volsync/zwavejs
+          RESTIC_ZWAVEJS_PASSWORD="{{.RESTIC_ZWAVEJS_PASSWORD}}"
 
     #   # home-automation/rtlamr-collect
     #   - vault kv put -mount=secret/{{.ENVIRONMENT}} home-automation/rtlamr-collect
