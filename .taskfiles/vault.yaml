@@ -251,6 +251,19 @@ tasks:
           CAM8_NAME="{{.FRIGATE_CAM8_NAME}}"
           CAM8_ID="{{.FRIGATE_CAM8_ID}}"
           PLUS_API_KEY="{{.FRIGATE_PLUS_API_KEY}}"
+      # home-automation/rtlamr-collect
+      - vault kv put -mount=secret/{{.ENVIRONMENT}} home-automation/rtlamr-collect
+          RTLAMR_METERS="{{.RTLAMR_METERS}}"
+          RTLAMR_MSGTYPE="{{.RTLAMR_MSGTYPE}}"
+      # home-automation/tidbyt-proxy
+      - vault kv put -mount=secret/ home-automation/tidbyt-proxy
+          TIDBYT_API_KEY="{{.TIDBYT_API_KEY}}"
+          TIDBYT_DEVICE_ID="{{.TIDBYT_DEVICE_ID}}"
+      # home-automation/unifi-downloader
+      - vault kv put -mount=secret/ home-automation/unifi-downloader
+          UNIFI_DOWNLOADER_HOST="{{.UNIFI_DOWNLOADER_HOST}}"
+          UNIFI_DOWNLOADER_USERNAME="{{.UNIFI_DOWNLOADER_USERNAME}}"
+          UNIFI_DOWNLOADER_PASSWORD="{{.UNIFI_DOWNLOADER_PASSWORD}}"
       # monitoring/grafana
       - vault kv put -mount=secret/{{.ENVIRONMENT}} monitoring/grafana
           ADMIN_USER="{{.GRAFANA_ADMIN_USER}}"
@@ -268,47 +281,3 @@ tasks:
           RESTIC_HASS_PASSWORD="{{.RESTIC_HASS_PASSWORD}}"
       - vault kv put -mount=secret/{{.ENVIRONMENT}} volsync/zwavejs
           RESTIC_ZWAVEJS_PASSWORD="{{.RESTIC_ZWAVEJS_PASSWORD}}"
-
-    #   # home-automation/rtlamr-collect
-    #   - vault kv put -mount=secret/{{.ENVIRONMENT}} home-automation/rtlamr-collect
-    #       RTLAMR_METERS="{{.RTLAMR_METERS}}"
-    #       RTLAMR_MSGTYPE="{{.RTLAMR_MSGTYPE}}"
-    #       INFLUXDB_USER="{{.INFLUXDB_USER}}"
-    #       INFLUXDB_PASSWORD="{{.INFLUXDB_PASSWORD}}"
-    #   - echo "path \"secret/data/home-automation/rtlamr-collect\" { capabilities = [\"read\", \"list\"] }" | vault policy write home-automation-rtlamr-collect -
-    #   - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/home-automation-rtlamr-collect
-    #       bound_service_account_names=rtlamr-collect
-    #       bound_service_account_namespaces=home-automation
-    #       policies=home-automation-rtlamr-collect,default
-    #       ttl=1440h
-    #   # home-automation/tidbyt-proxy
-    #   - vault kv put -mount=secret/ home-automation/tidbyt-proxy
-    #       TIDBYT_API_KEY="{{.TIDBYT_API_KEY}}"
-    #       TIDBYT_DEVICE_ID="{{.TIDBYT_DEVICE_ID}}"
-    #   - echo "path \"secret/data/home-automation/tidbyt-proxy\" { capabilities = [\"read\", \"list\"] }" | vault policy write home-automation-tidbyt-proxy -
-    #   - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/home-automation-tidbyt-proxy
-    #       bound_service_account_names=tidbyt-proxy
-    #       bound_service_account_namespaces=home-automation
-    #       policies=home-automation-tidbyt-proxy,default
-    #       ttl=1440h
-    #   # home-automation/unifi-downloader
-    #   - vault kv put -mount=secret/ home-automation/unifi-downloader
-    #       UNIFI_DOWNLOADER_HOST="{{.UNIFI_DOWNLOADER_HOST}}"
-    #       UNIFI_DOWNLOADER_USERNAME="{{.UNIFI_DOWNLOADER_USERNAME}}"
-    #       UNIFI_DOWNLOADER_PASSWORD="{{.UNIFI_DOWNLOADER_PASSWORD}}"
-    #   - echo "path \"secret/data/home-automation/unifi-downloader\" { capabilities = [\"read\", \"list\"] }" | vault policy write home-automation-unifi-downloader -
-    #   - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/home-automation-unifi-downloader
-    #       bound_service_account_names=unifi-downloader
-    #       bound_service_account_namespaces=home-automation
-    #       policies=home-automation-unifi-downloader,default
-    #       ttl=1440h
-    #   # observability/influxdb
-    #   - vault kv put -mount=secret/ observability/influxdb
-    #       INFLUXDB_USER="{{.INFLUXDB_USER}}"
-    #       INFLUXDB_PASSWORD="{{.INFLUXDB_PASSWORD}}"
-    #   - echo "path \"secret/data/observability/influxdb\" { capabilities = [\"read\", \"list\"] }" | vault policy write observability-influxdb -
-    #   - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/observability-influxdb
-    #       bound_service_account_names=influxdb
-    #       bound_service_account_namespaces=observability
-    #       policies=observability-influxdb,default
-    #       ttl=1440h
