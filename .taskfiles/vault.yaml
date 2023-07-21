@@ -256,11 +256,11 @@ tasks:
           RTLAMR_METERS="{{.RTLAMR_METERS}}"
           RTLAMR_MSGTYPE="{{.RTLAMR_MSGTYPE}}"
       # home-automation/tidbyt-proxy
-      - vault kv put -mount=secret/ home-automation/tidbyt-proxy
+      - vault kv put -mount=secret/{{.ENVIRONMENT}} home-automation/tidbyt-proxy
           TIDBYT_API_KEY="{{.TIDBYT_API_KEY}}"
           TIDBYT_DEVICE_ID="{{.TIDBYT_DEVICE_ID}}"
       # home-automation/unifi-downloader
-      - vault kv put -mount=secret/ home-automation/unifi-downloader
+      - vault kv put -mount=secret/{{.ENVIRONMENT}} home-automation/unifi-downloader
           UNIFI_DOWNLOADER_HOST="{{.UNIFI_DOWNLOADER_HOST}}"
           UNIFI_DOWNLOADER_USERNAME="{{.UNIFI_DOWNLOADER_USERNAME}}"
           UNIFI_DOWNLOADER_PASSWORD="{{.UNIFI_DOWNLOADER_PASSWORD}}"
@@ -275,6 +275,8 @@ tasks:
       # volsync
       - vault kv put -mount=secret/{{.ENVIRONMENT}} volsync/volsync
           RESTIC_URL="{{.RESTIC_URL}}"
+      - vault kv put -mount=secret/{{.ENVIRONMENT}} volsync/esphome
+          RESTIC_ESPHOME_PASSWORD="{{.RESTIC_ESPHOME_PASSWORD}}"
       - vault kv put -mount=secret/{{.ENVIRONMENT}} volsync/frigate
           RESTIC_FRIGATE_PASSWORD="{{.RESTIC_FRIGATE_PASSWORD}}"
       - vault kv put -mount=secret/{{.ENVIRONMENT}} volsync/home-assistant
