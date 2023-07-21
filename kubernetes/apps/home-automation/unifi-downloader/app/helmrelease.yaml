@@ -1,0 +1,54 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: unifi-downloader
+  namespace: home-automation
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 1.5.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  values:
+    image:
+      repository: "${DOCKER_PRIVATE_REGISTRY}/unifi-downloader"
+      tag: 0.1.2
+    controller:
+      replicas: 1
+    envFrom:
+      - secretRef:
+          name: unifi-downloader
+    nameOverride: unifi-downloader
+    service:
+      main:
+        enabled: false
+    serviceAccount:
+      create: true
+      name: unifi-downloader
+    resources:
+      requests:
+        memory: "64Mi"
+        cpu: "250m"
+      limits:
+        memory: "128Mi"
+    securityContext:
+      allowPrivilegeEscalation: false
+      runAsUser: 10000
+      runAsGroup: 10000
+      fsGroup: 10000
+    volumeClaimTemplates:
+      - name: download-path
+        mountPath: /download
+        accessMode: ReadWriteOnce
+        size: 20Gi
+        storageClass: ceph-block
+    persistence:
+      backup-path:
+        enabled: true
+        existingClaim: unifi-downloader-nfs
+        mountPath: /backup
