@@ -207,8 +207,8 @@ tasks:
           user_1_password="{{.EMQX_USER1_PASSWORD}}"
       # database/influxdb
       - vault kv put -mount=secret/{{.ENVIRONMENT}} database/influxdb
-          INFLUXDB_USER="{{.INFLUXDB_USER}}"
-          INFLUXDB_PASSWORD="{{.INFLUXDB_PASSWORD}}"
+          influxdb-user="{{.INFLUXDB_USER}}"
+          influxdb-password="{{.INFLUXDB_PASSWORD}}"
       # media/immich
       - vault kv put -mount=secret/{{.ENVIRONMENT}} media/immich
           IMMICH_JWT_SECRET="{{.IMMICH_JWT_SECRET}}"
