@@ -77,7 +77,7 @@ tasks:
       - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/home-automation
           bound_service_account_names=vault-auth
           bound_service_account_namespaces=home-automation
-          policies=database,home-automation,default
+          policies=volsync,database,home-automation,default
           ttl=1440h
       - echo "path \"secret/{{.ENVIRONMENT}}/data/media/*\" { capabilities = [\"read\", \"list\"] }" | vault policy write media -
       - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/media
@@ -255,7 +255,10 @@ tasks:
           LDAP_USERNAME="{{.GRAFANA_LDAP_USERNAME}}"
           LDAP_PASSWORD="{{.GRAFANA_LDAP_PASSWORD}}"
           LDAP_ROOT="{{.GRAFANA_LDAP_ROOT}}"
-
+      # volsync/volsync
+      - vault kv put -mount=secret/{{.ENVIRONMENT}} volsync/volsync
+          RESTIC_URL="{{.RESTIC_URL}}"
+          RESTIC_PASSWORD="{{.RESTIC_PASSWORD}}"
     #   # home-automation/rtlamr-collect
     #   - vault kv put -mount=secret/{{.ENVIRONMENT}} home-automation/rtlamr-collect
     #       RTLAMR_METERS="{{.RTLAMR_METERS}}"
