@@ -115,6 +115,12 @@ tasks:
           bound_service_account_namespaces=volsync
           policies=volsync,default
           ttl=1440h
+      - echo "path \"secret/{{.ENVIRONMENT}}/data/security/*\" { capabilities = [\"read\", \"list\"] }" | vault policy write security -
+      - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/security
+          bound_service_account_names=vault-auth
+          bound_service_account_namespaces=security
+          policies=security,default
+          ttl=1440h
   # database
 #   disable-database-engine:
 #     desc: disable vault database engine
