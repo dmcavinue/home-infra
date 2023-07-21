@@ -1,0 +1,42 @@
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: frigate-restic
+  namespace: default
+spec:
+  refreshInterval: "30m"
+  secretStoreRef:
+    name: vault-kv-backend
+    kind: SecretStore
+  target:
+    name: frigate-restic-secret
+    template:
+      engineVersion: v2
+      data:
+        RESTIC_REPOSITORY: '{{ .RESTIC_URL }}/frigate'
+        RESTIC_PASSWORD: '{{ .RESTIC_PASSWORD }}'
+  dataFrom:
+    - extract:
+        key: /volsync/frigate
+---
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationSource
+metadata:
+  name: frigate
+  namespace: default
+spec:
+  sourcePVC: config-frigate-0
+  trigger:
+    schedule: "0 7 * * *"
+  restic:
+    copyMethod: Snapshot
+    pruneIntervalDays: 7
+    repository: frigate-restic-secret
+    cacheCapacity: 8Gi
+    cacheStorageClassName: local-path
+    volumeSnapshotClassName: csi-ceph-blockpool
+    storageClassName: ceph-block
+    retain:
+      daily: 7
+      within: 3d
