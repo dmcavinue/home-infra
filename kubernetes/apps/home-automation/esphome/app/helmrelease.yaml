@@ -46,6 +46,11 @@ spec:
       ESPHOME_DASHBOARD_USE_PING: true
       PLATFORMIO_CORE_DIR: /config/.plattformio
       PLATFORMIO_GLOBALLIB_DIR: /config/.plattformioLibs
+    service:
+      main:
+        ports:
+          http:
+            port: 6052
     ingress:
       main:
         enabled: false
