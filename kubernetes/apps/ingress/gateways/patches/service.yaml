@@ -1,0 +1,9 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cilium-gateway-cilium-ingressgateway
+  namespace: ingress
+spec:
+  type: LoadBalancer
+  loadBalancerIP: "${CILIUM_LB_IP}"
