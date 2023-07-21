@@ -40,6 +40,7 @@ RUN apk --update --no-cache add \
     python3 \
     python3-dev \
     py3-pip \
+    restic \
     rsync \
     shadow \
     shellcheck \

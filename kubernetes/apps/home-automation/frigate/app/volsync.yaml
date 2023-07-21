@@ -15,7 +15,6 @@ spec:
       engineVersion: v2
       data:
         RESTIC_REPOSITORY: '{{ .RESTIC_URL }}/frigate'
-        RESTIC_PASSWORD: '{{ .RESTIC_PASSWORD }}'
   dataFrom:
     - extract:
         key: /volsync/volsync

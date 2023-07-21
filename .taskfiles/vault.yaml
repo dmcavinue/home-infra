@@ -258,7 +258,6 @@ tasks:
       # volsync/volsync
       - vault kv put -mount=secret/{{.ENVIRONMENT}} volsync/volsync
           RESTIC_URL="{{.RESTIC_URL}}"
-          RESTIC_PASSWORD="{{.RESTIC_PASSWORD}}"
     #   # home-automation/rtlamr-collect
     #   - vault kv put -mount=secret/{{.ENVIRONMENT}} home-automation/rtlamr-collect
     #       RTLAMR_METERS="{{.RTLAMR_METERS}}"
