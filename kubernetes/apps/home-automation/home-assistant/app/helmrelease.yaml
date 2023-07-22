@@ -63,6 +63,10 @@ spec:
         accessMode: ReadWriteOnce
         size: 5Gi
         storageClass: ceph-block
+    lifecycle:
+      postStart:
+        exec:
+          command: ["/sbin/apk", "add", "openldap-clients"]
     persistence:
       auth:
         enabled: true
