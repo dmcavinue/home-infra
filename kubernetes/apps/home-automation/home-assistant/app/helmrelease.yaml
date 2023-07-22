@@ -64,6 +64,23 @@ spec:
         size: 5Gi
         storageClass: ceph-block
     persistence:
+      auth:
+        enabled: true
+        type: secret
+        name: home-assistant-auth
+        subPath: home-assistant.cfg
+        mountPath: /secrets/home-assistant.cfg
+        readOnly: true
+      auth-scripts:
+        enabled: true
+        type: custom
+        volumeSpec:
+          configMap:
+            name: home-assistant-scripts
+            defaultMode: 0777
+        subPath:
+          - path: ldap.sh
+            mountPath: /ldap.sh
       usb:
         enabled: true
         type: hostPath
