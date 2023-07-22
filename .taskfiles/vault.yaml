@@ -233,7 +233,7 @@ tasks:
           GIT_REPO="{{.HASS_GIT_REPO}}"
           DEPLOY_KEY_B64="{{.HASS_DEPLOY_KEY_B64}}"
           HACS_TOKEN="{{.HASS_HACS_TOKEN}}"
-          LDAP_ROOT="{{.LDAP_ROOT}}"
+          LDAP_ROOT="{{.HASS_LDAP_ROOT}}"
           LOCAL_DOMAIN="{{.LOCAL_DOMAIN}}"
           LOCATION_LAT="{{.HASS_LOCATION_LAT}}"
           LOCATION_LONG="{{.HASS_LOCATION_LONG}}"
