@@ -1,0 +1,61 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: postgresql
+  namespace: database
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: postgresql
+      version: 11.8.1
+      sourceRef:
+        kind: HelmRepository
+        name: bitnami
+        namespace: flux-system
+      interval: 5m
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
+      remediateLastFailure: true
+    cleanupOnFail: true
+  values:
+    image:
+      registry: docker.io
+      repository: bitnami/postgresql
+      tag: 14.3.0-debian-10-r0
+      pullPolicy: IfNotPresent
+    serviceAccount:
+      create: true
+      name: "postgresql"
+    auth:
+      database: "postgres"
+    metrics:
+      enabled: false
+      resources:
+        requests:
+          cpu: 100m
+          memory: 32M
+        limits:
+          memory: 32M
+    primary:
+      extendedConfiguration: |
+        shared_buffers = 256MB
+        max_wal_size = 2048
+        min_wal_size = 160
+      persistence:
+        enabled: true
+        existingClaim: data-postgresql-0
+        size: 20Gi
+        storageClass: longhorn
+      resources:
+        requests:
+          cpu: 100m
+          memory: 512Mi
+        limits:
+          memory: 2048M
