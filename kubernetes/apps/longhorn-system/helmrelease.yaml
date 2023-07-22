@@ -20,7 +20,7 @@ spec:
     csi:
       kubeletRootDir: /var/lib/kubelet
     persistence:
-      defaultClass: true
+      defaultClass: false
       recurringJobSelector:
         enable: false
     defaultSettings:
