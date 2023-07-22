@@ -237,6 +237,7 @@ tasks:
           LOCAL_DOMAIN="{{.LOCAL_DOMAIN}}"
           LOCATION_LAT="{{.HASS_LOCATION_LAT}}"
           LOCATION_LONG="{{.HASS_LOCATION_LONG}}"
+          DRAC_IP="{{.HASS_DRAC_IP}}"
       # home-automation/frigate
       - vault kv put -mount=secret/{{.ENVIRONMENT}} home-automation/frigate
           DVR_URL="{{.FRIGATE_DVR_URL}}"
