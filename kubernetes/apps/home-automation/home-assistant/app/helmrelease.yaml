@@ -50,6 +50,8 @@ spec:
     ingress:
       main:
         enabled: false
+    securityContext:
+      privileged: true
     probes:
       liveness:
         enabled: false
