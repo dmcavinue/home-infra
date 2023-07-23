@@ -1,0 +1,23 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: hubble
+  namespace: kube-system
+spec:
+  ingressClassName: cilium
+  tls:
+  - hosts:
+    - "hubble.${DOMAIN}"
+    secretName: "${DOMAIN/./-}-tls"
+rules:
+- host: "hubble.${DOMAIN}"
+  http:
+  paths:
+  - backend:
+      service:
+          name: hubble-ui
+          port:
+          number: 80
+      path: /
+      pathType: Prefix
