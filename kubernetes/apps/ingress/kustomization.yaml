@@ -8,5 +8,4 @@ resources:
   - ./externalsecret.yaml
   # Flux-Kustomizations
   - ./certificates
-  - ./ingress
   #- ./gateways
