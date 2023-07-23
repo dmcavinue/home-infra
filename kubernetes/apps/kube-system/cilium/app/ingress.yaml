@@ -16,3 +16,6 @@ spec:
               number: 80
         path: /
         pathType: Prefix
+  tls:
+  - hosts:
+    - "hubble.${DOMAIN}"
