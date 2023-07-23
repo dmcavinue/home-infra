@@ -44,7 +44,7 @@ spec:
             port: 8080
     ingress:
       main:
-        enabled: true
+        enabled: false
     topologySpreadConstraints:
       - maxSkew: 1
         topologyKey: kubernetes.io/hostname
