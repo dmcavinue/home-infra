@@ -8,7 +8,7 @@ spec:
   ingressClassName: cilium
   tls:
   - hosts:
-    - "hubble.${DOMAIN}"
+    - "*.${DOMAIN}"
     secretName: "${DOMAIN/./-}-tls"
 rules:
 - host: "hubble.${DOMAIN}"
@@ -17,6 +17,7 @@ rules:
   - backend:
       service:
           name: hubble-ui
+          namespace: kube-system
           port:
           number: 80
       path: /
