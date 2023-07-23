@@ -39,8 +39,14 @@ spec:
       socketPath: /var/run/k3s/containerd/containerd.sock
     endpointRoutes:
       enabled: true
-    gatewayAPI:
+    # gatewayAPI:
+    #   enabled: true
+    ingressController:
       enabled: true
+      default: true
+      loadbalancerMode: dedicated
+      service:
+        loadBalancerIP: "${CILIUM_LB_IP}"
     hubble:
       enabled: true
       metrics:
@@ -77,6 +83,8 @@ spec:
       leaseRenewDeadline: 60s
       leaseRetryPeriod: 1s
     loadBalancer:
+      l7:
+        backend: envoy
       algorithm: maglev
       mode: dsr
     localRedirectPolicy: true
