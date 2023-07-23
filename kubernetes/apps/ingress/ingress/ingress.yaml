@@ -1,0 +1,12 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: cilium-ingress
+  namespace: ingress
+spec:
+  ingressClassName: cilium
+  tls:
+  - hosts:
+    - "*$.{DOMAIN}"
+    secretName: "${DOMAIN/./-}-tls"
