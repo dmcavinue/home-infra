@@ -50,7 +50,7 @@ spec:
         min_wal_size = 160
       persistence:
         enabled: true
-        existingClaim: data-postgresql-0
+        existingClaim: postgresql-old
         size: 20Gi
         storageClass: longhorn
       resources:
