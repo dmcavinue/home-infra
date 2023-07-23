@@ -195,6 +195,7 @@ tasks:
           DOCKER_PRIVATE_REGISTRY="{{.DOCKER_PRIVATE_REGISTRY}}"
           ENVIRONMENT="{{.ENVIRONMENT}}"
           EMQX_LB_IP="{{.EMQX_LB_IP}}"
+          SLACK_WEBHOOK="{{.SLACK_WEBHOOK}}"
           IPAM_CIDR="{{.IPAM_CIDR}}"
           LOCAL_DOMAIN="{{.LOCAL_DOMAIN}}"
           NFS_SERVER_IP="{{.NFS_SERVER_IP}}"
