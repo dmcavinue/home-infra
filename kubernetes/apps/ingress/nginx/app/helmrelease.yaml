@@ -54,7 +54,7 @@ spec:
           namespaceSelector:
             any: true
       extraArgs:
-        default-ssl-certificate: "ingress/${DOMAIN/./-}-tls"
+        default-ssl-certificate: "ingress/${DOMAIN/./-}"
       topologySpreadConstraints:
         - maxSkew: 1
           topologyKey: kubernetes.io/hostname
