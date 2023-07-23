@@ -1,0 +1,43 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: home-assistant
+  namespace: home-automation
+spec:
+  ingressClassName: cilium
+  rules:
+  - host: "hass.${DOMAIN}"
+    http:
+      paths:
+      - backend:
+          service:
+            name: home-assistant
+            port:
+              number: 8123
+        path: /
+        pathType: Prefix
+  tls:
+  - hosts:
+    - "hass.${DOMAIN}"
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: frigate
+  namespace: home-automation
+spec:
+  ingressClassName: cilium
+  rules:
+  - host: "hass-code.${DOMAIN}"
+    http:
+      paths:
+      - backend:
+          service:
+            name: home-assistant-addon-codeserver
+            port:
+              number: 12321
+        path: /
+        pathType: Prefix
+  tls:
+  - hosts:
+    - "hass-code.${DOMAIN}"
