@@ -44,7 +44,7 @@ spec:
     ingressController:
       enabled: true
       default: true
-      loadbalancerMode: dedicated
+      loadbalancerMode: shared
       service:
         loadBalancerIP: "${CILIUM_LB_IP}"
     hubble:
