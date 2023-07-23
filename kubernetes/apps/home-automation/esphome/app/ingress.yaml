@@ -1,0 +1,21 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: esphome
+  namespace: home-automation
+spec:
+  ingressClassName: cilium
+  rules:
+  - host: "esphome.${DOMAIN}"
+    http:
+      paths:
+      - backend:
+          service:
+            name: esphome
+            port:
+              number: 6052
+        path: /
+        pathType: Prefix
+  tls:
+  - hosts:
+    - "esphome.${DOMAIN}"

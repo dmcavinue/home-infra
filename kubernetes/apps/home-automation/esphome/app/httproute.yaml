@@ -15,5 +15,5 @@ spec:
             value: /
       backendRefs:
         - name: esphome
-          port: c
+          port: 6052
           weight: 1
