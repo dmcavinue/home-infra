@@ -4,7 +4,7 @@ metadata:
   name: rook
   namespace: monitoring
 spec:
-  ingressClassName: cilium
+  ingressClassName: nginx
   rules:
   - host: "rook.${DOMAIN}"
     http:

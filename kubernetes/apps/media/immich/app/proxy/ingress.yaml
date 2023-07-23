@@ -4,7 +4,7 @@ metadata:
   name: immich
   namespace: media
 spec:
-  ingressClassName: cilium
+  ingressClassName: nginx
   rules:
   - host: "immich.${DOMAIN}"
     http:

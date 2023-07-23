@@ -4,7 +4,7 @@ metadata:
   name: alertmanager
   namespace: monitoring
 spec:
-  ingressClassName: cilium
+  ingressClassName: nginx
   rules:
   - host: "alertmanager.${DOMAIN}"
     http:
