@@ -10,15 +10,15 @@ spec:
   - hosts:
     - "*.${DOMAIN}"
     secretName: "${DOMAIN/./-}-tls"
-rules:
-- host: "hubble.${DOMAIN}"
-  http:
-  paths:
-  - backend:
-      service:
-          name: hubble-ui
-          namespace: kube-system
-          port:
-          number: 80
-      path: /
-      pathType: Prefix
+  rules:
+  - host: "hubble.${DOMAIN}"
+    http:
+    paths:
+    - backend:
+        service:
+            name: hubble-ui
+            namespace: kube-system
+            port:
+            number: 80
+        path: /
+        pathType: Prefix
