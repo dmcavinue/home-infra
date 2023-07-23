@@ -43,6 +43,22 @@ spec:
       enabled: true
       service:
         loadBalancerIP: "${CILIUM_LB_IP}"
+    ingressController:
+      enabled: true
+      loadbalancerMode: shared
+      enforceHttps: true
+      secretsNamespace:
+        create: false
+        name: ingress
+        sync: true
+      service:
+        name: cilium-ingress
+        type: LoadBalancer
+        loadBalancerIP: "${CILIUM_LB_IP}"
+    extraConfig:
+      enable-gateway-api: "true"
+      enable-gateway-api-secrets-sync: "true"
+      gateway-api-secrets-namespace: "ingress"
     hubble:
       enabled: true
       metrics:
