@@ -16,9 +16,9 @@ spec:
       paths:
       - backend:
           service:
-            name: hubble-ui
-            namespace: kube-system
+            name: hubble-ui            
             port:
               number: 80
         path: /
         pathType: Prefix
+        namespace: kube-system
