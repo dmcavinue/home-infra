@@ -20,5 +20,5 @@ spec:
             #namespace: kube-system
             port:
               number: 80
-          path: /
-          pathType: Prefix
+        path: /
+        pathType: Prefix
