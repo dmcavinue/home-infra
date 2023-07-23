@@ -40,7 +40,7 @@ spec:
     endpointRoutes:
       enabled: true
     gatewayAPI:
-      enabled: true
+      enabled: false
       service:
         loadBalancerIP: "${CILIUM_LB_IP}"
     hubble:
