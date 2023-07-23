@@ -8,5 +8,5 @@ spec:
   ingressClassName: cilium
   tls:
   - hosts:
-    - "*$.{DOMAIN}"
+    - "*.${DOMAIN}"
     secretName: "${DOMAIN/./-}-tls"
