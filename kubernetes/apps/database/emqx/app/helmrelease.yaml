@@ -36,8 +36,8 @@ spec:
     service:
       type: LoadBalancer
       loadBalancerIP:  ${EMQX_LB_IP}
-      annotations:
-        io.cilium/lb-ipam-ips: ${EMQX_LB_IP}
+      # annotations:
+      #   io.cilium/lb-ipam-ips: ${EMQX_LB_IP}
       externalTrafficPolicy: Cluster
     ingress:
       dashboard:
