@@ -54,7 +54,7 @@ spec:
           namespaceSelector:
             any: true
       extraArgs:
-        default-ssl-certificate: "ingress/${DOMAIN/./-}"
+        default-ssl-certificate: "ingress/nucstack-com"
       topologySpreadConstraints:
         - maxSkew: 1
           topologyKey: kubernetes.io/hostname
