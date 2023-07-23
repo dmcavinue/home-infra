@@ -17,4 +17,4 @@ metadata:
   name: pool
 spec:
   cidrs:
-    - cidr: "${SERVER_CIDR}"
+    - cidr: "${IPAM_CIDR}"
