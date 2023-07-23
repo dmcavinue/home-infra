@@ -9,4 +9,3 @@ resources:
   # Flux-Kustomizations
   - ./certificates
   #- ./gateways
-  - ./ingress
