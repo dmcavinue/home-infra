@@ -286,6 +286,8 @@ tasks:
           RESTIC_ESPHOME_PASSWORD="{{.RESTIC_ESPHOME_PASSWORD}}"
       - vault kv put -mount=secret/{{.ENVIRONMENT}} volsync/frigate
           RESTIC_FRIGATE_PASSWORD="{{.RESTIC_FRIGATE_PASSWORD}}"
+      - vault kv put -mount=secret/{{.ENVIRONMENT}} volsync/immich
+          RESTIC_IMMICH_PASSWORD="{{.RESTIC_IMMICH_PASSWORD}}"
       - vault kv put -mount=secret/{{.ENVIRONMENT}} volsync/home-assistant
           RESTIC_HASS_PASSWORD="{{.RESTIC_HASS_PASSWORD}}"
       - vault kv put -mount=secret/{{.ENVIRONMENT}} volsync/zwavejs
