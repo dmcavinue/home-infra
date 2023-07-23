@@ -1,0 +1,21 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: immich
+  namespace: home-automation
+spec:
+  ingressClassName: cilium
+  rules:
+  - host: "immich.${DOMAIN}"
+    http:
+      paths:
+      - backend:
+          service:
+            name: immich-proxy
+            port:
+              number: 8080
+        path: /
+        pathType: Prefix
+  tls:
+  - hosts:
+    - "immich.${DOMAIN}"
