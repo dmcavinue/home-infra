@@ -8,8 +8,7 @@ spec:
   ingressClassName: cilium
   tls:
   - hosts:
-    - "*.${DOMAIN}"
-    secretName: "${DOMAIN/./-}-tls"
+    - "hubble.${DOMAIN}"
   rules:
   - host: "hubble.${DOMAIN}"
     http:
@@ -21,4 +20,3 @@ spec:
               number: 80
         path: /
         pathType: Prefix
-        namespace: kube-system
