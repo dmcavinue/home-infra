@@ -16,6 +16,7 @@ resources:
   - ./grafana.yaml
   - ./influxdata.yaml
   - ./jetstack.yaml
+  - ./kyverno.yaml
   - ./metrics-server.yaml
   - ./node-feature-discovery.yaml
   - ./piraeus.yaml
