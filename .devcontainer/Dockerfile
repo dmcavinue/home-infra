@@ -6,7 +6,7 @@ FROM docker.io/hashicorp/vault:1.14.0 as vault
 FROM docker.io/mikefarah/yq:4.34.2 as yq
 
 # base image
-FROM docker:24.0.4-dind-rootless
+FROM docker:24.0.5-dind-rootless
 
 ENV EDITOR=nano \
     LANG=en_US.UTF-8 \
