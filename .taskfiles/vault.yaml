@@ -208,7 +208,7 @@ tasks:
       # dex
       - vault kv put -mount=secret/{{.ENVIRONMENT}} security/dex
           DEX_OAUTH2_CLIENT_SECRET="{{.DEX_OAUTH2_CLIENT_SECRET}}"
-          DEX_K8S_AUTHENTICATOR_CLIENT_SECRET="{{.DEX_K8S_AUTHENTICATOR_CLIENT_SECRET}}"
+          DEX_OAUTH2_COOKIE_SECRET="{{.DEX_OAUTH2_COOKIE_SECRET}}"
       # flux-system
       - vault kv put -mount=secret/{{.ENVIRONMENT}} flux-system/notification
           FLUX_SLACK_WEBHOOK="{{.SLACK_WEBHOOK}}"
