@@ -6,4 +6,3 @@ namespace: home-automation
 resources:
   - ./externalsecret.yaml
   - ./cluster.yaml
-  - ./volsync.yaml
