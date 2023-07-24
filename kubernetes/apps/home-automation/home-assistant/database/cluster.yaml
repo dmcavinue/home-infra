@@ -30,3 +30,19 @@ spec:
       shared_buffers: 512MB
   monitoring:
     enablePodMonitor: true
+  backup:
+    retentionPolicy: 14d
+    barmanObjectStore:
+      wal:
+        compression: bzip2
+        maxParallel: 8
+      destinationPath: s3://db-backup/home-assistant
+      endpointURL: "https://minio.${DOMAIN}"
+      serverName: home-assistant-1
+      s3Credentials:
+        accessKeyId:
+          name: home-assistant-database-superuser
+          key: access-key
+        secretAccessKey:
+          name: home-assistant-database-superuser
+          key: secret
