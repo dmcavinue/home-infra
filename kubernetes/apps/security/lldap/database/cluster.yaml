@@ -30,3 +30,19 @@ spec:
       shared_buffers: 512MB
   monitoring:
     enablePodMonitor: true
+  backup:
+    retentionPolicy: 14d
+    barmanObjectStore:
+      wal:
+        compression: bzip2
+        maxParallel: 8
+      destinationPath: s3://db-backup/lldap
+      endpointURL: "https://minio.${LOCAL_DOMAIN}"
+      serverName: lldap-1
+      s3Credentials:
+        accessKeyId:
+          name: lldap-database-superuser
+          key: access-key
+        secretAccessKey:
+          name: lldap-database-superuser
+          key: secret
