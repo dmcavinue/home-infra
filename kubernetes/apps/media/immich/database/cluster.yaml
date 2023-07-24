@@ -30,3 +30,19 @@ spec:
       shared_buffers: 512MB
   monitoring:
     enablePodMonitor: true
+  backup:
+    retentionPolicy: 14d
+    barmanObjectStore:
+      wal:
+        compression: bzip2
+        maxParallel: 8
+      destinationPath: s3://db-backup/immich
+      endpointURL: "https://minio.${LOCAL_DOMAIN}"
+      serverName: immich-1
+      s3Credentials:
+        accessKeyId:
+          name: immich-database-superuser
+          key: access-key
+        secretAccessKey:
+          name: immich-database-superuser
+          key: secret
