@@ -14,12 +14,6 @@ spec:
       kube-image-keeper.enix.io/image-caching-policy: ignore
   primaryUpdateStrategy: unsupervised
   bootstrap:
-    initdb:
-      database: lldap
-      owner: lldap
-      secret:
-        name: lldap-database-user
-  bootstrap:
     recovery:
       source: &previousCluster lldap-1
   storage:
