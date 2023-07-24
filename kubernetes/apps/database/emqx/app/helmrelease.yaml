@@ -33,10 +33,10 @@ spec:
       EMQX_ALLOW_ANONYMOUS: "false"
       EMQX_AUTH__MNESIA__PASSWORD_HASH: plain
       EMQX_DASHBOARD__DEFAULT_USERNAME: admin
-    # service:
-    #   type: LoadBalancer
-    #   LoadBalancerIP:  "${EMQX_LB_IP}"
-    #   externalTrafficPolicy: Cluster
+    service:
+      type: LoadBalancer
+      LoadBalancerIP:  "${EMQX_LB_IP}"
+      externalTrafficPolicy: Cluster
     ingress:
       dashboard:
         enabled: false
