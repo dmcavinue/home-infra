@@ -12,7 +12,7 @@ spec:
       version: 6.16.1
       sourceRef:
         kind: HelmRepository
-        name: oauth2-proxy-chart
+        name: oauth2-proxy
         namespace: flux-system
       interval: 10m
   test:
