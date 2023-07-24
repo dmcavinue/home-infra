@@ -35,8 +35,7 @@ spec:
       EMQX_DASHBOARD__DEFAULT_USERNAME: admin
     service:
       type: LoadBalancer
-      annotations:
-        io.cilium/lb-ipam-ips: ${EMQX_LB_IP}
+      LoadBalancerIP:  ${EMQX_LB_IP}
       externalTrafficPolicy: Cluster
     ingress:
       dashboard:
