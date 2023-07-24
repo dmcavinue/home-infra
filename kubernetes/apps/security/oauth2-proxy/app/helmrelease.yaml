@@ -39,10 +39,7 @@ spec:
     ingress:
       enabled: true
       hosts:
-        - host: &host "oauth.${DOMAIN}"
-          paths:
-            - path: /
-              pathType: Prefix
+        - &host "oauth.${DOMAIN}"
       tls:
         - hosts:
             - *host
