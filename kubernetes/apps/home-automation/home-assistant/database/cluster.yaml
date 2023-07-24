@@ -37,7 +37,7 @@ spec:
         compression: bzip2
         maxParallel: 8
       destinationPath: s3://db-backup/home-assistant
-      endpointURL: "https://minio.${DOMAIN}"
+      endpointURL: "https://minio.${LOCAL_DOMAIN}"
       serverName: home-assistant-1
       s3Credentials:
         accessKeyId:
