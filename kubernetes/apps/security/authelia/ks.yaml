@@ -23,7 +23,7 @@ metadata:
 spec:
   dependsOn:
     - name: cluster-apps-cloudnative-pg
-  path: ./kubernetes/apps/default/authelia/database
+  path: ./kubernetes/apps/security/authelia/database
   prune: true
   sourceRef:
     kind: GitRepository
