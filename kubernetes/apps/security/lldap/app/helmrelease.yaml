@@ -1,10 +1,9 @@
 ---
-# yaml-language-server: $schema=https://kubernetes-schemas.devbu.io/helm.toolkit.fluxcd.io/helmrelease_v2beta1.json
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
   name: &app lldap
-  namespace: default
+  namespace: security
 spec:
   interval: 30m
   chart:
@@ -27,29 +26,22 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    initContainers:
-      01-init-db:
-        image: ghcr.io/onedr0p/postgres-init:14.8
-        imagePullPolicy: IfNotPresent
-        envFrom: &envFrom
-          - secretRef:
-              name: lldap-secret
     controller:
-      replicas: 2
+      replicas: 1
       strategy: RollingUpdate
       annotations:
         reloader.stakater.com/auto: "true"
     image:
       repository: ghcr.io/lldap/lldap
-      # TODO: Switch to release tag on next release
       tag: latest-alpine@sha256:a6a8215f8bb286ae9ce6e4f6ef303a543094a954d0091da9a62aee2b391ed023
     env:
       TZ: America/New_York
       LLDAP_HTTP_PORT: &port 80
-      LLDAP_HTTP_URL: https://lldap.devbu.io
+      LLDAP_HTTP_URL: "https://lldap.${DOMAIN}"
       LLDAP_LDAP_PORT: &ldapPort 389
-      LLDAP_LDAP_BASE_DN: dc=home,dc=arpa
-    envFrom: *envFrom
+    envFrom:
+      - secretRef:
+          name: lldap-secret
     service:
       main:
         ports:
@@ -61,11 +53,8 @@ spec:
     ingress:
       main:
         enabled: true
-        ingressClassName: external
-        annotations:
-          external-dns.alpha.kubernetes.io/target: external.devbu.io
         hosts:
-          - host: &host "{{ .Release.Name }}.devbu.io"
+          - host: &host "lldap.${DOMAIN}"
             paths:
               - path: /
                 pathType: Prefix
