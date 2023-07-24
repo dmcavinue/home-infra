@@ -88,7 +88,7 @@ spec:
                 - *host
           annotations:
             nginx.ingress.kubernetes.io/auth-signin: https://$host/oauth2/start?rd=$escaped_request_uri
-            nginx.ingress.kubernetes.io/auth-url: http://oauth.${DOMAIN}/oauth2/auth
+            nginx.ingress.kubernetes.io/auth-url: https://oauth.${DOMAIN}/oauth2/auth
     ipam:
       mode: kubernetes
     ipv4NativeRoutingCIDR: 10.32.0.0/16
