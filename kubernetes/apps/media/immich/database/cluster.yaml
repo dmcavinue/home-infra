@@ -46,3 +46,15 @@ spec:
         secretAccessKey:
           name: immich-database-superuser
           key: secret
+  externalClusters:
+  - name: immich-1
+    barmanObjectStore:
+      destinationPath: s3://db-backup/immich
+      endpointURL: "https://minio.${LOCAL_DOMAIN}"
+      s3Credentials:
+        accessKeyId:
+          name: immich-database-superuser
+          key: access-key
+        secretAccessKey:
+          name: immich-database-superuser
+          key: secret

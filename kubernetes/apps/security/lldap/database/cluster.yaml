@@ -46,3 +46,15 @@ spec:
         secretAccessKey:
           name: lldap-database-superuser
           key: secret
+  externalClusters:
+  - name: lldap-1
+    barmanObjectStore:
+      destinationPath: s3://db-backup/lldap
+      endpointURL: "https://minio.${LOCAL_DOMAIN}"
+      s3Credentials:
+        accessKeyId:
+          name: lldap-database-superuser
+          key: access-key
+        secretAccessKey:
+          name: lldap-database-superuser
+          key: secret

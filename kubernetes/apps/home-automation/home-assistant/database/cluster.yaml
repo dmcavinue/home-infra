@@ -46,3 +46,15 @@ spec:
         secretAccessKey:
           name: home-assistant-database-superuser
           key: secret
+  externalClusters:
+  - name: home-assistant-1
+    barmanObjectStore:
+      destinationPath: s3://db-backup/home-assistant
+      endpointURL: "https://minio.${LOCAL_DOMAIN}"
+      s3Credentials:
+        accessKeyId:
+          name: home-assistant-database-superuser
+          key: access-key
+        secretAccessKey:
+          name: home-assistant-database-superuser
+          key: secret
