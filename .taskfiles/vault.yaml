@@ -281,6 +281,12 @@ tasks:
           LDAP_USERNAME="{{.GRAFANA_LDAP_USERNAME}}"
           LDAP_PASSWORD="{{.GRAFANA_LDAP_PASSWORD}}"
           LDAP_ROOT="{{.GRAFANA_LDAP_ROOT}}"
+      # security/lldap
+      - vault kv put -mount=secret/{{.ENVIRONMENT}} security/lldap
+          LLDAP_POSTGRES_SUPER_USER="{{.LLDAP_POSTGRES_SUPER_USER}}"
+          LLDAP_POSTGRES_SUPER_PASSWORD="{{.LLDAP_POSTGRES_SUPER_PASSWORD}}"
+          LLDAP_POSTGRES_USER="{{.LLDAP_POSTGRES_USER}}"
+          LLDAP_POSTGRES_PASSWORD="{{.LLDAP_POSTGRES_PASSWORD}}"
       # volsync
       - vault kv put -mount=secret/{{.ENVIRONMENT}} volsync/volsync
           RESTIC_URL="{{.RESTIC_URL}}"
