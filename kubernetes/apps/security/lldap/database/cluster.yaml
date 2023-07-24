@@ -15,7 +15,7 @@ spec:
   primaryUpdateStrategy: unsupervised
   bootstrap:
     recovery:
-      source: lldap
+      source: lldap-1
   storage:
     size: 2Gi
     storageClass: local-path
@@ -35,7 +35,7 @@ spec:
         maxParallel: 8
       destinationPath: s3://db-backup/lldap
       endpointURL: "https://minio.${LOCAL_DOMAIN}"
-      serverName: lldap
+      serverName: lldap-1
       s3Credentials:
         accessKeyId:
           name: lldap-database-superuser
@@ -44,7 +44,7 @@ spec:
           name: lldap-database-superuser
           key: secret
   externalClusters:
-  - name: lldap
+  - name: lldap-1
     barmanObjectStore:
       destinationPath: s3://db-backup/lldap
       endpointURL: "https://minio.${LOCAL_DOMAIN}"
