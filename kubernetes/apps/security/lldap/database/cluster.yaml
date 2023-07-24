@@ -19,6 +19,9 @@ spec:
       owner: lldap
       secret:
         name: lldap-database-user
+  bootstrap:
+    recovery:
+      source: &previousCluster lldap-1
   storage:
     size: 2Gi
     storageClass: local-path
@@ -38,7 +41,7 @@ spec:
         maxParallel: 8
       destinationPath: s3://db-backup/lldap
       endpointURL: "https://minio.${LOCAL_DOMAIN}"
-      serverName: lldap-1
+      serverName:  &currentCluster lldap-1
       s3Credentials:
         accessKeyId:
           name: lldap-database-superuser
@@ -47,7 +50,7 @@ spec:
           name: lldap-database-superuser
           key: secret
   externalClusters:
-  - name: lldap-1
+  - name: *previousCluster
     barmanObjectStore:
       destinationPath: s3://db-backup/lldap
       endpointURL: "https://minio.${LOCAL_DOMAIN}"
