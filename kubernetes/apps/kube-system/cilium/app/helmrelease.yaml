@@ -88,7 +88,7 @@ spec:
                 - *host
           annotations:
             nginx.ingress.kubernetes.io/auth-url: "https://oauth.${DOMAIN}/oauth2/auth"
-            nginx.ingress.kubernetes.io/auth-signin: "https://hubble.${DOMAIN}/oauth2/callback"
+            nginx.ingress.kubernetes.io/auth-signin: "https://oauth.${DOMAIN}/oauth2/callback"
     ipam:
       mode: kubernetes
     ipv4NativeRoutingCIDR: 10.32.0.0/16
