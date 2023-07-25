@@ -48,15 +48,15 @@ spec:
         secretAccessKey:
           name: authelia-database-superuser
           key: secret
-  externalClusters:
-  - name: *previousCluster
-    barmanObjectStore:
-      destinationPath: s3://db-backup/authelia
-      endpointURL: "https://minio.${LOCAL_DOMAIN}"
-      s3Credentials:
-        accessKeyId:
-          name: authelia-database-superuser
-          key: access-key
-        secretAccessKey:
-          name: authelia-database-superuser
-          key: secret
+  # externalClusters:
+  # - name: *previousCluster
+  #   barmanObjectStore:
+  #     destinationPath: s3://db-backup/authelia
+  #     endpointURL: "https://minio.${LOCAL_DOMAIN}"
+  #     s3Credentials:
+  #       accessKeyId:
+  #         name: authelia-database-superuser
+  #         key: access-key
+  #       secretAccessKey:
+  #         name: authelia-database-superuser
+  #         key: secret
