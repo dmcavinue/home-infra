@@ -14,6 +14,11 @@ spec:
       kube-image-keeper.enix.io/image-caching-policy: ignore
   primaryUpdateStrategy: unsupervised
   bootstrap:
+    # initdb:
+    #   database: home_assistant
+    #   owner: home-assistant
+    #   secret:
+    #     name: home-assistant-database-user
     recovery:
       source: &previousCluster home-assistant-1
   storage:
