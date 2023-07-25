@@ -18,7 +18,7 @@ includes:
   kubernetes: .taskfiles/kubernetes.yaml
   proxmox: .taskfiles/proxmox.yaml
   vault: .taskfiles/vault.yaml
-  volsync: .taskfiles/VolSync/Tasks.yaml
+  volsync: .taskfiles/volsync/Tasks.yaml
 
 tasks:
 
