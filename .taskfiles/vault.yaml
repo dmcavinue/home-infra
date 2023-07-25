@@ -211,9 +211,12 @@ tasks:
           DEX_OAUTH2_COOKIE_SECRET="{{.DEX_OAUTH2_COOKIE_SECRET}}"
           DEX_LLDAP_USER="{{.DEX_LLDAP_USER}}"
           DEX_LLDAP_PASSWORD="{{.DEX_LLDAP_PASSWORD}}"
-      # flux-system
+      # flux-system/notification
       - vault kv put -mount=secret/{{.ENVIRONMENT}} flux-system/notification
           FLUX_SLACK_WEBHOOK="{{.SLACK_WEBHOOK}}"
+      # flux-system/weave-gitops
+      - vault kv put -mount=secret/{{.ENVIRONMENT}} flux-system/weave-gitops
+          ADMIN_PASSWORD="{{.ADMIN_PASSWORD}}"
       # database/emqx
       - vault kv put -mount=secret/{{.ENVIRONMENT}} database/emqx
           admin_password="{{.EMQX_ADMIN_PASSWORD}}"
