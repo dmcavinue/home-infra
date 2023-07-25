@@ -12,7 +12,8 @@ dotenv: [".env"]
 
 includes:
   ansible: .taskfiles/ansible.yaml
-  externalsecrets: .taskfiles/externalsecrets.yaml
+  db: .taskfiles/database.yaml
+  secret: .taskfiles/externalsecrets.yaml
   flux: .taskfiles/flux.yaml
   kubernetes: .taskfiles/kubernetes.yaml
   proxmox: .taskfiles/proxmox.yaml

@@ -1,0 +1,33 @@
+---
+version: "3"
+
+tasks:
+
+  backup-all:
+    vars:
+      name: '{{ .name | default ""}}'
+      namespace: '{{.namespace | default "default"}}'
+    cmd: |
+        kubectl get cluster.postgresql.cnpg.io --all-namespaces --no-headers -A | awk '{print $1, $2}' \
+          | xargs -n 2 -P 4 bash -c 'task db:backup namespace=$0 name=$1'
+    preconditions:
+      - kubectl -n {{.namespace}} get cluster.postgresql.cnpg.io {{.secret}}
+
+  backup:
+    desc: Trigger manual database backup 
+    vars:
+      name: '{{ .name | default ""}}'
+      namespace: '{{.namespace | default "default"}}'
+    cmd: |
+      kubectl apply -f - <<EOF
+      apiVersion: postgresql.cnpg.io/v1
+      kind: Backup
+      metadata:
+        name: {{.name}}-$(date +%s)
+        namespace: {{.namespace}}
+      spec:
+        cluster:
+          name: {{.name}}
+      EOF
+    preconditions:
+      - kubectl -n {{.namespace}} get cluster.postgresql.cnpg.io {{.name}}
