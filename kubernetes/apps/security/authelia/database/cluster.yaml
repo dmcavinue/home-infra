@@ -14,8 +14,13 @@ spec:
       kube-image-keeper.enix.io/image-caching-policy: ignore
   primaryUpdateStrategy: unsupervised
   bootstrap:
-    recovery:
-      source: &previousCluster authelia-1
+    initdb:
+      database: authelia
+      owner: authelia
+      secret:
+        name: authelia-database-user
+    # recovery:
+    #   source: &previousCluster authelia-1
   storage:
     size: 2Gi
     storageClass: local-path
