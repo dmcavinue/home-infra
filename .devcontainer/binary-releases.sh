@@ -21,4 +21,9 @@ curl -fsSL "https://github.com/cilium/tetragon/releases/download/${TETRA_VERSION
     | tar xvz --overwrite --file - --directory /tmp
 mv /tmp/tetra /usr/local/bin/tetra
 
+export GITOPS_VERSION="v0.28.0"
+curl -fsSL "https://github.com/weaveworks/weave-gitops/releases/download/${GITOPS_VERSION}/gitops-Linux-x86_64.tar.gz" \
+    | tar xvz --overwrite --file - --directory /tmp
+mv /tmp/gitops /usr/local/bin/gitops
+
 rm -rf /tmp/*
