@@ -44,7 +44,9 @@ spec:
       POLLING_SCHEDULER: entry_frequency
       POLLING_FREQUENCY: "15"
       RUN_MIGRATIONS: "1"
-    envFrom: *envFrom
+    envFrom:
+      - secretRef:
+          name: miniflux-secret
     service:
       main:
         ports:
