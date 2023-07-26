@@ -7,6 +7,7 @@ metadata:
 spec:
   dependsOn:
     - name: cluster-apps-cloudnative-pg-cluster
+    - name: cluster-apps-media-miniflux-database
   path: ./kubernetes/apps/media/miniflux/app
   prune: true
   sourceRef:
