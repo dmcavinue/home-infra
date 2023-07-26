@@ -1,0 +1,76 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: rsyslog
+  namespace: observability
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: k8s/charts/rsyslog/
+      sourceRef:
+        kind: GitRepository
+        name: flux-system
+        namespace: flux-system
+      interval: 5m
+  values:
+    image:
+      repository: ${SECRET_DOCKER_PRIVATE_REGISTRY}/rsyslog
+      tag: 0.0.2
+    controller:
+      replicas: 1
+    nameOverride: rsyslog
+    serviceAccount:
+      create: true
+      name: rsyslog
+    service:
+      main:
+        enabled: false
+      rsyslog:
+        enabled: true
+        annotations:
+          coredns.io/hostname: "log.${SECRET_DOMAIN}"
+        type: LoadBalancer
+        loadBalancerIP: "${SECRET_RSYSLOG_LB_IP}"
+        externalIPs:
+          - "${SECRET_RSYSLOG_LB_IP}"
+        ports:
+          udp:
+            enabled: true
+            port: 514
+            protocol: UDP
+            targetPort: 514
+    persistence:
+      config:
+        enabled: true
+        type: custom
+        volumeSpec:
+          configMap:
+            name: rsyslog-config
+        subPath:
+          - path: rsyslog.conf
+            mountPath: /etc/rsyslog.conf
+      ca-bundle:
+        enabled: true
+        type: custom
+        volumeSpec:
+          configMap:
+            name: "${SECRET_LOCAL_DOMAIN/./-}-root-ca"
+        subPath:
+          - path: ca.cert.pem
+            mountPath: /etc/pki/ca-trust/extracted/pem
+            readOnly: true
+    resources:
+      limits:
+        memory: 128Mi
+      requests:
+        cpu: 100m
+        memory: 96Mi
+    probes:
+      startup:
+        enabled: false
+      liveness:
+        enabled: false
+      readiness:
+        enabled: false
