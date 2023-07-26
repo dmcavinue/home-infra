@@ -104,7 +104,7 @@ spec:
       feature.node.kubernetes.io/coral-pci: "true"
     resources:
       requests:
-        cpu: 10m
+        cpu: 4000m
         memory: 1000Mi
       limits:
         memory: 6000Mi
