@@ -8,6 +8,6 @@ resources:
   - ./configmap.yaml
   - ./helmrelease.yaml
   - ./ingress.yaml
-   - ./volsync.yaml
+  - ./volsync.yaml
 patchesStrategicMerge:
   - ./patches/addons.yaml
