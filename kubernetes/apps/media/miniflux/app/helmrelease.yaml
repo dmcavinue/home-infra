@@ -33,7 +33,7 @@ spec:
         reloader.stakater.com/auto: "true"
     image:
       repository: ghcr.io/miniflux/miniflux
-      tag: 2.0.45
+      tag: 2.0.46
     env:
       BASE_URL: "https://miniflux.${DOMAIN}"
       CREATE_ADMIN: "1"
@@ -44,7 +44,9 @@ spec:
       POLLING_SCHEDULER: entry_frequency
       POLLING_FREQUENCY: "15"
       RUN_MIGRATIONS: "1"
-    envFrom: *envFrom
+    envFrom:
+      - secretRef:
+          name: miniflux-secret
     service:
       main:
         ports:
