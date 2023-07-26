@@ -102,7 +102,7 @@ spec:
         hostPathType: Directory
         mountPath: /dev/apex_0
     nodeSelector:
-      google.feature.node.kubernetes.io/coral-pci: "true"
+      feature.node.kubernetes.io/coral-pci: "true"
     resources:
       requests:
         cpu: 10m
