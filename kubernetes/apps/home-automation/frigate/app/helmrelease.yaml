@@ -95,14 +95,14 @@ spec:
         medium: Memory
         sizeLimit: 4Gi
         mountPath: /dev/shm
-      # usb:
-      #   enabled: true
-      #   type: hostPath
-      #   hostPath: /dev/bus/usb
-      #   hostPathType: Directory
-      #   mountPath: /dev/bus/usb
+      usb:
+        enabled: true
+        type: hostPath
+        hostPath: /dev/apex_0
+        hostPathType: Directory
+        mountPath: /dev/apex_0
     nodeSelector:
-      #google.feature.node.kubernetes.io/coral: "true"
+      google.feature.node.kubernetes.io/coral-pci: "true"
     resources:
       requests:
         cpu: 10m
