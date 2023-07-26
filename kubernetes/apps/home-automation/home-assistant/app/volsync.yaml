@@ -37,8 +37,8 @@ spec:
     repository: home-assistant-restic-secret
     cacheCapacity: 8Gi
     cacheStorageClassName: local-path
-    volumeSnapshotClassName: csi-ceph-filesystem
-    storageClassName: ceph-filesystem
+    volumeSnapshotClassName: csi-ceph-blockpool
+    storageClassName: ceph-block
     retain:
       daily: 7
       within: 3d
