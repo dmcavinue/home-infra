@@ -305,6 +305,7 @@ tasks:
           GATUS_DB_BACKUP_ACCESS_KEY="{{.GATUS_DB_BACKUP_ACCESS_KEY}}"
           GATUS_DB_BACKUP_SECRET="{{.GATUS_DB_BACKUP_SECRET}}"
           GATUS_SLACK_WEBHOOK_URL="{{.SLACK_WEBHOOK}}"
+          GATUS_DOMAIN="{{.GATUS_DOMAIN}}"
       # monitoring/grafana
       - vault kv put -mount=secret/{{.ENVIRONMENT}} monitoring/grafana
           ADMIN_USER="{{.GRAFANA_ADMIN_USER}}"
