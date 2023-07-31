@@ -78,7 +78,7 @@ spec:
               - *host
     serviceAccount:
       create: true
-      name: gatus
+      name: gatus-app
     podSecurityContext:
       runAsUser: 568
       runAsGroup: 568
