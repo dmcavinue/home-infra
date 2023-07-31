@@ -1,0 +1,27 @@
+---
+web:
+  port: ${CUSTOM_WEB_PORT}
+storage:
+  type: postgres
+  path: postgres://${GATUS_POSTGRES_USER}:${GATUS_POSTGRES_PASSWORD}@gatus-rw:5432/gatus?sslmode=disable
+  caching: true
+metrics: true
+debug: false
+ui:
+  title: Status | Gatus
+  header: Status
+alerting:
+  slack:
+    webhook-url: ${GATUS_SLACK_WEBHOOK_URL}
+connectivity:
+  checker:
+    interval: 1m
+endpoints:
+  - name: status
+    group: external
+    url: "https://status.${DOMAIN}"
+    interval: 1m
+    conditions:
+      - "[STATUS] == 200"
+    alerts:
+      - type: slack
