@@ -14,13 +14,13 @@ spec:
       kube-image-keeper.enix.io/image-caching-policy: ignore
   primaryUpdateStrategy: unsupervised
   bootstrap:
-    initdb:
-      database: gatus
-      owner: gatus
-      secret:
-        name: gatus-database-user
-    # recovery:
-    #   source: &previousCluster gatus-1
+    # initdb:
+    #   database: gatus
+    #   owner: gatus
+    #   secret:
+    #     name: gatus-database-user
+    recovery:
+      source: &previousCluster gatus-1
   storage:
     size: 5Gi
     storageClass: local-path
@@ -48,15 +48,15 @@ spec:
         secretAccessKey:
           name: gatus-database-superuser
           key: secret
-  # externalClusters:
-  # - name: *previousCluster
-  #   barmanObjectStore:
-  #     destinationPath: s3://db-backup/gatus
-  #     endpointURL: "https://minio.${LOCAL_DOMAIN}"
-  #     s3Credentials:
-  #       accessKeyId:
-  #         name: gatus-database-superuser
-  #         key: access-key
-  #       secretAccessKey:
-  #         name: gatus-database-superuser
-  #         key: secret
+  externalClusters:
+  - name: *previousCluster
+    barmanObjectStore:
+      destinationPath: s3://db-backup/gatus
+      endpointURL: "https://minio.${LOCAL_DOMAIN}"
+      s3Credentials:
+        accessKeyId:
+          name: gatus-database-superuser
+          key: access-key
+        secretAccessKey:
+          name: gatus-database-superuser
+          key: secret
