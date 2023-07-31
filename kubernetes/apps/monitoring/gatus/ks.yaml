@@ -24,7 +24,7 @@ metadata:
   namespace: flux-system
 spec:
   dependsOn:
-    - name: cluster-apps-cloudnative-pg-cluster
+    - name: cluster-apps-cloudnative-pg
   path: ./kubernetes/apps/monitoring/gatus/database
   prune: true
   sourceRef:
