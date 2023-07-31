@@ -17,3 +17,12 @@ connectivity:
   checker:
     target: 1.1.1.1:53
     interval: 1m
+endpoints:
+  - name: status
+    group: services
+    url: "https://status.${GATUS_DOMAIN}"
+    interval: 1m
+    conditions:
+      - "[STATUS] == 200"
+    alerts:
+      - type: slack
