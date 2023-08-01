@@ -19,7 +19,7 @@ connectivity:
     interval: 1m
 endpoints:
   - name: status
-    group: services
+    group: monitoring
     url: "https://status.${GATUS_DOMAIN}"
     interval: 1m
     conditions:
