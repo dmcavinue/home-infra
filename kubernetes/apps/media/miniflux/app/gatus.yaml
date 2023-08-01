@@ -1,0 +1,19 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: miniflux-gatus
+  namespace: media
+  labels:
+    gatus.io/enabled: "true"
+data:
+  config.yaml: |
+    endpoints:
+      - name: miniflux
+        group: media
+        url: https://miniflux.${DOMAIN}
+        interval: 1m
+        conditions:
+          - "[STATUS] == 200"
+        alerts:
+          - type: slack
