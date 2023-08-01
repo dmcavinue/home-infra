@@ -54,6 +54,8 @@ spec:
       AUTHELIA_AUTHENTICATION_BACKEND_LDAP_USERS_FILTER: (&({username_attribute}={input})(objectClass=person))
       AUTHELIA_AUTHENTICATION_BACKEND_PASSWORD_RESET_DISABLE: "true"
       AUTHELIA_AUTHENTICATION_BACKEND_REFRESH_INTERVAL: 1m
+      AUTHELIA_SERVER_DISABLE_HEALTHCHECK: "true"
+      AUTHELIA_SERVER_PORT: &port 9091
       AUTHELIA_DEFAULT_REDIRECTION_URL: "https://auth.${DOMAIN}"
       AUTHELIA_DUO_API_DISABLE: "true"
       AUTHELIA_LOG_LEVEL: info
@@ -72,7 +74,7 @@ spec:
       main:
         ports:
           http:
-            port: &port 9091
+            port: *port
     probes:
       liveness: &probes
         enabled: false
