@@ -56,7 +56,7 @@ spec:
       AUTHELIA_AUTHENTICATION_BACKEND_REFRESH_INTERVAL: 1m
       AUTHELIA_DEFAULT_REDIRECTION_URL: "https://auth.${DOMAIN}"
       AUTHELIA_DUO_API_DISABLE: "true"
-      AUTHELIA_LOG_LEVEL: debug
+      AUTHELIA_LOG_LEVEL: info
       AUTHELIA_SERVER_DISABLE_HEALTHCHECK: "true"
       AUTHELIA_SERVER_PORT: &port 80
       AUTHELIA_SESSION_DOMAIN: "${DOMAIN}"
@@ -98,7 +98,7 @@ spec:
             path: /api/health
             port: *port
           initialDelaySeconds: 0
-          periodSeconds: 10
+          periodSeconds: 60
           timeoutSeconds: 1
           failureThreshold: 3
       readiness: *probes
