@@ -70,7 +70,7 @@ spec:
       AUTHELIA_WEBAUTHN_DISABLE: "true"
     envFrom:
       - secretRef:
-        name: authelia-secret
+          name: authelia-secret
     enableServiceLinks: false
     service:
       main:
