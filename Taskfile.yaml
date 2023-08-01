@@ -6,7 +6,7 @@ vars:
   ANSIBLE_DIR: "{{.ROOT_DIR}}/ansible"
 
 env:
-  KUBECONFIG: ./kubeconfig
+  KUBECONFIG: ./{{.ENVIRONMENT}}.kubeconfig
 
 dotenv: [".env"]
 

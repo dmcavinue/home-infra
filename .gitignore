@@ -3,10 +3,9 @@
 # ansible
 xanmanning.k3s*
 # kubernetes
-kubeconfig*
+*.kubeconfig*
 kubernetes/schemas
 # extras
 config.xml
-.env
+*.env
 TODO
-kubernetes/schmaps

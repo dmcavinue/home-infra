@@ -6,8 +6,8 @@ env:
 
 vars:
   ANSIBLE_PLAYBOOK_DIR: "{{.ANSIBLE_DIR}}/kubernetes/playbooks"
-  ANSIBLE_INVENTORY_DIR: "{{.ANSIBLE_DIR}}/kubernetes/inventory"
-  ANSIBLE_HOSTS_FILE: "{{.ANSIBLE_INVENTORY_DIR}}/hosts.yaml"
+  ANSIBLE_INVENTORY_DIR: "{{.ANSIBLE_DIR}}/kubernetes/inventory/{{.ENVIRONMENT}}"
+  ANSIBLE_HOSTS_FILE: "{{.ANSIBLE_DIR}}/kubernetes/inventory/{{.ENVIRONMENT}}/hosts.yaml"
 
 tasks:
   ping:
