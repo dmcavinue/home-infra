@@ -19,8 +19,8 @@ spec:
     bgp:
       enabled: false
     cluster:
-      name: kubernetes
-      id: 1
+      name: {{ lookup('env', 'ENVIRONMENT') }}
+      id: {{ lookup('env', 'CILIUM_ID') }}
     containerRuntime:
       integration: containerd
       socketPath: /var/run/k3s/containerd/containerd.sock
