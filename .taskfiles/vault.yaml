@@ -120,60 +120,6 @@ tasks:
           bound_service_account_namespaces=security
           policies=security,default
           ttl=1440h
-  # database
-#   disable-database-engine:
-#     desc: disable vault database engine
-#     cmds:
-#       - vault secrets disable databases/{{.ENVIRONMENT}}
-#   enable-database-engine:
-#     desc: enable vault database engine
-#     cmds:
-#       - vault secrets enable -path=databases/{{.ENVIRONMENT}} database
-#   add-database-connections:
-#     desc: add vault database connections
-#     cmds:
-#       # postgresql/home_assistant
-#       - vault write databases/{{.ENVIRONMENT}}/config/home_assistant
-#           plugin_name="postgresql-database-plugin"
-#           allowed_roles="home-assistant"
-#           connection_url="postgresql://{{`{{username}}`}}:{{`{{password}}`}}@{{.POSTGRES_LB_IP}}:5432/home_assistant"
-#           username="postgres"
-#           password="{{.POSTGRES_PASSWORD}}"
-#           username_template="{{`{{.RoleName}}`}}-{{`{{random 8}}`}}"
-#       - vault write databases/{{.ENVIRONMENT}}/roles/home-assistant
-#           db_name="home_assistant"
-#           creation_statements="CREATE ROLE \"{{`{{name}}`}}\" WITH LOGIN PASSWORD '{{`{{password}}`}}' VALID UNTIL '{{`{{expiration}}`}}'; GRANT role_home_assistant TO \"{{`{{name}}`}}\"; SET ROLE role_home_assistant;"
-#           revocation_statements="REVOKE role_home_assistant FROM \"{{`{{name}}`}}\"; DROP ROLE \"{{`{{name}}`}}\";"
-#           default_ttl="1h"
-#           max_ttl="1h"
-#       # postgresql/immich
-#       - vault write databases/{{.ENVIRONMENT}}/config/immich
-#           plugin_name="postgresql-database-plugin"
-#           allowed_roles="immich"
-#           connection_url="postgresql://{{`{{username}}`}}:{{`{{password}}`}}@{{.POSTGRES_LB_IP}}:5432/immich"
-#           username="postgres"
-#           password="{{.POSTGRES_PASSWORD}}"
-#           username_template="{{`{{.RoleName}}`}}-{{`{{random 8}}`}}"
-#       - vault write databases/{{.ENVIRONMENT}}/roles/immich
-#           db_name="immich"
-#           creation_statements="CREATE ROLE \"{{`{{name}}`}}\" WITH LOGIN PASSWORD '{{`{{password}}`}}' VALID UNTIL '{{`{{expiration}}`}}';, GRANT role_immich TO \"{{`{{name}}`}}\"; SET ROLE role_immich;"
-#           revocation_statements="REVOKE role_immich FROM \"{{`{{name}}`}}\"; DROP ROLE \"{{`{{name}}`}}\";"
-#           default_ttl="1h"
-#           max_ttl="1h"
-#       # postgresql/windmill
-#       - vault write databases/{{.ENVIRONMENT}}/config/windmill
-#           plugin_name="postgresql-database-plugin"
-#           allowed_roles="windmill"
-#           connection_url="postgresql://{{`{{username}}`}}:{{`{{password}}`}}@{{.POSTGRES_LB_IP}}:5432/windmill"
-#           username="postgres"
-#           password="{{.POSTGRES_PASSWORD}}"
-#           username_template="{{`{{.RoleName}}`}}-{{`{{random 8}}`}}"
-#       - vault write databases/{{.ENVIRONMENT}}/roles/windmill
-#           db_name="windmill"
-#           creation_statements="CREATE ROLE \"{{`{{name}}`}}\" WITH LOGIN PASSWORD '{{`{{password}}`}}' VALID UNTIL '{{`{{expiration}}`}}'; GRANT role_windmill TO \"{{`{{name}}`}}\"; SET ROLE role_windmill;"
-#           revocation_statements="REVOKE role_windmill FROM \"{{`{{name}}`}}\"; DROP ROLE \"{{`{{name}}`}}\";"
-#           default_ttl="1h"
-#           max_ttl="1h"
   # kv
   disable-kv:
     desc: disable kv secrets engine
