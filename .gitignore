@@ -9,3 +9,4 @@ kubernetes/schemas
 config.xml
 *.env
 TODO
+.vault.json

@@ -2,6 +2,11 @@
 version: '3'
 
 tasks:
+  init:
+    desc: initialize vault
+    cmds:
+      - kubectl -n vault exec -ti vault-0 -- vault operator init -n 1 -t 1 --format=json > {{.ROOT_DIR}}/.vault.json
+      
   bootstrap:
     desc: bootstrap auth/roles
     cmds:
@@ -16,9 +21,7 @@ tasks:
   unseal:
     desc: vault unseal
     cmds:
-      - vault operator unseal {{.VAULT_UNSEAL_KEY_1}}
-      - vault operator unseal {{.VAULT_UNSEAL_KEY_2}}
-      - vault operator unseal {{.VAULT_UNSEAL_KEY_3}}
+      - kubectl -n vault exec -ti vault-0 -- vault operator unseal $( cat {{.ROOT_DIR}}/.vault.json | jq -r '.unseal_keys_b64[0]')
   # ldap
   enable-ldap:
     desc: configure vault ldap auth
