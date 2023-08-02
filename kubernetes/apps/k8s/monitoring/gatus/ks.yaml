@@ -7,7 +7,7 @@ metadata:
 spec:
   dependsOn:
     - name: cluster-apps-gatus-database
-  path: ./kubernetes/apps/monitoring/gatus/app
+  path: ./kubernetes/apps/${ENVIRONMENT}/monitoring/gatus/app
   prune: true
   sourceRef:
     kind: GitRepository
@@ -25,7 +25,7 @@ metadata:
 spec:
   dependsOn:
     - name: cluster-apps-cloudnative-pg
-  path: ./kubernetes/apps/monitoring/gatus/database
+  path: ./kubernetes/apps/${ENVIRONMENT}/monitoring/gatus/database
   prune: true
   sourceRef:
     kind: GitRepository

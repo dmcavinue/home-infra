@@ -5,7 +5,7 @@ metadata:
   name: cluster-apps-emqx
   namespace: flux-system
 spec:
-  path: ./kubernetes/apps/database/emqx/app
+  path: ./kubernetes/apps/${ENVIRONMENT}/database/emqx/app
   prune: true
   sourceRef:
     kind: GitRepository

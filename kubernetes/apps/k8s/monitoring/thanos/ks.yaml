@@ -5,7 +5,7 @@ metadata:
   name: cluster-apps-thanos
   namespace: flux-system
 spec:
-  path: ./kubernetes/apps/monitoring/thanos/app
+  path: ./kubernetes/apps/${ENVIRONMENT}/monitoring/thanos/app
   prune: true
   sourceRef:
     kind: GitRepository

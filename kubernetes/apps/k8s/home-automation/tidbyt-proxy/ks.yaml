@@ -5,7 +5,7 @@ metadata:
   name: cluster-apps-tidbyt-proxy
   namespace: flux-system
 spec:
-  path: ./kubernetes/apps/home-automation/tidbyt-proxy/app
+  path: ./kubernetes/apps/${ENVIRONMENT}/home-automation/tidbyt-proxy/app
   prune: true
   sourceRef:
     kind: GitRepository

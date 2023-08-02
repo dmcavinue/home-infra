@@ -5,7 +5,7 @@ metadata:
   name: cluster-apps-unifi-downloader
   namespace: flux-system
 spec:
-  path: ./kubernetes/apps/home-automation/unifi-downloader/app
+  path: ./kubernetes/apps/${ENVIRONMENT}/home-automation/unifi-downloader/app
   prune: true
   sourceRef:
     kind: GitRepository

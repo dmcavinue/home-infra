@@ -7,7 +7,7 @@ metadata:
 spec:
   dependsOn:
     - name: cluster-apps-media-miniflux-database
-  path: ./kubernetes/apps/media/miniflux/app
+  path: ./kubernetes/apps/${ENVIRONMENT}/media/miniflux/app
   prune: true
   sourceRef:
     kind: GitRepository
@@ -25,7 +25,7 @@ metadata:
 spec:
   dependsOn:
     - name: cluster-apps-cloudnative-pg
-  path: ./kubernetes/apps/media/miniflux/database
+  path: ./kubernetes/apps/${ENVIRONMENT}/media/miniflux/database
   prune: true
   sourceRef:
     kind: GitRepository

@@ -5,7 +5,7 @@ metadata:
   name: cluster-apps-influxdb
   namespace: flux-system
 spec:
-  path: ./kubernetes/apps/database/influxdb/app
+  path: ./kubernetes/apps/${ENVIRONMENT}/database/influxdb/app
   prune: true
   sourceRef:
     kind: GitRepository
