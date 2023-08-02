@@ -12,7 +12,7 @@ tasks:
     deps: [check]
     desc: Flux bootstrap
     cmds:      
-      - kubectl apply --server-side --kustomize={{.ROOT_DIR}}/kubernetes/bootstrap
+      - kubectl apply --server-side --kustomize={{.ROOT_DIR}}/kubernetes/{{.ENVIRONMENT}}/bootstrap
 
   install:
     deps: [bootstrap]
