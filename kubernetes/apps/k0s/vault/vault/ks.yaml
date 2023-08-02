@@ -7,8 +7,6 @@ metadata:
 spec:
   dependsOn:
     - name: cluster-apps-local-path-provisioner
-    - name: cluster-apps-cert-manager-issuers
-    - name: cluster-apps-nginx
   path: ./kubernetes/apps/${ENVIRONMENT}/vault/vault/app
   prune: true
   sourceRef:
