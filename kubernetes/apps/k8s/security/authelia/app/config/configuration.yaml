@@ -17,10 +17,17 @@ notifier:
     filename: /config/notification.txt
 
 access_control:
-  default_policy: two_factor
+  default_policy: one_factor
   networks:
     - name: internal
-      networks: ["10.0.0.0/8", "172.16.0.0/12", "192.168.0.0/16"]
+      networks:
+      - '10.0.0.0/8'
+      - '172.16.0.0/12'
+      - '192.168.0.0/18'
+  rules:
+    - domain: ["status.${DOMAIN}"]
+      resources: ["^/metrics.*$"]
+      policy: one_factor
 
 identity_providers:
   oidc:
@@ -32,26 +39,8 @@ identity_providers:
         description: Grafana
         secret: "${GRAFANA_OAUTH_CLIENT_SECRET}"
         public: false
-        authorization_policy: two_factor
+        authorization_policy: one_factor
         pre_configured_consent_duration: 1y
         scopes: ["openid", "profile", "groups", "email"]
         redirect_uris: ["https://grafana.${DOMAIN}/login/generic_oauth"]
-        userinfo_signing_algorithm: none
-      - id: immich
-        description: Immich
-        secret: "${IMMICH_OAUTH_CLIENT_SECRET}"
-        public: false
-        authorization_policy: two_factor
-        pre_configured_consent_duration: 1y
-        scopes: ["openid", "profile", "email"]
-        redirect_uris: ["https://immich.${DOMAIN}/auth/login", "app.immich:/"]
-        userinfo_signing_algorithm: none
-      - id: miniflux
-        description: Miniflux
-        secret: "${MINIFLUX_OAUTH_CLIENT_SECRET}"
-        public: false
-        authorization_policy: two_factor
-        pre_configured_consent_duration: 1y
-        scopes: ["openid", "profile", "groups", "email"]
-        redirect_uris: ["https://miniflux.${DOMAIN}/oauth2/oidc/callback"]
         userinfo_signing_algorithm: none
