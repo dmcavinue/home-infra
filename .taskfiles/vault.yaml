@@ -2,9 +2,8 @@
 version: '3'
 
 env:
-  VAULT_ADDR: "https://vault.{{.LOCAL_DOMAIN}}"
-  #VAULT_TOKEN: 
-    #sh: if [ -f {{.ROOT_DIR}}/.vault.json ]; then cat {{.ROOT_DIR}}/.vault.json | jq -r '.root_token'; fi
+  VAULT_TOKEN: 
+    sh: if [ -f {{.ROOT_DIR}}/.vault.json ] && [ -z "$VAULT_TOKEN" ]; then cat {{.ROOT_DIR}}/.vault.json | jq -r '.root_token'; fi
 
 tasks:
   init:
