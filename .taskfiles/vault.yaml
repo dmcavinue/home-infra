@@ -301,6 +301,10 @@ tasks:
           LLDAP_LDAP_USER_EMAIL="{{.LLDAP_LDAP_USER_EMAIL}}"
           LLDAP_SERVER_KEY_SEED="{{.LLDAP_SERVER_KEY_SEED}}"
           LLDAP_LDAP_BASE_DN="{{.LLDAP_LDAP_BASE_DN}}"
+      # security/oauth2-proxy
+      - vault kv put -mount=secret/{{.ENVIRONMENT}} security/oauth2-proxy
+          OAUTH2_CLIENT_SECRET="{{.OAUTH2_CLIENT_SECRET}}"
+          OAUTH2_COOKIE_SECRET="{{.OAUTH2_COOKIE_SECRET}}"
       # volsync
       - vault kv put -mount=secret/{{.ENVIRONMENT}} volsync/volsync
           RESTIC_URL="{{.RESTIC_URL}}"
