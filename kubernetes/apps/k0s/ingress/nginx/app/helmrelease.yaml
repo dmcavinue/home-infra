@@ -54,7 +54,7 @@ spec:
           namespaceSelector:
             any: true
       extraArgs:
-        default-ssl-certificate: "ingress/feelingsmachine-com-tls"
+        default-ssl-certificate: "ingress/logfold-com-tls"
       resources:
         requests:
           cpu: 100m
