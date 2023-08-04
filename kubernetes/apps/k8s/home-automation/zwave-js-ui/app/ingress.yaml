@@ -4,7 +4,7 @@ metadata:
   name: zwavejs
   namespace: home-automation
 spec:
-  ingressClassName: nginx
+  ingressClassName: cilium
   rules:
   - host: "zwavejs.${DOMAIN}"
     http:
