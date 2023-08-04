@@ -14,13 +14,13 @@ spec:
       kube-image-keeper.enix.io/image-caching-policy: ignore
   primaryUpdateStrategy: unsupervised
   bootstrap:
-    # initdb:
-    #   database: home_assistant
-    #   owner: authelia
-    #   secret:
-    #     name: authelia-database-user
-    recovery:
-      source: &previousCluster authelia-1
+    initdb:
+      database: home_assistant
+      owner: authelia
+      secret:
+        name: authelia-database-user
+    # recovery:
+    #   source: &previousCluster authelia-1
   storage:
     size: 5Gi
     storageClass: local-path
@@ -48,15 +48,15 @@ spec:
         secretAccessKey:
           name: authelia-database-superuser
           key: secret
-  externalClusters:
-  - name: *previousCluster
-    barmanObjectStore:
-      destinationPath: s3://db-backup/authelia
-      endpointURL: "https://minio.${LOCAL_DOMAIN}"
-      s3Credentials:
-        accessKeyId:
-          name: authelia-database-superuser
-          key: access-key
-        secretAccessKey:
-          name: authelia-database-superuser
-          key: secret
+  # externalClusters:
+  # - name: *previousCluster
+  #   barmanObjectStore:
+  #     destinationPath: s3://db-backup/authelia
+  #     endpointURL: "https://minio.${LOCAL_DOMAIN}"
+  #     s3Credentials:
+  #       accessKeyId:
+  #         name: authelia-database-superuser
+  #         key: access-key
+  #       secretAccessKey:
+  #         name: authelia-database-superuser
+  #         key: secret
