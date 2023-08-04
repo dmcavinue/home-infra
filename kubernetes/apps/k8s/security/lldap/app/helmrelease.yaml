@@ -53,7 +53,7 @@ spec:
     ingress:
       main:
         enabled: true
-        ingressClassName: cilium
+        ingressClassName: nginx
         hosts:
           - host: &host "lldap.${DOMAIN}"
             paths:
