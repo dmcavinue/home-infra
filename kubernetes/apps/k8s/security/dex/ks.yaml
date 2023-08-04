@@ -5,6 +5,8 @@ metadata:
   name: cluster-apps-dex
   namespace: flux-system
 spec:
+  dependsOn:
+    - name: cluster-apps-lldap
   path: ./kubernetes/apps/${ENVIRONMENT}/security/dex/app
   prune: true
   sourceRef:
