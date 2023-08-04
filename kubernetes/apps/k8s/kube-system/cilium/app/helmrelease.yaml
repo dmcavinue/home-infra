@@ -76,7 +76,7 @@ spec:
           serviceMonitor:
             enabled: true
       ui:
-        enabled: true
+        enabled: false
         rollOutPods: true
         ingress:
           enabled: true
