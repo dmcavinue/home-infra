@@ -77,7 +77,7 @@ spec:
             port: *port
     probes:
       liveness: &probes
-        enabled: false
+        enabled: true
         custom: true
         spec:
           httpGet:
