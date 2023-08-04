@@ -81,7 +81,6 @@ spec:
         rollOutPods: true
         ingress:
           enabled: true
-          className: cilium
           hosts:
             - &host "hubble.${DOMAIN}"
           tls:

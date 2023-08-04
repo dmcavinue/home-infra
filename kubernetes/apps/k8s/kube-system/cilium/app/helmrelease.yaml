@@ -80,13 +80,13 @@ spec:
         rollOutPods: true
         ingress:
           enabled: true
-          className: "cilium"
           hosts:
             - &host "hubble.${DOMAIN}"
           tls:
             - hosts:
                 - *host
-          # annotations:
+          annotations:
+            kubernetes.io/ingress.class: cilium
           #   nginx.ingress.kubernetes.io/auth-signin: https://oauth.${DOMAIN}/oauth2/start?rd=$escaped_request_uri
           #   nginx.ingress.kubernetes.io/auth-url: https://oauth.${DOMAIN}/oauth2/auth
     ipam:
