@@ -13,9 +13,9 @@ spec:
     labels:
       kube-image-keeper.enix.io/image-caching-policy: ignore
   primaryUpdateStrategy: unsupervised
-  bootstrap:
-    recovery:
-      source: &previousCluster lldap-1
+  # bootstrap:
+  #   recovery:
+  #     source: &previousCluster lldap-1
   storage:
     size: 2Gi
     storageClass: local-path
@@ -43,15 +43,15 @@ spec:
         secretAccessKey:
           name: lldap-database-superuser
           key: secret
-  externalClusters:
-  - name: *previousCluster
-    barmanObjectStore:
-      destinationPath: s3://db-backup/lldap
-      endpointURL: "https://minio.${LOCAL_DOMAIN}"
-      s3Credentials:
-        accessKeyId:
-          name: lldap-database-superuser
-          key: access-key
-        secretAccessKey:
-          name: lldap-database-superuser
-          key: secret
+  # externalClusters:
+  # - name: *previousCluster
+  #   barmanObjectStore:
+  #     destinationPath: s3://db-backup/lldap
+  #     endpointURL: "https://minio.${LOCAL_DOMAIN}"
+  #     s3Credentials:
+  #       accessKeyId:
+  #         name: lldap-database-superuser
+  #         key: access-key
+  #       secretAccessKey:
+  #         name: lldap-database-superuser
+  #         key: secret
