@@ -44,17 +44,15 @@ spec:
     #   service:
     #     loadBalancerIP: "${CILIUM_LB_IP}"
     ingressController:
-      enabled: true
-        loadbalancerMode: dedicated
-    #   # default: true
-    #   # enforceHttps: true
-    #   # defaultSecretName: "${DOMAIN/./-}-tls"
-    #   # defaultSecretNamespace: ingress
-    #   # service:
-    #   #   name: cilium-ingress
-    #   #   type: LoadBalancer
-    #   #   loadBalancerIP: "${CILIUM_LB_IP}"
-    #   # gateway-api-secrets-namespace: "ingress"
+      enabled: true      
+      enforceHttps: true
+      defaultSecretName: "${DOMAIN/./-}-tls"
+      defaultSecretNamespace: ingress
+      service:
+        name: cilium-ingress
+        type: LoadBalancer
+        loadBalancerIP: "${CILIUM_LB_IP}"
+      gateway-api-secrets-namespace: "ingress"
     hubble:
       enabled: true
       metrics:
