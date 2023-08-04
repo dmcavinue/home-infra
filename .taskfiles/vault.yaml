@@ -66,62 +66,62 @@ tasks:
   add-roles:
     desc: add k8s roles/policies
     cmds:
-      - echo "path \"secret/{{.ENVIRONMENT}}/data/cluster\" { capabilities = [\"read\", \"list\"] }" | vault policy write cluster-secrets -
-      - echo "path \"secret/{{.ENVIRONMENT}}/data/flux-system/*\" { capabilities = [\"read\", \"list\"] }" | vault policy write flux-system -
+      - echo "path \"secret/data/cluster\" { capabilities = [\"read\", \"list\"] }" | vault policy write cluster-secrets -
+      - echo "path \"secret/data/flux-system/*\" { capabilities = [\"read\", \"list\"] }" | vault policy write flux-system -
       - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/flux-system
           bound_service_account_names=vault-auth
           bound_service_account_namespaces=flux-system
           policies=cluster-secrets,flux-system,default
           ttl=1440h
-      - echo "path \"secret/{{.ENVIRONMENT}}/data/database/*\" { capabilities = [\"read\", \"list\"] } " | vault policy write database -
+      - echo "path \"secret/data/database/*\" { capabilities = [\"read\", \"list\"] } " | vault policy write database -
       - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/database
           bound_service_account_names=vault-auth
           bound_service_account_namespaces=database
           policies=database,media,home-automation,default
           ttl=1440h
-      - echo "path \"secret/{{.ENVIRONMENT}}/data/home-automation/*\" { capabilities = [\"read\", \"list\"] }" | vault policy write home-automation -
+      - echo "path \"data/home-automation/*\" { capabilities = [\"read\", \"list\"] }" | vault policy write home-automation -
       - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/home-automation
           bound_service_account_names=vault-auth
           bound_service_account_namespaces=home-automation
           policies=volsync,database,home-automation,default
           ttl=1440h
-      - echo "path \"secret/{{.ENVIRONMENT}}/data/media/*\" { capabilities = [\"read\", \"list\"] }" | vault policy write media -
+      - echo "path \"secret/data/media/*\" { capabilities = [\"read\", \"list\"] }" | vault policy write media -
       - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/media
           bound_service_account_names=vault-auth
           bound_service_account_namespaces=media
           policies=media,default
           ttl=1440h
-      - echo "path \"secret/{{.ENVIRONMENT}}/data/monitoring/*\" { capabilities = [\"read\", \"list\"] }" | vault policy write monitoring -
+      - echo "path \"secret/data/monitoring/*\" { capabilities = [\"read\", \"list\"] }" | vault policy write monitoring -
       - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/monitoring
           bound_service_account_names=vault-auth
           bound_service_account_namespaces=monitoring
           policies=monitoring,default
           ttl=1440h
-      - echo "path \"secret/{{.ENVIRONMENT}}/data/cert-manager/*\" { capabilities = [\"read\", \"list\"] }" | vault policy write cert-manager -
+      - echo "path \"secret/data/cert-manager/*\" { capabilities = [\"read\", \"list\"] }" | vault policy write cert-manager -
       - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/cert-manager
           bound_service_account_names=vault-auth
           bound_service_account_namespaces=cert-manager
           policies=cert-manager,default
           ttl=1440h
-      - echo "path \"secret/{{.ENVIRONMENT}}/data/kube-system/*\" { capabilities = [\"read\", \"list\"] }" | vault policy write kube-system -
+      - echo "path \"secret/data/kube-system/*\" { capabilities = [\"read\", \"list\"] }" | vault policy write kube-system -
       - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/kube-system
           bound_service_account_names=vault-auth
           bound_service_account_namespaces=kube-system
           policies=kube-system,default
           ttl=1440h
-      - echo "path \"secret/{{.ENVIRONMENT}}/data/ingress/*\" { capabilities = [\"read\", \"list\"] }" | vault policy write ingress -
+      - echo "path \"secret/data/ingress/*\" { capabilities = [\"read\", \"list\"] }" | vault policy write ingress -
       - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/ingress
           bound_service_account_names=vault-auth
           bound_service_account_namespaces=ingress
           policies=ingress,default
           ttl=1440h
-      - echo "path \"secret/{{.ENVIRONMENT}}/data/volsync/*\" { capabilities = [\"read\", \"list\"] }" | vault policy write volsync -
+      - echo "path \"secret/data/volsync/*\" { capabilities = [\"read\", \"list\"] }" | vault policy write volsync -
       - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/volsync
           bound_service_account_names=vault-auth
           bound_service_account_namespaces=volsync
           policies=volsync,default
           ttl=1440h
-      - echo "path \"secret/{{.ENVIRONMENT}}/data/security/*\" { capabilities = [\"read\", \"list\"] }" | vault policy write security -
+      - echo "path \"secret/data/security/*\" { capabilities = [\"read\", \"list\"] }" | vault policy write security -
       - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/security
           bound_service_account_names=vault-auth
           bound_service_account_namespaces=security
@@ -131,16 +131,16 @@ tasks:
   disable-kv:
     desc: disable kv secrets engine
     cmds:
-      - vault secrets disable secret/{{.ENVIRONMENT}}
+      - vault secrets disable secret
   enable-kv:
     desc: enable kv secrets engine
     cmds:
-      - vault secrets enable -path=secret/{{.ENVIRONMENT}} kv-v2
+      - vault secrets enable -path=secret kv-v2
   add-kv-secrets:
     desc: add kv secrets
     cmds:
       # shared secrets
-      - vault kv put -mount=secret/{{.ENVIRONMENT}} cluster
+      - vault kv put -mount=secret cluster/{{.ENVIRONMENT}}
           CILIUM_ID="{{.CILIUM_ID}}"
           CILIUM_LB_IP="{{.CILIUM_LB_IP}}"
           CLOUDFLARE_EMAIL="{{.CLOUDFLARE_EMAIL}}"
@@ -157,31 +157,31 @@ tasks:
           VIP_IP="{{.VIP_IP}}"
           VIP_PORT="{{.VIP_PORT}}"
       # cert-manager
-      - vault kv put -mount=secret/{{.ENVIRONMENT}} cert-manager/cloudflare          
+      - vault kv put -mount=secret cert-manager/cloudflare          
           CLOUDFLARE_TOKEN="{{.CLOUDFLARE_TOKEN}}"
       # dex
-      - vault kv put -mount=secret/{{.ENVIRONMENT}} security/dex
+      - vault kv put -mount=secret security/dex
           DEX_OAUTH2_CLIENT_SECRET="{{.DEX_OAUTH2_CLIENT_SECRET}}"
           DEX_OAUTH2_COOKIE_SECRET="{{.DEX_OAUTH2_COOKIE_SECRET}}"
           DEX_LLDAP_USER="{{.DEX_LLDAP_USER}}"
           DEX_LLDAP_PASSWORD="{{.DEX_LLDAP_PASSWORD}}"
       # flux-system/notification
-      - vault kv put -mount=secret/{{.ENVIRONMENT}} flux-system/notification
+      - vault kv put -mount=secret flux-system/notification
           FLUX_SLACK_WEBHOOK="{{.SLACK_WEBHOOK}}"
       # flux-system/weave-gitops
-      - vault kv put -mount=secret/{{.ENVIRONMENT}} flux-system/weave-gitops
+      - vault kv put -mount=secret flux-system/weave-gitops
           ADMIN_PASSWORD="{{.ADMIN_PASSWORD}}"
       # database/emqx
-      - vault kv put -mount=secret/{{.ENVIRONMENT}} database/emqx
+      - vault kv put -mount=secret database/emqx
           admin_password="{{.EMQX_ADMIN_PASSWORD}}"
           user_1_username="{{.EMQX_USER1_NAME}}"
           user_1_password="{{.EMQX_USER1_PASSWORD}}"
       # database/influxdb
-      - vault kv put -mount=secret/{{.ENVIRONMENT}} database/influxdb
+      - vault kv put -mount=secret database/influxdb
           influxdb-user="{{.INFLUXDB_USER}}"
           influxdb-password="{{.INFLUXDB_PASSWORD}}"
       # media/immich
-      - vault kv put -mount=secret/{{.ENVIRONMENT}} media/immich
+      - vault kv put -mount=secret media/immich
           IMMICH_JWT_SECRET="{{.IMMICH_JWT_SECRET}}"
           IMMICH_TYPESENSE_API_KEY="{{.IMMICH_TYPESENSE_API_KEY}}"
           IMMICH_POSTGRES_SUPER_USER="{{.IMMICH_POSTGRES_SUPER_USER}}"
@@ -191,7 +191,7 @@ tasks:
           IMMICH_DB_BACKUP_ACCESS_KEY="{{.IMMICH_DB_BACKUP_ACCESS_KEY}}"
           IMMICH_DB_BACKUP_SECRET="{{.IMMICH_DB_BACKUP_SECRET}}"
       # media/miniflux
-      - vault kv put -mount=secret/{{.ENVIRONMENT}} media/miniflux
+      - vault kv put -mount=secret media/miniflux
           MINIFLUX_ADMIN_USERNAME="{{.MINIFLUX_ADMIN_USERNAME}}"
           MINIFLUX_ADMIN_PASSWORD="{{.MINIFLUX_ADMIN_PASSWORD}}"
           MINIFLUX_POSTGRES_SUPER_USER="{{.MINIFLUX_POSTGRES_SUPER_USER}}"
@@ -201,7 +201,7 @@ tasks:
           MINIFLUX_DB_BACKUP_ACCESS_KEY="{{.MINIFLUX_DB_BACKUP_ACCESS_KEY}}"
           MINIFLUX_DB_BACKUP_SECRET="{{.MINIFLUX_DB_BACKUP_SECRET}}"
       # home-automation/home-assistant
-      - vault kv put -mount=secret/{{.ENVIRONMENT}} home-automation/home-assistant
+      - vault kv put -mount=secret home-automation/home-assistant
           HASS_POSTGRES_SUPER_USER="{{.HASS_POSTGRES_SUPER_USER}}"
           HASS_POSTGRES_SUPER_PASSWORD="{{.HASS_POSTGRES_SUPER_PASSWORD}}"
           HASS_POSTGRES_USER="{{.HASS_POSTGRES_USER}}"
@@ -218,7 +218,7 @@ tasks:
           LOCATION_LONG="{{.HASS_LOCATION_LONG}}"
           DRAC_IP="{{.HASS_DRAC_IP}}"
       # home-automation/frigate
-      - vault kv put -mount=secret/{{.ENVIRONMENT}} home-automation/frigate
+      - vault kv put -mount=secret home-automation/frigate
           DVR_URL="{{.FRIGATE_DVR_URL}}"
           CAM1_NAME="{{.FRIGATE_CAM1_NAME}}"
           CAM1_ID="{{.FRIGATE_CAM1_ID}}"
@@ -238,20 +238,20 @@ tasks:
           CAM8_ID="{{.FRIGATE_CAM8_ID}}"
           PLUS_API_KEY="{{.FRIGATE_PLUS_API_KEY}}"
       # home-automation/rtlamr-collect
-      - vault kv put -mount=secret/{{.ENVIRONMENT}} home-automation/rtlamr-collect
+      - vault kv put -mount=secret home-automation/rtlamr-collect
           RTLAMR_METERS="{{.RTLAMR_METERS}}"
           RTLAMR_MSGTYPE="{{.RTLAMR_MSGTYPE}}"
       # home-automation/tidbyt-proxy
-      - vault kv put -mount=secret/{{.ENVIRONMENT}} home-automation/tidbyt-proxy
+      - vault kv put -mount=secret home-automation/tidbyt-proxy
           TIDBYT_API_KEY="{{.TIDBYT_API_KEY}}"
           TIDBYT_DEVICE_ID="{{.TIDBYT_DEVICE_ID}}"
       # home-automation/unifi-downloader
-      - vault kv put -mount=secret/{{.ENVIRONMENT}} home-automation/unifi-downloader
+      - vault kv put -mount=secret home-automation/unifi-downloader
           UNIFI_DOWNLOADER_HOST="{{.UNIFI_DOWNLOADER_HOST}}"
           UNIFI_DOWNLOADER_USERNAME="{{.UNIFI_DOWNLOADER_USERNAME}}"
           UNIFI_DOWNLOADER_PASSWORD="{{.UNIFI_DOWNLOADER_PASSWORD}}"
       # monitoring/gatus
-      - vault kv put -mount=secret/{{.ENVIRONMENT}} monitoring/gatus
+      - vault kv put -mount=secret monitoring/gatus
           GATUS_POSTGRES_SUPER_USER="{{.GATUS_POSTGRES_SUPER_USER}}"
           GATUS_POSTGRES_SUPER_PASSWORD="{{.GATUS_POSTGRES_SUPER_PASSWORD}}"
           GATUS_POSTGRES_USER="{{.GATUS_POSTGRES_USER}}"
@@ -261,7 +261,7 @@ tasks:
           GATUS_SLACK_WEBHOOK_URL="{{.SLACK_WEBHOOK}}"
           GATUS_DOMAIN="{{.GATUS_DOMAIN}}"
       # monitoring/grafana
-      - vault kv put -mount=secret/{{.ENVIRONMENT}} monitoring/grafana
+      - vault kv put -mount=secret monitoring/grafana
           ADMIN_USER="{{.GRAFANA_ADMIN_USER}}"
           ADMIN_PASSWORD="{{.GRAFANA_ADMIN_PASSWORD}}"
           LDAP_SERVER="{{.GRAFANA_LDAP_SERVER}}"
@@ -269,7 +269,7 @@ tasks:
           LDAP_PASSWORD="{{.GRAFANA_LDAP_PASSWORD}}"
           LDAP_ROOT="{{.GRAFANA_LDAP_ROOT}}"
       # security/authelia
-      - vault kv put -mount=secret/{{.ENVIRONMENT}} security/authelia
+      - vault kv put -mount=secret security/authelia
           AUTHELIA_POSTGRES_SUPER_USER="{{.AUTHELIA_POSTGRES_SUPER_USER}}"
           AUTHELIA_POSTGRES_SUPER_PASSWORD="{{.AUTHELIA_POSTGRES_SUPER_PASSWORD}}"
           AUTHELIA_POSTGRES_USER="{{.AUTHELIA_POSTGRES_USER}}"
@@ -287,7 +287,7 @@ tasks:
           MINIFLUX_OAUTH_CLIENT_SECRET="{{.MINIFLUX_OAUTH_CLIENT_SECRET}}"
           WEAVEGITOPS_OAUTH_CLIENT_SECRET="{{.WEAVEGITOPS_OAUTH_CLIENT_SECRET}}"
       # security/lldap
-      - vault kv put -mount=secret/{{.ENVIRONMENT}} security/lldap
+      - vault kv put -mount=secret security/lldap
           LLDAP_POSTGRES_SUPER_USER="{{.LLDAP_POSTGRES_SUPER_USER}}"
           LLDAP_POSTGRES_SUPER_PASSWORD="{{.LLDAP_POSTGRES_SUPER_PASSWORD}}"
           LLDAP_POSTGRES_USER="{{.LLDAP_POSTGRES_USER}}"
@@ -301,19 +301,19 @@ tasks:
           LLDAP_SERVER_KEY_SEED="{{.LLDAP_SERVER_KEY_SEED}}"
           LLDAP_LDAP_BASE_DN="{{.LLDAP_LDAP_BASE_DN}}"
       # security/oauth2-proxy
-      - vault kv put -mount=secret/{{.ENVIRONMENT}} security/oauth2-proxy
+      - vault kv put -mount=secret security/oauth2-proxy
           OAUTH2_CLIENT_SECRET="{{.OAUTH2_CLIENT_SECRET}}"
           OAUTH2_COOKIE_SECRET="{{.OAUTH2_COOKIE_SECRET}}"
       # volsync
-      - vault kv put -mount=secret/{{.ENVIRONMENT}} volsync/volsync
+      - vault kv put -mount=secret volsync/volsync
           RESTIC_URL="{{.RESTIC_URL}}"
-      - vault kv put -mount=secret/{{.ENVIRONMENT}} volsync/esphome
+      - vault kv put -mount=secret volsync/esphome
           RESTIC_ESPHOME_PASSWORD="{{.RESTIC_ESPHOME_PASSWORD}}"
-      - vault kv put -mount=secret/{{.ENVIRONMENT}} volsync/frigate
+      - vault kv put -mount=secret volsync/frigate
           RESTIC_FRIGATE_PASSWORD="{{.RESTIC_FRIGATE_PASSWORD}}"
-      - vault kv put -mount=secret/{{.ENVIRONMENT}} volsync/immich
+      - vault kv put -mount=secret volsync/immich
           RESTIC_IMMICH_PASSWORD="{{.RESTIC_IMMICH_PASSWORD}}"
-      - vault kv put -mount=secret/{{.ENVIRONMENT}} volsync/home-assistant
+      - vault kv put -mount=secret volsync/home-assistant
           RESTIC_HASS_PASSWORD="{{.RESTIC_HASS_PASSWORD}}"
-      - vault kv put -mount=secret/{{.ENVIRONMENT}} volsync/zwavejs
+      - vault kv put -mount=secret volsync/zwavejs
           RESTIC_ZWAVEJS_PASSWORD="{{.RESTIC_ZWAVEJS_PASSWORD}}"
