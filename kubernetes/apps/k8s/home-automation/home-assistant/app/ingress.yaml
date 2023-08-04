@@ -26,7 +26,7 @@ metadata:
   name: home-assistant-code
   namespace: home-automation
 spec:
-  ingressClassName: nginx
+  ingressClassName: cilium
   rules:
   - host: "hass-code.${DOMAIN}"
     http:

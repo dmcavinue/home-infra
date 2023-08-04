@@ -4,7 +4,7 @@ metadata:
   name: loki
   namespace: monitoring
 spec:
-  ingressClassName: nginx
+  ingressClassName: cilium
   rules:
   - host: "loki.${DOMAIN}"
     http:

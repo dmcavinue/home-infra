@@ -4,7 +4,7 @@ metadata:
   name: thanos
   namespace: monitoring
 spec:
-  ingressClassName: nginx
+  ingressClassName: cilium
   rules:
   - host: "thanos.${DOMAIN}"
     http:
