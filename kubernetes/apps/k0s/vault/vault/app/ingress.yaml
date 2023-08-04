@@ -4,7 +4,7 @@ metadata:
   name: vault
   namespace: vault
 spec:
-  ingressClassName: nginx
+  ingressClassName: cilium
   rules:
   - host: "vault.${DOMAIN}"
     http:
