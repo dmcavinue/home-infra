@@ -52,7 +52,7 @@ spec:
             port: *ldapPort
     ingress:
       main:
-        enabled: true
+        enabled: false
         ingressClassName: nginx
         hosts:
           - host: &host "lldap.${DOMAIN}"
