@@ -32,7 +32,7 @@ spec:
     bgp:
       enabled: false
     cluster:
-      name: kubernetes
+      name: "${ENVIRONMENT}"
       id: 1
     containerRuntime:
       integration: containerd
@@ -43,9 +43,9 @@ spec:
     #   enabled: true
     #   service:
     #     loadBalancerIP: "${CILIUM_LB_IP}"
-    # ingressController:
-    #   enabled: false
-    #   # loadbalancerMode: shared
+    ingressController:
+      enabled: true
+        loadbalancerMode: dedicated
     #   # default: true
     #   # enforceHttps: true
     #   # defaultSecretName: "${DOMAIN/./-}-tls"
