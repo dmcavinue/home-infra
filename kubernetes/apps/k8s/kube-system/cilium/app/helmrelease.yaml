@@ -46,6 +46,7 @@ spec:
     ingressController:
       enabled: true      
       enforceHttps: true
+      loadBalancerMode: shared
       defaultSecretName: "${DOMAIN/./-}-tls"
       defaultSecretNamespace: ingress
       service:
