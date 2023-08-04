@@ -33,7 +33,7 @@ spec:
       enabled: false
     cluster:
       name: "${ENVIRONMENT}"
-      id: 1
+      id: "${CILIUM_ID}"
     containerRuntime:
       integration: containerd
       socketPath: /var/run/k3s/containerd/containerd.sock

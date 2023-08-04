@@ -30,7 +30,7 @@ spec:
       replicaCount: 1
       service:
         annotations:
-          io.cilium/lb-ipam-ips: "${CILIUM_LB_IP}"
+          io.cilium/lb-ipam-ips: "${NGINX_LB_IP}"
         externalTrafficPolicy: Cluster
       ingressClassResource:
         default: true

@@ -2,9 +2,9 @@
 version: '3'
 
 env:
-  VAULT_ADDR: "https://vault.{{.DOMAIN}}"
-  VAULT_TOKEN:
-    sh: if [ -f {{.ROOT_DIR}}/.vault.json ]; then cat {{.ROOT_DIR}}/.vault.json | jq -r '.root_token'; fi
+  VAULT_ADDR: "https://vault.{{.LOCAL_DOMAIN}}"
+  #VAULT_TOKEN: 
+    #sh: if [ -f {{.ROOT_DIR}}/.vault.json ]; then cat {{.ROOT_DIR}}/.vault.json | jq -r '.root_token'; fi
 
 tasks:
   init:
@@ -142,6 +142,7 @@ tasks:
     cmds:
       # shared secrets
       - vault kv put -mount=secret/{{.ENVIRONMENT}} cluster
+          CILIUM_ID="{{.CILIUM_ID}}"
           CILIUM_LB_IP="{{.CILIUM_LB_IP}}"
           CLOUDFLARE_EMAIL="{{.CLOUDFLARE_EMAIL}}"
           DOMAIN="{{.DOMAIN}}"
@@ -151,6 +152,7 @@ tasks:
           SLACK_WEBHOOK="{{.SLACK_WEBHOOK}}"
           IPAM_CIDR="{{.IPAM_CIDR}}"
           LOCAL_DOMAIN="{{.LOCAL_DOMAIN}}"
+          NGINX_LB_IP="{{.NGINX_LB_IP}}"
           NFS_SERVER_IP="{{.NFS_SERVER_IP}}"
           SERVER_CIDR="{{.SERVER_CIDR}}"
           VIP_IP="{{.VIP_IP}}"
