@@ -48,6 +48,8 @@ spec:
         annotations:
           io.cilium/lb-ipam-ips: "${LDAP_LB_IP}"
         ports:
+          http:
+            enabled: false
           ldap:
             enabled: true
             port: *ldapPort
