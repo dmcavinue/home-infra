@@ -38,10 +38,10 @@ tasks:
           userdn="ou=people,{{.LLDAP_LDAP_BASE_DN}}"
           discoverdn=true
           groupdn="ou=groups,{{.LLDAP_LDAP_BASE_DN}}"
-          groupfilter='member={{printf "{{.Username}}"}})'
+          groupfilter='(member={{printf "{{.UserDN}}"}})'
           groupattr="cn"
           binddn="uid=admin,ou=people,{{.LLDAP_LDAP_BASE_DN}}"
-          bindpass="{{.LLDAP_USER_PASSWORD}}"
+          bindpass="{{.LLDAP_LDAP_USER_PASS}}"
           insecure_tls=true
           starttls=false
       - echo "path \"*\" { capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\", \"sudo\"] }" | vault policy write admin -
