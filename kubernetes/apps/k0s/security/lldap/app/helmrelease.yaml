@@ -49,7 +49,7 @@ spec:
           io.cilium/lb-ipam-ips: "${LLDAP_LB_IP}"
         ports:
           http:
-            enabled: false
+            port: *port
           ldap:
             enabled: true
             port: *ldapPort
