@@ -95,7 +95,7 @@ tasks:
       - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/monitoring
           bound_service_account_names=vault-auth
           bound_service_account_namespaces=monitoring
-          policies=security,monitoring,default
+          policies=monitoring,default
           ttl=1440h
       - echo "path \"secret/data/cert-manager/*\" { capabilities = [\"read\", \"list\"] }" | vault policy write cert-manager -
       - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/cert-manager
@@ -303,7 +303,6 @@ tasks:
       - vault kv put -mount=secret monitoring/grafana
           ADMIN_USER="{{.GRAFANA_ADMIN_USER}}"
           ADMIN_PASSWORD="{{.GRAFANA_ADMIN_PASSWORD}}"
-          LDAP_SERVER="{{.GRAFANA_LDAP_SERVER}}"
           LDAP_USERNAME="{{.GRAFANA_LDAP_USERNAME}}"
           LDAP_PASSWORD="{{.GRAFANA_LDAP_PASSWORD}}"
           LDAP_ROOT="{{.GRAFANA_LDAP_ROOT}}"
