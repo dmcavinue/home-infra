@@ -197,6 +197,7 @@ tasks:
           NGINX_LB_IP="{{.NGINX_LB_IP}}"
           NFS_SERVER_IP="{{.NFS_SERVER_IP}}"
           SERVER_CIDR="{{.SERVER_CIDR}}"
+          VAULT_ADDR="{{.VAULT_ADDR}}"
           VIP_IP="{{.VIP_IP}}"
           VIP_PORT="{{.VIP_PORT}}"
       # cert-manager
