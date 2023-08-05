@@ -95,7 +95,7 @@ tasks:
       - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/monitoring
           bound_service_account_names=vault-auth
           bound_service_account_namespaces=monitoring
-          policies=monitoring,default
+          policies=security,monitoring,default
           ttl=1440h
       - echo "path \"secret/data/cert-manager/*\" { capabilities = [\"read\", \"list\"] }" | vault policy write cert-manager -
       - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/cert-manager
