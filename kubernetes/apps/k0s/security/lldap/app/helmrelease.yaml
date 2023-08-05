@@ -44,9 +44,10 @@ spec:
           name: lldap-secret
     service:
       main:
+        type: LoadBalancer
+        annotations:
+          io.cilium/lb-ipam-ips: "${LDAP_LB_IP}"
         ports:
-          # http:
-          #   port: *port
           ldap:
             enabled: true
             port: *ldapPort
