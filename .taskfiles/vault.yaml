@@ -33,19 +33,19 @@ tasks:
       - vault auth disable ldap
       - vault auth enable ldap
       - vault write auth/ldap/config
-          url="ldaps://{{.LDAP_SERVER}}"
+          url="ldap://lldap.security.svc.cluster.local:389"
           userattr=uid
-          userdn="cn=users,{{.LDAP_ROOT}}"
+          userdn="ou=people,{{.LLDAP_LDAP_BASE_DN}}"
           discoverdn=true
-          groupdn="cn=groups,{{.LDAP_ROOT}}"
-          groupfilter='(&(objectClass=posixGroup)(memberUid={{printf "{{.Username}}"}}))'
-          groupattr="uid"
-          binddn="uid={{.LDAP_ADMIN_USERNAME}},cn=users,{{.LDAP_ROOT}}"
-          bindpass="{{.LDAP_ADMIN_PASSWORD}}"
-          insecure_tls=false
-          starttls=true
+          groupdn="ou=groups,{{.LLDAP_LDAP_BASE_DN}}"
+          groupfilter='member={{printf "{{.Username}}"}})'
+          groupattr="cn"
+          binddn="uid=admin,ou=people,{{.LLDAP_LDAP_BASE_DN}}"
+          bindpass="{{.LLDAP_USER_PASSWORD}}"
+          insecure_tls=true
+          starttls=false
+      - echo "path \"*\" { capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\", \"sudo\"] }" | vault policy write admin -
       - vault write auth/ldap/groups/vault-admin policies=admin
-      - vault policy write admin {{.ROOT_DIR}}/tmpl/vault-admin.hcl
   # k8s auth
   enable-k8s-auth:
     desc: configure vault k8s auth for cluster
