@@ -66,7 +66,7 @@ tasks:
   add-roles:
     desc: add k8s roles/policies
     cmds:
-      - echo "path \"secret/data/cluster\" { capabilities = [\"read\", \"list\"] }" | vault policy write cluster-secrets -
+      - echo "path \"secret/data/cluster/*\" { capabilities = [\"read\", \"list\"] }" | vault policy write cluster-secrets -
       - echo "path \"secret/data/flux-system/*\" { capabilities = [\"read\", \"list\"] }" | vault policy write flux-system -
       - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/flux-system
           bound_service_account_names=vault-auth
