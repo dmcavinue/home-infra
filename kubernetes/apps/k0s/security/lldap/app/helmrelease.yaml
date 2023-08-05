@@ -46,7 +46,7 @@ spec:
       main:
         type: LoadBalancer
         annotations:
-          io.cilium/lb-ipam-ips: "${LDAP_LB_IP}"
+          io.cilium/lb-ipam-ips: "${LLDAP_LB_IP}"
         ports:
           http:
             enabled: false
