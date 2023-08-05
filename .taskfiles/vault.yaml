@@ -137,7 +137,50 @@ tasks:
     cmds:
       - vault secrets enable -path=secret kv-v2
   add-kv-secrets:
-    desc: add kv secrets
+    desc: add env kv secrets
+    cmds:
+      - task vault:add-{{.ENVIRONMENT}}-kv-secrets
+  add-k0s-kv-secrets:
+    desc: add kv secrets for k0s cluster
+    cmds:
+      # cert-manager
+      - vault kv put -mount=secret cert-manager/cloudflare          
+          CLOUDFLARE_TOKEN="{{.CLOUDFLARE_TOKEN}}"
+      # flux-system/notification
+      - vault kv put -mount=secret flux-system/notification
+          FLUX_SLACK_WEBHOOK="{{.SLACK_WEBHOOK}}"
+      # security/lldap
+      - vault kv put -mount=secret security/lldap
+          LLDAP_POSTGRES_SUPER_USER="{{.LLDAP_POSTGRES_SUPER_USER}}"
+          LLDAP_POSTGRES_SUPER_PASSWORD="{{.LLDAP_POSTGRES_SUPER_PASSWORD}}"
+          LLDAP_POSTGRES_USER="{{.LLDAP_POSTGRES_USER}}"
+          LLDAP_POSTGRES_PASSWORD="{{.LLDAP_POSTGRES_PASSWORD}}"
+          LLDAP_DB_BACKUP_ACCESS_KEY="{{.LLDAP_DB_BACKUP_ACCESS_KEY}}"
+          LLDAP_DB_BACKUP_SECRET="{{.LLDAP_DB_BACKUP_SECRET}}"
+          LLDAP_JWT_SECRET="{{.LLDAP_JWT_SECRET}}"
+          LLDAP_LDAP_USER_EMAIL="{{.LLDAP_LDAP_USER_EMAIL}}"
+          LLDAP_LDAP_USER_PASS="{{.LLDAP_LDAP_USER_PASS}}"
+          LLDAP_SERVER_KEY_SEED="{{.LLDAP_SERVER_KEY_SEED}}"
+          LLDAP_LDAP_BASE_DN="{{.LLDAP_LDAP_BASE_DN}}"
+      # security/oauth2-proxy
+      - vault kv put -mount=secret security/oauth2-proxy
+          OAUTH2_CLIENT_SECRET="{{.OAUTH2_CLIENT_SECRET}}"
+          OAUTH2_COOKIE_SECRET="{{.OAUTH2_COOKIE_SECRET}}"
+      # volsync
+      - vault kv put -mount=secret volsync/volsync
+          RESTIC_URL="{{.RESTIC_URL}}"
+      - vault kv put -mount=secret volsync/esphome
+          RESTIC_ESPHOME_PASSWORD="{{.RESTIC_ESPHOME_PASSWORD}}"
+      - vault kv put -mount=secret volsync/frigate
+          RESTIC_FRIGATE_PASSWORD="{{.RESTIC_FRIGATE_PASSWORD}}"
+      - vault kv put -mount=secret volsync/immich
+          RESTIC_IMMICH_PASSWORD="{{.RESTIC_IMMICH_PASSWORD}}"
+      - vault kv put -mount=secret volsync/home-assistant
+          RESTIC_HASS_PASSWORD="{{.RESTIC_HASS_PASSWORD}}"
+      - vault kv put -mount=secret volsync/zwavejs
+          RESTIC_ZWAVEJS_PASSWORD="{{.RESTIC_ZWAVEJS_PASSWORD}}"
+  add-k8s-kv-secrets:
+    desc: add kv secrets gto k8s cluster
     cmds:
       # shared secrets
       - vault kv put -mount=secret cluster/{{.ENVIRONMENT}}
@@ -262,33 +305,3 @@ tasks:
           LDAP_USERNAME="{{.GRAFANA_LDAP_USERNAME}}"
           LDAP_PASSWORD="{{.GRAFANA_LDAP_PASSWORD}}"
           LDAP_ROOT="{{.GRAFANA_LDAP_ROOT}}"
-      # security/lldap
-      - vault kv put -mount=secret security/lldap
-          LLDAP_POSTGRES_SUPER_USER="{{.LLDAP_POSTGRES_SUPER_USER}}"
-          LLDAP_POSTGRES_SUPER_PASSWORD="{{.LLDAP_POSTGRES_SUPER_PASSWORD}}"
-          LLDAP_POSTGRES_USER="{{.LLDAP_POSTGRES_USER}}"
-          LLDAP_POSTGRES_PASSWORD="{{.LLDAP_POSTGRES_PASSWORD}}"
-          LLDAP_DB_BACKUP_ACCESS_KEY="{{.LLDAP_DB_BACKUP_ACCESS_KEY}}"
-          LLDAP_DB_BACKUP_SECRET="{{.LLDAP_DB_BACKUP_SECRET}}"
-          LLDAP_JWT_SECRET="{{.LLDAP_JWT_SECRET}}"
-          LLDAP_LDAP_USER_EMAIL="{{.LLDAP_LDAP_USER_EMAIL}}"
-          LLDAP_LDAP_USER_PASS="{{.LLDAP_LDAP_USER_PASS}}"
-          LLDAP_SERVER_KEY_SEED="{{.LLDAP_SERVER_KEY_SEED}}"
-          LLDAP_LDAP_BASE_DN="{{.LLDAP_LDAP_BASE_DN}}"
-      # security/oauth2-proxy
-      - vault kv put -mount=secret security/oauth2-proxy
-          OAUTH2_CLIENT_SECRET="{{.OAUTH2_CLIENT_SECRET}}"
-          OAUTH2_COOKIE_SECRET="{{.OAUTH2_COOKIE_SECRET}}"
-      # volsync
-      - vault kv put -mount=secret volsync/volsync
-          RESTIC_URL="{{.RESTIC_URL}}"
-      - vault kv put -mount=secret volsync/esphome
-          RESTIC_ESPHOME_PASSWORD="{{.RESTIC_ESPHOME_PASSWORD}}"
-      - vault kv put -mount=secret volsync/frigate
-          RESTIC_FRIGATE_PASSWORD="{{.RESTIC_FRIGATE_PASSWORD}}"
-      - vault kv put -mount=secret volsync/immich
-          RESTIC_IMMICH_PASSWORD="{{.RESTIC_IMMICH_PASSWORD}}"
-      - vault kv put -mount=secret volsync/home-assistant
-          RESTIC_HASS_PASSWORD="{{.RESTIC_HASS_PASSWORD}}"
-      - vault kv put -mount=secret volsync/zwavejs
-          RESTIC_ZWAVEJS_PASSWORD="{{.RESTIC_ZWAVEJS_PASSWORD}}"
