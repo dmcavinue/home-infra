@@ -3,8 +3,11 @@ kind: Ingress
 metadata:
   name: zwavejs
   namespace: home-automation
+  annotations:
+    nginx.ingress.kubernetes.io/auth-signin: https://oauth.${PRIVATE_DOMAIN}/oauth2/start?rd=$escaped_request_uri
+    nginx.ingress.kubernetes.io/auth-url: https://oauth.${PRIVATE_DOMAIN}/oauth2/auth
 spec:
-  ingressClassName: cilium
+  ingressClassName: nginx
   rules:
   - host: "zwavejs.${DOMAIN}"
     http:
