@@ -33,7 +33,7 @@ tasks:
       - vault auth disable ldap
       - vault auth enable ldap
       - vault write auth/ldap/config
-          url="ldap://lldap.security.svc.cluster.local:389"
+          url="ldaps://lldap.{{.PRIVATE_DOMAIN}}"
           userattr=uid
           userdn="ou=people,{{.LLDAP_LDAP_BASE_DN}}"
           discoverdn=true
@@ -42,8 +42,8 @@ tasks:
           groupattr="cn"
           binddn="uid=admin,ou=people,{{.LLDAP_LDAP_BASE_DN}}"
           bindpass="{{.LLDAP_LDAP_USER_PASS}}"
-          insecure_tls=true
-          starttls=false
+          insecure_tls=false
+          starttls=true
       - echo "path \"*\" { capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\", \"sudo\"] }" | vault policy write admin -
       - vault write auth/ldap/groups/vault-admin policies=admin
   # k8s auth
