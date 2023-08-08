@@ -4,7 +4,7 @@ metadata:
   name: zwavejs
   namespace: home-automation
   annotations:
-    nginx.ingress.kubernetes.io/auth-signin: "https://oauth.logfold.com/oauth2/start?rd=https://$host"
+    nginx.ingress.kubernetes.io/auth-signin: "https://oauth.logfold.com/oauth2/start?rd=https://zwavejs.nucstack.com/oauth2/callback"
     nginx.ingress.kubernetes.io/auth-url: "https://oauth.logfold.com/oauth2/auth"
 spec:
   ingressClassName: nginx
