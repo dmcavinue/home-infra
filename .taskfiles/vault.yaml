@@ -79,7 +79,7 @@ tasks:
           bound_service_account_namespaces=database
           policies=database,media,home-automation,default
           ttl=1440h
-      - echo "path \"data/home-automation/*\" { capabilities = [\"read\", \"list\"] }" | vault policy write home-automation -
+      - echo "path \"secret/data/home-automation/*\" { capabilities = [\"read\", \"list\"] }" | vault policy write home-automation -
       - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/home-automation
           bound_service_account_names=vault-auth
           bound_service_account_namespaces=home-automation
