@@ -149,6 +149,9 @@ tasks:
       # flux-system/notification
       - vault kv put -mount=secret flux-system/notification
           FLUX_SLACK_WEBHOOK="{{.SLACK_WEBHOOK}}"
+      # security/dex
+      - vault kv put -mount=secret security/dex
+          IMMICH_CLIENT_SECRET="{{.DEX_IMMICH_CLIENT_SECRET}}"
       # security/lldap
       - vault kv put -mount=secret security/lldap
           LLDAP_POSTGRES_SUPER_USER="{{.LLDAP_POSTGRES_SUPER_USER}}"
