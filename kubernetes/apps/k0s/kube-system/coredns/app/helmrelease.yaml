@@ -31,7 +31,7 @@ spec:
     k8sAppLabelOverride: kube-dns
     service:
       name: kube-dns
-      clusterIP: 10.30.0.10
+      clusterIP: 10.31.0.10
     serviceAccount:
       create: true
     deployment:
