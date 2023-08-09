@@ -26,10 +26,6 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    operator:
-      image:
-        repository: quay.io/minio/operator
-        tag: v5.0.7
     console:
       ingress:
         enabled: true
