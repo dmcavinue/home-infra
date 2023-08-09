@@ -34,5 +34,5 @@ spec:
       ingressClassName: "nginx"
       tls:
       - hosts:
-        - "minio-dashboard.${DOMAIN}"
-      host: "minio-dashboard.${DOMAIN}"
+        - "minio.${DOMAIN}"
+      host: "minio.${DOMAIN}"
