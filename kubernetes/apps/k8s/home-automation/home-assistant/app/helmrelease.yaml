@@ -31,7 +31,7 @@ spec:
       namespace: volsync
   values:
     hostNetwork: true
-    dnsPolicy: lusterFirstWithHostNet
+    dnsPolicy: clusterFirstWithHostNet
     controller:
       type: statefulset
       annotations:
