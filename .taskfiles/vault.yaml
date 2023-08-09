@@ -175,6 +175,10 @@ tasks:
       - vault kv put -mount=secret security/oauth2-proxy
           OAUTH2_CLIENT_SECRET="{{.OAUTH2_CLIENT_SECRET}}"
           OAUTH2_COOKIE_SECRET="{{.OAUTH2_COOKIE_SECRET}}"
+      # storage/minio
+      - vault kv put -mount=secret storage/minio
+          CONSOLE_ACCESS_KEY="{{.MINIO_CONSOLE_ACCESS_KEY}}"
+          CONSOLE_SECRET_KEY="{{.MINIO_CONSOLE_SECRET_KEY}}"
       # volsync
       - vault kv put -mount=secret volsync/volsync
           RESTIC_URL="{{.RESTIC_URL}}"

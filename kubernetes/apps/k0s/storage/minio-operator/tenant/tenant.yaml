@@ -4,24 +4,6 @@ metadata:
   name: test
   namespace: storage
 spec:
-  pools:
-    - servers: 1
-      name: test
-      volumesPerServer: 1
-      volumeClaimTemplate:
-        metadata:
-          name: data
-        spec:
-          storageClassName: local-path
-          accessModes:
-            - ReadWriteOnce
-          resources:
-            requests:
-              storage: 2Gi
-      # containerSecurityContext:
-      #   runAsUser: 1000
-      #   runAsGroup: 1000
-      #   runAsNonRoot: true
   users:
     - name: storage-user
   configuration:
