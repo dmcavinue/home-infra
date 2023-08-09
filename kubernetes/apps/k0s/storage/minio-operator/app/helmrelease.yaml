@@ -26,13 +26,15 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    image:
-      repository: quay.io/minio/operator
-      tag: v5.0.7
-    ingress:
-      enabled: true
-      ingressClassName: "nginx"
-      tls:
-      - hosts:
-        - "minio.${DOMAIN}"
-      host: "minio.${DOMAIN}"
+    operator:
+      image:
+        repository: quay.io/minio/operator
+        tag: v5.0.7
+    console:
+      ingress:
+        enabled: true
+        ingressClassName: "nginx"
+        tls:
+        - hosts:
+          - "minio.${DOMAIN}"
+        host: "minio.${DOMAIN}"
