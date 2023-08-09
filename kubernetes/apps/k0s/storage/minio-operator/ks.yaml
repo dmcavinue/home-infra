@@ -14,3 +14,23 @@ spec:
   interval: 30m
   retryInterval: 1m
   timeout: 5m
+# ---
+# apiVersion: kustomize.toolkit.fluxcd.io/v1
+# kind: Kustomization
+# metadata:
+#   name: cluster-apps-minio-tenant
+#   namespace: flux-system
+# spec:
+#   dependsOn:
+#     - name: cluster-apps-local-path-provisioner
+#     - name: cluster-apps-lldap
+#     - name: cluster-apps-minio-operator
+#   path: ./kubernetes/apps/${ENVIRONMENT}/storage/minio-operator/tenant
+#   prune: true
+#   sourceRef:
+#     kind: GitRepository
+#     name: home-kubernetes
+#   wait: true
+#   interval: 30m
+#   retryInterval: 1m
+#   timeout: 5m

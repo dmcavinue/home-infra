@@ -1,0 +1,17 @@
+apiVersion: minio.min.io/v2
+kind: Tenant
+metadata:
+  name: test
+  namespace: storage
+spec:
+  users:
+    - name: storage-user
+  configuration:
+    name: minio-tenant-secret
+  env:
+    - name: MINIO_IDENTITY_LDAP_SERVER_ADDR
+      value: "lldap.${PRIVATE_DOMAIN}:636"
+    - name: MINIO_IDENTITY_LDAP_USER_DN_SEARCH_FILTER
+      value: "(uid=%s)"
+    - name: MINIO_IDENTITY_LDAP_GROUP_SEARCH_FILTER
+      value: "(member=%d)"
