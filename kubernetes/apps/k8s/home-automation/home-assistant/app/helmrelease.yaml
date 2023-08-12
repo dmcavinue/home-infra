@@ -31,14 +31,14 @@ spec:
       namespace: volsync
   values:
     hostNetwork: true
-    dnsPolicy: clusterFirstWithHostNet
+    dnsPolicy: ClusterFirstWithHostNet
     controller:
       type: statefulset
       annotations:
         reloader.stakater.com/auto: "true"
     image:
       repository: ghcr.io/home-assistant/home-assistant
-      tag: 2023.8.1
+      tag: 2023.8.2
     env:
       TZ: America/New_York
     envFrom:
