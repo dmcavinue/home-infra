@@ -30,8 +30,8 @@ spec:
     - name: volsync
       namespace: volsync
   values:
-    hostNetwork: true
-    dnsPolicy: ClusterFirstWithHostNet
+    #hostNetwork: true
+    #dnsPolicy: ClusterFirstWithHostNet
     controller:
       type: statefulset
       annotations:
