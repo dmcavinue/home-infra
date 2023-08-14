@@ -26,8 +26,8 @@ spec:
     - name: storage-user
   configuration:
     name: minio-tenant-secret
-  credsSecret:
-    name: minio-tenant-secret
+  # credsSecret:
+  #   name: minio-tenant-secret
   env:
     - name: MINIO_IDENTITY_LDAP_SERVER_ADDR
       value: "lldap.${PRIVATE_DOMAIN}:636"
