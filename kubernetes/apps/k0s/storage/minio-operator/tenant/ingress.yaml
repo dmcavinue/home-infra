@@ -12,7 +12,9 @@ spec:
           path: "/"
           backend:
             service:
-              name: https-minio
+              name: minio
+              port:
+                name: https-minio
   tls:
     - hosts:
         - "esphome.${DOMAIN}"
