@@ -26,4 +26,13 @@ curl -fsSL "https://github.com/weaveworks/weave-gitops/releases/download/${GITOP
     | tar xvz --overwrite --file - --directory /tmp
 mv /tmp/gitops /usr/local/bin/gitops
 
+export GITOPS_VERSION="v0.28.0"
+curl -fsSL "https://github.com/weaveworks/weave-gitops/releases/download/${GITOPS_VERSION}/gitops-Linux-x86_64.tar.gz" \
+    | tar xvz --overwrite --file - --directory /tmp
+mv /tmp/gitops /usr/local/bin/gitops
+
+curl https://dl.min.io/client/mc/release/linux-amd64/mc \
+  -o /usr/local/bin/mc && \
+  chmod +x /usr/local/bin/mc
+
 rm -rf /tmp/*
