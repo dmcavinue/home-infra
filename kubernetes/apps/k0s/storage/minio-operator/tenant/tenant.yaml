@@ -5,9 +5,9 @@ metadata:
   namespace: storage
 spec:
   pools:
-    - servers: 1
+    - servers: 3
       name: test
-      volumesPerServer: 1
+      volumesPerServer: 3
       volumeClaimTemplate:
         metadata:
           name: data
@@ -18,11 +18,20 @@ spec:
           resources:
             requests:
               storage: 2Gi
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        runAsNonRoot: true
+        fsGroup: 1000
       containerSecurityContext:
         runAsUser: 1000
         runAsGroup: 1000
         runAsNonRoot: true
   users:
     - name: minio-tenant-secret
+  buckets:
+    - name: "test-bucket1"
+      region: "us-east-1"
+      objectLock: true
   configuration:
     name: minio-tenant-secret
