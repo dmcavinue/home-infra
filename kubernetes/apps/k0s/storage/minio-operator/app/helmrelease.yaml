@@ -26,7 +26,8 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    replicas: 1
+    operator:
+      replicaCount: 1
     console:
       ingress:
         enabled: true
