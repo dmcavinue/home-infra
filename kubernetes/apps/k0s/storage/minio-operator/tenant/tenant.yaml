@@ -28,7 +28,7 @@ spec:
     name: minio-tenant-secret
   env:
     - name: MINIO_IDENTITY_LDAP_SERVER_ADDR
-      value: "lldap.${PRIVATE_DOMAIN}:636"
+      value: "lldap.${DOMAIN}:636"
     - name: MINIO_IDENTITY_LDAP_USER_DN_SEARCH_FILTER
       value: "(uid=%s)"
     - name: MINIO_IDENTITY_LDAP_GROUP_SEARCH_FILTER
