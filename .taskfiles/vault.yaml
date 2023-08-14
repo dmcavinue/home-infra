@@ -177,8 +177,8 @@ tasks:
           OAUTH2_COOKIE_SECRET="{{.OAUTH2_COOKIE_SECRET}}"
       # storage/minio
       - vault kv put -mount=secret storage/minio
-          CONSOLE_ACCESS_KEY="{{.MINIO_CONSOLE_ACCESS_KEY}}"
-          CONSOLE_SECRET_KEY="{{.MINIO_CONSOLE_SECRET_KEY}}"
+          ROOT_USER="{{.MINIO_ROOT_USER}}"
+          ROOT_PASSWORD="{{.MINIO_ROOT_PASSWORD}}"
       # volsync
       - vault kv put -mount=secret volsync/volsync
           RESTIC_URL="{{.RESTIC_URL}}"
