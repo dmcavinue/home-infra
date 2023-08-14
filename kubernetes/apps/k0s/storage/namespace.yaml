@@ -5,8 +5,5 @@ metadata:
   name: storage
   annotations:
     volsync.backube/privileged-movers: "true"
-    meta.helm.sh/release-name": "minio-operator"
-    meta.helm.sh/release-namespace": "storage"
   labels:
     kustomize.toolkit.fluxcd.io/prune: disabled
-    app.kubernetes.io/managed-by": "Helm"
