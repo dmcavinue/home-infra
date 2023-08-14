@@ -39,7 +39,7 @@ spec:
         compression: bzip2
         maxParallel: 8
       destinationPath: s3://db-backup/gatus
-      endpointURL: "https://minio.${LOCAL_DOMAIN}"
+      endpointURL: "https://minio.${PRIVATE_DOMAIN}"
       serverName: &currentCluster gatus-2
       s3Credentials:
         accessKeyId:
@@ -52,7 +52,7 @@ spec:
   - name: *previousCluster
     barmanObjectStore:
       destinationPath: s3://db-backup/gatus
-      endpointURL: "https://minio.${LOCAL_DOMAIN}"
+      endpointURL: "https://minio.${PRIVATE_DOMAIN}"
       s3Credentials:
         accessKeyId:
           name: gatus-database-superuser
