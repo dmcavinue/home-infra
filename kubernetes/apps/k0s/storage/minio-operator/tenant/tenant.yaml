@@ -23,6 +23,6 @@ spec:
         runAsGroup: 1000
         runAsNonRoot: true
   users:
-    - name: storage-user
+    - name: minio-tenant-secret
   configuration:
     name: minio-tenant-secret
