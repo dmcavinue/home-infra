@@ -1,13 +1,13 @@
 apiVersion: minio.min.io/v2
 kind: Tenant
 metadata:
-  name: test
+  name: minio
   namespace: storage
 spec:
   pools:
-    - servers: 3
-      name: test
-      volumesPerServer: 3
+    - servers: 4
+      name: minio
+      volumesPerServer: 1
       volumeClaimTemplate:
         metadata:
           name: data
@@ -30,7 +30,7 @@ spec:
   users:
     - name: minio-tenant-secret
   buckets:
-    - name: "test-bucket1"
+    - name: "db-backup"
       region: "us-east-1"
       objectLock: true
   configuration:
