@@ -4,6 +4,7 @@ metadata:
   name: minio
   namespace: storage
 spec:
+  ingressClassName: nginx
   rules:
   - host: "minio.${DOMAIN}"
     http:
