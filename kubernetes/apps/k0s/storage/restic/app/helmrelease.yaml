@@ -27,8 +27,7 @@ spec:
     keepHistory: false
   values:
     controller:
-      replicas: 1
-      strategy: RollingUpdate
+      type: statefulset
       annotations:
         reloader.stakater.com/auto: "true"
     image:
@@ -63,3 +62,22 @@ spec:
         memory: 100Mi
       limits:
         memory: 500Mi
+    serviceAccount:
+      create: true
+      name: restic
+    podSecurityContext:
+      fsGroup: 1001
+      runAsUser: 1001
+      runAsGroup: 1001
+    securityContext:
+      fsGroup: 1001
+      runAsUser: 1001
+      runAsGroup: 1001
+      capabilities:
+        drop:
+          - ALL
+      runAsNonRoot: true
+      readOnlyRootFilesystem: true
+      allowPrivilegeEscalation: false
+      seccompProfile:
+        type: RuntimeDefault
