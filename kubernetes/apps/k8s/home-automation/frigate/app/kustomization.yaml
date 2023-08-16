@@ -6,7 +6,6 @@ namespace: home-automation
 resources:
   - ./nfs-pvc.yaml
   - ./externalsecret.yaml
-  - ./gatus.yaml
   - ./helmrelease.yaml
   - ./ingress.yaml
   - ./volsync.yaml
