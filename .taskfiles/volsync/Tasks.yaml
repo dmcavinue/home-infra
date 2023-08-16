@@ -61,18 +61,18 @@ tasks:
     desc: Trigger a Restic ReplicationSource snapshot (ex. task vs:snapshot rsrc=plex [namespace=default])
     cmds:
       - kubectl -n {{.namespace}} patch replicationsources {{.rsrc}} --type merge -p '{"spec":{"trigger":{"manual":"{{.ts}}"}}}'
-      - bash {{.waitForJobScript}} volsync-src-{{.rsrc}} {{.namespace}}
-      - kubectl -n {{.namespace}} wait job/volsync-src-{{.rsrc}} --for condition=complete --timeout=120m
+      # - bash {{.waitForJobScript}} volsync-src-{{.rsrc}} {{.namespace}}
+      # - kubectl -n {{.namespace}} wait job/volsync-src-{{.rsrc}} --for condition=complete --timeout=120m
       # TODO: Error from server (NotFound): jobs.batch "volsync-src-zzztest" not found
       # - kubectl -n {{.namespace}} logs job/volsync-src-{{.rsrc}}
     vars:
       rsrc: '{{ or .rsrc (fail "ReplicationSource `rsrc` is required") }}'
       namespace: '{{.namespace | default "default"}}'
     env: *task-vars
-    preconditions:
-      - sh: test -f {{.waitForJobScript}}
-      - sh: kubectl -n {{.namespace}} get replicationsources {{.rsrc}}
-        msg: "ReplicationSource '{{.rsrc}}' not found in namespace '{{.namespace}}'"
+    # preconditions:
+    #   - sh: test -f {{.waitForJobScript}}
+    #   - sh: kubectl -n {{.namespace}} get replicationsources {{.rsrc}}
+    #     msg: "ReplicationSource '{{.rsrc}}' not found in namespace '{{.namespace}}'"
 
   # To run restore jobs in parallel for all replicationdestinations:
   #   - kubectl get replicationsources --all-namespaces --no-headers | awk '{print $2, $1}' | xargs --max-procs=2 -l bash -c 'task vs:restore rsrc=$0 namespace=$1'
