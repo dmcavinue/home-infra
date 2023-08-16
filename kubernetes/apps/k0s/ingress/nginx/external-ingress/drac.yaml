@@ -1,0 +1,51 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: drac
+  namespace: ingress
+spec:
+  ports:
+  - name: http
+    port: 443
+    protocol: TCP
+    targetPort: 443
+  clusterIP: None
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Endpoints
+metadata:
+  name: drac
+  namespace: ingress
+subsets:
+- addresses:
+  - ip: "${INGRESS_DRAC_IP}"
+  ports:
+  - name: http
+    port: 443
+    protocol: TCP
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: drac
+  namespace: ingress
+  annotations:
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: "drac.${DOMAIN}"
+    http:
+      paths:
+      - backend:
+          service:
+            name: drac
+            port:
+              number: 443
+        path: /
+        pathType: Prefix
+  tls:
+  - hosts:
+    - "drac.${DOMAIN}"
