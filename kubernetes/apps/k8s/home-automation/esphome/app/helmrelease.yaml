@@ -43,7 +43,7 @@ spec:
         memory: 1Gi
     image:
       repository: esphome/esphome
-      tag: 2023.7.1
+      tag: 2023.8.0
     env:
       ESPHOME_DASHBOARD_USE_PING: true
       PLATFORMIO_CORE_DIR: /config/.plattformio
