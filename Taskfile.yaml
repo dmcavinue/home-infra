@@ -5,8 +5,6 @@ vars:
   CLUSTER_DIR: "{{.ROOT_DIR}}/kubernetes"
   ANSIBLE_DIR: "{{.ROOT_DIR}}/ansible"
   ENVIRONMENT: "k8s"
-env:
-  KUBECONFIG: ./{{.ENVIRONMENT}}.kubeconfig
 
 dotenv: [".env"]
 
