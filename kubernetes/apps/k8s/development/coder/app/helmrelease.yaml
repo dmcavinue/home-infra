@@ -24,6 +24,9 @@ spec:
     remediation:
       retries: 3
   values:
+    coderd:
+      serviceSpec:
+        type: ClusterIP
     coder:
       env:
         - name: CODER_PG_CONNECTION_URL
