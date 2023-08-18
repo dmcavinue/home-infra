@@ -14,13 +14,13 @@ spec:
       kube-image-keeper.enix.io/image-caching-policy: ignore
   primaryUpdateStrategy: unsupervised
   bootstrap:
-    initdb:
-      database: coder
-      owner: coder
-      secret:
-        name: coder-database-user
-    # recovery:
-    #   source: &previousCluster coder-1
+    # initdb:
+    #   database: coder
+    #   owner: coder
+    #   secret:
+    #     name: coder-database-user
+    recovery:
+      source: &previousCluster coder-1
   storage:
     size: 10Gi
     storageClass: local-path
@@ -48,15 +48,15 @@ spec:
         secretAccessKey:
           name: coder-database-superuser
           key: secret
-  # externalClusters:
-  # - name: *previousCluster
-  #   barmanObjectStore:
-  #     destinationPath: s3://db-backup/coder
-  #     endpointURL: "https://minio.${K8S_DOMAIN}"
-  #     s3Credentials:
-  #       accessKeyId:
-  #         name: coder-database-superuser
-  #         key: access-key
-  #       secretAccessKey:
-  #         name: coder-database-superuser
-  #         key: secret
+  externalClusters:
+  - name: *previousCluster
+    barmanObjectStore:
+      destinationPath: s3://db-backup/coder
+      endpointURL: "https://minio.${K8S_DOMAIN}"
+      s3Credentials:
+        accessKeyId:
+          name: coder-database-superuser
+          key: access-key
+        secretAccessKey:
+          name: coder-database-superuser
+          key: secret
