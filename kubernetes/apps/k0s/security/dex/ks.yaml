@@ -7,7 +7,7 @@ metadata:
 spec:
   dependsOn:
     - name: cluster-apps-lldap
-  path: ./kubernetes/apps/${ENVIRONMENT}/security/dex/app
+  path: ./kubernetes/apps/k0s/security/dex/app
   prune: true
   sourceRef:
     kind: GitRepository

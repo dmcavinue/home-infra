@@ -7,7 +7,7 @@ metadata:
 spec:
   dependsOn:
     - name: cluster-apps-node-feature-rules
-  path: ./kubernetes/apps/${ENVIRONMENT}/home-automation/frigate/app
+  path: ./kubernetes/apps/k8s/home-automation/frigate/app
   prune: true
   sourceRef:
     kind: GitRepository

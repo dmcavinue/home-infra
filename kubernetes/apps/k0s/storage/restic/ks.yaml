@@ -5,7 +5,7 @@ metadata:
   name: cluster-apps-restic
   namespace: flux-system
 spec:
-  path: ./kubernetes/apps/${ENVIRONMENT}/storage/restic/app
+  path: ./kubernetes/apps/k0s/storage/restic/app
   prune: true
   sourceRef:
     kind: GitRepository

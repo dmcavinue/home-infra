@@ -5,7 +5,7 @@ metadata:
   name: cluster-apps-nginx
   namespace: flux-system
 spec:
-  path: ./kubernetes/apps/${ENVIRONMENT}/ingress/nginx/app
+  path: ./kubernetes/apps/k8s/ingress/nginx/app
   prune: true
   sourceRef:
     kind: GitRepository

@@ -32,7 +32,7 @@ spec:
     bgp:
       enabled: false
     cluster:
-      name: "${ENVIRONMENT}"
+      name: "k0s"
       id: "${CILIUM_ID}"
     containerRuntime:
       integration: containerd

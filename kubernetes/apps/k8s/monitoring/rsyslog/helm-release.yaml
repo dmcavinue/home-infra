@@ -29,8 +29,6 @@ spec:
         enabled: false
       rsyslog:
         enabled: true
-        annotations:
-          coredns.io/hostname: "log.${SECRET_DOMAIN}"
         type: LoadBalancer
         loadBalancerIP: "${SECRET_RSYSLOG_LB_IP}"
         externalIPs:
@@ -51,16 +49,6 @@ spec:
         subPath:
           - path: rsyslog.conf
             mountPath: /etc/rsyslog.conf
-      ca-bundle:
-        enabled: true
-        type: custom
-        volumeSpec:
-          configMap:
-            name: "${SECRET_LOCAL_DOMAIN/./-}-root-ca"
-        subPath:
-          - path: ca.cert.pem
-            mountPath: /etc/pki/ca-trust/extracted/pem
-            readOnly: true
     resources:
       limits:
         memory: 128Mi

@@ -33,7 +33,7 @@ tasks:
       - vault auth disable ldap
       - vault auth enable ldap
       - vault write auth/ldap/config
-          url="ldaps://lldap.{{.PRIVATE_DOMAIN}}"
+          url="ldaps://lldap.{{.K0S_DOMAIN}}"
           userattr=uid
           userdn="ou=people,{{.LLDAP_LDAP_BASE_DN}}"
           discoverdn=true
@@ -48,87 +48,131 @@ tasks:
       - vault write auth/ldap/groups/vault-admin policies=admin
   # k8s auth
   enable-k8s-auth:
-    desc: configure vault k8s auth for cluster
+    desc: configure vault k8s auth
     cmds:
-      - vault auth enable -path=kubernetes/{{.ENVIRONMENT}} kubernetes
-      - kubectl -n kube-system apply -f {{.ROOT_DIR}}/kubernetes/templates/vault-auth.yaml
-      - kubectl -n kube-system get secret vault-auth-token -o jsonpath="{.data['ca\.crt']}" | base64 -d > ca.crt
-      - vault write auth/kubernetes/{{.ENVIRONMENT}}/config
+      # k8s
+      - vault auth disable kubernetes/k8s
+      - vault auth enable -path=kubernetes/k8s kubernetes
+      - KUBECONFIG=k8s.kubeconfig kubectl -n kube-system apply -f {{.ROOT_DIR}}/kubernetes/templates/vault-auth.yaml
+      - KUBECONFIG=k8s.kubeconfig kubectl -n kube-system get secret vault-auth-token -o jsonpath="{.data['ca\.crt']}" | base64 -d > ca.crt
+      - vault write auth/kubernetes/k8s/config
           token_reviewer_jwt="$(kubectl -n kube-system get secret vault-auth-token -o jsonpath=\"{.data.token}\" | base64 -d; echo)"
-          kubernetes_host="https://{{.VIP_IP}}"
+          kubernetes_host="https://{{.K8S_VIP_IP}}"
           kubernetes_ca_cert=@ca.crt
           disable_iss_validation=true
       - rm ca.crt
-  disable-k8s-auth:
-    desc: disable k8s auth
-    cmds:
-      - vault auth disable kubernetes/{{.ENVIRONMENT}}
+      # k0s
+      - vault auth disable kubernetes/k0s
+      - vault auth enable -path=kubernetes/k0s kubernetes
+      - KUBECONFIG=k0s.kubeconfig kubectl -n kube-system apply -f {{.ROOT_DIR}}/kubernetes/templates/vault-auth.yaml
+      - KUBECONFIG=k0s.kubeconfig kubectl -n kube-system get secret vault-auth-token -o jsonpath="{.data['ca\.crt']}" | base64 -d > ca.crt
+      - vault write auth/kubernetes/k0s/config
+          token_reviewer_jwt="$(kubectl -n kube-system get secret vault-auth-token -o jsonpath=\"{.data.token}\" | base64 -d; echo)"
+          kubernetes_host="https://{{.K0S_VIP_IP}}"
+          kubernetes_ca_cert=@ca.crt
+          disable_iss_validation=true
+      - rm ca.crt
   add-roles:
     desc: add k8s roles/policies
     cmds:
       - echo "path \"secret/data/cluster/*\" { capabilities = [\"read\", \"list\"] }" | vault policy write cluster-secrets -
       - echo "path \"secret/data/flux-system/*\" { capabilities = [\"read\", \"list\"] }" | vault policy write flux-system -
-      - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/flux-system
+      - vault write auth/kubernetes/k8s/role/flux-system
+          bound_service_account_names=vault-auth
+          bound_service_account_namespaces=flux-system
+          policies=cluster-secrets,flux-system,default
+          ttl=1440h
+      - vault write auth/kubernetes/k0s/role/flux-system
           bound_service_account_names=vault-auth
           bound_service_account_namespaces=flux-system
           policies=cluster-secrets,flux-system,default
           ttl=1440h
       - echo "path \"secret/data/database/*\" { capabilities = [\"read\", \"list\"] } " | vault policy write database -
-      - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/database
+      - vault write auth/kubernetes/k8s/role/database
+          bound_service_account_names=vault-auth
+          bound_service_account_namespaces=database
+          policies=database,media,home-automation,default
+          ttl=1440h
+      - vault write auth/kubernetes/k0s/role/database
           bound_service_account_names=vault-auth
           bound_service_account_namespaces=database
           policies=database,media,home-automation,default
           ttl=1440h
       - echo "path \"secret/data/home-automation/*\" { capabilities = [\"read\", \"list\"] }" | vault policy write home-automation -
-      - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/home-automation
+      - vault write auth/kubernetes/k8s/role/home-automation
           bound_service_account_names=vault-auth
           bound_service_account_namespaces=home-automation
           policies=volsync,database,home-automation,default
           ttl=1440h
       - echo "path \"secret/data/media/*\" { capabilities = [\"read\", \"list\"] }" | vault policy write media -
-      - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/media
+      - vault write auth/kubernetes/k8s/role/media
           bound_service_account_names=vault-auth
           bound_service_account_namespaces=media
           policies=media,default
           ttl=1440h
       - echo "path \"secret/data/monitoring/*\" { capabilities = [\"read\", \"list\"] }" | vault policy write monitoring -
-      - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/monitoring
+      - vault write auth/kubernetes/k8s/role/monitoring
           bound_service_account_names=vault-auth
           bound_service_account_namespaces=monitoring
           policies=monitoring,default
           ttl=1440h
       - echo "path \"secret/data/cert-manager/*\" { capabilities = [\"read\", \"list\"] }" | vault policy write cert-manager -
-      - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/cert-manager
+      - vault write auth/kubernetes/k8s/role/cert-manager
+          bound_service_account_names=vault-auth
+          bound_service_account_namespaces=cert-manager
+          policies=cert-manager,default
+          ttl=1440h
+      - vault write auth/kubernetes/k0s/role/cert-manager
           bound_service_account_names=vault-auth
           bound_service_account_namespaces=cert-manager
           policies=cert-manager,default
           ttl=1440h
       - echo "path \"secret/data/kube-system/*\" { capabilities = [\"read\", \"list\"] }" | vault policy write kube-system -
-      - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/kube-system
+      - vault write auth/kubernetes/k8s/role/kube-system
+          bound_service_account_names=vault-auth
+          bound_service_account_namespaces=kube-system
+          policies=kube-system,default
+          ttl=1440h
+      - vault write auth/kubernetes/k0s/role/kube-system
           bound_service_account_names=vault-auth
           bound_service_account_namespaces=kube-system
           policies=kube-system,default
           ttl=1440h
       - echo "path \"secret/data/ingress/*\" { capabilities = [\"read\", \"list\"] }" | vault policy write ingress -
-      - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/ingress
+      - vault write auth/kubernetes/k8s/role/ingress
+          bound_service_account_names=vault-auth
+          bound_service_account_namespaces=ingress
+          policies=ingress,default
+          ttl=1440h
+      - vault write auth/kubernetes/k0s/role/ingress
           bound_service_account_names=vault-auth
           bound_service_account_namespaces=ingress
           policies=ingress,default
           ttl=1440h
       - echo "path \"secret/data/volsync/*\" { capabilities = [\"read\", \"list\"] }" | vault policy write volsync -
-      - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/volsync
+      - vault write auth/kubernetes/k8s/role/volsync
+          bound_service_account_names=vault-auth
+          bound_service_account_namespaces=volsync
+          policies=volsync,default
+          ttl=1440h
+      - vault write auth/kubernetes/k0s/role/volsync
           bound_service_account_names=vault-auth
           bound_service_account_namespaces=volsync
           policies=volsync,default
           ttl=1440h
       - echo "path \"secret/data/security/*\" { capabilities = [\"read\", \"list\"] }" | vault policy write security -
-      - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/security
+      - vault write auth/kubernetes/k0s/role/security
           bound_service_account_names=vault-auth
           bound_service_account_namespaces=security
           policies=security,default
           ttl=1440h
       - echo "path \"secret/data/storage/*\" { capabilities = [\"read\", \"list\"] }" | vault policy write storage -
-      - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/storage
+      - vault write auth/kubernetes/k8s/role/storage
+          bound_service_account_names=vault-auth
+          bound_service_account_namespaces=storage
+          policies=security,storage,default
+          ttl=1440h
+      - vault write auth/kubernetes/k0s/role/storage
           bound_service_account_names=vault-auth
           bound_service_account_namespaces=storage
           policies=security,storage,default
@@ -143,78 +187,27 @@ tasks:
     cmds:
       - vault secrets enable -path=secret kv-v2
   add-kv-secrets:
-    desc: add env kv secrets
+    desc: add kv secrets
     cmds:
-      - task vault:add-{{.ENVIRONMENT}}-kv-secrets
-  add-k0s-kv-secrets:
-    desc: add kv secrets for k0s cluster
-    cmds:
-      # cert-manager
-      - vault kv put -mount=secret cert-manager/cloudflare          
-          CLOUDFLARE_TOKEN="{{.CLOUDFLARE_TOKEN}}"
-      # flux-system/notification
-      - vault kv put -mount=secret flux-system/notification
-          FLUX_SLACK_WEBHOOK="{{.SLACK_WEBHOOK}}"
-      # security/dex
-      - vault kv put -mount=secret security/dex
-          IMMICH_CLIENT_SECRET="{{.DEX_IMMICH_CLIENT_SECRET}}"
-      # security/lldap
-      - vault kv put -mount=secret security/lldap
-          LLDAP_POSTGRES_SUPER_USER="{{.LLDAP_POSTGRES_SUPER_USER}}"
-          LLDAP_POSTGRES_SUPER_PASSWORD="{{.LLDAP_POSTGRES_SUPER_PASSWORD}}"
-          LLDAP_POSTGRES_USER="{{.LLDAP_POSTGRES_USER}}"
-          LLDAP_POSTGRES_PASSWORD="{{.LLDAP_POSTGRES_PASSWORD}}"
-          LLDAP_DB_BACKUP_ACCESS_KEY="{{.LLDAP_DB_BACKUP_ACCESS_KEY}}"
-          LLDAP_DB_BACKUP_SECRET="{{.LLDAP_DB_BACKUP_SECRET}}"
-          LLDAP_JWT_SECRET="{{.LLDAP_JWT_SECRET}}"
-          LLDAP_LDAP_USER_EMAIL="{{.LLDAP_LDAP_USER_EMAIL}}"
-          LLDAP_LDAP_USER_PASS="{{.LLDAP_LDAP_USER_PASS}}"
-          LLDAP_SERVER_KEY_SEED="{{.LLDAP_SERVER_KEY_SEED}}"
-          LLDAP_LDAP_BASE_DN="{{.LLDAP_LDAP_BASE_DN}}"
-      # security/oauth2-proxy
-      - vault kv put -mount=secret security/oauth2-proxy
-          OAUTH2_CLIENT_SECRET="{{.OAUTH2_CLIENT_SECRET}}"
-          OAUTH2_COOKIE_SECRET="{{.OAUTH2_COOKIE_SECRET}}"
-      # storage/minio
-      - vault kv put -mount=secret storage/minio
-          ROOT_USER="{{.MINIO_ROOT_USER}}"
-          ROOT_PASSWORD="{{.MINIO_ROOT_PASSWORD}}"
-          CONSOLE_ACCESS_KEY="{{.MINIO_CONSOLE_ACCESS_KEY}}"
-      # volsync
-      - vault kv put -mount=secret volsync/volsync
-          RESTIC_URL="{{.RESTIC_URL}}"
-      - vault kv put -mount=secret volsync/esphome
-          RESTIC_ESPHOME_PASSWORD="{{.RESTIC_ESPHOME_PASSWORD}}"
-      - vault kv put -mount=secret volsync/frigate
-          RESTIC_FRIGATE_PASSWORD="{{.RESTIC_FRIGATE_PASSWORD}}"
-      - vault kv put -mount=secret volsync/immich
-          RESTIC_IMMICH_PASSWORD="{{.RESTIC_IMMICH_PASSWORD}}"
-      - vault kv put -mount=secret volsync/home-assistant
-          RESTIC_HASS_PASSWORD="{{.RESTIC_HASS_PASSWORD}}"
-      - vault kv put -mount=secret volsync/zwavejs
-          RESTIC_ZWAVEJS_PASSWORD="{{.RESTIC_ZWAVEJS_PASSWORD}}"
-  add-k8s-kv-secrets:
-    desc: add kv secrets gto k8s cluster
-    cmds:
-      # shared secrets
-      - vault kv put -mount=secret cluster/{{.ENVIRONMENT}}
-          CILIUM_ID="{{.CILIUM_ID}}"
-          CILIUM_LB_IP="{{.CILIUM_LB_IP}}"
+      # shared secrets - k8s
+      - vault kv put -mount=secret cluster/k8s
+          CILIUM_ID="{{.K8S_CILIUM_ID}}"
+          CILIUM_LB_IP="{{.K8S_CILIUM_LB_IP}}"
           CLOUDFLARE_EMAIL="{{.CLOUDFLARE_EMAIL}}"
-          DOMAIN="{{.DOMAIN}}"
+          DOMAIN="{{.K8S_DOMAIN}}"
           DOCKER_PRIVATE_REGISTRY="{{.DOCKER_PRIVATE_REGISTRY}}"
-          ENVIRONMENT="{{.ENVIRONMENT}}"
+          ENVIRONMENT="k8s"
           EMQX_LB_IP="{{.EMQX_LB_IP}}"
           SLACK_WEBHOOK="{{.SLACK_WEBHOOK}}"
-          IPAM_CIDR="{{.IPAM_CIDR}}"
+          IPAM_CIDR="{{.K8S_IPAM_CIDR}}"
           LOCAL_DOMAIN="{{.LOCAL_DOMAIN}}"
-          PRIVATE_DOMAIN="{{.PRIVATE_DOMAIN}}"
-          NGINX_LB_IP="{{.NGINX_LB_IP}}"
+          K0S_DOMAIN="{{.K0S_DOMAIN}}"
+          NGINX_LB_IP="{{.K8S_NGINX_LB_IP}}"
           NFS_SERVER_IP="{{.NFS_SERVER_IP}}"
-          SERVER_CIDR="{{.SERVER_CIDR}}"
+          SERVER_CIDR="{{.K8S_SERVER_CIDR}}"
           VAULT_ADDR="{{.VAULT_ADDR}}"
-          VIP_IP="{{.VIP_IP}}"
-          VIP_PORT="{{.VIP_PORT}}"
+          VIP_IP="{{.K8S_VIP_IP}}"
+          VIP_PORT="{{.K8S_VIP_PORT}}"
       # cert-manager
       - vault kv put -mount=secret cert-manager/cloudflare          
           CLOUDFLARE_TOKEN="{{.CLOUDFLARE_TOKEN}}"
@@ -320,3 +313,41 @@ tasks:
           LDAP_USERNAME="{{.GRAFANA_LDAP_USERNAME}}"
           LDAP_PASSWORD="{{.GRAFANA_LDAP_PASSWORD}}"
           LDAP_ROOT="{{.GRAFANA_LDAP_ROOT}}"
+# security/dex
+      - vault kv put -mount=secret security/dex
+          IMMICH_CLIENT_SECRET="{{.DEX_IMMICH_CLIENT_SECRET}}"
+      # security/lldap
+      - vault kv put -mount=secret security/lldap
+          LLDAP_POSTGRES_SUPER_USER="{{.LLDAP_POSTGRES_SUPER_USER}}"
+          LLDAP_POSTGRES_SUPER_PASSWORD="{{.LLDAP_POSTGRES_SUPER_PASSWORD}}"
+          LLDAP_POSTGRES_USER="{{.LLDAP_POSTGRES_USER}}"
+          LLDAP_POSTGRES_PASSWORD="{{.LLDAP_POSTGRES_PASSWORD}}"
+          LLDAP_DB_BACKUP_ACCESS_KEY="{{.LLDAP_DB_BACKUP_ACCESS_KEY}}"
+          LLDAP_DB_BACKUP_SECRET="{{.LLDAP_DB_BACKUP_SECRET}}"
+          LLDAP_JWT_SECRET="{{.LLDAP_JWT_SECRET}}"
+          LLDAP_LDAP_USER_EMAIL="{{.LLDAP_LDAP_USER_EMAIL}}"
+          LLDAP_LDAP_USER_PASS="{{.LLDAP_LDAP_USER_PASS}}"
+          LLDAP_SERVER_KEY_SEED="{{.LLDAP_SERVER_KEY_SEED}}"
+          LLDAP_LDAP_BASE_DN="{{.LLDAP_LDAP_BASE_DN}}"
+      # security/oauth2-proxy
+      - vault kv put -mount=secret security/oauth2-proxy
+          OAUTH2_CLIENT_SECRET="{{.OAUTH2_CLIENT_SECRET}}"
+          OAUTH2_COOKIE_SECRET="{{.OAUTH2_COOKIE_SECRET}}"
+      # storage/minio
+      - vault kv put -mount=secret storage/minio
+          ROOT_USER="{{.MINIO_ROOT_USER}}"
+          ROOT_PASSWORD="{{.MINIO_ROOT_PASSWORD}}"
+          CONSOLE_ACCESS_KEY="{{.MINIO_CONSOLE_ACCESS_KEY}}"
+      # volsync
+      - vault kv put -mount=secret volsync/volsync
+          RESTIC_URL="{{.RESTIC_URL}}"
+      - vault kv put -mount=secret volsync/esphome
+          RESTIC_ESPHOME_PASSWORD="{{.RESTIC_ESPHOME_PASSWORD}}"
+      - vault kv put -mount=secret volsync/frigate
+          RESTIC_FRIGATE_PASSWORD="{{.RESTIC_FRIGATE_PASSWORD}}"
+      - vault kv put -mount=secret volsync/immich
+          RESTIC_IMMICH_PASSWORD="{{.RESTIC_IMMICH_PASSWORD}}"
+      - vault kv put -mount=secret volsync/home-assistant
+          RESTIC_HASS_PASSWORD="{{.RESTIC_HASS_PASSWORD}}"
+      - vault kv put -mount=secret volsync/zwavejs
+          RESTIC_ZWAVEJS_PASSWORD="{{.RESTIC_ZWAVEJS_PASSWORD}}"

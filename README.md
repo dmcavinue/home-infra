@@ -7,8 +7,17 @@
 
 Based off [this](https://github.com/onedr0p/flux-cluster-template) template.
 
-**Install**
+**Provision k0s cluster**
 ```bash
+ENVIRONMENT="k0s"
+task ansible:install
+task vault:bootstrap
+task flux:install
+```
+
+**Provision k8s cluster**
+```bash
+ENVIRONMENT="k8s"
 task ansible:install
 task vault:bootstrap
 task flux:install

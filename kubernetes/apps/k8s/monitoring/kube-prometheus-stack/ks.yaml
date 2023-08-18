@@ -5,7 +5,7 @@ metadata:
   name: cluster-apps-kube-prometheus-stack
   namespace: flux-system
 spec:
-  path: ./kubernetes/apps/${ENVIRONMENT}/monitoring/kube-prometheus-stack/app
+  path: ./kubernetes/apps/k8s/monitoring/kube-prometheus-stack/app
   prune: true
   sourceRef:
     kind: GitRepository
