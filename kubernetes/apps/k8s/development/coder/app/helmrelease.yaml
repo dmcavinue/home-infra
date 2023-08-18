@@ -33,3 +33,5 @@ spec:
               key: url
         - name: CODER_ACCESS_URL
           value: "https://code.${DOMAIN}"
+    ingress:
+      enabled: false
