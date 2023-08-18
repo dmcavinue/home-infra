@@ -5,5 +5,8 @@ metadata:
   name: development
   annotations:
     volsync.backube/privileged-movers: "true"
+    meta.helm.sh/release-name": "coder"
+    meta.helm.sh/release-namespace": "development"
   labels:
     kustomize.toolkit.fluxcd.io/prune: disabled
+    app.kubernetes.io/managed-by": "Helm"
