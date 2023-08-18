@@ -32,4 +32,4 @@ spec:
               name: coder-secret
               key: url
         - name: CODER_ACCESS_URL
-          value: "https://coder.${DOMAIN}"
+          value: "https://code.${DOMAIN}"
