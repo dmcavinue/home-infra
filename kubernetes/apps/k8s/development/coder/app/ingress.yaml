@@ -1,0 +1,21 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: coder
+  namespace: development
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: "code.${DOMAIN}"
+    http:
+      paths:
+      - backend:
+          service:
+            name: coder
+            port:
+              number: 8080
+        path: /
+        pathType: Prefix
+  tls:
+  - hosts:
+    - "code.${DOMAIN}"

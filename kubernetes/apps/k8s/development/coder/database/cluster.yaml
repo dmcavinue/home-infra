@@ -1,0 +1,62 @@
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: coder
+  namespace: development
+  annotations:
+    kyverno.io/ignore: "true"
+spec:
+  instances: 1
+  imageName: ghcr.io/cloudnative-pg/postgresql:14.8-7
+  inheritedMetadata:
+    labels:
+      kube-image-keeper.enix.io/image-caching-policy: ignore
+  primaryUpdateStrategy: unsupervised
+  bootstrap:
+    initdb:
+      database: coder
+      owner: coder
+      secret:
+        name: coder-database-user
+    # recovery:
+    #   source: &previousCluster coder-1
+  storage:
+    size: 10Gi
+    storageClass: local-path
+  superuserSecret:
+    name: coder-database-superuser
+  postgresql:
+    parameters:
+      max_connections: "600"
+      shared_buffers: 512MB
+  monitoring:
+    enablePodMonitor: true
+  backup:
+    retentionPolicy: 14d
+    barmanObjectStore:
+      wal:
+        compression: bzip2
+        maxParallel: 8
+      destinationPath: s3://db-backup/coder
+      endpointURL: "https://minio.${K8S_DOMAIN}"
+      serverName: &currentCluster coder-2
+      s3Credentials:
+        accessKeyId:
+          name: coder-database-superuser
+          key: access-key
+        secretAccessKey:
+          name: coder-database-superuser
+          key: secret
+  # externalClusters:
+  # - name: *previousCluster
+  #   barmanObjectStore:
+  #     destinationPath: s3://db-backup/coder
+  #     endpointURL: "https://minio.${K8S_DOMAIN}"
+  #     s3Credentials:
+  #       accessKeyId:
+  #         name: coder-database-superuser
+  #         key: access-key
+  #       secretAccessKey:
+  #         name: coder-database-superuser
+  #         key: secret
