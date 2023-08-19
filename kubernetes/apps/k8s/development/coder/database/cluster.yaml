@@ -39,7 +39,7 @@ spec:
         compression: bzip2
         maxParallel: 8
       destinationPath: s3://db-backup/coder
-      endpointURL: "https://minio.${K8S_DOMAIN}"
+      endpointURL: "https://minio.${K0S_DOMAIN}"
       serverName: &currentCluster coder-2
       s3Credentials:
         accessKeyId:
@@ -52,7 +52,7 @@ spec:
   - name: *previousCluster
     barmanObjectStore:
       destinationPath: s3://db-backup/coder
-      endpointURL: "https://minio.${K8S_DOMAIN}"
+      endpointURL: "https://minio.${K0S_DOMAIN}"
       s3Credentials:
         accessKeyId:
           name: coder-database-superuser
