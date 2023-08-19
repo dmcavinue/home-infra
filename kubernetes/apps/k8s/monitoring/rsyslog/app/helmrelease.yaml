@@ -3,42 +3,62 @@ apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
   name: rsyslog
-  namespace: observability
+  namespace: monitoring
 spec:
-  interval: 5m
+  interval: 30m
   chart:
     spec:
-      chart: k8s/charts/rsyslog/
+      chart: app-template
+      version: 1.5.1
       sourceRef:
-        kind: GitRepository
-        name: flux-system
+        kind: HelmRepository
+        name: bjw-s
         namespace: flux-system
-      interval: 5m
+  maxHistory: 2
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
   values:
-    image:
-      repository: ${SECRET_DOCKER_PRIVATE_REGISTRY}/rsyslog
-      tag: 0.0.2
     controller:
-      replicas: 1
-    nameOverride: rsyslog
-    serviceAccount:
-      create: true
-      name: rsyslog
+      type: statefulset
+      annotations:
+        reloader.stakater.com/auto: "true"
+    image:
+      repository: ${DOCKER_PRIVATE_REGISTRY}/rsyslog
+      tag: 0.0.2
     service:
       main:
         enabled: false
       rsyslog:
         enabled: true
         type: LoadBalancer
-        loadBalancerIP: "${SECRET_RSYSLOG_LB_IP}"
+        loadBalancerIP: "${RSYSLOG_LB_IP}"
         externalIPs:
-          - "${SECRET_RSYSLOG_LB_IP}"
+          - "${RSYSLOG_LB_IP}"
         ports:
           udp:
             enabled: true
             port: 514
             protocol: UDP
             targetPort: 514
+    ingress:
+      main:
+        enabled: false
+    securityContext:
+      privileged: true
+    probes:
+      startup:
+        enabled: false
+      liveness:
+        enabled: false
+      readiness:
+        enabled: false
     persistence:
       config:
         enabled: true
@@ -55,10 +75,3 @@ spec:
       requests:
         cpu: 100m
         memory: 96Mi
-    probes:
-      startup:
-        enabled: false
-      liveness:
-        enabled: false
-      readiness:
-        enabled: false

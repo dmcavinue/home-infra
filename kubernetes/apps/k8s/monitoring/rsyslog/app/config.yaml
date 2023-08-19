@@ -3,7 +3,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: rsyslog-config
-  namespace: observability
+  namespace: monitoring
   labels:
     app.kubernetes.io/name: rsyslog
     app.kubernetes.io/instance: rsyslog
@@ -14,4 +14,4 @@ data:
     $UDPServerRun 514
     $ModLoad imtcp
     $InputTCPServerRun 514
-    *.* @@(o)promtail-syslog.observability.svc.cluster.local:1514;RSYSLOG_SyslogProtocol23Format
+    *.* @@(o)promtail-syslog.monitoring.svc.cluster.local:1514;RSYSLOG_SyslogProtocol23Format
