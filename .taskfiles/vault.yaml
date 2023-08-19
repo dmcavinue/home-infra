@@ -26,6 +26,11 @@ tasks:
     desc: vault unseal
     cmds:
       - kubectl -n vault exec -ti vault-0 -- vault operator unseal $( cat {{.ROOT_DIR}}/.vault.json | jq -r '.unseal_keys_b64[0]')
+  # oidc
+  enable-oidc-provider:
+    cmds:
+      - vault write identity/oidc/provider/default
+          allowed_client_ids="*"
   # ldap
   enable-ldap:
     desc: configure vault ldap auth

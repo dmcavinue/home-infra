@@ -40,7 +40,7 @@ spec:
       existingSecret: oauth2-proxy-secret
       configFile: |-
         provider = "oidc"
-        oidc_issuer_url = "https://dex.${DOMAIN}"
+        oidc_issuer_url = "https://vault.${DOMAIN}/v1/identity/oidc/provider/default"
         auth_logging = true
         cookie_domains = ".${DOMAIN}"
         cookie_httponly = true
