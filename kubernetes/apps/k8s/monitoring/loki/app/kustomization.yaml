@@ -7,4 +7,3 @@ resources:
   - ./configmap.yaml
   - ./objectbucketclaim.yaml
   - ./helmrelease.yaml
-  - ./ingress.yaml
