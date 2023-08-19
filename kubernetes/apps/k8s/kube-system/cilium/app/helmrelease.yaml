@@ -87,8 +87,8 @@ spec:
                 - *host
           annotations:
             kubernetes.io/ingress.class: nginx
-            nginx.ingress.kubernetes.io/auth-signin: https://oauth.${K0S_DOMAIN}/oauth2/start?rd=https://$host/oauth2/callback
-            nginx.ingress.kubernetes.io/auth-url: https://oauth.${K0S_DOMAIN}/oauth2/auth
+            # nginx.ingress.kubernetes.io/auth-signin: https://oauth.${K0S_DOMAIN}/oauth2/start?rd=https://$host/oauth2/callback
+            # nginx.ingress.kubernetes.io/auth-url: https://oauth.${K0S_DOMAIN}/oauth2/auth
     ipam:
       mode: kubernetes
     ipv4NativeRoutingCIDR: 10.32.0.0/16
