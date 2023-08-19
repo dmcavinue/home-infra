@@ -149,6 +149,11 @@ tasks:
           bound_service_account_namespaces=ingress
           policies=ingress,default
           ttl=1440h
+      - vault write auth/kubernetes/k0s/role/ingress
+          bound_service_account_names=vault-auth
+          bound_service_account_namespaces=ingress
+          policies=ingress,default
+          ttl=1440h
       - echo "path \"secret/data/volsync/*\" { capabilities = [\"read\", \"list\"] }" | vault policy write volsync -
       - vault write auth/kubernetes/k8s/role/volsync
           bound_service_account_names=vault-auth
@@ -311,6 +316,11 @@ tasks:
           UNIFI_DOWNLOADER_HOST="{{.UNIFI_DOWNLOADER_HOST}}"
           UNIFI_DOWNLOADER_USERNAME="{{.UNIFI_DOWNLOADER_USERNAME}}"
           UNIFI_DOWNLOADER_PASSWORD="{{.UNIFI_DOWNLOADER_PASSWORD}}"
+      # ingress/cloudflare
+      - vault kv put -mount=secret ingress/cloudflare
+          CLOUDFLARE_EMAIL="{{.CLOUDFLARE_EMAIL}}"
+          CLOUDFLARE_TOKEN="{{.CLOUDFLARE_TOKEN}}"
+          CLOUDFLARE_RECORD_NAME="{{.CLOUDFLARE_RECORD_NAME}}"
       # monitoring/gatus
       - vault kv put -mount=secret monitoring/gatus
           GATUS_POSTGRES_SUPER_USER="{{.GATUS_POSTGRES_SUPER_USER}}"
