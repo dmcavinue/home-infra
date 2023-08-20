@@ -176,6 +176,11 @@ tasks:
           bound_service_account_namespaces=security
           policies=security,default
           ttl=1440h
+      - vault write auth/kubernetes/k8s/role/security
+          bound_service_account_names=vault-auth
+          bound_service_account_namespaces=security
+          policies=security,default
+          ttl=1440h
       - echo "path \"secret/data/storage/*\" { capabilities = [\"read\", \"list\"] }" | vault policy write storage -
       - vault write auth/kubernetes/k8s/role/storage
           bound_service_account_names=vault-auth

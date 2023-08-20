@@ -7,5 +7,4 @@ resources:
   - ./namespace.yaml
   - ./externalsecret.yaml
   # Flux-Kustomizations
-  - ./lldap/ks.yaml
-  - ./dex/ks.yaml
+  - ./oauth2-proxy/ks.yaml
