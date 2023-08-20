@@ -62,4 +62,4 @@ spec:
         ssl_insecure_skip_verify = false
         standard_logging = true
         upstreams = [ "static://200" ]
-        whitelist_domains = [ "${DOMAIN}", "nucstack.com" ]
+        whitelist_domains = [ ".${DOMAIN}", ".nucstack.com" ]
