@@ -42,6 +42,8 @@ spec:
         provider = "oidc"
         oidc_issuer_url = "https://dex.${DOMAIN}"
         auth_logging = true
+        cookie_httponly = true
+        cookie_name = "_nucstack_oauth"
         cookie_domains = ".nucstack.com"
         cookie_refresh = "1h"
         cookie_secure = true
