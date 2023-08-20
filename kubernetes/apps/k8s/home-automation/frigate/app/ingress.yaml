@@ -3,8 +3,11 @@ kind: Ingress
 metadata:
   name: frigate
   namespace: home-automation
+  annotations:
+    nginx.ingress.kubernetes.io/auth-url: https://oauth.${DOMAIN}/oauth2/auth
+    nginx.ingress.kubernetes.io/auth-signin: https://oauth.${DOMAIN}/oauth2/start
 spec:
-  ingressClassName: cilium
+  ingressClassName: nginx
   rules:
   - host: "cctv.${DOMAIN}"
     http:
