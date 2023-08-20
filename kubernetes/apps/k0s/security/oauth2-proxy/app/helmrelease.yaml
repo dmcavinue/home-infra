@@ -47,7 +47,7 @@ spec:
         cookie_name = "_nucstack_oauth"
         cookie_domains = [ ".${DOMAIN}", ".nucstack.com" ]
         cookie_refresh = "1h"
-        cookie_secure = true
+        cookie_secure = false
         email_domains = [ '*' ]
         pass_access_token = true
         pass_authorization_header = true
