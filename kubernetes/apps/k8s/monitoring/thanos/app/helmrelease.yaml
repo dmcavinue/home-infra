@@ -74,6 +74,7 @@ spec:
         enabled: true
         storageClass: local-path
         size: 5Gi
+      #loadBalancerIP: "${THANOS_LB_IP}"
     ruler:
       enabled: true
       replicaCount: 1
