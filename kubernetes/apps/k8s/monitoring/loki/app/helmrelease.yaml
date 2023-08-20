@@ -110,7 +110,7 @@ spec:
       image:
         registry: ghcr.io
       service:
-        type: loadBalancer
+        type: LoadBalancer
         loadBalancerIP: "${LOKI_LB_IP}"
       # ingress:
       #   enabled: true
