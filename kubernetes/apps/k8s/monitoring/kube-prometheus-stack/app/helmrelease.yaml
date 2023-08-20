@@ -173,6 +173,8 @@ spec:
         enabled: true
       thanosServiceMonitor:
         enabled: true
+      externalLabels:
+        cluster: "k8s"
       prometheusSpec:
         replicas: 1
         replicaExternalLabelName: __replica__
