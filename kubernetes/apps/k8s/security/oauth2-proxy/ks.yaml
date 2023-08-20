@@ -5,7 +5,7 @@ metadata:
   name: cluster-apps-oauth2-proxy
   namespace: flux-system
 spec:
-  path: ./kubernetes/apps/k0s/security/oauth2-proxy/app
+  path: ./kubernetes/apps/k8s/security/oauth2-proxy/app
   prune: true
   sourceRef:
     kind: GitRepository
