@@ -337,6 +337,9 @@ tasks:
           CLOUDFLARE_EMAIL="{{.CLOUDFLARE_EMAIL}}"
           CLOUDFLARE_TOKEN="{{.CLOUDFLARE_TOKEN}}"
           CLOUDFLARE_RECORD_NAME="{{.CLOUDFLARE_RECORD_NAME}}"
+      # monitoring/loki
+      - vault kv put -mount=secret monitoring/loki
+          BASIC_AUTH="{{.LOKI_BASIC_AUTH}}"
       # monitoring/gatus
       - vault kv put -mount=secret monitoring/gatus
           GATUS_POSTGRES_SUPER_USER="{{.GATUS_POSTGRES_SUPER_USER}}"
