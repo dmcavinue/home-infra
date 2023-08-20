@@ -112,6 +112,9 @@ spec:
       service:
         type: LoadBalancer
         loadBalancerIP: "${LOKI_LB_IP}"
+      basicAuth:
+        enabled: true
+        existingSecret: loki-basic-auth
       # ingress:
       #   enabled: true
       #   ingressClassName: nginx
