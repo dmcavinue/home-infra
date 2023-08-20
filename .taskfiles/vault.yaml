@@ -85,12 +85,12 @@ tasks:
       - vault write auth/kubernetes/k8s/role/flux-system
           bound_service_account_names=vault-auth
           bound_service_account_namespaces=flux-system
-          policies=cluster-secrets,flux-system,default
+          policies=cluster-secrets,flux-system,security,default
           ttl=1440h
       - vault write auth/kubernetes/k0s/role/flux-system
           bound_service_account_names=vault-auth
           bound_service_account_namespaces=flux-system
-          policies=cluster-secrets,flux-system,default
+          policies=cluster-secrets,flux-system,security,default
           ttl=1440h
       - echo "path \"secret/data/database/*\" { capabilities = [\"read\", \"list\"] } " | vault policy write database -
       - vault write auth/kubernetes/k8s/role/database
