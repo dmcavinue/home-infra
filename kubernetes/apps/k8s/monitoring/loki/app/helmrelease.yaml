@@ -113,7 +113,7 @@ spec:
         type: LoadBalancer
         loadBalancerIP: "${LOKI_LB_IP}"
       basicAuth:
-        enabled: true
+        enabled: false
         existingSecret: loki-basic-auth
       # ingress:
       #   enabled: true
