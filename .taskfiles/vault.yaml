@@ -340,6 +340,8 @@ tasks:
       # monitoring/loki
       - vault kv put -mount=secret monitoring/loki
           BASIC_AUTH="{{.LOKI_BASIC_AUTH}}"
+          LOKI_USERNAME="{{.LOKI_USERNAME}}"
+          LOKI_PASSWORD="{{.LOKI_PASSWORD}}"
       # monitoring/gatus
       - vault kv put -mount=secret monitoring/gatus
           GATUS_POSTGRES_SUPER_USER="{{.GATUS_POSTGRES_SUPER_USER}}"
