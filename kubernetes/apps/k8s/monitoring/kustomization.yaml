@@ -10,6 +10,6 @@ resources:
   - ./grafana/ks.yaml
   - ./kube-prometheus-stack/ks.yaml
   - ./loki/ks.yaml
-  - ./rsyslog/ks.yaml
+  #- ./rsyslog/ks.yaml
   - ./promtail/ks.yaml
   - ./thanos/ks.yaml
