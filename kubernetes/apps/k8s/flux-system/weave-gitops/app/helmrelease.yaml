@@ -49,6 +49,9 @@ spec:
       enabled: true
     rbac:
       create: true
-      impersonationResources: ["users"]
+      impersonationResourceNames: ["admin"]
+      impersonationResources: ["groups"]
+      impersonationResourceNames:
+      - grafana-admin
     podAnnotations:
       secret.reloader.stakater.com/reload: cluster-user-auth
