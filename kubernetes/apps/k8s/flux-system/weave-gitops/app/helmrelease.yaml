@@ -49,6 +49,6 @@ spec:
       enabled: true
     rbac:
       create: true
-      impersonationResourceNames: ["admin"]
+      impersonationResourceNames: ["dan@mcavinue.io"]
     podAnnotations:
       secret.reloader.stakater.com/reload: cluster-user-auth
