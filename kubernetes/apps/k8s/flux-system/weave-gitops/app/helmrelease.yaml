@@ -49,6 +49,8 @@ spec:
       enabled: true
     rbac:
       create: true
-      impersonationResourceNames: ["admin"]
+      impersonationResources: ["groups"]
+      impersonationResourceNames:
+      - vault-admin
     podAnnotations:
       secret.reloader.stakater.com/reload: cluster-user-auth
