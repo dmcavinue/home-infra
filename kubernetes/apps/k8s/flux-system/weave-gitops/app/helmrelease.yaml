@@ -49,7 +49,6 @@ spec:
       enabled: true
     rbac:
       create: true
-      impersonationResourceNames: ["admin"]
       impersonationResources: ["groups"]
       impersonationResourceNames:
       - grafana-admin
