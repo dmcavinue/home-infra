@@ -18,5 +18,5 @@ roleRef:
   name: weave-sa-impersonator
 subjects:
 - apiGroup: rbac.authorization.k8s.io
-  kind: Group
-  name: weave-gitops
+  kind: User
+  name: dan@mcavinue.io
