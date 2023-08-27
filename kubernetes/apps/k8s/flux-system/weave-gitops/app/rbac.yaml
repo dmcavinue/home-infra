@@ -6,7 +6,7 @@ rules:
 - apiGroups: [""]
   resources: ["users"]
   verbs: ["impersonate"]
-  resourceNames: ["weave-gitops"]
+  resourceNames: ["system:serviceaccount:flux-system:weave-gitops"]
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
