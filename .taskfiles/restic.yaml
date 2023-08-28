@@ -1,0 +1,21 @@
+---
+version: "3"
+
+tasks:
+
+  list-snapshots:
+    cmds:
+      - restic list snapshots
+    vars:
+      name: '{{ or .name (fail "name `name` is required") }}'
+    env:
+      RESTIC_REPOSITORY: "{{.RESTIC_URL}}/{{.name}}"
+
+  list-files:
+    cmds:
+      - restic ls {{.snapshot}}
+    vars:
+      name: '{{ or .name (fail "name `name` is required") }}'
+      snapshot: '{{ or .snapshot (fail "snapshot `snapshot` is required") }}'
+    env:
+      RESTIC_REPOSITORY: "{{.RESTIC_URL}}/{{.name}}"
