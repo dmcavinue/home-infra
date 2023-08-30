@@ -10,7 +10,6 @@ tasks:
     desc: initialize vault
     cmds:
       - kubectl -n vault exec -ti vault-0 -- vault operator init -n 1 -t 1 --format=json > {{.ROOT_DIR}}/.vault.json
-      
   bootstrap:
     desc: bootstrap auth/roles
     cmds:
@@ -26,6 +25,38 @@ tasks:
     desc: vault unseal
     cmds:
       - kubectl -n vault exec -ti vault-0 -- vault operator unseal $( cat {{.ROOT_DIR}}/.vault.json | jq -r '.unseal_keys_b64[0]')
+  # ca
+  add-rootca:
+    desc: setup root ca pki engine
+    cmds:
+      - vault secrets enable -path=pki/root_ca pki || true
+      - vault secrets tune -max-lease-ttl=87600h pki/root_ca
+      - vault write -field=certificate pki/root_ca/root/generate/internal common_name="svc" ttl=87600h > /tmp/ca_cert.crt
+      - vault write pki/root_ca/config/urls issuing_certificates="{{ .VAULT_ADDR }}/v1/pki/ca" crl_distribution_points="{{ .VAULT_ADDR }}/v1/pki/crl"
+      - rm  /tmp/ca_cert.crt
+  add-intca:
+    desc: enable intermediate ca pki engine for k8s cluster
+    cmds:
+      - vault secrets enable -path=pki/int_ca pki || true
+      - vault secrets tune -max-lease-ttl=43800h pki/int_ca
+      - vault write -format=json pki/int_ca/intermediate/generate/internal common_name="svc.cluster.local" | jq -r '.data.csr' > pki_intermediate.csr
+      - vault write -format=json pki/root_ca/root/sign-intermediate csr=@pki_intermediate.csr format=pem_bundle ttl="43800h" | jq -r '.data.certificate' > ca.cert.pem
+      - vault write pki/int_ca/intermediate/set-signed certificate=@ca.cert.pem
+      - vault write pki/int_ca/roles/default issuer_ref="$(vault read -field=default pki/int_ca/config/issuers)" allowed_domains="svc.cluster.local" allow_bare_domains=true allow_subdomains=true max_ttl="720h"
+      - KUBECONFIG=k0s.kubeconfig kubectl -n cert-manager create secret generic vault-root-ca --from-file=ca.cert.pem=ca.cert.pem || true
+      - KUBECONFIG=k8s.kubeconfig kubectl -n cert-manager create secret generic vault-root-ca --from-file=ca.cert.pem=ca.cert.pem || true
+      - rm ca.cert.pem
+      - rm pki_intermediate.csr
+  add-vault-issuers:
+    desc: add vault issuers
+    cmds:
+      - vault auth enable -path=approle approle || true
+      # private issuer
+      - vault write auth/approle/role/cert-manager token_policies="cert-manager" token_ttl=1h token_max_ttl=4h
+      - KUBECONFIG=k0s.kubeconfig kubectl -n ingress create secret generic cert-manager-vault-approle --from-literal=secretId=$(vault write -force -field=secret_id auth/approle/role/cert-manager/secret-id) || true
+      - KUBECONFIG=k8s.kubeconfig kubectl -n ingress create secret generic cert-manager-vault-approle --from-literal=secretId=$(vault write -force -field=secret_id auth/approle/role/cert-manager/secret-id) || true
+      - ROLE_ID=$(vault read -field role_id auth/approle/role/cert-manager/role-id ) envsubst < {{.CLUSTER_DIR}}/templates/vault-issuer.yaml | KUBECONFIG=k0s.kubeconfig kubectl apply -f -
+      - ROLE_ID=$(vault read -field role_id auth/approle/role/cert-manager/role-id ) envsubst < {{.CLUSTER_DIR}}/templates/vault-issuer.yaml | KUBECONFIG=k8s.kubeconfig kubectl apply -f -
   # oidc
   enable-oidc-provider:
     cmds:
@@ -56,8 +87,7 @@ tasks:
     desc: configure vault k8s auth
     cmds:
       # k8s
-      - vault auth disable kubernetes/k8s
-      - vault auth enable -path=kubernetes/k8s kubernetes
+      - vault auth enable -path=kubernetes/k8s kubernetes || true
       - KUBECONFIG=k8s.kubeconfig kubectl -n kube-system apply -f {{.ROOT_DIR}}/kubernetes/templates/vault-auth.yaml
       - KUBECONFIG=k8s.kubeconfig kubectl -n kube-system get secret vault-auth-token -o jsonpath="{.data['ca\.crt']}" | base64 -d > ca.crt
       - vault write auth/kubernetes/k8s/config
@@ -126,7 +156,7 @@ tasks:
           bound_service_account_namespaces=monitoring
           policies=monitoring,default
           ttl=1440h
-      - echo "path \"secret/data/cert-manager/*\" { capabilities = [\"read\", \"list\"] }" | vault policy write cert-manager -
+      - echo -e "path \"pki/sign/default\" { capabilities = [\"update\"] }\npath \"secret/data/cert-manager/*\" { capabilities = [\"read\", \"list\"] }" | vault policy write cert-manager -
       - vault write auth/kubernetes/k8s/role/cert-manager
           bound_service_account_names=vault-auth
           bound_service_account_namespaces=cert-manager

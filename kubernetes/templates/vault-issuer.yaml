@@ -1,0 +1,17 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: vault-issuer
+  namespace: ingress
+spec:
+  vault:
+    path: pki/sign/default
+    server: $VAULT_ADDR
+    auth:
+      appRole:
+        path: approle
+        roleId: ${ROLE_ID}
+        secretRef:
+          name: cert-manager-vault-approle
+          key: secretId
