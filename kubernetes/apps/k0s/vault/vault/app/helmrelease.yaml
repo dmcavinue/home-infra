@@ -27,6 +27,9 @@ spec:
     keepHistory: false
   values:
     server:
+      image:
+        repository: "hashicorp/vault"
+        tag: "1.14.2"
       dataStorage:
         storageClass: local-path
       standalone:
