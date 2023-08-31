@@ -10,3 +10,4 @@ config.xml
 *.env
 TODO
 .vault.json
+.kopia-sa.json

@@ -15,6 +15,7 @@ includes:
   db: .taskfiles/database.yaml
   secret: .taskfiles/externalsecrets.yaml
   flux: .taskfiles/flux.yaml
+  kopia: .taskfiles/kopia.yaml
   kubernetes: .taskfiles/kubernetes.yaml
   proxmox: .taskfiles/proxmox.yaml
   restic: .taskfiles/restic.yaml

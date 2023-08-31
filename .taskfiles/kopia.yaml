@@ -1,0 +1,38 @@
+---
+version: "3"
+
+tasks:
+
+  setup-gcs-bucket:
+    cmds:
+      - if [[ ! "$(gcloud config list account --format "value(core.account)")" ]]; then gcloud auth login; fi
+      - gcloud config set project {{.KOPIA_GCS_PROJECT}}
+      - gsutil ls -b gs://{{.KOPIA_GCS_BUCKET}} || gsutil mb -b on -l US gs://{{.KOPIA_GCS_BUCKET}}
+      - gcloud iam service-accounts describe kopia-backup@{{.KOPIA_GCS_PROJECT}}.iam.gserviceaccount.com --format "value(email)" || gcloud iam service-accounts create kopia-backup --description="kopia service account" --display-name="kopia"
+      - gcloud storage buckets add-iam-policy-binding gs://{{.KOPIA_GCS_BUCKET}} --member=serviceAccount:kopia-backup@{{.KOPIA_GCS_PROJECT}}.iam.gserviceaccount.com --role=roles/storage.admin
+      - if [ ! -f {{.ROOT_DIR}}/.kopia-sa.json ]; then gcloud iam service-accounts keys create {{.ROOT_DIR}}/.kopia-sa.json --iam-account=kopia-backup@{{.KOPIA_GCS_PROJECT}}.iam.gserviceaccount.com; fi
+  setup-kopia-repository:
+    deps: [setup-gcs-bucket]
+    env:
+      GOOGLE_APPLICATION_CREDENTIALS: "{{.ROOT_DIR}}/.kopia-sa.json"
+    cmds:
+      - kopia repository create gcs -c --credentials-file="{{.ROOT_DIR}}/.kopia-sa.json" --bucket={{.KOPIA_GCS_BUCKET}} --password={{.KOPIA_PASSWORD}} || true
+  connect-remote-kopia-repository:
+    env:
+      ENVIRONMENT: k0s
+    deps: [setup-kopia-repository]
+    cmds:
+      - "ansible-playbook -i {{.ANSIBLE_HOSTS_FILE}} {{.ANSIBLE_PLAYBOOK_DIR}}/kopia-installation.yaml -b"
+      - kopia repository connect gcs --credentials-file "{{.ROOT_DIR}}/.kopia-sa.json" --bucket "{{.KOPIA_GCS_BUCKET}}" --password "{{.KOPIA_PASSWORD}}"
+  connect:
+    cmds:
+      - kopia repository connect gcs --credentials-file "{{.ROOT_DIR}}/.kopia-sa.json" --bucket "{{.KOPIA_GCS_BUCKET}}" --password "{{.KOPIA_PASSWORD}}"
+  list-snapshots:
+    cmds:
+      - kopia snapshot list --all
+
+  # create-snapshot:
+  #   env:
+  #     ENVIRONMENT: k0s
+  #   cmds:
+  #     - kopia snapshot create /var/lib/rancher/k3s/storage

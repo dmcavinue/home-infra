@@ -1,0 +1,33 @@
+---
+- name: Cluster Installation
+  hosts: all
+  become: true
+  gather_facts: true
+  any_errors_fatal: true
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
+  pre_tasks:
+    - name: Pausing for 2 seconds...
+      ansible.builtin.pause:
+        seconds: 2
+  tasks:
+    
+    - name: kopia
+      block:
+        - name: Packages | Add kopia key
+          apt_key:
+            url: https://kopia.io/signing-key
+        - name: Packages | Add kopia repository
+          ansible.builtin.apt_repository:
+            repo: "deb [signed-by=/etc/apt/keyrings/kopia-keyring.gpg] http://packages.kopia.io/apt/ stable main"
+            update_cache: true
+        - name: Packages | Install
+          ansible.builtin.apt:
+            name:  fuse, kopia
+            install_recommends: false
+        - copy:
+            src: "{{ playbook_dir }}/../../../.kopia-sa.json"
+            dest: ~/.kopia-sa.json
+        - name: Connect repository
+          ansible.builtin.shell:
+            cmd: kopia repository connect gcs --credentials-file ~/.kopia-sa.json --bucket "{{ lookup('env', 'KOPIA_GCS_BUCKET') }}" --password "{{ lookup('env', 'KOPIA_PASSWORD') }}"

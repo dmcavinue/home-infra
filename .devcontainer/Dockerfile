@@ -1,6 +1,7 @@
 # dependencies
 FROM docker.io/fluxcd/flux-cli:v2.1.0 as flux
 FROM docker.io/alpine/helm:3.12.3 as helm
+FROM docker.io/kopia/kopia:20230829.0.124040 as kopia
 FROM docker.io/bitnami/kubectl:1.27.5 as kubectl
 FROM docker.io/hashicorp/vault:1.14.2 as vault
 FROM docker.io/mikefarah/yq:4.35.1 as yq
@@ -59,9 +60,17 @@ RUN /tmp/binary-releases.sh
 
 COPY --from=flux       /usr/local/bin/flux              /usr/local/bin/flux
 COPY --from=helm       /usr/bin/helm                    /usr/local/bin/helm
+COPY --from=kopia      /usr/bin/kopia                   /usr/local/bin/kopia
 COPY --from=kubectl    /opt/bitnami/kubectl/bin/kubectl /usr/local/bin/kubectl
 COPY --from=vault      /bin/vault                       /usr/local/bin/vault
 COPY --from=yq         /usr/bin/yq                      /usr/local/bin/yq
+
+# gcloud
+RUN wget https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-444.0.0-linux-x86_64.tar.gz \
+    -O /tmp/google-cloud-sdk.tar.gz | bash && \
+    mkdir -p /usr/local/gcloud \
+    && tar -C /usr/local/gcloud -xvzf /tmp/google-cloud-sdk.tar.gz \
+    && /usr/local/gcloud/google-cloud-sdk/install.sh -q
 
 # Setup user/profile
 RUN mkdir -p /etc/sudoers.d && \
@@ -83,5 +92,6 @@ USER rootless
 RUN helm plugin install https://github.com/databus23/helm-diff
 
 ENV DOCKER_HOST=unix:///var/run/user/1000/docker.sock
+ENV PATH="${PATH}:/usr/local/gcloud/google-cloud-sdk/bin/"
 
 HEALTHCHECK NONE
