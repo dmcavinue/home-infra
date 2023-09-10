@@ -19,8 +19,8 @@ spec:
       owner: immich
       secret:
         name: immich-database-user
-    recovery:
-      source: &previousCluster immich-1
+    # recovery:
+    #   source: &previousCluster immich-1
   storage:
     size: 5Gi
     storageClass: local-path
