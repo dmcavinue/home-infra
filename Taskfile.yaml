@@ -20,7 +20,7 @@ includes:
   proxmox: .taskfiles/proxmox.yaml
   restic: .taskfiles/restic.yaml
   vault: .taskfiles/vault.yaml
-  volsync: .taskfiles/volsync/Tasks.yaml
+  vs: .taskfiles/volsync/Tasks.yaml
 
 tasks:
 
