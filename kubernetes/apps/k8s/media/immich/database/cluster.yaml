@@ -14,11 +14,11 @@ spec:
       kube-image-keeper.enix.io/image-caching-policy: ignore
   primaryUpdateStrategy: unsupervised
   bootstrap:
-    # initdb:
-    #   database: immich
-    #   owner: immich
-    #   secret:
-    #     name: immich-database-user
+    initdb:
+      database: immich
+      owner: immich
+      secret:
+        name: immich-database-user
     recovery:
       source: &previousCluster immich-1
   storage:
@@ -48,15 +48,15 @@ spec:
         secretAccessKey:
           name: immich-database-superuser
           key: secret
-  externalClusters:
-  - name: *previousCluster
-    barmanObjectStore:
-      destinationPath: s3://db-backup/immich
-      endpointURL: "https://minio.${K0S_DOMAIN}"
-      s3Credentials:
-        accessKeyId:
-          name: immich-database-superuser
-          key: access-key
-        secretAccessKey:
-          name: immich-database-superuser
-          key: secret
+  # externalClusters:
+  # - name: *previousCluster
+  #   barmanObjectStore:
+  #     destinationPath: s3://db-backup/immich
+  #     endpointURL: "https://minio.${K0S_DOMAIN}"
+  #     s3Credentials:
+  #       accessKeyId:
+  #         name: immich-database-superuser
+  #         key: access-key
+  #       secretAccessKey:
+  #         name: immich-database-superuser
+  #         key: secret

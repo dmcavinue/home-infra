@@ -14,11 +14,11 @@ spec:
       kube-image-keeper.enix.io/image-caching-policy: ignore
   primaryUpdateStrategy: unsupervised
   bootstrap:
-    # initdb:
-    #   database: home_assistant
-    #   owner: home-assistant
-    #   secret:
-    #     name: home-assistant-database-user
+    initdb:
+      database: home_assistant
+      owner: home-assistant
+      secret:
+        name: home-assistant-database-user
     recovery:
       source: &previousCluster home-assistant-1
   storage:
@@ -48,15 +48,15 @@ spec:
         secretAccessKey:
           name: home-assistant-database-superuser
           key: secret
-  externalClusters:
-  - name: *previousCluster
-    barmanObjectStore:
-      destinationPath: s3://db-backup/home-assistant
-      endpointURL: "https://minio.${K0S_DOMAIN}"
-      s3Credentials:
-        accessKeyId:
-          name: home-assistant-database-superuser
-          key: access-key
-        secretAccessKey:
-          name: home-assistant-database-superuser
-          key: secret
+  # externalClusters:
+  # - name: *previousCluster
+  #   barmanObjectStore:
+  #     destinationPath: s3://db-backup/home-assistant
+  #     endpointURL: "https://minio.${K0S_DOMAIN}"
+  #     s3Credentials:
+  #       accessKeyId:
+  #         name: home-assistant-database-superuser
+  #         key: access-key
+  #       secretAccessKey:
+  #         name: home-assistant-database-superuser
+  #         key: secret
