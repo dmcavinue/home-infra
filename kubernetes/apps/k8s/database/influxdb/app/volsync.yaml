@@ -1,0 +1,44 @@
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: influxdb-restic
+  namespace: database
+spec:
+  refreshInterval: "30m"
+  secretStoreRef:
+    name: vault-kv-backend
+    kind: SecretStore
+  target:
+    name: influxdb-restic-secret
+    template:
+      engineVersion: v2
+      data:
+        RESTIC_REPOSITORY: '{{ .RESTIC_URL }}/influxdb'
+        RESTIC_PASSWORD: '{{ .RESTIC_INFLUXDB_PASSWORD }}'
+  dataFrom:
+    - extract:
+        key: /volsync/volsync
+    - extract:
+        key: /volsync/influxdb
+---
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationSource
+metadata:
+  name: influxdb
+  namespace: database
+spec:
+  sourcePVC: influxdb-data-influxdb-0
+  trigger:
+    schedule: "0 7 * * *"
+  restic:
+    copyMethod: Snapshot
+    pruneIntervalDays: 7
+    repository: influxdb-restic-secret
+    cacheCapacity: 8Gi
+    cacheStorageClassName: local-path
+    volumeSnapshotClassName: csi-ceph-blockpool
+    storageClassName: ceph-block
+    retain:
+      daily: 7
+      within: 3d
