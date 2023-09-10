@@ -29,7 +29,7 @@ spec:
   pools:
     - servers: 2
       name: db-backup
-      volumesPerServer: 4
+      volumesPerServer: 2
       volumeClaimTemplate:
         metadata:
           name: data
