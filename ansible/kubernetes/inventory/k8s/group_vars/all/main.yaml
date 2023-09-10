@@ -4,7 +4,7 @@ k3s_release_version: "v1.28.1+k3s1"
 k3s_install_hard_links: true
 k3s_become: true
 k3s_etcd_datastore: true
-k3s_registration_address: "{{ lookup('env', 'VIP_IP') }}"
+k3s_registration_address: "{{ lookup('env', (lookup('env', 'ENVIRONMENT')|upper) + '_VIP_IP' ) }}"
 k3s_server_manifests_templates:
   - custom-cilium-helmchart.yaml.j2
   - custom-cilium-l2.yaml.j2
