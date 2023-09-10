@@ -1,34 +1,13 @@
 ---
-apiVersion: external-secrets.io/v1beta1
-kind: ExternalSecret
-metadata:
-  name: db-backup-secret
-  namespace: storage
-spec:
-  refreshInterval: "30m"
-  secretStoreRef:
-    name: vault-kv-backend
-    kind: SecretStore
-  target:
-    name: db-backup-secret
-    template:
-      engineVersion: v2
-      data:
-        CONSOLE_ACCESS_KEY: "{{.CONSOLE_ACCESS_KEY}}"
-        CONSOLE_SECRET_KEY: ""
-  dataFrom:
-    - extract:
-        key: /storage/minio
----
 apiVersion: minio.min.io/v2
 kind: Tenant
 metadata:
-  name: db-backup
+  name: minio-pool
   namespace: storage
 spec:
   pools:
     - servers: 2
-      name: db-backup
+      name: minio-pool
       volumesPerServer: 4
       volumeClaimTemplate:
         metadata:

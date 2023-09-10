@@ -5,4 +5,4 @@ kind: Kustomization
 resources:
   - ./externalsecret.yaml
   - ./ingress.yaml
-  - ./tenant-db-backup.yaml
+  - ./tenant.yaml
