@@ -27,9 +27,9 @@ metadata:
   namespace: storage
 spec:
   pools:
-    - servers: 2
+    - servers: 1
       name: db-backup
-      volumesPerServer: 2
+      volumesPerServer: 4
       volumeClaimTemplate:
         metadata:
           name: data
