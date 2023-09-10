@@ -126,7 +126,7 @@ tasks:
       - vault write auth/kubernetes/k8s/role/database
           bound_service_account_names=vault-auth
           bound_service_account_namespaces=database
-          policies=database,media,home-automation,default
+          policies=volsync,database,media,home-automation,default
           ttl=1440h
       - vault write auth/kubernetes/k0s/role/database
           bound_service_account_names=vault-auth
