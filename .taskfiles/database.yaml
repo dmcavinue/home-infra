@@ -2,6 +2,8 @@
 version: "3"
 
 tasks:
+  list-instances:
+    cmd: kubectl get cluster.postgresql.cnpg.io --all-namespaces
 
   backup-all:
     vars:
