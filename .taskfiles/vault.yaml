@@ -16,7 +16,6 @@ tasks:
       - task vault:disable-k8s-auth
       - task vault:enable-k8s-auth
       - task vault:add-roles
-      - task vault:add-kv-secrets
   status:
     desc: vault status
     cmds:

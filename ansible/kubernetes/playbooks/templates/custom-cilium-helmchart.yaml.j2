@@ -20,7 +20,7 @@ spec:
       enabled: false
     cluster:
       name: {{ lookup('env', 'ENVIRONMENT') }}
-      id: {{ lookup('env', 'CILIUM_ID') }}
+      id: {{ lookup('env', (lookup('env', 'ENVIRONMENT')|upper) + '_CILIUM_ID' ) }}
     containerRuntime:
       integration: containerd
       socketPath: /var/run/k3s/containerd/containerd.sock

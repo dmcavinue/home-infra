@@ -3,8 +3,8 @@ k3s_control_node: true
 k3s_server:
   node-ip: "{{ ansible_host }}"
   tls-san:
-    - "k8s.{{ lookup('env', 'DOMAIN') }}"
-    - "{{ lookup('env', 'VIP_IP') }}"
+    - "k8s.{{ lookup('env', (lookup('env', 'ENVIRONMENT')|upper) + '_DOMAIN' ) }}"    
+    - "{{ lookup('env', (lookup('env', 'ENVIRONMENT')|upper) + '_VIP_IP' ) }}"
   https-listen-port: 6443
   docker: false
   flannel-backend: "none" # quote
@@ -30,5 +30,5 @@ k3s_server:
     - anonymous-auth=true
     # - "oidc-client-id=dex-k8s-authenticator"
     # - "oidc-groups-claim=groups"
-    # - "oidc-issuer-url=https://dex.{{ lookup('env', 'DOMAIN') }}"
+    # - "oidc-issuer-url=https://dex.{{ lookup('env', (lookup('env', 'ENVIRONMENT')|upper) + '_DOMAIN' ) }}"
     # - "oidc-username-claim=email"

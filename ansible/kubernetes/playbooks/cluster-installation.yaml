@@ -51,7 +51,7 @@
       ansible.builtin.replace:
         path: "{{ playbook_dir }}/../../../{{ lookup('env', 'ENVIRONMENT') }}.kubeconfig"
         regexp: "https://127.0.0.1:6443"
-        replace: "https://{{ lookup('env', 'VIP_IP') }}"
+        replace: "https://{{ lookup('env', (lookup('env', 'ENVIRONMENT')|upper) + '_VIP_IP' ) }}"
 
     - name: Wait for custom manifests to rollout
       when:

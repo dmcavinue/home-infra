@@ -91,7 +91,7 @@ spec:
           #   nginx.ingress.kubernetes.io/auth-url: https://oauth.${DOMAIN}/oauth2/auth
     ipam:
       mode: kubernetes
-    ipv4NativeRoutingCIDR: 10.30.0.0/16
+    ipv4NativeRoutingCIDR: 10.32.0.0/16
     k8sServiceHost: ${VIP_IP}
     k8sServicePort: ${VIP_PORT}
     kubeProxyReplacement: strict
