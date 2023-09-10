@@ -13,7 +13,6 @@ tasks:
   bootstrap:
     desc: bootstrap auth/roles
     cmds:
-      - task vault:disable-k8s-auth
       - task vault:enable-k8s-auth
       - task vault:add-roles
   status:
@@ -86,6 +85,7 @@ tasks:
     desc: configure vault k8s auth
     cmds:
       # k8s
+      - vault auth disable kubernetes/k8s || true
       - vault auth enable -path=kubernetes/k8s kubernetes || true
       - KUBECONFIG=k8s.kubeconfig kubectl -n kube-system apply -f {{.ROOT_DIR}}/kubernetes/templates/vault-auth.yaml
       - KUBECONFIG=k8s.kubeconfig kubectl -n kube-system get secret vault-auth-token -o jsonpath="{.data['ca\.crt']}" | base64 -d > ca.crt
