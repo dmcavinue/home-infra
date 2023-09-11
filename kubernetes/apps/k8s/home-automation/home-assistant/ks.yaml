@@ -1,22 +1,22 @@
-# ---
-# apiVersion: kustomize.toolkit.fluxcd.io/v1
-# kind: Kustomization
-# metadata:
-#   name: cluster-apps-home-assistant
-#   namespace: flux-system
-# spec:
-#   dependsOn:
-#     - name: cluster-apps-home-automation-home-assistant-database
-#     - name: cluster-apps-influxdb
-#   path: ./kubernetes/apps/k8s/home-automation/home-assistant/app
-#   prune: true
-#   sourceRef:
-#     kind: GitRepository
-#     name: home-kubernetes
-#   wait: false
-#   interval: 30m
-#   retryInterval: 1m
-#   timeout: 5m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: cluster-apps-home-assistant
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: cluster-apps-home-automation-home-assistant-database
+    - name: cluster-apps-influxdb
+  path: ./kubernetes/apps/k8s/home-automation/home-assistant/app
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: home-kubernetes
+  wait: false
+  interval: 30m
+  retryInterval: 1m
+  timeout: 5m
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
