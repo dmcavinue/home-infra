@@ -20,7 +20,7 @@ spec:
     #   secret:
     #     name: immich-database-user
     recovery:
-      source: &previousCluster immich-3
+      source: &previousCluster immich-1
   storage:
     size: 5Gi
     storageClass: local-path
