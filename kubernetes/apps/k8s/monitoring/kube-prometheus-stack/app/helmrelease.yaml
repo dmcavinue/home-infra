@@ -167,9 +167,9 @@ spec:
       ingress:
         enabled: false
       thanosService:
-        enabled: true
+        enabled: false
       thanosServiceMonitor:
-        enabled: true
+        enabled: false
       externalLabels:
         cluster: "k8s"
       prometheusSpec:
