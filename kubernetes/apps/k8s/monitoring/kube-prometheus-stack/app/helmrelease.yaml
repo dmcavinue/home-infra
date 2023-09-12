@@ -29,8 +29,6 @@ spec:
   dependsOn:
     - name: local-path-provisioner
       namespace: kube-system
-    - name: rook-ceph-cluster
-      namespace: rook-ceph
   values:
     crds:
       enabled: true
@@ -184,10 +182,7 @@ spec:
         enableAdminAPI: true
         walCompression: true
         thanos:
-          image: quay.io/thanos/thanos:v0.32.2
-          objectStorageConfig:
-            name: thanos-objstore-secret
-            key: objstore.yml
+          enabled: false
         retention: 1d
         retentionSize: 5GB
         storageSpec:
