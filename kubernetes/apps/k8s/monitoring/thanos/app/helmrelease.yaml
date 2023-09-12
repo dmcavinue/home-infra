@@ -39,7 +39,7 @@ spec:
     objstoreConfig:
       type: s3
       config:
-        insecure: true
+        insecure: false
     queryFrontend:
       enabled: true
       replicaCount: 1
@@ -60,9 +60,9 @@ spec:
       extraFlags:
         - --compact.concurrency=4
         - --delete-delay=30m
-      retentionResolutionRaw: 14d
-      retentionResolution5m: 14d
-      retentionResolution1h: 14d
+      retentionResolutionRaw: 2d
+      retentionResolution5m: 2d
+      retentionResolution1h: 2d
       persistence:
         enabled: true
         storageClass: local-path
@@ -102,22 +102,22 @@ spec:
         enabled: true
   valuesFrom:
     - targetPath: objstoreConfig.config.bucket
-      kind: ConfigMap
-      name: thanos-bucket-v1
+      kind: Secret
+      name: thanos-store-secret
       valuesKey: BUCKET_NAME
     - targetPath: objstoreConfig.config.endpoint
-      kind: ConfigMap
-      name: thanos-bucket-v1
+      kind: Secret
+      name: thanos-store-secret
       valuesKey: BUCKET_HOST
     - targetPath: objstoreConfig.config.region
-      kind: ConfigMap
-      name: thanos-bucket-v1
+      kind: Secret
+      name: thanos-store-secret
       valuesKey: BUCKET_REGION
     - targetPath: objstoreConfig.config.access_key
       kind: Secret
-      name: thanos-bucket-v1
-      valuesKey: AWS_ACCESS_KEY_ID
+      name: thanos-store-secret
+      valuesKey: CONSOLE_ACCESS_KEY
     - targetPath: objstoreConfig.config.secret_key
       kind: Secret
-      name: thanos-bucket-v1
-      valuesKey: AWS_SECRET_ACCESS_KEY
+      name: thanos-store-secret
+      valuesKey: CONSOLE_SECRET_KEY

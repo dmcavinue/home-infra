@@ -148,7 +148,7 @@ tasks:
       - vault write auth/kubernetes/k8s/role/monitoring
           bound_service_account_names=vault-auth
           bound_service_account_namespaces=monitoring
-          policies=monitoring,default
+          policies=monitoring,storage,default
           ttl=1440h
       - vault write auth/kubernetes/k0s/role/monitoring
           bound_service_account_names=vault-auth
