@@ -32,7 +32,13 @@ spec:
       createPrometheusRules: true
     ingress:
       dashboard:
-        enabled: false
+        ingressClassName: nginx
+        host:
+          name: &host "rook.${DOMAIN}"
+          path: /
+        tls:
+          - hosts:
+              - *host
     toolbox:
       enabled: true
     configOverride: |
