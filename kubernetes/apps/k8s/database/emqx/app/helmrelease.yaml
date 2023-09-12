@@ -29,6 +29,7 @@ spec:
     - name: local-path-provisioner
       namespace: kube-system
   values:
+    replicaCount: 1
     emqxConfig:
       EMQX_ALLOW_ANONYMOUS: "false"
       EMQX_AUTH__MNESIA__PASSWORD_HASH: plain
@@ -41,9 +42,9 @@ spec:
       dashboard:
         enabled: false
     metrics:
-      enabled: true
+      enabled: false
     persistence:
-      enabled: true
+      enabled: false
       storageClassName: local-path
       size: 250Mi
     affinity:
