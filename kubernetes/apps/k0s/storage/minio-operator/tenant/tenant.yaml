@@ -32,11 +32,7 @@ spec:
     name: minio-tenant-secret
   users:
     - name: db-backup-secret
-    - name: thanos-store-secret
   buckets:
     - name: "db-backup"
-      region: "us-east-1"
-      objectLock: true
-    - name: "thanos"
       region: "us-east-1"
       objectLock: true
