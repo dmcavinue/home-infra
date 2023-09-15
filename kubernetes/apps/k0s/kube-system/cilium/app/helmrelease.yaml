@@ -39,7 +39,7 @@ spec:
       apiserver:
         tls:
           auto:
-            method: cert-manager
+            method: certmanager
             certManagerIssuerRef:
               group: cert-manager.io
               kind: Issuer
