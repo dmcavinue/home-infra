@@ -34,6 +34,12 @@ spec:
     cluster:
       name: "k0s"
       id: "${CILIUM_ID}"
+    clustermesh:
+      useAPIServer: true
+      apiserver:
+        service:
+          type: LoadBalancer
+          #loadBalancerIP: "${CILIUM_LB_IP}"
     containerRuntime:
       integration: containerd
       socketPath: /var/run/k3s/containerd/containerd.sock
