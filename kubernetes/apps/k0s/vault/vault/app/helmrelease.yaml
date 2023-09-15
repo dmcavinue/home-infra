@@ -34,3 +34,6 @@ spec:
         storageClass: local-path
       standalone:
         enabled: "true"
+      service:
+        annotations:
+          io.cilium/global-service: "true"
