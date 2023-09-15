@@ -72,7 +72,7 @@ tasks:
       - kubectl --context k8s delete secret -n kube-system cilium-ca || true
       - kubectl --context k8s create -f /tmp/cilium-ca.yml
       - rm -f /tmp/cilium-ca.yml
-      #- cilium clustermesh connect --context k0s --destination-context k8s
+      - cilium clustermesh connect --context k0s --destination-context k8s
     preconditions:
       - &test-k8s
         sh: "[ {{.ENVIRONMENT}} = 'k8s' ]"
