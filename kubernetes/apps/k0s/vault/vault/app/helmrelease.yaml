@@ -37,3 +37,4 @@ spec:
       service:
         annotations:
           io.cilium/global-service: "true"
+          io.cilium/portal: "true"
