@@ -46,10 +46,6 @@ tasks:
     preconditions:
       - kubectl --context {{.ENVIRONMENT}} -n {{.namespace}} get pvc {{.claim}}
 
-  get-nodes:
-    cmds:
-      - "kubectl --context {{.ENVIRONMENT}} get nodes"
-
   install-crds:
     desc: Add required initial CRDs
     cmds:
@@ -65,14 +61,3 @@ tasks:
       - "kubectl --context {{.ENVIRONMENT}} apply -f https://raw.githubusercontent.com/kubernetes-sigs/gateway-api/v0.7.1/config/crd/experimental/gateway.networking.k8s.io_tcproutes.yaml"
       - "kubectl --context {{.ENVIRONMENT}} apply -f https://raw.githubusercontent.com/kubernetes-sigs/gateway-api/v0.7.1/config/crd/experimental/gateway.networking.k8s.io_udproutes.yaml"
       - "kubectl --context {{.ENVIRONMENT}} apply -f https://raw.githubusercontent.com/external-secrets/kubernetes-external-secrets/master/charts/kubernetes-external-secrets/crds/kubernetes-client.io_externalsecrets_crd.yaml"
-
-  setup-cilium-mesh:
-    cmds:
-      - kubectl --context k0s get secret -n kube-system cilium-ca -o yaml > /tmp/cilium-ca.yml
-      - kubectl --context k8s delete secret -n kube-system cilium-ca || true
-      - kubectl --context k8s create -f /tmp/cilium-ca.yml
-      - rm -f /tmp/cilium-ca.yml
-      - cilium clustermesh connect --context k0s --destination-context k8s
-    preconditions:
-      - &test-k8s
-        sh: "[ {{.ENVIRONMENT}} = 'k8s' ]"

@@ -14,6 +14,7 @@ dotenv: [".env"]
 
 includes:
   ansible: .taskfiles/ansible.yaml
+  cilium: .taskfiles/cilium.yaml
   db: .taskfiles/database.yaml
   secret: .taskfiles/externalsecrets.yaml
   flux: .taskfiles/flux.yaml
