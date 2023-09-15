@@ -155,7 +155,7 @@ tasks:
           bound_service_account_namespaces=monitoring
           policies=monitoring,default
           ttl=1440h
-      - echo -e "path \"pki/sign/default\" { capabilities = [\"update\"] }\npath \"secret/data/cert-manager/*\" { capabilities = [\"read\", \"list\"] }" | vault policy write cert-manager -
+      - echo -e "path \"pki/int_ca/sign/default\" { capabilities = [\"update\"] }\npath \"secret/data/cert-manager/*\" { capabilities = [\"read\", \"list\"] }" | vault policy write cert-manager -
       - vault write auth/kubernetes/k8s/role/cert-manager
           bound_service_account_names=vault-auth
           bound_service_account_namespaces=cert-manager

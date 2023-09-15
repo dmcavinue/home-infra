@@ -6,7 +6,7 @@ metadata:
   namespace: kube-system
 spec:
   vault:
-    path: pki/sign/default
+    path: pki/sign/int_ca/default
     server: $VAULT_ADDR
     auth:
       appRole:
