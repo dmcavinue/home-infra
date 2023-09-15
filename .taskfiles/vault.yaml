@@ -9,7 +9,7 @@ tasks:
   init:
     desc: initialize vault
     cmds:
-      - kubectl -n vault exec -ti vault-0 -- vault operator init -n 1 -t 1 --format=json > {{.ROOT_DIR}}/.vault.json
+      - kubectl --context {{.ENVIRONMENT}} -n vault exec -ti vault-0 -- vault operator init -n 1 -t 1 --format=json > {{.ROOT_DIR}}/.vault.json
   bootstrap:
     desc: bootstrap auth/roles
     cmds:
@@ -22,7 +22,7 @@ tasks:
   unseal:
     desc: vault unseal
     cmds:
-      - kubectl -n vault exec -ti vault-0 -- vault operator unseal $( cat {{.ROOT_DIR}}/.vault.json | jq -r '.unseal_keys_b64[0]')
+      - kubectl --context {{.ENVIRONMENT}} -n vault exec -ti vault-0 -- vault operator unseal $( cat {{.ROOT_DIR}}/.vault.json | jq -r '.unseal_keys_b64[0]')
   # ca
   add-rootca:
     desc: setup root ca pki engine
@@ -90,7 +90,7 @@ tasks:
       - kubectl --context k8s -n kube-system apply -f {{.ROOT_DIR}}/kubernetes/templates/vault-auth.yaml
       - kubectl --context k8s -n kube-system get secret vault-auth-token -o jsonpath="{.data['ca\.crt']}" | base64 -d > ca.crt
       - vault write auth/kubernetes/k8s/config
-          token_reviewer_jwt="$(kubectl -n kube-system get secret vault-auth-token -o jsonpath=\"{.data.token}\" | base64 -d; echo)"
+          token_reviewer_jwt="$(kubectl --context {{.ENVIRONMENT}} -n kube-system get secret vault-auth-token -o jsonpath=\"{.data.token}\" | base64 -d; echo)"
           kubernetes_host="https://{{.K8S_VIP_IP}}"
           kubernetes_ca_cert=@ca.crt
           disable_iss_validation=true
@@ -101,7 +101,7 @@ tasks:
       - kubectl --context k0s -n kube-system apply -f {{.ROOT_DIR}}/kubernetes/templates/vault-auth.yaml
       - kubectl --context k0s -n kube-system get secret vault-auth-token -o jsonpath="{.data['ca\.crt']}" | base64 -d > ca.crt
       - vault write auth/kubernetes/k0s/config
-          token_reviewer_jwt="$(kubectl -n kube-system get secret vault-auth-token -o jsonpath=\"{.data.token}\" | base64 -d; echo)"
+          token_reviewer_jwt="$(kubectl --context {{.ENVIRONMENT}} -n kube-system get secret vault-auth-token -o jsonpath=\"{.data.token}\" | base64 -d; echo)"
           kubernetes_host="https://{{.K0S_VIP_IP}}"
           kubernetes_ca_cert=@ca.crt
           disable_iss_validation=true

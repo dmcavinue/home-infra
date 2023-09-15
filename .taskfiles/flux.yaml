@@ -12,14 +12,14 @@ tasks:
     deps: [check]
     desc: Flux bootstrap
     cmds:      
-      - kubectl apply --server-side --kustomize={{.ROOT_DIR}}/kubernetes/bootstrap/{{.ENVIRONMENT}}
+      - kubectl --context {{.ENVIRONMENT}} apply --server-side --kustomize={{.ROOT_DIR}}/kubernetes/bootstrap/{{.ENVIRONMENT}}
       - task flux:bootstrap-k0s || true
 
   bootstrap-k0s:
     deps: [check]
     desc: Flux bootstrap k0s cluster
     cmds:      
-      - envsubst < {{.ROOT_DIR}}/kubernetes/bootstrap/k0s/sharedsecrets.yaml | kubectl apply -f -
+      - envsubst < {{.ROOT_DIR}}/kubernetes/bootstrap/k0s/sharedsecrets.yaml | kubectl --context {{.ENVIRONMENT}} apply -f -
     preconditions:
       - &test-k0s
         sh: "[ {{.ENVIRONMENT}} = 'k0s' ]"
@@ -28,7 +28,7 @@ tasks:
     deps: [bootstrap]
     desc: Flux install
     cmds:
-      - kubectl apply --server-side --kustomize={{.ROOT_DIR}}/kubernetes/flux/config
+      - kubectl --context {{.ENVIRONMENT}} apply --server-side --kustomize={{.ROOT_DIR}}/kubernetes/flux/config
 
   sync:
     desc: Sync flux-system with the Git Repository
@@ -38,20 +38,20 @@ tasks:
   gr-sync:
     desc: Sync Flux GitRepositories
     cmd: |
-      kubectl get gitrepositories --all-namespaces --no-headers | awk '{print $1, $2}' | xargs -n 1 -l bash -c \
-          'kubectl -n $0 annotate gitrepository/$1 reconcile.fluxcd.io/requestedAt=$(date +%s) --field-manager=flux-client-side-apply --overwrite'
+      kubectl --context {{.ENVIRONMENT}} get gitrepositories --all-namespaces --no-headers | awk '{print $1, $2}' | xargs -n 1 -l bash -c \
+          'kubectl --context {{.ENVIRONMENT}} -n $0 annotate gitrepository/$1 reconcile.fluxcd.io/requestedAt=$(date +%s) --field-manager=flux-client-side-apply --overwrite'
 
   ks-sync:
     desc: Sync Flux Kustomizations
     cmd: |
-      kubectl get kustomization --all-namespaces --no-headers | awk '{print $1, $2}' | xargs --max-procs=4 -l bash -c \
-          'kubectl -n $0 annotate kustomization/$1 reconcile.fluxcd.io/requestedAt="$(date +%s)" --field-manager=flux-client-side-apply --overwrite'
+      kubectl --context {{.ENVIRONMENT}} get kustomization --all-namespaces --no-headers | awk '{print $1, $2}' | xargs --max-procs=4 -l bash -c \
+          'kubectl --context {{.ENVIRONMENT}} -n $0 annotate kustomization/$1 reconcile.fluxcd.io/requestedAt="$(date +%s)" --field-manager=flux-client-side-apply --overwrite'
 
   hr-sync:
     desc: Sync Flux HelmReleases
     cmd: |
-      kubectl get helmreleases --all-namespaces --no-headers | awk '{print $1, $2}' | xargs --max-procs=4 -l bash -c \
-          'kubectl -n $0 annotate helmrelease/$1 reconcile.fluxcd.io/requestedAt="$(date +%s)" --overwrite'
+      kubectl --context {{.ENVIRONMENT}} get helmreleases --all-namespaces --no-headers | awk '{print $1, $2}' | xargs --max-procs=4 -l bash -c \
+          'kubectl --context {{.ENVIRONMENT}} -n $0 annotate helmrelease/$1 reconcile.fluxcd.io/requestedAt="$(date +%s)" --overwrite'
 
   hr-suspend:
     desc: Suspend all Flux HelmReleases
