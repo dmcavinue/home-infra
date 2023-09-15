@@ -37,6 +37,13 @@ spec:
     clustermesh:
       useAPIServer: true
       apiserver:
+        tls:
+          auto:
+            method: cert-manager
+            certManagerIssuerRef:
+              group: cert-manager.io
+              kind: Issuer
+              name: vault-issuer
         service:
           type: LoadBalancer
           loadBalancerIP: "${CILIUM_LB_IP}"
