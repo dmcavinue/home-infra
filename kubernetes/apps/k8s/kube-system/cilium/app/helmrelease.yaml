@@ -38,7 +38,7 @@ spec:
       useAPIServer: true
       apiserver:
         service:
-          type: loadBalancer
+          type: LoadBalancer
           loadBalancerIP: "${CILIUM_LB_IP}"
     containerRuntime:
       integration: containerd
