@@ -68,7 +68,7 @@ spec:
     #     loadBalancerIP: "${CILIUM_LB_IP}"
     #   gateway-api-secrets-namespace: "ingress"
     hubble:
-      enabled: true
+      enabled: false
       # tls:
       #   auto:
       #     method: certmanager
