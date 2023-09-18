@@ -35,7 +35,7 @@ spec:
       name: "k0s"
       id: "${CILIUM_ID}"
     clustermesh:
-      useAPIServer: true
+      useAPIServer: false
       apiserver:
         tls:
           auto:
@@ -68,7 +68,7 @@ spec:
     #     loadBalancerIP: "${CILIUM_LB_IP}"
     #   gateway-api-secrets-namespace: "ingress"
     hubble:
-      enabled: true
+      enabled: false
       tls:
         auto:
           method: certmanager
