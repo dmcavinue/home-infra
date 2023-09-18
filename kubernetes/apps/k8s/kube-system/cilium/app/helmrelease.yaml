@@ -35,7 +35,7 @@ spec:
       name: "k8s"
       id: "${CILIUM_ID}"
     clustermesh:
-      useAPIServer: true
+      useAPIServer: false
       apiserver:
         tls:
           auto:
