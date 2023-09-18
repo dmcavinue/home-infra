@@ -44,6 +44,8 @@ spec:
               group: cert-manager.io
               kind: Issuer
               name: vault-issuer
+        kvstoremesh:
+          enabled: true
         service:
           type: LoadBalancer
           loadBalancerIP: "${CILIUM_LB_IP}"
