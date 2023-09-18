@@ -53,8 +53,7 @@ spec:
         enabled: true
         clusters:
         - name: k8s
-          ips:
-          - 192.168.9.20
+          address: k8s.mesh.cilium.io
           port: 2379
     containerRuntime:
       integration: containerd
