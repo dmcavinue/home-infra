@@ -48,6 +48,7 @@ spec:
           type: LoadBalancer
           loadBalancerIP: "${CILIUM_LB_IP}"
       config:
+        enabled: true
         clusters:
         - name: k8s
           ips:
