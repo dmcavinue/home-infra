@@ -32,16 +32,22 @@ tasks:
       - vault write -field=certificate pki/root_ca/root/generate/internal common_name="svc" ttl=87600h > /tmp/ca_cert.crt
       - vault write pki/root_ca/config/urls issuing_certificates="{{ .VAULT_ADDR }}/v1/pki/ca" crl_distribution_points="{{ .VAULT_ADDR }}/v1/pki/crl"
       - rm  /tmp/ca_cert.crt
+  remove-intca:
+    desc: remove intermediate ca pki engine for k8s cluster
+    cmds:
+      - vault secrets disable pki/int_ca
   add-intca:
     desc: enable intermediate ca pki engine for k8s cluster
     cmds:
       - vault secrets enable -path=pki/int_ca pki || true
       - vault secrets tune -max-lease-ttl=43800h pki/int_ca
-      - vault write -format=json pki/int_ca/intermediate/generate/internal common_name="cilium.io" | jq -r '.data.csr' > pki_intermediate.csr
+      - vault write -format=json pki/int_ca/intermediate/generate/internal common_name="svc" | jq -r '.data.csr' > pki_intermediate.csr
       - vault write -format=json pki/root_ca/root/sign-intermediate csr=@pki_intermediate.csr format=pem_bundle ttl="43800h" | jq -r '.data.certificate' > ca.cert.pem
       - vault write pki/int_ca/intermediate/set-signed certificate=@ca.cert.pem
       - vault write pki/int_ca/roles/default issuer_ref="$(vault read -field=default pki/int_ca/config/issuers)" allowed_domains="svc,cilium.io" allowed_uri_sans="admin-k0s,admin-k8s,remote,clustermesh-apiserver" allow_bare_domains=true allow_subdomains=true max_ttl="720h"
+      - kubectl --context k0s -n cert-manager delete secret vault-root-ca
       - kubectl --context k0s -n cert-manager create secret generic vault-root-ca --from-file=ca.cert.pem=ca.cert.pem || true
+      - kubectl --context k8s -n cert-manager delete secret vault-root-ca
       - kubectl --context k8s -n cert-manager create secret generic vault-root-ca --from-file=ca.cert.pem=ca.cert.pem || true
       - rm ca.cert.pem
       - rm pki_intermediate.csr
