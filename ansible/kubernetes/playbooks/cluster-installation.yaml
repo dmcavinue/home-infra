@@ -65,7 +65,7 @@
       ansible.builtin.replace:
         path: "~/.kube/kubeconfigs/{{ lookup('env', 'ENVIRONMENT') }}.kubeconfig"
         regexp: "default"
-        replace: "lookup('env', 'ENVIRONMENT')"
+        replace: "{{ lookup('env', 'ENVIRONMENT') }}"
 
     - name: Wait for custom manifests to rollout
       when:
