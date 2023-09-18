@@ -54,6 +54,8 @@ spec:
           ips:
           - 192.168.9.20
           port: 2379
+      kvstoremesh:
+        enabled: true
     containerRuntime:
       integration: containerd
       socketPath: /var/run/k3s/containerd/containerd.sock
