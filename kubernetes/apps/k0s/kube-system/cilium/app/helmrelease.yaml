@@ -71,7 +71,7 @@ spec:
       enabled: true
       tls:
         auto:
-          method: cert-manager
+          method: certmanager
           certManagerIssuerRef:
             group: cert-manager.io
             kind: Issuer
