@@ -7,6 +7,6 @@ resources:
   - ./namespace.yaml
   - ./externalsecret.yaml
   # Flux-Kustomizations
-  # - ./certificates
-  # - ./synology
-  # - ./nginx/ks.yaml
+  - ./certificates
+  - ./synology
+  - ./nginx/ks.yaml
