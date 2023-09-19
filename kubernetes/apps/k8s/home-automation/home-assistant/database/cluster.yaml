@@ -20,7 +20,7 @@ spec:
     #   secret:
     #     name: home-assistant-database-user
     recovery:
-      source: &previousCluster home-assistant-2
+      source: &previousCluster home-assistant-3
   storage:
     size: 5Gi
     storageClass: local-path
@@ -40,7 +40,7 @@ spec:
         maxParallel: 8
       destinationPath: s3://db-backup/home-assistant
       endpointURL: "https://minio.${K0S_DOMAIN}"
-      serverName: &currentCluster home-assistant-3
+      serverName: &currentCluster home-assistant-4
       s3Credentials:
         accessKeyId:
           name: home-assistant-database-superuser
