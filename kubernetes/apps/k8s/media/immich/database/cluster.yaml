@@ -40,7 +40,7 @@ spec:
         maxParallel: 8
       destinationPath: s3://db-backup/immich
       endpointURL: "https://minio.${K0S_DOMAIN}"
-      serverName: &currentCluster immich-5
+      serverName: &currentCluster immich-6
       s3Credentials:
         accessKeyId:
           name: immich-database-superuser
