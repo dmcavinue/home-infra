@@ -13,6 +13,7 @@ ENVIRONMENT="k0s"
 task ansible:install
 task vault:bootstrap
 task flux:install
+task vault:add-vault-issuers
 ```
 
 **Provision k8s cluster**
@@ -21,4 +22,5 @@ ENVIRONMENT="k8s"
 task ansible:install
 task vault:bootstrap
 task flux:install
+task vault:add-vault-issuers
 ```

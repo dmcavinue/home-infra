@@ -37,7 +37,6 @@ tasks:
     cmds:
       - "ansible-playbook -i {{.ANSIBLE_HOSTS_FILE}} {{.ANSIBLE_PLAYBOOK_DIR}}/cluster-installation.yaml -b"
       - "task kubernetes:install-crds"
-      - "task cilium:setup-cilium-mesh || true"
     silent: true
 
   reset:
