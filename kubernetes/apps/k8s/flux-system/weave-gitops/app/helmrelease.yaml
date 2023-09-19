@@ -34,7 +34,8 @@ spec:
       createSecret: false
       username: admin
     ingress:
-      enabled: true      
+      enabled: true
+      className: nginx
       hosts:
         - host: &host "gitops.${DOMAIN}"
           paths:
