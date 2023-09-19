@@ -49,12 +49,12 @@ spec:
         service:
           type: LoadBalancer
           loadBalancerIP: "${CILIUM_LB_IP}"
-      # config:
-      #   enabled: true
-      #   clusters:
-      #   - name: k8s
-      #     address: k8s.mesh.cilium.io
-      #     port: 2379
+      config:
+        enabled: true
+        clusters:
+        - name: k8s
+          address: k8s.mesh.cilium.io
+          port: 2379
     containerRuntime:
       integration: containerd
       socketPath: /var/run/k3s/containerd/containerd.sock
