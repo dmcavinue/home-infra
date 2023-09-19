@@ -27,6 +27,7 @@ spec:
     keepHistory: false
   values:
     autoDirectNodeRoutes: true
+    routingMode: native
     bpf:
       masquerade: true
     bgp:
