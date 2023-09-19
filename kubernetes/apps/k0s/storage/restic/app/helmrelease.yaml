@@ -35,6 +35,8 @@ spec:
       tag: 0.12.1
     service:
       main:
+        annotations:
+          io.cilium/global-service: "true"
         ports:
           http:
             port: 8000
