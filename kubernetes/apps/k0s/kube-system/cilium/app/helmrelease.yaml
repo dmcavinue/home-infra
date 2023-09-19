@@ -28,6 +28,7 @@ spec:
   values:
     autoDirectNodeRoutes: true
     routingMode: native
+    enable-ipv4-masquerade: true
     bpf:
       masquerade: true
     bgp:
