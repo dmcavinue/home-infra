@@ -7,3 +7,12 @@ resources:
   - ./externalsecret.yaml
   - ./cluster.yaml
   - ./scheduledbackup.yaml
+patches:
+  - patch: |-
+      apiVersion: v1
+      kind: Service
+      metadata:
+        name: home-assistant-rw
+        namespace: home-automation
+        annotations:
+          io.cilium/global-service: 'true'
