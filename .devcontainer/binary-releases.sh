@@ -26,6 +26,16 @@ curl -fsSL "https://github.com/weaveworks/weave-gitops/releases/download/${GITOP
     | tar xvz --overwrite --file - --directory /tmp
 mv /tmp/gitops /usr/local/bin/gitops
 
+export DYFF_VERSION="1.5.8"
+curl -fsSL "https://github.com/homeport/dyff/releases/download/v${DYFF_VERSION}/dyff_${DYFF_VERSION}_linux_amd64.tar.gz" \
+    | tar xvz --overwrite --file - --directory /tmp
+mv /tmp/dyff /usr/local/bin/dyff
+
+export DIRENV_VERSION="v2.32.3"
+curl https://github.com/direnv/direnv/releases/download/${DIRENV_VERSION}/direnv.linux-amd64 \
+  -o /usr/local/bin/direnv && \
+  chmod +x /usr/local/bin/direnv
+
 curl https://dl.min.io/client/mc/release/linux-amd64/mc \
   -o /usr/local/bin/mc && \
   chmod +x /usr/local/bin/mc

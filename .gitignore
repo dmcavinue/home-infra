@@ -11,3 +11,4 @@ config.xml
 TODO
 .vault.json
 .kopia-sa.json
+./.kubeconfigs

@@ -8,7 +8,7 @@ vars:
 env:
   ENVIRONMENT: '{{default "k8s" .ENVIRONMENT}}'
   KUBECONFIG:
-    sh: find ~/.kube/kubeconfigs -type f | tr '\n' ':'
+    sh: "find {{.ROOT_DIR}}/.kubeconfigs -type f | tr '\n' ':'"
 
 dotenv: [".env"]
 
