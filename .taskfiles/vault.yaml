@@ -437,3 +437,29 @@ tasks:
           RESTIC_HASS_PASSWORD="{{.RESTIC_HASS_PASSWORD}}"
       - vault kv put -mount=secret volsync/zwavejs
           RESTIC_ZWAVEJS_PASSWORD="{{.RESTIC_ZWAVEJS_PASSWORD}}"
+  # database
+  disable-database-engine:
+    desc: disable vault database engine
+    cmds:
+      - vault secrets disable databases
+  enable-database-engine:
+    desc: enable vault database engine
+    cmds:
+      - vault secrets enable -path=databases database
+  add-database-connections:
+    desc: add vault database connections
+    cmds:
+      # postgresql/home_assistant
+      - vault write databases/config/home_assistant
+          plugin_name="postgresql-database-plugin"
+          allowed_roles="home-assistant"
+          connection_url="postgresql://{{`{{username}}`}}:{{`{{password}}`}}@home-assistant-rw.home-automation:5432/home_assistant"
+          username="postgres"
+          password="{{.HASS_POSTGRES_PASSWORD}}"
+          username_template="{{`{{.RoleName}}`}}-{{`{{random 8}}`}}"
+      - vault write databases/roles/home-assistant
+          db_name="home_assistant"
+          creation_statements="CREATE ROLE \"{{`{{name}}`}}\" WITH LOGIN PASSWORD '{{`{{password}}`}}' VALID UNTIL '{{`{{expiration}}`}}'; GRANT role_home_assistant TO \"{{`{{name}}`}}\"; SET ROLE role_home_assistant;"
+          revocation_statements="REVOKE role_home_assistant FROM \"{{`{{name}}`}}\"; DROP ROLE \"{{`{{name}}`}}\";"
+          default_ttl="1h"
+          max_ttl="1h"
