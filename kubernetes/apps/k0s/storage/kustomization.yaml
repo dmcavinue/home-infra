@@ -7,5 +7,5 @@ resources:
   - ./namespace.yaml
   - ./externalsecret.yaml
   # Flux-Kustomizations
-  - ./minio/ks.yaml  
+  - ./minio-operator/ks.yaml  
   - ./restic/ks.yaml
