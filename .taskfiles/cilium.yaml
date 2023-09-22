@@ -8,7 +8,6 @@ tasks:
       - cilium clustermesh status --context k0s
       - cilium clustermesh status --context k8s
 
-  setup-cilium-mesh:
+  connect-mesh:
     cmds:
-      - cilium hubble enable --create-ca --context k0s
-      #- cilium clustermesh status # connect --context k0s --destination-context k8s
+      - cilium clustermesh connect --context k0s --destination-context k8s
