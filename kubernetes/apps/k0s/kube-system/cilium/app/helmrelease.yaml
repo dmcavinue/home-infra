@@ -35,21 +35,21 @@ spec:
     cluster:
       name: "k0s"
       id: "${CILIUM_ID}"
-    # clustermesh:
-      # useAPIServer: true
-      # apiserver:
-      #   tls:
-      #     auto:
-      #       method: certmanager
-      #       certManagerIssuerRef:
-      #         group: cert-manager.io
-      #         kind: Issuer
-      #         name: vault-issuer
-        # kvstoremesh:
-        #   enabled: true
-        # service:
-        #   type: LoadBalancer
-        #   loadBalancerIP: "${CILIUM_LB_IP}"
+    clustermesh:
+      useAPIServer: true
+      apiserver:
+        tls:
+          auto:
+            method: certmanager
+            certManagerIssuerRef:
+              group: cert-manager.io
+              kind: Issuer
+              name: vault-issuer
+        kvstoremesh:
+          enabled: true
+        service:
+          type: LoadBalancer
+          loadBalancerIP: "${CILIUM_LB_IP}"
       # config:
       #   enabled: true
       #   clusters:
@@ -78,13 +78,13 @@ spec:
     #   gateway-api-secrets-namespace: "ingress"
     hubble:
       enabled: true
-      # tls:
-      #   auto:
-      #     method: certmanager
-      #     certManagerIssuerRef:
-      #       group: cert-manager.io
-      #       kind: Issuer
-      #       name: vault-issuer
+      tls:
+        auto:
+          method: certmanager
+          certManagerIssuerRef:
+            group: cert-manager.io
+            kind: Issuer
+            name: vault-issuer
       metrics:
         enabled:
           - dns:query
