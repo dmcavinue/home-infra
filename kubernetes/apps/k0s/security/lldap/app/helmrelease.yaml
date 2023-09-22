@@ -75,8 +75,9 @@ spec:
               - *host
     persistence:
       data:
-        enabled: true
-        type: emptyDir
+        enabled: true    
+        storageClassName: local-path
+        size: 500Mi
       certs:
         enabled: true
         type: custom
