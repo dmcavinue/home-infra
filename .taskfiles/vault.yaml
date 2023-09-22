@@ -154,12 +154,12 @@ tasks:
       - vault write auth/kubernetes/k8s/role/monitoring
           bound_service_account_names=vault-auth
           bound_service_account_namespaces=monitoring
-          policies=monitoring,storage,default
+          policies=monitoring,flux,system,storage,default
           ttl=1440h
       - vault write auth/kubernetes/k0s/role/monitoring
           bound_service_account_names=vault-auth
           bound_service_account_namespaces=monitoring
-          policies=monitoring,flux-system,default
+          policies=monitoring,flux,system,default
           ttl=1440h
       - echo -e "path \"pki/int_ca/sign/default\" { capabilities = [\"update\"] }\npath \"secret/data/cert-manager/*\" { capabilities = [\"read\", \"list\"] }" | vault policy write cert-manager -
       - vault write auth/kubernetes/k8s/role/cert-manager
@@ -231,13 +231,6 @@ tasks:
           bound_service_account_names=vault-auth
           bound_service_account_namespaces=storage
           policies=security,storage,default
-          ttl=1440h
-      - echo "path \"secret/data/cluster/*\" { capabilities = [\"read\", \"list\"] }" | vault policy write development -
-      - echo "path \"secret/data/development/*\" { capabilities = [\"read\", \"list\"] }" | vault policy write development -
-      - vault write auth/kubernetes/k8s/role/development
-          bound_service_account_names=vault-auth
-          bound_service_account_namespaces=development
-          policies=development,default
           ttl=1440h
   # kv
   disable-kv:
