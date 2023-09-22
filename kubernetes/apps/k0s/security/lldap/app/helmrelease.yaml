@@ -73,12 +73,13 @@ spec:
         tls:
           - hosts:
               - *host
-    persistence:
-      data:
-        enabled: true    
-        storageClassName: local-path
-        size: 500Mi
+    volumeClaimTemplates:
+      - name: data
+        mountPath: /data
         accessMode: ReadWriteOnce
+        size: 500Mi
+        storageClass: local-path
+    persistence:
       certs:
         enabled: true
         type: custom
