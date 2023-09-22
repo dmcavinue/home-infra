@@ -6,7 +6,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-  - host: "dex.${DOMAIN}"
+  - host: "dex.logfold.com"
     http:
       paths:
       - backend:
@@ -18,4 +18,4 @@ spec:
         pathType: Prefix
   tls:
   - hosts:
-    - "dex.${DOMAIN}"
+    - "dex.logfold.com"

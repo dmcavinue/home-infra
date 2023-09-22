@@ -6,7 +6,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-  - host: "oauth.${DOMAIN}"
+  - host: "oauth.nucstack.com"
     http:
       paths:
       - backend:
@@ -18,4 +18,4 @@ spec:
         pathType: Prefix
   tls:
   - hosts:
-    - "oauth.${DOMAIN}"
+    - "oauth.nucstack.com"

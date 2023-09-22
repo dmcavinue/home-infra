@@ -27,7 +27,7 @@ spec:
     keepHistory: false
   values:
     image:
-      repository: "${DOCKER_PRIVATE_REGISTRY}/tidbyt-proxy"
+      repository: "dmcavinue/tidbyt-proxy"
       tag: v0.0.3
       pullPolicy: IfNotPresent
     controller:

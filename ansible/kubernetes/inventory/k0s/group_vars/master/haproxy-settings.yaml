@@ -21,4 +21,4 @@ keepalived_instances:
     virtual_router_id: 42
     priority: "{{ (inventory_hostname == groups['master'][0]) | ternary('250', '100') }}"
     vips:
-      - "{{ lookup('env', (lookup('env', 'ENVIRONMENT')|upper) + '_VIP_IP' ) }}/32 dev {{ ansible_default_ipv4.interface }}"
+      - "192.168.9.8/32 dev {{ ansible_default_ipv4.interface }}"

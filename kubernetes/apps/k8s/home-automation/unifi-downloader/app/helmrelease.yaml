@@ -16,7 +16,7 @@ spec:
         namespace: flux-system
   values:
     image:
-      repository: "${DOCKER_PRIVATE_REGISTRY}/unifi-downloader"
+      repository: "dmcavinue/unifi-downloader"
       tag: 0.1.2
     controller:
       replicas: 1

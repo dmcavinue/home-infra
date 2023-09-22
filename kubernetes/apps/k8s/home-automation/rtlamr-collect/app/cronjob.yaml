@@ -30,7 +30,7 @@ spec:
           serviceAccountName: rtlamr-collect
           containers:
             - name: rtlamr-collect
-              image: "${DOCKER_PRIVATE_REGISTRY}/rtlamr-collect:0.0.10"
+              image: "dmcavinue/rtlamr-collect:0.0.10"
               securityContext:
                 privileged: true
               volumeMounts:

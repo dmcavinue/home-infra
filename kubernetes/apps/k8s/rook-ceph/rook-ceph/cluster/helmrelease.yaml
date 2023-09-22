@@ -34,7 +34,7 @@ spec:
       dashboard:
         ingressClassName: nginx
         host:
-          name: &host "rook.${DOMAIN}"
+          name: &host "rook.nucstack.com"
           path: /
         tls:
           - hosts:

@@ -6,7 +6,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-  - host: "hass.${DOMAIN}"
+  - host: "hass.nucstack.com"
     http:
       paths:
       - backend:
@@ -18,7 +18,7 @@ spec:
         pathType: Prefix
   tls:
   - hosts:
-    - "hass.${DOMAIN}"
+    - "hass.nucstack.com"
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
@@ -26,12 +26,12 @@ metadata:
   name: home-assistant-code
   namespace: home-automation
   annotations:
-    nginx.ingress.kubernetes.io/auth-url: https://oauth.${DOMAIN}/oauth2/auth
-    nginx.ingress.kubernetes.io/auth-signin: https://oauth.${DOMAIN}/oauth2/start
+    nginx.ingress.kubernetes.io/auth-url: https://oauth.nucstack.com/oauth2/auth
+    nginx.ingress.kubernetes.io/auth-signin: https://oauth.nucstack.com/oauth2/start
 spec:
   ingressClassName: nginx
   rules:
-  - host: "hass-code.${DOMAIN}"
+  - host: "hass-code.nucstack.com"
     http:
       paths:
       - backend:
@@ -43,4 +43,4 @@ spec:
         pathType: Prefix
   tls:
   - hosts:
-    - "hass-code.${DOMAIN}"
+    - "hass-code.nucstack.com"

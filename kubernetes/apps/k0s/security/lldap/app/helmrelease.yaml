@@ -36,7 +36,7 @@ spec:
     env:
       TZ: America/New_York
       LLDAP_HTTP_PORT: &port 80
-      LLDAP_HTTP_URL: "https://lldap.${DOMAIN}"
+      LLDAP_HTTP_URL: "https://lldap.logfold.com"
       LLDAP_LDAP_PORT: &ldapPort 389
       LLDAP_LDAPS_OPTIONS__ENABLED: "true"
       LLDAP_LDAPS_OPTIONS__PORT: &ldapsPort 636
@@ -49,7 +49,7 @@ spec:
       main:
         type: LoadBalancer
         annotations:
-          io.cilium/lb-ipam-ips: "${LLDAP_LB_IP}"
+          io.cilium/lb-ipam-ips: "192.168.9.115"
           io.cilium/global-service: "true"
         ports:
           http:
@@ -65,7 +65,7 @@ spec:
         enabled: false
         ingressClassName: nginx
         hosts:
-          - host: &host "lldap.${DOMAIN}"
+          - host: &host "lldap.logfold.com"
             paths:
               - path: /
                 pathType: Prefix
@@ -84,7 +84,7 @@ spec:
         type: custom
         volumeSpec:
           secret:
-            secretName: "lldap-${DOMAIN/./-}-tls"
+            secretName: "lldap-logfold-com-tls"
         subPath:
           - path: tls.key
             mountPath: /certs/tls.key

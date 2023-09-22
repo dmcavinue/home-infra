@@ -253,36 +253,12 @@ tasks:
     cmds:
       # shared secrets - k8s
       - vault kv put -mount=secret cluster/k8s
-          CILIUM_ID="{{.K8S_CILIUM_ID}}"
-          CILIUM_LB_IP="{{.K8S_CILIUM_LB_IP}}"
           CLOUDFLARE_EMAIL="{{.CLOUDFLARE_EMAIL}}"
-          DOCKER_PRIVATE_REGISTRY="{{.DOCKER_PRIVATE_REGISTRY}}"
-          DOMAIN="{{.K8S_DOMAIN}}"
-          ENVIRONMENT="k8s"
-          EMQX_LB_IP="{{.EMQX_LB_IP}}"
           SLACK_WEBHOOK="{{.SLACK_WEBHOOK}}"
-          IPAM_CIDR="{{.K8S_IPAM_CIDR}}"
-          LOCAL_DOMAIN="{{.LOCAL_DOMAIN}}"
-          K0S_DOMAIN="{{.K0S_DOMAIN}}"
-          LOKI_LB_IP="{{.K8S_LOKI_LB_IP}}"
-          NGINX_LB_IP="{{.K8S_NGINX_LB_IP}}"
-          RSYSLOG_LB_IP="{{.K8S_RSYSLOG_LB_IP}}"
           NFS_SERVER_IP="{{.NFS_SERVER_IP}}"
-          SERVER_CIDR="{{.K8S_SERVER_CIDR}}"
-          VAULT_ADDR="{{.VAULT_ADDR}}"
-          VIP_IP="{{.K8S_VIP_IP}}"
-          VIP_PORT="{{.VIP_PORT}}"
       # cert-manager
       - vault kv put -mount=secret cert-manager/cloudflare          
           CLOUDFLARE_TOKEN="{{.CLOUDFLARE_TOKEN}}"
-      # coder
-      - vault kv put -mount=secret development/coder
-          CODER_POSTGRES_USER="{{.CODER_POSTGRES_USER}}"
-          CODER_POSTGRES_PASSWORD="{{.CODER_POSTGRES_PASSWORD}}"
-          CODER_POSTGRES_SUPER_USER="{{.CODER_POSTGRES_SUPER_USER}}"
-          CODER_POSTGRES_SUPER_PASSWORD="{{.CODER_POSTGRES_SUPER_PASSWORD}}"
-          CODER_DB_BACKUP_ACCESS_KEY="{{.CODER_DB_BACKUP_ACCESS_KEY}}"
-          CODER_DB_BACKUP_SECRET="{{.CODER_DB_BACKUP_SECRET}}"
       # flux-system/notification
       - vault kv put -mount=secret flux-system/notification
           FLUX_SLACK_WEBHOOK="{{.SLACK_WEBHOOK}}"
@@ -308,16 +284,6 @@ tasks:
           IMMICH_POSTGRES_PASSWORD="{{.IMMICH_POSTGRES_PASSWORD}}"
           IMMICH_DB_BACKUP_ACCESS_KEY="{{.IMMICH_DB_BACKUP_ACCESS_KEY}}"
           IMMICH_DB_BACKUP_SECRET="{{.IMMICH_DB_BACKUP_SECRET}}"
-      # media/miniflux
-      - vault kv put -mount=secret media/miniflux
-          MINIFLUX_ADMIN_USERNAME="{{.MINIFLUX_ADMIN_USERNAME}}"
-          MINIFLUX_ADMIN_PASSWORD="{{.MINIFLUX_ADMIN_PASSWORD}}"
-          MINIFLUX_POSTGRES_SUPER_USER="{{.MINIFLUX_POSTGRES_SUPER_USER}}"
-          MINIFLUX_POSTGRES_SUPER_PASSWORD="{{.MINIFLUX_POSTGRES_SUPER_PASSWORD}}"
-          MINIFLUX_POSTGRES_USER="{{.MINIFLUX_POSTGRES_USER}}"
-          MINIFLUX_POSTGRES_PASSWORD="{{.MINIFLUX_POSTGRES_PASSWORD}}"
-          MINIFLUX_DB_BACKUP_ACCESS_KEY="{{.MINIFLUX_DB_BACKUP_ACCESS_KEY}}"
-          MINIFLUX_DB_BACKUP_SECRET="{{.MINIFLUX_DB_BACKUP_SECRET}}"
       # home-automation/home-assistant
       - vault kv put -mount=secret home-automation/home-assistant
           HASS_POSTGRES_SUPER_USER="{{.HASS_POSTGRES_SUPER_USER}}"
@@ -355,10 +321,6 @@ tasks:
           CAM8_NAME="{{.FRIGATE_CAM8_NAME}}"
           CAM8_ID="{{.FRIGATE_CAM8_ID}}"
           PLUS_API_KEY="{{.FRIGATE_PLUS_API_KEY}}"
-      # home-automation/rtlamr-collect
-      - vault kv put -mount=secret home-automation/rtlamr-collect
-          RTLAMR_METERS="{{.RTLAMR_METERS}}"
-          RTLAMR_MSGTYPE="{{.RTLAMR_MSGTYPE}}"
       # home-automation/tidbyt-proxy
       - vault kv put -mount=secret home-automation/tidbyt-proxy
           TIDBYT_API_KEY="{{.TIDBYT_API_KEY}}"
@@ -373,21 +335,6 @@ tasks:
           CLOUDFLARE_EMAIL="{{.CLOUDFLARE_EMAIL}}"
           CLOUDFLARE_TOKEN="{{.CLOUDFLARE_TOKEN}}"
           CLOUDFLARE_RECORD_NAME="{{.CLOUDFLARE_RECORD_NAME}}"
-      # monitoring/loki
-      - vault kv put -mount=secret monitoring/loki
-          BASIC_AUTH="{{.LOKI_BASIC_AUTH}}"
-          LOKI_USERNAME="{{.LOKI_USERNAME}}"
-          LOKI_PASSWORD="{{.LOKI_PASSWORD}}"
-      # monitoring/gatus
-      - vault kv put -mount=secret monitoring/gatus
-          GATUS_POSTGRES_SUPER_USER="{{.GATUS_POSTGRES_SUPER_USER}}"
-          GATUS_POSTGRES_SUPER_PASSWORD="{{.GATUS_POSTGRES_SUPER_PASSWORD}}"
-          GATUS_POSTGRES_USER="{{.GATUS_POSTGRES_USER}}"
-          GATUS_POSTGRES_PASSWORD="{{.GATUS_POSTGRES_PASSWORD}}"
-          GATUS_DB_BACKUP_ACCESS_KEY="{{.GATUS_DB_BACKUP_ACCESS_KEY}}"
-          GATUS_DB_BACKUP_SECRET="{{.GATUS_DB_BACKUP_SECRET}}"
-          GATUS_SLACK_WEBHOOK_URL="{{.SLACK_WEBHOOK}}"
-          GATUS_DOMAIN="{{.GATUS_DOMAIN}}"
       # monitoring/grafana
       - vault kv put -mount=secret monitoring/grafana
           ADMIN_USER="{{.GRAFANA_ADMIN_USER}}"
@@ -395,7 +342,7 @@ tasks:
           LDAP_USERNAME="{{.GRAFANA_LDAP_USERNAME}}"
           LDAP_PASSWORD="{{.GRAFANA_LDAP_PASSWORD}}"
           LDAP_ROOT="{{.GRAFANA_LDAP_ROOT}}"
-# security/dex
+      # security/dex
       - vault kv put -mount=secret security/dex
           IMMICH_CLIENT_SECRET="{{.DEX_IMMICH_CLIENT_SECRET}}"
           GITOPS_CLIENT_SECRET="{{.DEX_GITOPS_CLIENT_SECRET}}"

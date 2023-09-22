@@ -3,8 +3,8 @@ k3s_control_node: true
 k3s_server:
   node-ip: "{{ ansible_host }}"
   tls-san:
-    - "k8s.{{ lookup('env', (lookup('env', 'ENVIRONMENT')|upper) + '_DOMAIN' ) }}"    
-    - "{{ lookup('env', (lookup('env', 'ENVIRONMENT')|upper) + '_VIP_IP' ) }}"
+    - "k8s.nucstack.com"
+    - "192.168.9.20"
   https-listen-port: 6443
   docker: false
   flannel-backend: "none" # quote
@@ -28,7 +28,3 @@ k3s_server:
     - bind-address=0.0.0.0
   kube-apiserver-arg:
     - anonymous-auth=true
-    # - "oidc-client-id=dex-k8s-authenticator"
-    # - "oidc-groups-claim=groups"
-    # - "oidc-issuer-url=https://dex.{{ lookup('env', (lookup('env', 'ENVIRONMENT')|upper) + '_DOMAIN' ) }}"
-    # - "oidc-username-claim=email"

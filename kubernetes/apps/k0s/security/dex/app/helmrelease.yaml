@@ -30,7 +30,7 @@ spec:
       annotations:
         io.cilium/global-service: "true"
     config:
-      issuer: https://dex.${DOMAIN}
+      issuer: https://dex.logfold.com
       storage:
         type: kubernetes
         config:

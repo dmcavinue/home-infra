@@ -3,7 +3,7 @@
 k3s_release_version: "v1.28.2+k3s1"
 k3s_install_hard_links: true
 k3s_become: true
-k3s_registration_address: "{{ lookup('env', (lookup('env', 'ENVIRONMENT')|upper) + '_VIP_IP' ) }}"
+k3s_registration_address: "192.168.9.8"
 k3s_server_manifests_templates:
   - custom-cilium-helmchart.yaml.j2
   - custom-cilium-l2.yaml.j2
@@ -22,7 +22,7 @@ k3s_registries:
   mirrors:
     docker.io:
       endpoint:
-        - "https://registry.{{ lookup('env', 'LOCAL_DOMAIN') }}"
+        - "https://registry.feelingsmachine.com"
     "*":
       endpoint:
-        - "https://registry.{{ lookup('env', 'LOCAL_DOMAIN') }}"
+        - "https://registry.feelingsmachine.com"

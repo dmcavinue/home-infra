@@ -2,29 +2,29 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: "${DOMAIN/./-}"
+  name: "nucstack-com"
   namespace: ingress
 spec:
-  secretName: "${DOMAIN/./-}-tls"
+  secretName: "nucstack-com-tls"
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
-  commonName: "${DOMAIN}"
+  commonName: "nucstack.com"
   dnsNames:
-  - "${DOMAIN}"
-  - "*.${DOMAIN}"
+  - "nucstack.com"
+  - "*.nucstack.com"
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: "${LOCAL_DOMAIN/./-}"
+  name: "feelingsmachine-com"
   namespace: ingress
 spec:
-  secretName: "${LOCAL_DOMAIN/./-}-tls"
+  secretName: "feelingsmachine-com-tls"
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
-  commonName: "${LOCAL_DOMAIN}"
+  commonName: "feelingsmachine.com"
   dnsNames:
-  - "${LOCAL_DOMAIN}"
-  - "*.${LOCAL_DOMAIN}"
+  - "feelingsmachine.com"
+  - "*.feelingsmachine.com"

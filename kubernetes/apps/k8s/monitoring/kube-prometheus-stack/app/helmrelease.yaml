@@ -79,7 +79,7 @@ spec:
       ingress:
         enabled: false
       alertmanagerSpec:
-        externalUrl: "https://alertmanager.${DOMAIN}"
+        externalUrl: "https://alertmanager.nucstack.com"
         replicas: 1
         storage:
           volumeClaimTemplate:

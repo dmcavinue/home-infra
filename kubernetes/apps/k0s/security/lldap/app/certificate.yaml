@@ -2,13 +2,13 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: "lldap-${DOMAIN/./-}"
+  name: "lldap-logfold-com"
   namespace: security
 spec:
-  secretName: "lldap-${DOMAIN/./-}-tls"
+  secretName: "lldap-logfold-com-tls"
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
-  commonName: "lldap.${DOMAIN}"
+  commonName: "lldap.logfold.com"
   dnsNames:
-  - "lldap.${DOMAIN}"
+  - "lldap.logfold.com"

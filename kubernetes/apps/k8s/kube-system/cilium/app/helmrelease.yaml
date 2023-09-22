@@ -34,7 +34,7 @@ spec:
       enabled: false
     cluster:
       name: "k8s"
-      id: "${CILIUM_ID}"
+      id: "1"
     clustermesh:
       useAPIServer: true
       apiserver:
@@ -49,7 +49,7 @@ spec:
           enabled: true
         service:
           type: LoadBalancer
-          loadBalancerIP: "${CILIUM_LB_IP}"
+          loadBalancerIP: "192.168.9.228"
       config:
         enabled: true
         clusters:
@@ -95,19 +95,19 @@ spec:
         ingress:
           enabled: true
           hosts:
-            - &host "hubble.${DOMAIN}"
+            - &host "hubble.nucstack.com"
           tls:
             - hosts:
                 - *host
           annotations:
             kubernetes.io/ingress.class: nginx
-            nginx.ingress.kubernetes.io/auth-url: https://oauth.${DOMAIN}/oauth2/auth
-            nginx.ingress.kubernetes.io/auth-signin: https://oauth.${DOMAIN}/oauth2/start
+            nginx.ingress.kubernetes.io/auth-url: https://oauth.nucstack.com/oauth2/auth
+            nginx.ingress.kubernetes.io/auth-signin: https://oauth.nucstack.com/oauth2/start
     ipam:
       mode: kubernetes
     ipv4NativeRoutingCIDR: 10.0.0.0/8
-    k8sServiceHost: ${VIP_IP}
-    k8sServicePort: ${VIP_PORT}
+    k8sServiceHost: 192.168.9.20
+    k8sServicePort: 443
     kubeProxyReplacement: strict
     kubeProxyReplacementHealthzBindAddr: 0.0.0.0:10256
     l2announcements:

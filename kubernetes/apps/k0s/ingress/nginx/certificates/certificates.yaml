@@ -2,14 +2,14 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: "${DOMAIN/./-}"
+  name: "logfold-com"
   namespace: ingress
 spec:
-  secretName: "${DOMAIN/./-}-tls"
+  secretName: "logfold-com-tls"
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
-  commonName: "${DOMAIN}"
+  commonName: "logfold.com"
   dnsNames:
-  - "${DOMAIN}"
-  - "*.${DOMAIN}"
+  - "logfold.com"
+  - "*.logfold.com"

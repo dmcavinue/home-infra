@@ -45,7 +45,7 @@ spec:
         enabled: true
         ingressClassName: nginx
         hosts:
-          - host: &host "restic.${DOMAIN}"
+          - host: &host "restic.logfold.com"
             paths:
               - path: /
                 pathType: Prefix

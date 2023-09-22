@@ -25,7 +25,7 @@ rules:
     resources:
       - certificates
     resourceNames:
-      - "${LOCAL_DOMAIN/./-}"
+      - "feelingsmachine-com"
     verbs:
       - list
       - get
@@ -34,7 +34,7 @@ rules:
     resources:
       - secrets
     resourceNames:
-      - "${LOCAL_DOMAIN/./-}-tls"
+      - "feelingsmachine-com-tls"
     verbs:
       - list
       - get

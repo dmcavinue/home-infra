@@ -34,7 +34,7 @@ spec:
       enabled: false
     cluster:
       name: "k0s"
-      id: "${CILIUM_ID}"
+      id: "2"
     clustermesh:
       useAPIServer: true
       apiserver:
@@ -49,7 +49,7 @@ spec:
           enabled: true
         service:
           type: LoadBalancer
-          loadBalancerIP: "${CILIUM_LB_IP}"
+          loadBalancerIP: "192.168.9.114"
       # config:
       #   enabled: true
       #   clusters:
@@ -64,17 +64,17 @@ spec:
     # gatewayAPI:
     #   enabled: true
     #   service:
-    #     loadBalancerIP: "${CILIUM_LB_IP}"
+    #     loadBalancerIP: "xxxx"
     # ingressController:
     #   enabled: true
     #   enforceHttps: true
     #   loadbalancerMode: shared
-    #   defaultSecretName: "${DOMAIN/./-}-tls"
+    #   defaultSecretName: "logfold-com-tls"
     #   defaultSecretNamespace: ingress
     #   service:
     #     name: cilium-ingress
     #     type: LoadBalancer
-    #     loadBalancerIP: "${CILIUM_LB_IP}"
+    #     loadBalancerIP: "xxxx"
     #   gateway-api-secrets-namespace: "ingress"
     hubble:
       enabled: true
@@ -105,24 +105,12 @@ spec:
           serviceMonitor:
             enabled: true
       ui:
-        enabled: true
-        rollOutPods: true
-        ingress:
-          enabled: true
-          hosts:
-            - &host "hubble.${DOMAIN}"
-          tls:
-            - hosts:
-                - *host
-          annotations:
-            kubernetes.io/ingress.class: nginx
-          #   nginx.ingress.kubernetes.io/auth-signin: https://oauth.${DOMAIN}/oauth2/start?rd=$escaped_request_uri
-          #   nginx.ingress.kubernetes.io/auth-url: https://oauth.${DOMAIN}/oauth2/auth
+        enabled: false
     ipam:
       mode: kubernetes
     ipv4NativeRoutingCIDR: 10.0.0.0/8
-    k8sServiceHost: ${VIP_IP}
-    k8sServicePort: ${VIP_PORT}
+    k8sServiceHost: 192.168.9.8
+    k8sServicePort: 443
     kubeProxyReplacement: strict
     kubeProxyReplacementHealthzBindAddr: 0.0.0.0:10256
     l2announcements:

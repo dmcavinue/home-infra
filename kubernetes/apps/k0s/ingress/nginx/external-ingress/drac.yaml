@@ -36,7 +36,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-  - host: "drac.${DOMAIN}"
+  - host: "drac.logfold.com"
     http:
       paths:
       - backend:
@@ -48,4 +48,4 @@ spec:
         pathType: Prefix
   tls:
   - hosts:
-    - "drac.${DOMAIN}"
+    - "drac.logfold.com"

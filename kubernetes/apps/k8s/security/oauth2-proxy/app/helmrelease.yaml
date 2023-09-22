@@ -40,12 +40,12 @@ spec:
       existingSecret: oauth2-proxy-secret
       configFile: |-
         provider = "oidc"
-        oidc_issuer_url = "https://dex.${K0S_DOMAIN}"
+        oidc_issuer_url = "https://dex.logfold.com"
         auth_logging = true
         cookie_samesite = "lax"
         cookie_httponly = true
         cookie_name = "_nucstack_oauth"
-        cookie_domains = [ ".${DOMAIN}" ]
+        cookie_domains = [ ".nucstack.com" ]
         cookie_refresh = "1h"
         cookie_secure = true
         email_domains = [ '*' ]
@@ -62,4 +62,4 @@ spec:
         ssl_insecure_skip_verify = false
         standard_logging = true
         upstreams = [ "static://200" ]
-        whitelist_domains = [ ".${DOMAIN}" ]
+        whitelist_domains = [ ".nucstack.com" ]

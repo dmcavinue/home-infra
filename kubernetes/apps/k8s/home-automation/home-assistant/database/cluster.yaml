@@ -39,7 +39,7 @@ spec:
         compression: bzip2
         maxParallel: 8
       destinationPath: s3://db-backup/home-assistant
-      endpointURL: "https://minio.${K0S_DOMAIN}"
+      endpointURL: "https://minio.logfold.com"
       serverName: &currentCluster home-assistant-4
       s3Credentials:
         accessKeyId:
@@ -52,7 +52,7 @@ spec:
   - name: *previousCluster
     barmanObjectStore:
       destinationPath: s3://db-backup/home-assistant
-      endpointURL: "https://minio.${K0S_DOMAIN}"
+      endpointURL: "https://minio.logfold.com"
       s3Credentials:
         accessKeyId:
           name: home-assistant-database-superuser

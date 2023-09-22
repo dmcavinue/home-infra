@@ -34,7 +34,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-  - host: "adguard.${DOMAIN}"
+  - host: "adguard.logfold.com"
     http:
       paths:
       - backend:
@@ -46,4 +46,4 @@ spec:
         pathType: Prefix
   tls:
   - hosts:
-    - "adguard.${DOMAIN}"
+    - "adguard.logfold.com"

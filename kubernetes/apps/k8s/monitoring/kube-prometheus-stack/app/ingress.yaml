@@ -4,12 +4,12 @@ metadata:
   name: alertmanager
   namespace: monitoring
   annotations:
-    nginx.ingress.kubernetes.io/auth-url: https://oauth.${DOMAIN}/oauth2/auth
-    nginx.ingress.kubernetes.io/auth-signin: https://oauth.${DOMAIN}/oauth2/start
+    nginx.ingress.kubernetes.io/auth-url: https://oauth.nucstack.com/oauth2/auth
+    nginx.ingress.kubernetes.io/auth-signin: https://oauth.nucstack.com/oauth2/start
 spec:
   ingressClassName: nginx
   rules:
-  - host: "alertmanager.${DOMAIN}"
+  - host: "alertmanager.nucstack.com"
     http:
       paths:
       - backend:
@@ -21,4 +21,4 @@ spec:
         pathType: Prefix
   tls:
   - hosts:
-    - "alertmanager.${DOMAIN}"
+    - "alertmanager.nucstack.com"

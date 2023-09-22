@@ -7,7 +7,7 @@ metadata:
 spec:
   vault:
     path: pki/int_ca/sign/default
-    server: $VAULT_ADDR
+    server: https://vault.logfold.com
     auth:
       appRole:
         path: approle

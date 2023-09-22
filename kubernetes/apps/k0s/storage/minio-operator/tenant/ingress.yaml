@@ -8,7 +8,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-  - host: "minio.${DOMAIN}"
+  - host: "minio.logfold.com"
     http:
       paths:
         - pathType: Prefix
@@ -20,4 +20,4 @@ spec:
                 name: https-minio
   tls:
     - hosts:
-        - "minio.${DOMAIN}"
+        - "minio.logfold.com"
