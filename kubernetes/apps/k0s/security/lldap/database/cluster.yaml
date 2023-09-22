@@ -14,11 +14,11 @@ spec:
       kube-image-keeper.enix.io/image-caching-policy: ignore
   primaryUpdateStrategy: unsupervised
   bootstrap:
-    # initdb:
-    #   database: lldap
-    #   owner: lldap
-    #   secret:
-    #     name: lldap-database-user
+    initdb:
+      database: lldap
+      owner: lldap
+      secret:
+        name: lldap-database-user
     recovery:
       source: &previousCluster lldap-1
   storage:
@@ -32,31 +32,31 @@ spec:
       shared_buffers: 512MB
   monitoring:
     enablePodMonitor: true
-  backup:
-    retentionPolicy: 14d
-    barmanObjectStore:
-      wal:
-        compression: bzip2
-        maxParallel: 8
-      destinationPath: s3://db-backup/lldap
-      endpointURL: "https://minio.${DOMAIN}"
-      serverName: &currentCluster lldap-2
-      s3Credentials:
-        accessKeyId:
-          name: lldap-database-superuser
-          key: access-key
-        secretAccessKey:
-          name: lldap-database-superuser
-          key: secret
-  externalClusters:
-  - name: *previousCluster
-    barmanObjectStore:
-      destinationPath: s3://db-backup/lldap
-      endpointURL: "https://minio.${DOMAIN}"
-      s3Credentials:
-        accessKeyId:
-          name: lldap-database-superuser
-          key: access-key
-        secretAccessKey:
-          name: lldap-database-superuser
-          key: secret
+  # backup:
+  #   retentionPolicy: 14d
+  #   barmanObjectStore:
+  #     wal:
+  #       compression: bzip2
+  #       maxParallel: 8
+  #     destinationPath: s3://db-backup/lldap
+  #     endpointURL: "https://minio.${DOMAIN}"
+  #     serverName: &currentCluster lldap-2
+  #     s3Credentials:
+  #       accessKeyId:
+  #         name: lldap-database-superuser
+  #         key: access-key
+  #       secretAccessKey:
+  #         name: lldap-database-superuser
+  #         key: secret
+  # externalClusters:
+  # - name: *previousCluster
+  #   barmanObjectStore:
+  #     destinationPath: s3://db-backup/lldap
+  #     endpointURL: "https://minio.${DOMAIN}"
+  #     s3Credentials:
+  #       accessKeyId:
+  #         name: lldap-database-superuser
+  #         key: access-key
+  #       secretAccessKey:
+  #         name: lldap-database-superuser
+  #         key: secret

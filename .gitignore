@@ -12,3 +12,4 @@ TODO
 .vault.json
 .kopia-sa.json
 ./.kubeconfigs
+ca.crt
