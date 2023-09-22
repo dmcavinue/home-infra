@@ -36,7 +36,7 @@ spec:
       name: "k8s"
       id: "1"
     clustermesh:
-      useAPIServer: false
+      useAPIServer: true
       apiserver:
         tls:
           auto:
@@ -63,13 +63,13 @@ spec:
       enabled: true
     hubble:
       enabled: true
-      # tls:
-      #   auto:
-      #     method: certmanager
-      #     certManagerIssuerRef:
-      #       group: cert-manager.io
-      #       kind: Issuer
-      #       name: vault-issuer
+      tls:
+        auto:
+          method: certmanager
+          certManagerIssuerRef:
+            group: cert-manager.io
+            kind: Issuer
+            name: vault-issuer
       metrics:
         enabled:
           - dns:query
