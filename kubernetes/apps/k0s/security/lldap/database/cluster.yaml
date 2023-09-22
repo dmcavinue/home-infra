@@ -19,8 +19,8 @@ spec:
       owner: lldap
       secret:
         name: lldap-database-user
-    recovery:
-      source: &previousCluster lldap-1
+    # recovery:
+    #   source: &previousCluster lldap-1
   storage:
     size: 2Gi
     storageClass: local-path
