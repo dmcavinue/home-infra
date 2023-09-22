@@ -1,0 +1,62 @@
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: backstage
+  namespace: development
+  annotations:
+    kyverno.io/ignore: "true"
+spec:
+  instances: 1
+  imageName: ghcr.io/cloudnative-pg/postgresql:14.8-7
+  inheritedMetadata:
+    labels:
+      kube-image-keeper.enix.io/image-caching-policy: ignore
+  primaryUpdateStrategy: unsupervised
+  bootstrap:
+    initdb:
+      database: backstage
+      owner: backstage
+      secret:
+        name: backstage-database-user
+    # recovery:
+    #   source: &previousCluster backstage-1
+  storage:
+    size: 5Gi
+    storageClass: local-path
+  superuserSecret:
+    name: backstage-database-superuser
+  postgresql:
+    parameters:
+      max_connections: "600"
+      shared_buffers: 512MB
+  monitoring:
+    enablePodMonitor: true
+  # backup:
+  #   retentionPolicy: 14d
+  #   barmanObjectStore:
+  #     wal:
+  #       compression: bzip2
+  #       maxParallel: 8
+  #     destinationPath: s3://db-backup/backstage
+  #     endpointURL: "https://minio.logfold.com"
+  #     serverName: &currentCluster backstage-1
+  #     s3Credentials:
+  #       accessKeyId:
+  #         name: backstage-database-superuser
+  #         key: access-key
+  #       secretAccessKey:
+  #         name: backstage-database-superuser
+  #         key: secret
+  # externalClusters:
+  # - name: *previousCluster
+  #   barmanObjectStore:
+  #     destinationPath: s3://db-backup/backstage
+  #     endpointURL: "https://minio.logfold.com"
+  #     s3Credentials:
+  #       accessKeyId:
+  #         name: backstage-database-superuser
+  #         key: access-key
+  #       secretAccessKey:
+  #         name: backstage-database-superuser
+  #         key: secret

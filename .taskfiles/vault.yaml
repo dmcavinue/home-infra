@@ -2,6 +2,7 @@
 version: '3'
 
 env:
+  VAULT_ADDR: https://vault.logfold.com
   VAULT_TOKEN: 
     sh: if [ -f {{.ROOT_DIR}}/.vault.json ] && [ -z "$VAULT_TOKEN" ]; then cat {{.ROOT_DIR}}/.vault.json | jq -r '.root_token'; fi
 
@@ -273,6 +274,14 @@ tasks:
       - vault kv put -mount=secret database/influxdb
           influxdb-user="{{.INFLUXDB_USER}}"
           influxdb-password="{{.INFLUXDB_PASSWORD}}"
+      # development/backstage
+      - vault kv put -mount=secret development/backstage
+          BACKSTAGE_POSTGRES_SUPER_USER="{{.BACKSTAGE_POSTGRES_SUPER_USER}}"
+          BACKSTAGE_POSTGRES_SUPER_PASSWORD="{{.BACKSTAGE_POSTGRES_SUPER_PASSWORD}}"
+          BACKSTAGE_POSTGRES_USER="{{.BACKSTAGE_POSTGRES_USER}}"
+          BACKSTAGE_POSTGRES_PASSWORD="{{.BACKSTAGE_POSTGRES_PASSWORD}}"
+          BACKSTAGE_DB_BACKUP_ACCESS_KEY="{{.BACKSTAGE_DB_BACKUP_ACCESS_KEY}}"
+          BACKSTAGE_DB_BACKUP_SECRET="{{.BACKSTAGE_DB_BACKUP_SECRET}}"
       # media/immich
       - vault kv put -mount=secret media/immich
           IMMICH_JWT_SECRET="{{.IMMICH_JWT_SECRET}}"
