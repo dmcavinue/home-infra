@@ -11,10 +11,18 @@ tasks:
     cmds:
       - kubectl --context {{.ENVIRONMENT}} -n vault exec -ti vault-0 -- vault operator init -n 1 -t 1 --format=json > {{.ROOT_DIR}}/.vault.json
   bootstrap:
-    desc: bootstrap auth/roles
+    desc: bootstrap vault cluster with all auth backends, kv secrets, roles and policies
     cmds:
+      - task vault:init
+      - task vault:unseal
       - task vault:enable-k8s-auth
       - task vault:add-roles
+      - task vault:add-rootca
+      - task vault:add-intca
+      - task vault:add-vault-issuers
+      - task vault:enable-ldap
+      - task vault:enable-kv
+      - task vault:add-kv-secrets
   status:
     desc: vault status
     cmds:
