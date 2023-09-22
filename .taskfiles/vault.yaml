@@ -159,7 +159,7 @@ tasks:
       - vault write auth/kubernetes/k0s/role/monitoring
           bound_service_account_names=vault-auth
           bound_service_account_namespaces=monitoring
-          policies=monitoring,default
+          policies=monitoring,flux-system,default
           ttl=1440h
       - echo -e "path \"pki/int_ca/sign/default\" { capabilities = [\"update\"] }\npath \"secret/data/cert-manager/*\" { capabilities = [\"read\", \"list\"] }" | vault policy write cert-manager -
       - vault write auth/kubernetes/k8s/role/cert-manager
@@ -253,8 +253,6 @@ tasks:
     cmds:
       # shared secrets - k8s
       - vault kv put -mount=secret cluster/k8s
-          CLOUDFLARE_EMAIL="{{.CLOUDFLARE_EMAIL}}"
-          SLACK_WEBHOOK="{{.SLACK_WEBHOOK}}"
           NFS_SERVER_IP="{{.NFS_SERVER_IP}}"
       # cert-manager
       - vault kv put -mount=secret cert-manager/cloudflare          

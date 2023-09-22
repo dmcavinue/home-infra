@@ -36,7 +36,6 @@ spec:
     alertmanager:
       config:
         global:
-          slack_api_url: "${SLACK_WEBHOOK}"
           resolve_timeout: 5m
         receivers:
           - name: "null"
@@ -184,3 +183,8 @@ spec:
               resources:
                 requests:
                   storage: 5Gi
+  valuesFrom:
+    - targetPath: alertmanager.config.global.slack_api_url
+      kind: Secret
+      name: prometheus-secret
+      valuesKey: FLUX_SLACK_WEBHOOK
