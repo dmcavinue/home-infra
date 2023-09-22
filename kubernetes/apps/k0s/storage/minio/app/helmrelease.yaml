@@ -29,7 +29,9 @@ spec:
     mode: standalone
     existingSecret: "minio-secret"
     mountPath: "/export"
-    replicas: 1
+    drivesPerNode: 1
+    replicas: 4
+    pools: 1
     environment:
       MINIO_STORAGE_CLASS_STANDARD: "EC:2"
       MINIO_BROWSER: "on"
