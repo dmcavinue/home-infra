@@ -45,9 +45,9 @@ tasks:
       - vault write -format=json pki/root_ca/root/sign-intermediate csr=@pki_intermediate.csr format=pem_bundle ttl="43800h" | jq -r '.data.certificate' > ca.cert.pem
       - vault write pki/int_ca/intermediate/set-signed certificate=@ca.cert.pem
       - vault write pki/int_ca/roles/default issuer_ref="$(vault read -field=default pki/int_ca/config/issuers)" allowed_domains="admin-k8s,admin-k0s,remote,svc,cilium.io" allowed_uri_sans="admin-k0s,admin-k0s,remote,clustermesh-apiserver" allow_bare_domains=true allow_subdomains=true max_ttl="720h"
-      - kubectl --context k0s -n cert-manager delete secret vault-root-ca
+      - kubectl --context k0s -n cert-manager delete secret vault-root-ca || true
       - kubectl --context k0s -n cert-manager create secret generic vault-root-ca --from-file=ca.cert.pem=ca.cert.pem || true
-      - kubectl --context k8s -n cert-manager delete secret vault-root-ca
+      - kubectl --context k8s -n cert-manager delete secret vault-root-ca || true
       - kubectl --context k8s -n cert-manager create secret generic vault-root-ca --from-file=ca.cert.pem=ca.cert.pem || true
       - rm ca.cert.pem
       - rm pki_intermediate.csr
