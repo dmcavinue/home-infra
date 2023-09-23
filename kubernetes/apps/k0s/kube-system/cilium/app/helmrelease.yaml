@@ -35,21 +35,21 @@ spec:
     cluster:
       name: "k0s"
       id: "2"
-    clustermesh:
-      useAPIServer: true
-      apiserver:
-        tls:
-          auto:
-            method: certmanager
-            certManagerIssuerRef:
-              group: cert-manager.io
-              kind: Issuer
-              name: vault-issuer
-        kvstoremesh:
-          enabled: true
-        service:
-          type: LoadBalancer
-          loadBalancerIP: "192.168.9.114"
+    # clustermesh:
+    #   useAPIServer: true
+    #   apiserver:
+    #     tls:
+    #       auto:
+    #         method: certmanager
+    #         certManagerIssuerRef:
+    #           group: cert-manager.io
+    #           kind: Issuer
+    #           name: vault-issuer
+    #     kvstoremesh:
+    #       enabled: true
+    #     service:
+    #       type: LoadBalancer
+    #       loadBalancerIP: "192.168.9.114"
       # config:
       #   enabled: true
       #   clusters:
@@ -78,13 +78,13 @@ spec:
     #   gateway-api-secrets-namespace: "ingress"
     hubble:
       enabled: true
-      tls:
-        auto:
-          method: certmanager
-          certManagerIssuerRef:
-            group: cert-manager.io
-            kind: Issuer
-            name: vault-issuer
+      # tls:
+      #   auto:
+      #     method: certmanager
+      #     certManagerIssuerRef:
+      #       group: cert-manager.io
+      #       kind: Issuer
+      #       name: vault-issuer
       metrics:
         enabled:
           - dns:query
