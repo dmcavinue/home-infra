@@ -75,11 +75,3 @@ spec:
       kind: Secret
       name: backstage-database-superuser
       valuesKey: password
-    - targetPath: backstage.extraEnvVars["POSTGRES_USER"].value
-      kind: Secret
-      name: backstage-database-user
-      valuesKey: username
-    - targetPath: backstage.extraEnvVars["POSTGRES_PASSWORD"].value
-      kind: Secret
-      name: backstage-database-user
-      valuesKey: password
