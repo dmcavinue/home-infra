@@ -54,8 +54,8 @@ spec:
   valuesFrom:
     - targetPath: postgresql.auth.username
       kind: Secret
-      name: username
-      valuesKey: admin_password
+      name: backstage-database-user
+      valuesKey: username
     - targetPath: postgresql.auth.password
       kind: Secret
       name: backstage-database-user
