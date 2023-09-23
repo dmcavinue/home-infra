@@ -7,4 +7,3 @@ resources:
   - ./namespace.yaml
   # Flux-Kustomizations
   - ./vault/ks.yaml
-  - ./vault-injector/ks.yaml
