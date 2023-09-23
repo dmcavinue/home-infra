@@ -50,7 +50,7 @@ spec:
       architecture: standalone
     serviceAccount:
       create: true
-      name: backstage
+      name: backstage-sa
   valuesFrom:
     - targetPath: postgresql.auth.username
       kind: Secret
