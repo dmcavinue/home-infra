@@ -37,16 +37,10 @@ spec:
       # service:
       #   annotations:
       #     io.cilium/global-service: "true"
-    # injector:
-    #   enabled: true
-    #   replicas: 1
-    #   logLevel: "debug"
-    #   externalVaultAddr: https://vault.logfold.com
-    #   extraEnvironmentVars:
-    #     AGENT_INJECT_TLS_MIN_VERSION: tls13
-    #   metrics:
-    #     enabled: true
-    #   authPath: "auth/kubernetes/k0s"
+    injector:
+      metrics:
+        enabled: true
+      authPath: "auth/kubernetes/k0s"
     csi:
       enabled: true
       debug: true
