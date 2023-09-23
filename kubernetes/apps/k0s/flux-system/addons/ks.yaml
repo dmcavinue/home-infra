@@ -5,7 +5,7 @@ metadata:
   name: cluster-apps-flux-addons
   namespace: flux-system
 spec:
-  path: ./kubernetes/apps/k8s/flux-system/addons/app
+  path: ./kubernetes/apps/k0s/flux-system/addons/app
   prune: true
   sourceRef:
     kind: GitRepository
