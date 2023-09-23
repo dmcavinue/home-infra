@@ -39,7 +39,7 @@ spec:
     sentinel:
       enabled: true
       masterSet: redis-master
-      getMasterTimeout: 10
+      getMasterTimeout: 30
       startupProbe:
         failureThreshold: 2
       persistence:
