@@ -33,18 +33,21 @@ spec:
       tls:
         enabled: true
         secretName: nucstack-com-tls
-
     backstage:
       replicas: 1
       revisionHistoryLimit: 10
-
       resources:
         limits:
           memory: 1Gi
           cpu: 1000m
         requests:
           memory: 250Mi
-          cpu: 100m 
+          cpu: 100m
+      extraEnvVars:
+        - name: POSTGRES_HOST
+          value: "backstage-rw"
+        - name: POSTGRES_PORT
+          value: "5432"
     postgresql:
       enabled: false
       architecture: standalone
@@ -71,4 +74,12 @@ spec:
     - targetPath: postgresql.auth.secretKeys.replicationPasswordKey
       kind: Secret
       name: backstage-database-superuser
+      valuesKey: password
+    - targetPath: backstage.extraEnvVars["POSTGRES_USER"].value
+      kind: Secret
+      name: backstage-database-user
+      valuesKey: username
+    - targetPath: backstage.extraEnvVars["POSTGRES_PASSWORD"].value
+      kind: Secret
+      name: backstage-database-user
       valuesKey: password
