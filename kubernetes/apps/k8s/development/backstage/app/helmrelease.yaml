@@ -47,28 +47,28 @@ spec:
           cpu: 100m 
     postgresql:
       enabled: false
-      auth:
-        # -- Name for a custom user to create
-        username: bn_backstage
-
-        # -- Password for the custom user to create
-        password: ""
-
-        # -- Name of existing secret to use for PostgreSQL credentials
-        existingSecret: "backstage-secret"
-
-        # -- The secret keys Postgres will look for to retrieve the relevant password
-        secretKeys:
-
-          # -- The key in which Postgres will look for, for the admin password, in the existing Secret
-          adminPasswordKey: admin-password
-
-          # -- The key in which Postgres will look for, for the user password, in the existing Secret
-          userPasswordKey: user-password
-
-          # -- The key in which Postgres will look for, for the replication password, in the existing Secret
-          replicationPasswordKey: replication-password
       architecture: standalone
     serviceAccount:
       create: true
       name: backstage
+  valuesFrom:
+    - targetPath: postgresql.auth.username
+      kind: Secret
+      name: username
+      valuesKey: admin_password
+    - targetPath: postgresql.auth.password
+      kind: Secret
+      name: backstage-database-user
+      valuesKey: password
+    - targetPath: postgresql.auth.secretKeys.userPasswordKey
+      kind: Secret
+      name: backstage-database-user
+      valuesKey: password
+    - targetPath: postgresql.auth.secretKeys.adminPasswordKey
+      kind: Secret
+      name: backstage-database-superuser
+      valuesKey: password
+    - targetPath: postgresql.auth.secretKeys.replicationPasswordKey
+      kind: Secret
+      name: backstage-database-superuser
+      valuesKey: password
