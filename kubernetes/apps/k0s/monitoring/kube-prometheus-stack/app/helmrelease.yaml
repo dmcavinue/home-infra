@@ -188,7 +188,7 @@ spec:
               format: ['prometheus']
             scheme: http
             static_configs:
-              - targets: ["vault.vault"]
+              - targets: ["vault.vault:8200"]
   valuesFrom:
     - targetPath: alertmanager.config.global.slack_api_url
       kind: Secret
