@@ -165,6 +165,11 @@ spec:
         cluster: "k8s"
       prometheusSpec:
         replicas: 1
+        podMetadata:
+          annotations:
+            vault.hashicorp.com/agent-inject: 'true'
+            vault.hashicorp.com/agent-inject-token: 'true'
+            vault.hashicorp.com/role: monitoring
         replicaExternalLabelName: __replica__
         ruleSelectorNilUsesHelmValues: false
         serviceMonitorSelectorNilUsesHelmValues: false
@@ -186,9 +191,11 @@ spec:
             metrics_path: /v1/sys/metrics
             params:
               format: ['prometheus']
-            scheme: http
+            scheme: https
+            authorization:
+              credentials_file: /vault/secrets/token
             static_configs:
-              - targets: ["vault.vault:8200"]
+              - targets: ["vault.logfold.com"]
   valuesFrom:
     - targetPath: alertmanager.config.global.slack_api_url
       kind: Secret

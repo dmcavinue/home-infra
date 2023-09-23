@@ -159,7 +159,7 @@ tasks:
           bound_service_account_namespaces=media
           policies=media,default
           ttl=1440h
-      - echo "path \"secret/data/monitoring/*\" { capabilities = [\"read\", \"list\"] }" | vault policy write monitoring -
+      - echo -e "path \"secret/data/monitoring/*\" { capabilities = [\"read\", \"list\"] }\npath \"sys/metrics\" { capabilities = [\"read\", \"list\"] }" | vault policy write monitoring -
       - vault write auth/kubernetes/k8s/role/monitoring
           bound_service_account_names=vault-auth
           bound_service_account_namespaces=monitoring
