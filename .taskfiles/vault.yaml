@@ -153,6 +153,11 @@ tasks:
           bound_service_account_namespaces=home-automation
           policies=volsync,database,home-automation,default
           ttl=1440h
+      - vault write auth/kubernetes/k0s/role/home-automation
+          bound_service_account_names=vault-auth
+          bound_service_account_namespaces=home-automation
+          policies=volsync,database,home-automation,default
+          ttl=1440h
       - echo "path \"secret/data/media/*\" { capabilities = [\"read\", \"list\"] }" | vault policy write media -
       - vault write auth/kubernetes/k8s/role/media
           bound_service_account_names=vault-auth
