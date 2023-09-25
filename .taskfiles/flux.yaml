@@ -12,17 +12,8 @@ tasks:
     deps: [check]
     desc: Flux bootstrap
     cmds:      
+      - envsubst < {{.ROOT_DIR}}/kubernetes/bootstrap/shared/sharedsecrets.yaml | kubectl --context {{.ENVIRONMENT}} apply -f -
       - kubectl --context {{.ENVIRONMENT}} apply --server-side --kustomize={{.ROOT_DIR}}/kubernetes/bootstrap/{{.ENVIRONMENT}}
-      - task flux:bootstrap-k0s || true
-
-  bootstrap-k0s:
-    deps: [check]
-    desc: Flux bootstrap k0s cluster
-    cmds:      
-      - envsubst < {{.ROOT_DIR}}/kubernetes/bootstrap/k0s/sharedsecrets.yaml | kubectl --context {{.ENVIRONMENT}} apply -f -
-    preconditions:
-      - &test-k0s
-        sh: "[ {{.ENVIRONMENT}} = 'k0s' ]"
 
   install:
     deps: [bootstrap]
