@@ -78,7 +78,7 @@ spec:
       ingress:
         enabled: false
       alertmanagerSpec:
-        externalUrl: "https://alertmanager.nucstack.com"
+        externalUrl: "https://alertmanager.${DOMAIN}"
         replicas: 1
         storage:
           volumeClaimTemplate:
@@ -138,9 +138,7 @@ spec:
     kubeControllerManager:
       enabled: true
       endpoints: &cp
-        - 192.168.9.10
-        - 192.168.9.11
-        - 192.168.9.12
+        - 192.168.9.9
       serviceMonitor:
         metricRelabelings:
           # Remove duplicate metrics
@@ -167,6 +165,11 @@ spec:
         cluster: "k8s"
       prometheusSpec:
         replicas: 1
+        podMetadata:
+          annotations:
+            vault.hashicorp.com/agent-inject: 'true'
+            vault.hashicorp.com/agent-inject-token: 'true'
+            vault.hashicorp.com/role: monitoring
         replicaExternalLabelName: __replica__
         ruleSelectorNilUsesHelmValues: false
         serviceMonitorSelectorNilUsesHelmValues: false
@@ -183,6 +186,16 @@ spec:
               resources:
                 requests:
                   storage: 5Gi
+        additionalScrapeConfigs:
+          - job_name: vault
+            metrics_path: /v1/sys/metrics
+            params:
+              format: ['prometheus']
+            scheme: https
+            authorization:
+              credentials_file: /vault/secrets/token
+            static_configs:
+              - targets: ["vault.logfold.com"]
   valuesFrom:
     - targetPath: alertmanager.config.global.slack_api_url
       kind: Secret

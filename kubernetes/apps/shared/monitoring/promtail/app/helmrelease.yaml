@@ -35,7 +35,7 @@ spec:
         memory: 512Mi
     config:
       clients:
-        - url: "https://loki.nucstack.com/loki/api/v1/push"
+        - url: "https://loki.${DOMAIN}/loki/api/v1/push"
       snippets:
         extraScrapeConfigs: |
           - job_name: journal

@@ -2,10 +2,10 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: cluster-apps-promtail
+  name: shared-apps-promtail
   namespace: flux-system
 spec:
-  path: ./kubernetes/apps/k0s/monitoring/promtail/app
+  path: ./kubernetes/apps/shared/monitoring/promtail/app
   prune: true
   sourceRef:
     kind: GitRepository
