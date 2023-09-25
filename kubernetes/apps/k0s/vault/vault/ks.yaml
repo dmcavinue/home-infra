@@ -6,7 +6,7 @@ metadata:
   namespace: flux-system
 spec:
   dependsOn:
-    - name: cluster-apps-local-path-provisioner
+    - name: shared-apps-local-path-provisioner
   path: ./kubernetes/apps/k0s/vault/vault/app
   prune: true
   sourceRef:

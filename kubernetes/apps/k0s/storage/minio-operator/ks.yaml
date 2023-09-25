@@ -22,7 +22,7 @@ metadata:
   namespace: flux-system
 spec:
   dependsOn:
-    - name: cluster-apps-local-path-provisioner
+    - name: shared-apps-local-path-provisioner
     - name: cluster-apps-lldap
     - name: cluster-apps-minio-operator
   path: ./kubernetes/apps/k0s/storage/minio-operator/tenant
