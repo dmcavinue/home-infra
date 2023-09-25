@@ -6,15 +6,15 @@ metadata:
 spec:
   acme:
     server: https://acme-v02.api.letsencrypt.org/directory
-    email: dan@mcavinue.io
+    email: "${CLOUDFLARE_EMAIL}"
     privateKeySecretRef:
       name: letsencrypt-production
     solvers:
       - dns01:
           cloudflare:
-            email: dan@mcavinue.io
+            email: "${CLOUDFLARE_EMAIL}"
             apiTokenSecretRef:
-              name: cloudflare-secret
+              name: shared-secrets
               key: CLOUDFLARE_TOKEN
 ---
 apiVersion: cert-manager.io/v1
@@ -24,13 +24,13 @@ metadata:
 spec:
   acme:
     server: https://acme-staging-v02.api.letsencrypt.org/directory
-    email: dan@mcavinue.io
+    email: "${CLOUDFLARE_EMAIL}"
     privateKeySecretRef:
       name: letsencrypt-staging
     solvers:
       - dns01:
           cloudflare:
-            email: dan@mcavinue.io
+            email: "${CLOUDFLARE_EMAIL}"
             apiTokenSecretRef:
-              name: cloudflare-secret
+              name: shared-secrets
               key: CLOUDFLARE_TOKEN
