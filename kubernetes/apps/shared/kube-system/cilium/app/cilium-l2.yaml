@@ -17,4 +17,4 @@ metadata:
   name: pool
 spec:
   cidrs:
-    - cidr: "192.168.9.112/28"
+    - cidr: "${CILIUM_IPAM_CIDR}"

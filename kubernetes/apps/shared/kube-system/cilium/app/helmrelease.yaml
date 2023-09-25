@@ -33,58 +33,15 @@ spec:
     bgp:
       enabled: false
     cluster:
-      name: "k0s"
-      id: "2"
-    # clustermesh:
-    #   useAPIServer: true
-    #   apiserver:
-    #     tls:
-    #       auto:
-    #         method: certmanager
-    #         certManagerIssuerRef:
-    #           group: cert-manager.io
-    #           kind: Issuer
-    #           name: vault-issuer
-    #     kvstoremesh:
-    #       enabled: true
-    #     service:
-    #       type: LoadBalancer
-    #       loadBalancerIP: "192.168.9.114"
-      # config:
-      #   enabled: true
-      #   clusters:
-      #   - name: k8s
-      #     address: k8s.mesh.cilium.io
-      #     port: 2379
+      name: "${ENVIRONMENT}"
+      id: "${CILIUM_ID}"
     containerRuntime:
       integration: containerd
       socketPath: /var/run/k3s/containerd/containerd.sock
     endpointRoutes:
       enabled: true
-    # gatewayAPI:
-    #   enabled: true
-    #   service:
-    #     loadBalancerIP: "xxxx"
-    # ingressController:
-    #   enabled: true
-    #   enforceHttps: true
-    #   loadbalancerMode: shared
-    #   defaultSecretName: "logfold-com-tls"
-    #   defaultSecretNamespace: ingress
-    #   service:
-    #     name: cilium-ingress
-    #     type: LoadBalancer
-    #     loadBalancerIP: "xxxx"
-    #   gateway-api-secrets-namespace: "ingress"
     hubble:
       enabled: true
-      # tls:
-      #   auto:
-      #     method: certmanager
-      #     certManagerIssuerRef:
-      #       group: cert-manager.io
-      #       kind: Issuer
-      #       name: vault-issuer
       metrics:
         enabled:
           - dns:query
@@ -109,7 +66,7 @@ spec:
     ipam:
       mode: kubernetes
     ipv4NativeRoutingCIDR: 10.0.0.0/8
-    k8sServiceHost: 192.168.9.8
+    k8sServiceHost: "k8s.${DOMAIN}"
     k8sServicePort: 443
     kubeProxyReplacement: strict
     kubeProxyReplacementHealthzBindAddr: 0.0.0.0:10256
