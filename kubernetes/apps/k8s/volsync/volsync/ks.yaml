@@ -6,7 +6,7 @@ metadata:
   namespace: flux-system
 spec:
   dependsOn:
-    - name: cluster-apps-snapshot-controller
+    - name: shared-apps-snapshot-controller
   path: ./kubernetes/apps/k8s/volsync/volsync/app
   prune: true
   sourceRef:
