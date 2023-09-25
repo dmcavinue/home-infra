@@ -6,3 +6,6 @@ metadata:
   namespace: flux-system
 data:
   ENVIRONMENT: k0s
+  DOMAIN: logfold.com
+  CILIUM_ID: 2
+  CILIUM_IPAM_CIDR: 192.168.9.112/28
