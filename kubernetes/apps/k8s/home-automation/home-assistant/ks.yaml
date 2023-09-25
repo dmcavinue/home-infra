@@ -25,7 +25,7 @@ metadata:
   namespace: flux-system
 spec:
   dependsOn:
-    - name: cluster-apps-cloudnative-pg
+    - name: shared-apps-cloudnative-pg
   path: ./kubernetes/apps/k8s/home-automation/home-assistant/database
   prune: true
   sourceRef:
