@@ -9,3 +9,4 @@ data:
   DOMAIN: nucstack.com
   CILIUM_ID: "1"
   CILIUM_IPAM_CIDR: 192.168.9.224/27
+  K8S_SERVICE_HOST: 192.168.9.20

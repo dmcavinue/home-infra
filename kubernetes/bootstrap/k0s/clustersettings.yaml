@@ -9,3 +9,4 @@ data:
   DOMAIN: logfold.com
   CILIUM_ID: "2"
   CILIUM_IPAM_CIDR: 192.168.9.112/28
+  K8S_SERVICE_HOST: 192.168.9.8
