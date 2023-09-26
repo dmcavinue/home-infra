@@ -14,7 +14,7 @@ metadata:
     kubernetes.io/service-account.name: "synology-dns"
 type: kubernetes.io/service-account-token
 ---
-apiVersion: rbac.authorization.${ENVIRONMENT}.io/v1
+apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
   name: synology-dns
@@ -39,13 +39,13 @@ rules:
       - list
       - get
 ---
-apiVersion: rbac.authorization.${ENVIRONMENT}.io/v1
+apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   name: synology-dns
   namespace: ingress
 roleRef:
-  apiGroup: rbac.authorization.${ENVIRONMENT}.io
+  apiGroup: rbac.authorization.k8s.io
   kind: Role
   name: synology-dns
 subjects:

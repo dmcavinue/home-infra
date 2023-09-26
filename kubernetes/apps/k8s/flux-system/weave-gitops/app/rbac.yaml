@@ -1,4 +1,4 @@
-apiVersion: rbac.authorization.${ENVIRONMENT}.io/v1
+apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
   name: weave-sa-impersonator
@@ -7,28 +7,28 @@ rules:
   resources: ["users"]
   verbs: ["impersonate"]
 ---
-apiVersion: rbac.authorization.${ENVIRONMENT}.io/v1
+apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
   name: weave-sa-impersonator
 roleRef:
-  apiGroup: rbac.authorization.${ENVIRONMENT}.io
+  apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
   name: weave-sa-impersonator
 subjects:
-- apiGroup: rbac.authorization.${ENVIRONMENT}.io
+- apiGroup: rbac.authorization.k8s.io
   kind: User
   name: dan@mcavinue.io
 ---
-apiVersion: rbac.authorization.${ENVIRONMENT}.io/v1
+apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
   name: weave-cluster-admin
 roleRef:
-  apiGroup: rbac.authorization.${ENVIRONMENT}.io
+  apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
   name: cluster-admin
 subjects:
-- apiGroup: rbac.authorization.${ENVIRONMENT}.io
+- apiGroup: rbac.authorization.k8s.io
   kind: User
   name: dan@mcavinue.io
