@@ -27,9 +27,12 @@ spec:
     keepHistory: false
   values:
     injector:
+      enabled: true
+      externalVaultAddr: https://vault.logfold.com
+      extraEnvironmentVars:
+        AGENT_INJECT_TLS_MIN_VERSION: tls13
       metrics:
         enabled: true
       authPath: "auth/kubernetes/k8s"
     csi:
       enabled: true
-      debug: true
