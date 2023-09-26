@@ -257,9 +257,6 @@ tasks:
   add-kv-secrets:
     desc: add kv secrets
     cmds:
-      # shared secrets - k8s
-      - vault kv put -mount=secret cluster/k8s
-          NFS_SERVER_IP="{{.NFS_SERVER_IP}}"
       # cert-manager
       - vault kv put -mount=secret cert-manager/cloudflare          
           CLOUDFLARE_TOKEN="{{.CLOUDFLARE_TOKEN}}"
@@ -278,24 +275,6 @@ tasks:
       - vault kv put -mount=secret database/influxdb
           influxdb-user="{{.INFLUXDB_USER}}"
           influxdb-password="{{.INFLUXDB_PASSWORD}}"
-      # development/backstage
-      - vault kv put -mount=secret development/backstage
-          BACKSTAGE_POSTGRES_SUPER_USER="{{.BACKSTAGE_POSTGRES_SUPER_USER}}"
-          BACKSTAGE_POSTGRES_SUPER_PASSWORD="{{.BACKSTAGE_POSTGRES_SUPER_PASSWORD}}"
-          BACKSTAGE_POSTGRES_USER="{{.BACKSTAGE_POSTGRES_USER}}"
-          BACKSTAGE_POSTGRES_PASSWORD="{{.BACKSTAGE_POSTGRES_PASSWORD}}"
-          BACKSTAGE_DB_BACKUP_ACCESS_KEY="{{.BACKSTAGE_DB_BACKUP_ACCESS_KEY}}"
-          BACKSTAGE_DB_BACKUP_SECRET="{{.BACKSTAGE_DB_BACKUP_SECRET}}"
-      # media/immich
-      - vault kv put -mount=secret media/immich
-          IMMICH_JWT_SECRET="{{.IMMICH_JWT_SECRET}}"
-          IMMICH_TYPESENSE_API_KEY="{{.IMMICH_TYPESENSE_API_KEY}}"
-          IMMICH_POSTGRES_SUPER_USER="{{.IMMICH_POSTGRES_SUPER_USER}}"
-          IMMICH_POSTGRES_SUPER_PASSWORD="{{.IMMICH_POSTGRES_SUPER_PASSWORD}}"
-          IMMICH_POSTGRES_USER="{{.IMMICH_POSTGRES_USER}}"
-          IMMICH_POSTGRES_PASSWORD="{{.IMMICH_POSTGRES_PASSWORD}}"
-          IMMICH_DB_BACKUP_ACCESS_KEY="{{.IMMICH_DB_BACKUP_ACCESS_KEY}}"
-          IMMICH_DB_BACKUP_SECRET="{{.IMMICH_DB_BACKUP_SECRET}}"
       # home-automation/home-assistant
       - vault kv put -mount=secret home-automation/home-assistant
           HASS_POSTGRES_SUPER_USER="{{.HASS_POSTGRES_SUPER_USER}}"
@@ -347,6 +326,16 @@ tasks:
           CLOUDFLARE_EMAIL="{{.CLOUDFLARE_EMAIL}}"
           CLOUDFLARE_TOKEN="{{.CLOUDFLARE_TOKEN}}"
           CLOUDFLARE_RECORD_NAME="{{.CLOUDFLARE_RECORD_NAME}}"
+      # media/immich
+      - vault kv put -mount=secret media/immich
+          IMMICH_JWT_SECRET="{{.IMMICH_JWT_SECRET}}"
+          IMMICH_TYPESENSE_API_KEY="{{.IMMICH_TYPESENSE_API_KEY}}"
+          IMMICH_POSTGRES_SUPER_USER="{{.IMMICH_POSTGRES_SUPER_USER}}"
+          IMMICH_POSTGRES_SUPER_PASSWORD="{{.IMMICH_POSTGRES_SUPER_PASSWORD}}"
+          IMMICH_POSTGRES_USER="{{.IMMICH_POSTGRES_USER}}"
+          IMMICH_POSTGRES_PASSWORD="{{.IMMICH_POSTGRES_PASSWORD}}"
+          IMMICH_DB_BACKUP_ACCESS_KEY="{{.IMMICH_DB_BACKUP_ACCESS_KEY}}"
+          IMMICH_DB_BACKUP_SECRET="{{.IMMICH_DB_BACKUP_SECRET}}"
       # monitoring/grafana
       - vault kv put -mount=secret monitoring/grafana
           ADMIN_USER="{{.GRAFANA_ADMIN_USER}}"
