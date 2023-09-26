@@ -8,7 +8,7 @@ spec:
   interval: 30m
   chart:
     spec:
-      chart: vault-injector
+      chart: vault
       version: 0.25.0
       sourceRef:
         kind: HelmRepository
