@@ -49,9 +49,9 @@ spec:
           storage "file" {
             path = "/vault/data"
           }
-      # service:
-      #   annotations:
-      #     io.cilium/global-service: "true"
+      service:
+        annotations:
+          io.cilium/global-service: "true"
     injector:
       metrics:
         enabled: true
