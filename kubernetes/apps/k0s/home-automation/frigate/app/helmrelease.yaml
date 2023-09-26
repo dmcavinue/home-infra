@@ -92,6 +92,8 @@ spec:
         type: hostPath
         hostPath: /dev/bus/usb/001/006
         mountPath: /dev/apex_0
+    nodeSelector:    
+      feature.node.kubernetes.io/coral-usb: "true"
     resources:
       requests:
         cpu: 4000m
