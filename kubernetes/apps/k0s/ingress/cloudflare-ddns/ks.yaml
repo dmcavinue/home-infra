@@ -5,7 +5,7 @@ metadata:
   name: cluster-apps-cloudflare-ddns
   namespace: flux-system
 spec:
-  path: ./kubernetes/apps/k0s/ingress/cloudflare-ddns/app
+  path: ./kubernetes/apps/${ENVIRONMENT}/ingress/cloudflare-ddns/app
   prune: true
   sourceRef:
     kind: GitRepository

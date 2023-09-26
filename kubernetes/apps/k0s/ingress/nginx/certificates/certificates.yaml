@@ -9,7 +9,7 @@ spec:
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
-  commonName: "logfold.com"
+  commonName: "${DOMAIN}"
   dnsNames:
-  - "logfold.com"
-  - "*.logfold.com"
+  - "${DOMAIN}"
+  - "*.${DOMAIN}"

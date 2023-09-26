@@ -34,5 +34,5 @@ spec:
         ingressClassName: "nginx"
         tls:
         - hosts:
-          - "minio-console.logfold.com"
-        host: "minio-console.logfold.com"
+          - "minio-console.${DOMAIN}"
+        host: "minio-console.${DOMAIN}"

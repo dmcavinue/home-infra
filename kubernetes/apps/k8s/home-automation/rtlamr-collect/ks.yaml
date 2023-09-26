@@ -7,7 +7,7 @@ metadata:
 spec:
   dependsOn:
     - name: shared-apps-node-feature-rules
-  path: ./kubernetes/apps/k8s/home-automation/rtlamr-collect/app
+  path: ./kubernetes/apps/${ENVIRONMENT}/home-automation/rtlamr-collect/app
   prune: true
   sourceRef:
     kind: GitRepository

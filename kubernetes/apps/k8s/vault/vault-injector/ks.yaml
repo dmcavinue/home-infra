@@ -5,9 +5,7 @@ metadata:
   name: cluster-apps-vault-injector
   namespace: flux-system
 spec:
-  dependsOn:
-    - name: shared-apps-local-path-provisioner
-  path: ./kubernetes/apps/k8s/vault/vault-injector/app
+  path: ./kubernetes/apps/${ENVIRONMENT}/vault/vault-injector/app
   prune: true
   sourceRef:
     kind: GitRepository

@@ -36,7 +36,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-  - host: "proxmox.logfold.com"
+  - host: "proxmox.${DOMAIN}"
     http:
       paths:
       - backend:
@@ -48,4 +48,4 @@ spec:
         pathType: Prefix
   tls:
   - hosts:
-    - "proxmox.logfold.com"
+    - "proxmox.${DOMAIN}"

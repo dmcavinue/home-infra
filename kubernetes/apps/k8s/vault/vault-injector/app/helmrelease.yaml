@@ -33,6 +33,6 @@ spec:
         AGENT_INJECT_TLS_MIN_VERSION: tls13
       metrics:
         enabled: true
-      authPath: "auth/kubernetes/k8s"
+      authPath: "auth/kubernetes/${ENVIRONMENT}"
     csi:
       enabled: true

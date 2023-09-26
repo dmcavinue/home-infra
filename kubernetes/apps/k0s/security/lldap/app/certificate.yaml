@@ -9,6 +9,6 @@ spec:
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
-  commonName: "lldap.logfold.com"
+  commonName: "lldap.${DOMAIN}"
   dnsNames:
-  - "lldap.logfold.com"
+  - "lldap.${DOMAIN}"

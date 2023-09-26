@@ -36,7 +36,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-  - host: "unifi.logfold.com"
+  - host: "unifi.${DOMAIN}"
     http:
       paths:
       - backend:
@@ -48,4 +48,4 @@ spec:
         pathType: Prefix
   tls:
   - hosts:
-    - "unifi.logfold.com"
+    - "unifi.${DOMAIN}"

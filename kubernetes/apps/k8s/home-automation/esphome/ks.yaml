@@ -5,7 +5,7 @@ metadata:
   name: cluster-apps-esphome
   namespace: flux-system
 spec:
-  path: ./kubernetes/apps/k8s/home-automation/esphome/app
+  path: ./kubernetes/apps/${ENVIRONMENT}/home-automation/esphome/app
   prune: true
   sourceRef:
     kind: GitRepository

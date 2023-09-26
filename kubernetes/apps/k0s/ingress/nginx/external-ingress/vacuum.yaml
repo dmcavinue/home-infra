@@ -34,7 +34,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-  - host: "vacuum.logfold.com"
+  - host: "vacuum.${DOMAIN}"
     http:
       paths:
       - backend:
@@ -46,4 +46,4 @@ spec:
         pathType: Prefix
   tls:
   - hosts:
-    - "vacuum.logfold.com"
+    - "vacuum.${DOMAIN}"

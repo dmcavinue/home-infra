@@ -5,7 +5,7 @@ metadata:
   name: cluster-apps-lldap
   namespace: flux-system
 spec:
-  path: ./kubernetes/apps/k0s/security/lldap/app
+  path: ./kubernetes/apps/${ENVIRONMENT}/security/lldap/app
   prune: true
   sourceRef:
     kind: GitRepository
