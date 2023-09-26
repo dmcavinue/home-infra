@@ -7,4 +7,4 @@ resources:
   - ./namespace.yaml
   - ./externalsecret.yaml
   # Flux-Kustomizations
-  #- ./frigate/ks.yaml
+  - ./frigate/ks.yaml
