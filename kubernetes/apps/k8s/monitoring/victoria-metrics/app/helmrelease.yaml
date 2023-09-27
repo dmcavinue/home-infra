@@ -102,9 +102,12 @@ spec:
             - hosts:
                 - *hostinsert
     vmalert:
-      enabled: false
+      enabled: true
+      remoteWriteVMAgent: true
       spec:
-        evaluationInterval: 60s
+        evaluationInterval: 60
+        externalLabels:
+          cluster: ${ENVIRONMENT}
         notifiers:
           - selector:
               namespaceSelector:
@@ -140,6 +143,8 @@ spec:
         scrapeInterval: 60s
         externalLabels:
           cluster: ${ENVIRONMENT}
+        extraArgs:
+          promscrape.streamParse: "true"
       ingress:
         enabled: false
         ingressClassName: nginx
