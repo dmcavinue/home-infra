@@ -28,5 +28,6 @@ resources:
   - ./piraeus.yaml
   - ./prometheus-community.yaml
   - ./rook-ceph.yaml
+  - ./signoz.yaml
   - ./stakater.yaml
   - ./weaveworks.yaml
