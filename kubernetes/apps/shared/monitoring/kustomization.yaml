@@ -9,5 +9,4 @@ resources:
   # Flux-Kustomizations
   - ./kube-prometheus-stack/ks.yaml
   - ./grafana/ks.yaml
-  - ./signoz/ks.yaml
   #- ./promtail/ks.yaml
