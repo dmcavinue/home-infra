@@ -8,8 +8,8 @@ spec:
   interval: 30m
   chart:
     spec:
-      chart: victoria-metrics-k8s-stack
-      version: 0.18.0
+      chart: victoria-metrics-agenbt
+      version: 0.9.10
       sourceRef:
         kind: HelmRepository
         name: victoria-metrics
@@ -36,7 +36,7 @@ spec:
         disable_prometheus_converter: false
         enable_converter_ownership: true
     vmcluster:
-      enabled: true
+      enabled: false
       spec:
         retentionPeriod: "1"
         extraArgs:
@@ -102,7 +102,7 @@ spec:
             - hosts:
                 - *hostinsert
     vmalert:
-      enabled: true
+      enabled: false
       spec:
         evaluationInterval: 60s
         notifiers:
@@ -123,13 +123,25 @@ spec:
               - *hostalert
     vmagent:
       enabled: true
+      additionalRemoteWrites:
+        - url: "https://vminsert.${DOMAIN}/insert/0/prometheus/api/v1/write"
+          # basicAuth:
+          #   username:
+          #     name: foo
+          #     key: bar
+          #   password:
+          #     name: foo
+          #     key: bar
+          # bearerTokenSecret:
+          #   name: foo
+          #   key: bar
       spec:
         replicaCount: 1
         scrapeInterval: 60s
         externalLabels:
           cluster: ${ENVIRONMENT}
       ingress:
-        enabled: true
+        enabled: false
         ingressClassName: nginx
         pathType: Prefix
         hosts:
@@ -168,7 +180,7 @@ spec:
         vmhealth: true
         alertmanager: true
     alertmanager:
-      enabled: true
+      enabled: false
       config:
         global:
           resolve_timeout: 5m
@@ -285,7 +297,9 @@ spec:
     kubeControllerManager:
       enabled: true
       endpoints: &cp
-        - 192.168.9.9
+        - 192.168.9.10
+        - 192.168.9.11
+        - 192.168.9.12
       spec:
         metricRelabelConfigs:
           # Remove duplicate labels provided by k3s
@@ -308,8 +322,3 @@ spec:
             action: keep
     kubeProxy:
       enabled: false
-  valuesFrom:
-    - targetPath: alertmanager.config.global.slack_api_url
-      kind: Secret
-      name: victoria-metrics-secret
-      valuesKey: FLUX_SLACK_WEBHOOK
