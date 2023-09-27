@@ -29,5 +29,4 @@ resources:
   - ./prometheus-community.yaml
   - ./rook-ceph.yaml
   - ./stakater.yaml
-  - ./victoria-metrics.yaml
   - ./weaveworks.yaml
