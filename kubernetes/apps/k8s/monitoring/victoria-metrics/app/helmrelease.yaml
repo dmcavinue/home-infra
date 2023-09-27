@@ -8,8 +8,8 @@ spec:
   interval: 30m
   chart:
     spec:
-      chart: victoria-metrics-agenbt
-      version: 0.9.10
+      chart: victoria-metrics-k8s-stack
+      version: 0.18.0
       sourceRef:
         kind: HelmRepository
         name: victoria-metrics
