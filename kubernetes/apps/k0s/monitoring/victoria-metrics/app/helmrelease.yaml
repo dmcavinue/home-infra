@@ -165,6 +165,69 @@ spec:
         vmsingle: true
         vmhealth: true
         alertmanager: true
+    alertmanager:
+      enabled: true
+      config:
+        global:
+          resolve_timeout: 5m
+        receivers:
+          - name: "null"
+          - name: "slack"
+            slack_configs:
+              - channel: "#prometheus-alerts"
+                icon_url: https://avatars3.githubusercontent.com/u/3380462
+                username: "Prometheus"
+                send_resolved: true
+                title: |-
+                  [{{ .Status | toUpper }}{{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{ end }}] {{ if ne .CommonAnnotations.summary ""}}{{ .CommonAnnotations.summary }}{{ else }}{{ .CommonLabels.alertname }}{{ end }}
+                text: >-
+                  {{ range .Alerts -}} 
+                    **Cluster:** ${ENVIRONMENT}
+                    **Alert:** {{ .Annotations.title }}{{ if .Labels.severity }} - `{{ .Labels.severity }}`{{ end }}
+                  **Description:** {{ if ne .Annotations.description ""}}{{ .Annotations.description }}{{else}}N/A{{ end }}
+                  **Details:**
+                    {{ range .Labels.SortedPairs }} • *{{ .Name }}:* `{{ .Value }}`
+                    {{ end }}
+                  {{ end }}
+        route:
+          group_by: ["alertname", "job"]
+          group_wait: 1m
+          group_interval: 10m
+          repeat_interval: 12h
+          receiver: slack
+          routes:
+            - receiver: "null" # quote
+              matchers:
+                - alertname =~ "InfoInhibitor"
+            - receiver: "slack"
+              match_re:
+                severity: critical
+              continue: true
+        inhibit_rules:
+          - source_matchers:
+              - severity = "critical"
+            target_matchers:
+              - severity = "warning"
+            equal: ["alertname", "namespace"]
+      ingress:
+        enabled: true
+        ingressClassName: nginx
+        pathType: Prefix
+        hosts:
+          - &hostalert alertmanager.${DOMAIN}
+        tls:
+          - hosts:
+              - *hostalert
+      alertmanagerSpec:
+        externalUrl: "https://alertmanager.${DOMAIN}"
+        replicas: 1
+        storage:
+          volumeClaimTemplate:
+            spec:
+              storageClassName: local-path
+              resources:
+                requests:
+                  storage: 1Gi
     grafana:
       enabled: false
       forceDeployDashboards: true
@@ -243,3 +306,8 @@ spec:
             action: keep
     kubeProxy:
       enabled: false
+  valuesFrom:
+    - targetPath: alertmanager.config.global.slack_api_url
+      kind: Secret
+      name: victoria-metrics-secret
+      valuesKey: FLUX_SLACK_WEBHOOK
