@@ -287,7 +287,7 @@ spec:
             regex: (apiserver_response_sizes_bucket|apiserver_watch_events_sizes_bucket)
             action: drop
     kubeControllerManager:
-      enabled: true
+      enabled: false
       endpoints: &cp
         - 192.168.9.9
       spec:
@@ -299,10 +299,10 @@ spec:
     coreDns:
       enabled: true
     kubeEtcd:
-      enabled: true
+      enabled: false
       endpoints: *cp
     kubeScheduler:
-      enabled: true
+      enabled: false
       endpoints: *cp
       spec:
         metricRelabelConfigs:
