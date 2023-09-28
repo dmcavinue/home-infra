@@ -127,7 +127,7 @@ spec:
     vmagent:
       enabled: true
       additionalRemoteWrites:
-        - url: "https://vminsert.${DOMAIN}/insert/0/prometheus/api/v1/write"
+        - url: "https://vminsert.logfold.com/insert/0/prometheus/api/v1/write"
           # basicAuth:
           #   username:
           #     name: foo
