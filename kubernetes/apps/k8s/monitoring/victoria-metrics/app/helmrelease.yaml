@@ -127,7 +127,7 @@ spec:
     vmagent:
       enabled: true
       spec:
-        replicaCount: 1
+        replicaCount: "1"
         remoteWrite:
         - url: "https://vminsert.logfold.com/insert/0/prometheus/api/v1/write"
           # basicAuth:
