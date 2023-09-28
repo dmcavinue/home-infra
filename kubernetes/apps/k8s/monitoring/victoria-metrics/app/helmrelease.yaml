@@ -164,7 +164,7 @@ spec:
         vmhealth: true
         alertmanager: true
     alertmanager:
-      enabled: false
+      enabled: true
       config:
         global:
           resolve_timeout: 5m
@@ -306,3 +306,8 @@ spec:
             action: keep
     kubeProxy:
       enabled: false
+  valuesFrom:
+    - targetPath: alertmanager.config.global.slack_api_url
+      kind: Secret
+      name: victoria-metrics-secret
+      valuesKey: FLUX_SLACK_WEBHOOK
