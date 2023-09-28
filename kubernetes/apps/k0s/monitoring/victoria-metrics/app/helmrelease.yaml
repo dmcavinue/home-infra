@@ -75,7 +75,7 @@ spec:
             maxLabelsPerTimeseries: "180" # More needed if you are scraping a LOT of stuff and having issues
       ingress:
         storage:
-          enabled: true
+          enabled: false
           ingressClassName: nginx
           pathType: Prefix
           hosts:
@@ -84,7 +84,7 @@ spec:
             - hosts:
                 - *hoststorage
         select:
-          enabled: true
+          enabled: false
           ingressClassName: nginx
           pathType: Prefix
           hosts:
@@ -113,7 +113,7 @@ spec:
                 matchLabels:
                   app.kubernetes.io/name: victoria-metrics-k8s-stack
       ingress:
-        enabled: true
+        enabled: false
         ingressClassName: nginx
         pathType: Prefix
         hosts:
@@ -129,7 +129,7 @@ spec:
         externalLabels:
           cluster: ${ENVIRONMENT}
       ingress:
-        enabled: true
+        enabled: false
         ingressClassName: nginx
         pathType: Prefix
         hosts:
