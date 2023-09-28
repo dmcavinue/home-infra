@@ -169,6 +169,10 @@ spec:
         alertmanager: true
     alertmanager:
       enabled: true
+      spec:
+        selectAllByDefault: true
+        externalURL: "https://alertmanager.${DOMAIN}"
+        routePrefix: /
       config:
         global:
           resolve_timeout: 5m
