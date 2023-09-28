@@ -126,7 +126,9 @@ spec:
               - *hostalert
     vmagent:
       enabled: true
-      additionalRemoteWrites:
+      spec:
+        replicaCount: 1
+        remoteWrite:
         - url: "https://vminsert.logfold.com/insert/0/prometheus/api/v1/write"
           # basicAuth:
           #   username:
@@ -138,8 +140,6 @@ spec:
           # bearerTokenSecret:
           #   name: foo
           #   key: bar
-      spec:
-        replicaCount: 1
         scrapeInterval: 60s
         externalLabels:
           cluster: ${ENVIRONMENT}
