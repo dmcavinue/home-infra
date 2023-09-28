@@ -105,7 +105,7 @@ spec:
       enabled: true
       remoteWriteVMAgent: true
       spec:
-        evaluationInterval: 60
+        evaluationInterval: "60"
         externalLabels:
           cluster: ${ENVIRONMENT}
         notifiers:
