@@ -103,7 +103,6 @@ spec:
                 - *hostinsert
     vmalert:
       enabled: true
-      remoteWriteVMAgent: true
       spec:
         externalLabels:
           cluster: ${ENVIRONMENT}
