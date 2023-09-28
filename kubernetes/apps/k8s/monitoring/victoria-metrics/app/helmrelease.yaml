@@ -36,7 +36,7 @@ spec:
         disable_prometheus_converter: false
         enable_converter_ownership: true
     vmcluster:
-      enabled: false
+      enabled: true
       spec:
         retentionPeriod: "1"
         extraArgs:
@@ -126,23 +126,9 @@ spec:
       enabled: true
       spec:
         replicaCount: 1
-        remoteWrite:
-        - url: "https://vminsert.logfold.com/insert/0/prometheus/api/v1/write"
-          # basicAuth:
-          #   username:
-          #     name: foo
-          #     key: bar
-          #   password:
-          #     name: foo
-          #     key: bar
-          # bearerTokenSecret:
-          #   name: foo
-          #   key: bar
         scrapeInterval: 60s
         externalLabels:
           cluster: ${ENVIRONMENT}
-        extraArgs:
-          promscrape.streamParse: "true"
       ingress:
         enabled: false
         ingressClassName: nginx
