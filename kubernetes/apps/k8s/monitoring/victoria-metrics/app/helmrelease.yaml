@@ -46,18 +46,12 @@ spec:
           replicaCount: 1
           extraArgs:
             dedup.minScrapeInterval: 60s
-          storage:
-            volumeClaimTemplate:
-              spec:
-                storageClassName: local-path
-                resources:
-                  requests:
-                    storage: 20Gi
           resources:
             requests:
               cpu: "50m"
               memory: "100M"
         vmselect:
+          enabled: false
           replicaCount: 1
           cacheMountPath: /select-cache
           extraArgs:
@@ -70,12 +64,13 @@ spec:
                   requests:
                     storage: 2Gi
         vminsert:
+          enabled: false
           replicaCount: 1
           extraArgs:
             maxLabelsPerTimeseries: "90" # More needed if you are scraping a LOT of stuff and having issues
       ingress:
         storage:
-          enabled: true
+          enabled: false
           ingressClassName: nginx
           pathType: Prefix
           hosts:
@@ -84,7 +79,7 @@ spec:
             - hosts:
                 - *hoststorage
         select:
-          enabled: true
+          enabled: false
           ingressClassName: nginx
           pathType: Prefix
           hosts:
@@ -93,7 +88,7 @@ spec:
             - hosts:
                 - *hostselect
         insert:
-          enabled: true
+          enabled: false
           ingressClassName: nginx
           pathType: Prefix
           hosts:
@@ -102,7 +97,7 @@ spec:
             - hosts:
                 - *hostinsert
     vmalert:
-      enabled: true
+      enabled: false
       spec:
         externalLabels:
           cluster: ${ENVIRONMENT}
@@ -114,7 +109,7 @@ spec:
                 matchLabels:
                   app.kubernetes.io/name: victoria-metrics-k8s-stack
       ingress:
-        enabled: true
+        enabled: false
         ingressClassName: nginx
         pathType: Prefix
         hosts:
