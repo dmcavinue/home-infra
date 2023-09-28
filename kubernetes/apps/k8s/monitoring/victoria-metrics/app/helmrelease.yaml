@@ -118,6 +118,8 @@ spec:
     vmagent:
       enabled: true
       spec:
+        remoteWrite:
+          - url: "https://vminsert.logfold.com/insert/0/prometheus/api/v1/write"
         replicaCount: 1
         scrapeInterval: 60s
         externalLabels:
