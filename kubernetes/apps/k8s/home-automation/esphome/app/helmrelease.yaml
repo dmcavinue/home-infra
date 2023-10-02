@@ -83,7 +83,6 @@ spec:
     ingress:
       main:
         enabled: false
-
     serviceAccount:
       create: true
       name: esphome
