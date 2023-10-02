@@ -31,23 +31,50 @@ spec:
     - name: volsync
       namespace: volsync
   values:
-    controller:
-      type: statefulset
-      annotations:
-        reloader.stakater.com/auto: "true"
-    resources:
-      limits:
-        memory: 1500Mi
-      requests:
-        cpu: 200m
-        memory: 1Gi
-    image:
-      repository: esphome/esphome
-      tag: 2023.9.2
-    env:
-      ESPHOME_DASHBOARD_USE_PING: true
-      PLATFORMIO_CORE_DIR: /config/.plattformio
-      PLATFORMIO_GLOBALLIB_DIR: /config/.plattformioLibs
+    defaultPodOptions:
+      securityContext:
+        fsGroup: 1001
+        runAsUser: 1001
+        runAsGroup: 1001
+    controllers:
+      main:
+        type: statefulset
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          main:
+            statefulset:
+              volumeClaimTemplates:
+                - name: config
+                  mountPath: /config
+                  accessMode: ReadWriteOnce
+                  size: 10Gi
+                  storageClass: ceph-block
+            securityContext:
+              fsGroup: 1001
+              runAsUser: 1001
+              runAsGroup: 1001
+              capabilities:
+                drop:
+                  - ALL
+              runAsNonRoot: true
+              readOnlyRootFilesystem: true
+              allowPrivilegeEscalation: false
+              seccompProfile:
+                type: RuntimeDefault
+            resources:
+              limits:
+                memory: 1500Mi
+              requests:
+                cpu: 200m
+                memory: 1Gi
+            image:
+              repository: esphome/esphome
+              tag: 2023.9.2
+        env:
+          ESPHOME_DASHBOARD_USE_PING: true
+          PLATFORMIO_CORE_DIR: /config/.plattformio
+          PLATFORMIO_GLOBALLIB_DIR: /config/.plattformioLibs
     service:
       main:
         ports:
@@ -56,28 +83,7 @@ spec:
     ingress:
       main:
         enabled: false
-    volumeClaimTemplates:
-      - name: config
-        mountPath: /config
-        accessMode: ReadWriteOnce
-        size: 10Gi
-        storageClass: ceph-block
+
     serviceAccount:
       create: true
       name: esphome
-    podSecurityContext:
-      fsGroup: 1001
-      runAsUser: 1001
-      runAsGroup: 1001
-    securityContext:
-      fsGroup: 1001
-      runAsUser: 1001
-      runAsGroup: 1001
-      capabilities:
-        drop:
-          - ALL
-      runAsNonRoot: true
-      readOnlyRootFilesystem: true
-      allowPrivilegeEscalation: false
-      seccompProfile:
-        type: RuntimeDefault
