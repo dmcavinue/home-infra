@@ -39,17 +39,17 @@ spec:
     controllers:
       main:
         type: statefulset
+        statefulset:
+          volumeClaimTemplates:
+            - name: config
+              mountPath: /config
+              accessMode: ReadWriteOnce
+              size: 10Gi
+              storageClass: ceph-block
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
           main:
-            statefulset:
-              volumeClaimTemplates:
-                - name: config
-                  mountPath: /config
-                  accessMode: ReadWriteOnce
-                  size: 10Gi
-                  storageClass: ceph-block
             securityContext:
               fsGroup: 1001
               runAsUser: 1001
@@ -71,10 +71,10 @@ spec:
             image:
               repository: esphome/esphome
               tag: 2023.9.2
-        env:
-          ESPHOME_DASHBOARD_USE_PING: true
-          PLATFORMIO_CORE_DIR: /config/.plattformio
-          PLATFORMIO_GLOBALLIB_DIR: /config/.plattformioLibs
+            env:
+              ESPHOME_DASHBOARD_USE_PING: true
+              PLATFORMIO_CORE_DIR: /config/.plattformio
+              PLATFORMIO_GLOBALLIB_DIR: /config/.plattformioLibs
     service:
       main:
         ports:
