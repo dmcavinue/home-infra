@@ -123,7 +123,21 @@ spec:
               - *hostalert
     vmagent:
       enabled: true
+      annotations:
+        vault.hashicorp.com/agent-inject: 'true'
+        vault.hashicorp.com/agent-inject-token: 'true'
+        vault.hashicorp.com/role: monitoring
       spec:
+        inlineScrapeConfig: |
+          - job_name: vault
+            metrics_path: /v1/sys/metrics
+            params:
+              format: ['prometheus']
+            scheme: https
+            authorization:
+              credentials_file: /vault/secrets/token
+            static_configs:
+              - targets: ["vault.${DOMAIN}"]
         replicaCount: 1
         scrapeInterval: 60s
         externalLabels:

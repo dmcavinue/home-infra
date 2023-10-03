@@ -165,12 +165,12 @@ tasks:
           ttl=1440h
       - echo -e "path \"secret/data/monitoring/*\" { capabilities = [\"read\", \"list\"] }\npath \"sys/metrics\" { capabilities = [\"read\", \"list\"] }" | vault policy write monitoring -
       - vault write auth/kubernetes/k8s/role/monitoring
-          bound_service_account_names=vault-auth,kube-prometheus-stack-prometheus
+          bound_service_account_names=vault-auth,kube-prometheus-stack-prometheus,vmagent-victoria-metrics
           bound_service_account_namespaces=monitoring
           policies=monitoring,flux-system,storage,default
           ttl=1440h
       - vault write auth/kubernetes/k0s/role/monitoring
-          bound_service_account_names=vault-auth,kube-prometheus-stack-prometheus
+          bound_service_account_names=vault-auth,kube-prometheus-stack-prometheus,vmagent-victoria-metrics
           bound_service_account_namespaces=monitoring
           policies=monitoring,flux-system,default
           ttl=1440h
