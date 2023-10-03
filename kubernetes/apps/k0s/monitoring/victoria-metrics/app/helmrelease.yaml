@@ -123,7 +123,7 @@ spec:
               - *hostalert
     vmagent:
       enabled: true
-      annotations:
+      podAnnotations:
         vault.hashicorp.com/agent-inject: 'true'
         vault.hashicorp.com/agent-inject-token: 'true'
         vault.hashicorp.com/role: monitoring
