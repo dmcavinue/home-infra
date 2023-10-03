@@ -1,0 +1,12 @@
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: immich-database
+  namespace: media
+spec:
+  selector:
+    matchLabels:
+      postgresql: immich
+  podMetricsEndpoints:
+  - port: metrics
