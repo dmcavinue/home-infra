@@ -28,6 +28,8 @@ spec:
         runAsUser: 1000
         runAsGroup: 1000
         runAsNonRoot: true
+  metrics:
+    enabled: true
   configuration:
     name: minio-tenant-secret
   users:
