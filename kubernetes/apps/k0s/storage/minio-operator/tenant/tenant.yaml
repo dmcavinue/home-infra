@@ -5,6 +5,7 @@ metadata:
   name: minio-pool
   namespace: storage
 spec:
+  prometheusOperator: true
   pools:
     - servers: 2
       name: minio-pool
@@ -28,8 +29,6 @@ spec:
         runAsUser: 1000
         runAsGroup: 1000
         runAsNonRoot: true
-  metrics:
-    enabled: true
   configuration:
     name: minio-tenant-secret
   users:
