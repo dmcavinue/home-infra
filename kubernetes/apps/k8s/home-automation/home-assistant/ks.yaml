@@ -23,6 +23,8 @@ kind: Kustomization
 metadata:
   name: cluster-apps-home-automation-home-assistant-database
   namespace: flux-system
+  labels:
+    substitution.flux.home.arpa/disabled: "true"
 spec:
   dependsOn:
     - name: shared-apps-cloudnative-pg
