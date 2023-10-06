@@ -7,7 +7,9 @@ tasks:
     cmds:
       - cilium clustermesh status --context k0s
       - cilium clustermesh status --context k8s
-
   connect-mesh:
     cmds:
       - cilium clustermesh connect --context k0s --destination-context k8s
+  tetragon-policy-builder:
+    cmds:
+      - docker run -p 5000:5000 -e KUBECONFIG=/tmp/kubeconfig -v ./.kubeconfigs/{{.ENVIRONMENT}}.kubeconfig:/tmp/kubeconfig ghcr.io/camptocamp/tetragon-policy-builder:master
