@@ -50,8 +50,7 @@ spec:
               Name http
               Match kube.*
               Host vmlogs.logfold.com
-              Scheme: https
-              port 443
+              port 9428
               compress gzip
               uri /insert/jsonline?_stream_fields=stream,kubernetes_pod_name&_msg_field=log&_time_field=date
               format json_lines
