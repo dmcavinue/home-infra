@@ -5,3 +5,4 @@ kind: Kustomization
 resources:
   - ./database.yaml
   - ./rook-ceph.yaml
+  - ./ingress.yaml
