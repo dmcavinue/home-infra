@@ -4,24 +4,12 @@ kind: Service
 metadata:
   name: victoria-logs-victoria-logs-single-server
   namespace: monitoring
-  labels:
-    app: server
-    app.kubernetes.io/instance: victoria-logs
-    app.kubernetes.io/managed-by: Helm
-    app.kubernetes.io/name: victoria-logs-single
   annotations:
     io.cilium/global-service: 'true'
-    meta.helm.sh/release-name: victoria-logs
-    meta.helm.sh/release-namespace: monitoring
 spec:
   ports:
     - name: http
       protocol: TCP
       port: 9428
       targetPort: http
-  selector:
-    app: server
-    app.kubernetes.io/instance: victoria-logs
-    app.kubernetes.io/name: victoria-logs-single
   type: ClusterIP
-  internalTrafficPolicy: Cluster
