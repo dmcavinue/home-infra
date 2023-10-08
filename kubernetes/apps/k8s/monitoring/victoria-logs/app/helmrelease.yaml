@@ -47,7 +47,7 @@ spec:
       config:
         outputs: |
           [OUTPUT]
-              Name https
+              Name http
               Match kube.*
               Host vmlogs.logfold.com
               port 443
