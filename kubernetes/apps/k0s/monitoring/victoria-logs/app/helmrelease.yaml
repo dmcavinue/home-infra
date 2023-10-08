@@ -65,6 +65,9 @@ spec:
         # #       - vmselect.local
         # ingressClassName: nginx
         # pathType: Prefix
+      service:
+        annotations:
+          io.cilium/global-service: "true"
       terminationGracePeriodSeconds: 60
       serviceMonitor:      
         enabled: true
