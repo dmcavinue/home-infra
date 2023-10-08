@@ -55,19 +55,16 @@ spec:
         #   cpu: 500m
         #   memory: 512Mi
       ingress:
-        enabled: false
-        # annotations:
-        #   kubernetes.io/ingress.class: nginx
-        # hosts: []
-        # tls: []
-        # #   - secretName: vmselect-ingress-tls
-        # #     hosts:
-        # #       - vmselect.local
-        # ingressClassName: nginx
-        # pathType: Prefix
-      service:
+        enabled: true
         annotations:
-          io.cilium/global-service: "true"
+          kubernetes.io/ingress.class: nginx
+        hosts:
+          - &hoststorage vmlogs.${DOMAIN}
+        tls:
+          - hosts:
+              - *hoststorage
+        ingressClassName: nginx
+        pathType: Prefix
       terminationGracePeriodSeconds: 60
       serviceMonitor:      
         enabled: true
