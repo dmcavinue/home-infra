@@ -25,13 +25,10 @@ spec:
       retries: 3
   uninstall:
     keepHistory: false
-  dependsOn:
-    - name: local-path-provisioner
-      namespace: kube-system
   values:
     server:
       enabled: false
-    fluent-bit:      
+    fluent-bit:
       enabled: true
       daemonSetVolumes:
         - name: varlog
@@ -50,10 +47,10 @@ spec:
       config:
         outputs: |
           [OUTPUT]
-              Name http
+              Name https
               Match kube.*
-              Host victoria-logs-victoria-logs-single-server
-              port 9428
+              Host vmlogs.logfold.com
+              port 443
               compress gzip
               uri /insert/jsonline?_stream_fields=stream,kubernetes_pod_name&_msg_field=log&_time_field=date
               format json_lines
