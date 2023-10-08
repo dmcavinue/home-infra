@@ -10,9 +10,6 @@ tasks:
   connect-mesh:
     cmds:
       - cilium clustermesh connect --context k0s --destination-context k8s
-  tetragon-policy-builder:
-    cmds:
-      - docker run -p 5000:5000 -e KUBECONFIG=/tmp/kubeconfig -v {{.ROOT_DIR}}/.kubeconfigs/{{.ENVIRONMENT}}.kubeconfig:/tmp/kubeconfig ghcr.io/camptocamp/tetragon-policy-builder:master
   tetragon-events:
     cmds:
       - kubectl --context {{.ENVIRONMENT}} logs --max-log-requests=6 -n kube-system -l app.kubernetes.io/name=tetragon -c export-stdout -f | tetra getevents -o compact --namespaces {{.namespace}}
