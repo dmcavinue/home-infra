@@ -1,6 +1,6 @@
 # dependencies
 FROM docker.io/fluxcd/flux-cli:v2.1.2 as flux
-FROM docker.io/alpine/helm:3.13.0 as helm
+FROM docker.io/alpine/helm:3.13.1 as helm
 FROM docker.io/kopia/kopia:20230926.0.183147 as kopia
 FROM docker.io/bitnami/kubectl:1.28.2 as kubectl
 FROM docker.io/hashicorp/vault:1.15.0 as vault
