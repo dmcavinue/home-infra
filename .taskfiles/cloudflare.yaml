@@ -5,4 +5,4 @@ tasks:
   
   setup-tunnel:
     cmds:
-      - cloudflared tunnel create example-tunnel
+      - cloudflared tunnel create {{.CLOUDFLARED_TUNNEL_NAME}}
