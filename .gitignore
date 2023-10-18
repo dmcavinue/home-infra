@@ -13,3 +13,5 @@ TODO
 .kopia-sa.json
 ./.kubeconfigs
 ca.crt
+.cloudflared-tunnel-creds.json
+.cloudflared-tunnel-config.json

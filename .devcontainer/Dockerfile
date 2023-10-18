@@ -1,4 +1,5 @@
 # dependencies
+FROM docker.io/cloudflare/cloudflared:2023.8.2 as cloudflared
 FROM docker.io/fluxcd/flux-cli:v2.1.2 as flux
 FROM docker.io/alpine/helm:3.13.1 as helm
 FROM docker.io/kopia/kopia:20231017.0.223354 as kopia
@@ -58,12 +59,13 @@ RUN pip3 install --no-cache-dir --requirement /tmp/pip-requirements.txt && \
 COPY binary-releases.sh /tmp/binary-releases.sh
 RUN /tmp/binary-releases.sh
 
-COPY --from=flux       /usr/local/bin/flux              /usr/local/bin/flux
-COPY --from=helm       /usr/bin/helm                    /usr/local/bin/helm
-COPY --from=kopia      /usr/bin/kopia                   /usr/local/bin/kopia
-COPY --from=kubectl    /opt/bitnami/kubectl/bin/kubectl /usr/local/bin/kubectl
-COPY --from=vault      /bin/vault                       /usr/local/bin/vault
-COPY --from=yq         /usr/bin/yq                      /usr/local/bin/yq
+COPY --from=cloudflared /usr/local/bin/cloudflared       /usr/local/bin/cloudflared
+COPY --from=flux        /usr/local/bin/flux              /usr/local/bin/flux
+COPY --from=helm        /usr/bin/helm                    /usr/local/bin/helm
+COPY --from=kopia       /usr/bin/kopia                   /usr/local/bin/kopia
+COPY --from=kubectl     /opt/bitnami/kubectl/bin/kubectl /usr/local/bin/kubectl
+COPY --from=vault       /bin/vault                       /usr/local/bin/vault
+COPY --from=yq          /usr/bin/yq                      /usr/local/bin/yq
 
 # gcloud
 RUN wget https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-444.0.0-linux-x86_64.tar.gz \

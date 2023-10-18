@@ -1,0 +1,8 @@
+---
+version: "3"
+
+tasks:
+  
+  setup-tunnel:
+    cmds:
+      - cloudflared tunnel create example-tunnel
