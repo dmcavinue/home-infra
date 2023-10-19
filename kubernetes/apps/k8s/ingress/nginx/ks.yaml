@@ -21,7 +21,7 @@ metadata:
   name: cluster-apps-nginx-external
   namespace: flux-system
 spec:
-  path: ./kubernetes/apps/${ENVIRONMENT}/external/nginx/internal
+  path: ./kubernetes/apps/${ENVIRONMENT}/ingress/nginx/external
   prune: true
   sourceRef:
     kind: GitRepository
