@@ -8,6 +8,6 @@ resources:
   - ./externalsecret.yaml
   # Flux-Kustomizations
   - ./certificates
-  #- ./cloudflared
+  - ./cloudflared
   - ./synology
   - ./nginx/ks.yaml
