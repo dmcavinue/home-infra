@@ -7,6 +7,4 @@ originRequest:
 ingress:
   - hostname: hass.${DOMAIN}
     service: https://nginx-ingress-nginx-controller.ingress.svc.cluster.local:443
-    originRequest:
-      originServerName: home-assistant.${DOMAIN}
   - service: http_status:404
