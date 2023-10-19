@@ -5,8 +5,12 @@ originRequest:
   http2Origin: true
   connectTimeout: 30s
 ingress:
-  - hostname: "home-assistant.${DOMAIN}"
-    service: https://nginx-ingress-nginx-controller.ingress.svc.cluster.local:443
+  - hostname: ${DOMAIN}
+    service: https://nginx-external-controller.ingress.svc.cluster.local:443
     originRequest:
-      originServerName: hass.${DOMAIN}
+      originServerName: external.${DOMAIN}
+  - hostname: "*.${DOMAIN}"
+    service: https://nginx-external-controller.ingress.svc.cluster.local:443
+    originRequest:
+      originServerName: external.${DOMAIN}
   - service: http_status:404
