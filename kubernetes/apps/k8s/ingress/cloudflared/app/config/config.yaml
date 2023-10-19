@@ -8,5 +8,5 @@ ingress:
   - hostname: "*.${DOMAIN}"
     service: https://nginx-ingress-nginx-controller.ingress.svc.cluster.local:443
     originRequest:
-      originServerName: external.${DOMAIN
+      originServerName: external.${DOMAIN}
   - service: http_status:404
