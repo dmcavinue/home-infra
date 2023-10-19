@@ -2,8 +2,9 @@
 version: "3"
 
 tasks:
-  
+
   create-tunnel:
     cmds:
-      - cloudflared tunnel create k8s --credentials-file {{.ROOT_DIR}}/.cloudflared-tunnel-creds.json --output json > {{.ROOT_DIR}}/.cloudflared-tunnel-config.json
-      - kubectl --context k8s -n ingress create secret generic cloudflared-tunnel-secret --from-file=credentials.json={{.ROOT_DIR}}/.cloudflared-tunnel-creds.json
+      - cloudflared tunnel login
+      - cloudflared tunnel create k8s || true
+      - kubectl --context k8s -n ingress create secret generic cloudflared-tunnel-secret --from-file=credentials.json=$(ls -t ~/.cloudflared/*.json | head -1)
