@@ -9,5 +9,5 @@ resources:
   # Flux-Kustomizations
   - ./certificates
   - ./synology
-  - ./cloudflared/ks.yaml
+  #- ./cloudflared/ks.yaml
   - ./nginx/ks.yaml
