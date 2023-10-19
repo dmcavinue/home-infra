@@ -7,5 +7,5 @@ originRequest:
   noTLSVerify: true
 ingress:
   - hostname: "home-assistant.${DOMAIN}"
-    service: http://home-assistant.home-automation.svc.cluster.local:8123
+    service: https://home-assistant.home-automation.svc.cluster.local:8123
   - service: http_status:404
