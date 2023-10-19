@@ -38,12 +38,6 @@ spec:
         name: external
         default: false
         controllerValue: k8s.io/external
-      admissionWebhooks:
-        objectSelector:
-          matchExpressions:
-            - key: ingress-class
-              operator: In
-              values: ["external"]
       allowSnippetAnnotations: true
       config:
         client-body-buffer-size: 100M
