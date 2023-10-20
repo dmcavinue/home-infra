@@ -1,4 +1,3 @@
----
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -6,632 +5,88 @@ metadata:
   namespace: monitoring
   labels:
     grafana_dashboard: "1"
-    namespace: monitoring
 data:
-  power-monitoring.json: |-
+  cnp.json: |-
     {
-      "annotations": {
-        "list": [
-          {
-            "builtIn": 1,
-            "datasource": "-- Grafana --",
-            "enable": true,
-            "hide": true,
-            "iconColor": "rgba(0, 211, 255, 1)",
-            "name": "Annotations & Alerts",
-            "type": "dashboard"
-          }
-        ]
-      },
-      "editable": true,
-      "gnetId": null,
-      "graphTooltip": 0,
-      "links": [],
-      "panels": [
+      "__inputs": [
         {
-          "datasource": null,
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisLabel": "",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "drawStyle": "line",
-                "fillOpacity": 0,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "lineInterpolation": "linear",
-                "lineStyle": {
-                  "fill": "solid"
-                },
-                "lineWidth": 1,
-                "pointSize": 6,
-                "scaleDistribution": {
-                  "type": "linear"
-                },
-                "showPoints": "auto",
-                "spanNulls": false,
-                "stacking": {
-                  "group": "A",
-                  "mode": "none"
-                },
-                "thresholdsStyle": {
-                  "mode": "off"
-                }
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              },
-              "unit": "amp"
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 9,
-            "w": 24,
-            "x": 0,
-            "y": 0
-          },
-          "id": 2,
-          "options": {
-            "legend": {
-              "calcs": [],
-              "displayMode": "list",
-              "placement": "right"
-            },
-            "tooltip": {
-              "mode": "single"
-            }
-          },
-          "targets": [
-            {
-              "exemplar": true,
-              "expr": "hass_sensor_current_a{}",
-              "interval": "",
-              "legendFormat": "{{friendly_name}}",
-              "refId": "A"
-            },
-            {
-              "exemplar": true,
-              "expr": "hass_sensor_power_a{}",
-              "hide": false,
-              "interval": "",
-              "legendFormat": "{{friendly_name}}",
-              "refId": "B"
-            }
-          ],
-          "title": "Amps",
-          "transparent": true,
-          "type": "timeseries"
-        },
-        {
-          "datasource": null,
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisLabel": "",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "drawStyle": "line",
-                "fillOpacity": 0,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "lineInterpolation": "linear",
-                "lineStyle": {
-                  "fill": "solid"
-                },
-                "lineWidth": 1,
-                "pointSize": 6,
-                "scaleDistribution": {
-                  "type": "linear"
-                },
-                "showPoints": "auto",
-                "spanNulls": false,
-                "stacking": {
-                  "group": "A",
-                  "mode": "none"
-                },
-                "thresholdsStyle": {
-                  "mode": "off"
-                }
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              },
-              "unit": "watt"
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 9,
-            "w": 24,
-            "x": 0,
-            "y": 9
-          },
-          "id": 3,
-          "options": {
-            "legend": {
-              "calcs": [],
-              "displayMode": "list",
-              "placement": "right"
-            },
-            "tooltip": {
-              "mode": "single"
-            }
-          },
-          "targets": [
-            {
-              "exemplar": true,
-              "expr": "hass_sensor_power_w{}",
-              "interval": "",
-              "legendFormat": "{{friendly_name}}",
-              "refId": "A"
-            }
-          ],
-          "title": "Watts",
-          "transparent": true,
-          "type": "timeseries"
-        },
-        {
-          "datasource": null,
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisLabel": "",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "drawStyle": "line",
-                "fillOpacity": 0,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "lineInterpolation": "linear",
-                "lineStyle": {
-                  "fill": "solid"
-                },
-                "lineWidth": 1,
-                "pointSize": 6,
-                "scaleDistribution": {
-                  "type": "linear"
-                },
-                "showPoints": "auto",
-                "spanNulls": false,
-                "stacking": {
-                  "group": "A",
-                  "mode": "none"
-                },
-                "thresholdsStyle": {
-                  "mode": "off"
-                }
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              },
-              "unit": "watt"
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 8,
-            "w": 24,
-            "x": 0,
-            "y": 18
-          },
-          "id": 4,
-          "options": {
-            "legend": {
-              "calcs": [],
-              "displayMode": "list",
-              "placement": "right"
-            },
-            "tooltip": {
-              "mode": "single"
-            }
-          },
-          "targets": [
-            {
-              "exemplar": true,
-              "expr": "hass_sensor_power_kwh{}",
-              "interval": "",
-              "legendFormat": "{{friendly_name}}",
-              "refId": "A"
-            }
-          ],
-          "title": "kwh",
-          "transparent": true,
-          "type": "timeseries"
+          "name": "DS_PROMETHEUS",
+          "label": "Prometheus",
+          "description": "",
+          "type": "datasource",
+          "pluginId": "prometheus",
+          "pluginName": "Prometheus"
         }
       ],
-      "refresh": "",
-      "schemaVersion": 30,
-      "style": "dark",
-      "tags": [],
-      "templating": {
-        "list": []
-      },
-      "time": {
-        "from": "2021-08-04T13:10:19.923Z",
-        "to": "2021-08-04T19:10:19.923Z"
-      },
-      "timepicker": {},
-      "timezone": "",
-      "title": "Power Monitoring",
-      "uid": "0lbCmOW7z",
-      "version": 1
-    }
-  utility-meters.json: |-
-    {
-      "annotations": {
-        "list": [
-          {
-            "builtIn": 1,
-            "datasource": "-- Grafana --",
-            "enable": true,
-            "hide": true,
-            "iconColor": "rgba(0, 211, 255, 1)",
-            "name": "Annotations & Alerts",
-            "target": {
-              "limit": 100,
-              "matchAny": false,
-              "tags": [],
-              "type": "dashboard"
-            },
-            "type": "dashboard"
-          }
-        ]
-      },
-      "editable": true,
-      "fiscalYearStartMonth": 0,
-      "gnetId": null,
-      "graphTooltip": 0,
-      "links": [],
-      "liveNow": false,
-      "panels": [
+      "__elements": {},
+      "__requires": [
         {
-          "aliasColors": {},
-          "bars": false,
-          "dashLength": 10,
-          "dashes": false,
-          "datasource": "rtlamr-collect",
-          "decimals": 2,
-          "fieldConfig": {
-            "defaults": {
-              "unit": "kwatth"
-            },
-            "overrides": []
-          },
-          "fill": 1,
-          "fillGradient": 7,
-          "gridPos": {
-            "h": 9,
-            "w": 24,
-            "x": 0,
-            "y": 0
-          },
-          "hiddenSeries": false,
-          "id": 3,
-          "legend": {
-            "alignAsTable": true,
-            "avg": true,
-            "current": true,
-            "max": true,
-            "min": true,
-            "show": true,
-            "total": true,
-            "values": true
-          },
-          "lines": true,
-          "linewidth": 3,
-          "nullPointMode": "null",
-          "options": {
-            "alertThreshold": true
-          },
-          "percentage": false,
-          "pluginVersion": "8.2.1",
-          "pointradius": 4,
-          "points": true,
-          "renderer": "flot",
-          "seriesOverrides": [],
-          "spaceLength": 10,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "alias": "kwh",
-              "groupBy": [
-                {
-                  "params": [
-                    "$__interval"
-                  ],
-                  "type": "time"
-                }
-              ],
-              "measurement": "utilities",
-              "orderByTime": "ASC",
-              "policy": "autogen",
-              "query": "SELECT (difference(last(\"consumption\")) )/1000 FROM \"autogen\".\"utilities\" WHERE $timeFilter AND (\"endpoint_id\" = '101436633') GROUP BY time(24h)",
-              "rawQuery": true,
-              "refId": "A",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "consumption"
-                    ],
-                    "type": "field"
-                  },
-                  {
-                    "params": [],
-                    "type": "mean"
-                  }
-                ]
-              ],
-              "tags": [
-                {
-                  "key": "endpoint_id",
-                  "operator": "=",
-                  "value": "101436633"
-                }
-              ]
-            }
-          ],
-          "thresholds": [],
-          "timeFrom": null,
-          "timeRegions": [],
-          "timeShift": null,
-          "title": "Electricity Consumption",
-          "tooltip": {
-            "shared": true,
-            "sort": 0,
-            "value_type": "individual"
-          },
-          "transparent": true,
-          "type": "graph",
-          "xaxis": {
-            "buckets": null,
-            "mode": "time",
-            "name": null,
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "$hashKey": "object:1147",
-              "decimals": 2,
-              "format": "kwatth",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            },
-            {
-              "$hashKey": "object:1148",
-              "decimals": 2,
-              "format": "kwatth",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            }
-          ],
-          "yaxis": {
-            "align": false,
-            "alignLevel": null
-          }
+          "type": "panel",
+          "id": "alertlist",
+          "name": "Alert list",
+          "version": ""
         },
         {
-          "aliasColors": {},
-          "bars": false,
-          "dashLength": 10,
-          "dashes": false,
-          "datasource": "rtlamr-collect",
-          "decimals": 2,
-          "fieldConfig": {
-            "defaults": {
-              "unit": "flowcfs"
-            },
-            "overrides": []
-          },
-          "fill": 1,
-          "fillGradient": 7,
-          "gridPos": {
-            "h": 9,
-            "w": 24,
-            "x": 0,
-            "y": 9
-          },
-          "hiddenSeries": false,
-          "id": 2,
-          "legend": {
-            "alignAsTable": true,
-            "avg": false,
-            "current": false,
-            "hideEmpty": false,
-            "hideZero": false,
-            "max": true,
-            "min": true,
-            "rightSide": false,
-            "show": true,
-            "total": true,
-            "values": true
-          },
-          "lines": true,
-          "linewidth": 3,
-          "nullPointMode": "null",
-          "options": {
-            "alertThreshold": true
-          },
-          "percentage": false,
-          "pluginVersion": "8.2.1",
-          "pointradius": 4,
-          "points": true,
-          "renderer": "flot",
-          "seriesOverrides": [],
-          "spaceLength": 10,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "alias": "cubic feet",
-              "groupBy": [
-                {
-                  "params": [
-                    "$__interval"
-                  ],
-                  "type": "time"
-                }
-              ],
-              "measurement": "utilities",
-              "orderByTime": "ASC",
-              "policy": "autogen",
-              "query": "SELECT difference(last(\"consumption\")) FROM \"autogen\".\"utilities\" WHERE $timeFilter AND (\"endpoint_id\" = '9250289') GROUP BY time(24h)",
-              "rawQuery": true,
-              "refId": "A",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "consumption"
-                    ],
-                    "type": "field"
-                  },
-                  {
-                    "params": [],
-                    "type": "mean"
-                  }
-                ]
-              ],
-              "tags": [
-                {
-                  "key": "endpoint_id",
-                  "operator": "=",
-                  "value": "101436633"
-                }
-              ]
-            }
-          ],
-          "thresholds": [],
-          "timeFrom": null,
-          "timeRegions": [],
-          "timeShift": null,
-          "title": "Water Consumption",
-          "tooltip": {
-            "shared": false,
-            "sort": 0,
-            "value_type": "individual"
-          },
-          "transparent": true,
-          "type": "graph",
-          "xaxis": {
-            "buckets": null,
-            "mode": "time",
-            "name": null,
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "$hashKey": "object:187",
-              "decimals": 2,
-              "format": "flowcfs",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            },
-            {
-              "$hashKey": "object:188",
-              "decimals": 2,
-              "format": "flowcfs",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            }
-          ],
-          "yaxis": {
-            "align": false,
-            "alignLevel": null
-          }
+          "type": "panel",
+          "id": "bargauge",
+          "name": "Bar gauge",
+          "version": ""
+        },
+        {
+          "type": "panel",
+          "id": "gauge",
+          "name": "Gauge",
+          "version": ""
+        },
+        {
+          "type": "grafana",
+          "id": "grafana",
+          "name": "Grafana",
+          "version": "9.5.1"
+        },
+        {
+          "type": "panel",
+          "id": "graph",
+          "name": "Graph (old)",
+          "version": ""
+        },
+        {
+          "type": "panel",
+          "id": "heatmap",
+          "name": "Heatmap",
+          "version": ""
+        },
+        {
+          "type": "datasource",
+          "id": "prometheus",
+          "name": "Prometheus",
+          "version": "1.0.0"
+        },
+        {
+          "type": "panel",
+          "id": "stat",
+          "name": "Stat",
+          "version": ""
+        },
+        {
+          "type": "panel",
+          "id": "table",
+          "name": "Table",
+          "version": ""
+        },
+        {
+          "type": "panel",
+          "id": "text",
+          "name": "Text",
+          "version": ""
+        },
+        {
+          "type": "panel",
+          "id": "timeseries",
+          "name": "Time series",
+          "version": ""
         }
       ],
-      "schemaVersion": 31,
-      "style": "dark",
-      "tags": [],
-      "templating": {
-        "list": []
-      },
-      "time": {
-        "from": "now-7d",
-        "to": "now"
-      },
-      "timepicker": {},
-      "timezone": "",
-      "title": "Utility Meters",
-      "uid": "CMlHQAuMz",
-      "version": 1
-    }
-  cloudnativepg.json: |-
-    {
       "annotations": {
         "list": [
           {
@@ -657,6 +112,7 @@ data:
       "editable": true,
       "fiscalYearStartMonth": 0,
       "graphTooltip": 1,
+      "id": null,
       "links": [
         {
           "asDropdown": false,
@@ -729,7 +185,7 @@ data:
             "content": "",
             "mode": "markdown"
           },
-          "pluginVersion": "10.1.5",
+          "pluginVersion": "9.5.1",
           "title": "Overview",
           "type": "text"
         },
@@ -754,7 +210,7 @@ data:
             "content": "",
             "mode": "markdown"
           },
-          "pluginVersion": "10.1.5",
+          "pluginVersion": "9.5.1",
           "title": "Storage",
           "type": "text"
         },
@@ -779,7 +235,7 @@ data:
             "content": "",
             "mode": "markdown"
           },
-          "pluginVersion": "10.1.5",
+          "pluginVersion": "9.5.1",
           "title": "Backups",
           "type": "text"
         },
@@ -830,7 +286,7 @@ data:
             "text": {},
             "textMode": "value"
           },
-          "pluginVersion": "10.1.5",
+          "pluginVersion": "9.5.1",
           "targets": [
             {
               "datasource": {
@@ -898,7 +354,7 @@ data:
             },
             "textMode": "auto"
           },
-          "pluginVersion": "10.1.5",
+          "pluginVersion": "9.5.1",
           "targets": [
             {
               "datasource": {
@@ -973,7 +429,7 @@ data:
             "showThresholdLabels": false,
             "showThresholdMarkers": true
           },
-          "pluginVersion": "10.1.5",
+          "pluginVersion": "9.5.1",
           "targets": [
             {
               "datasource": {
@@ -1047,7 +503,7 @@ data:
             "showThresholdLabels": false,
             "showThresholdMarkers": true
           },
-          "pluginVersion": "10.1.5",
+          "pluginVersion": "9.5.1",
           "targets": [
             {
               "datasource": {
@@ -1124,7 +580,7 @@ data:
             },
             "textMode": "auto"
           },
-          "pluginVersion": "10.1.5",
+          "pluginVersion": "9.5.1",
           "targets": [
             {
               "datasource": {
@@ -1198,7 +654,7 @@ data:
             },
             "textMode": "auto"
           },
-          "pluginVersion": "10.1.5",
+          "pluginVersion": "9.5.1",
           "targets": [
             {
               "datasource": {
@@ -1268,7 +724,7 @@ data:
             "showThresholdLabels": false,
             "showThresholdMarkers": true
           },
-          "pluginVersion": "10.1.5",
+          "pluginVersion": "9.5.1",
           "targets": [
             {
               "datasource": {
@@ -1387,7 +843,7 @@ data:
             },
             "textMode": "auto"
           },
-          "pluginVersion": "10.1.5",
+          "pluginVersion": "9.5.1",
           "targets": [
             {
               "datasource": {
@@ -1473,7 +929,7 @@ data:
             },
             "textMode": "auto"
           },
-          "pluginVersion": "10.1.5",
+          "pluginVersion": "9.5.1",
           "targets": [
             {
               "datasource": {
@@ -1540,7 +996,7 @@ data:
             "text": {},
             "textMode": "value"
           },
-          "pluginVersion": "10.1.5",
+          "pluginVersion": "9.5.1",
           "repeatDirection": "v",
           "targets": [
             {
@@ -1622,7 +1078,7 @@ data:
             },
             "textMode": "auto"
           },
-          "pluginVersion": "10.1.5",
+          "pluginVersion": "9.5.1",
           "targets": [
             {
               "datasource": {
@@ -1696,7 +1152,7 @@ data:
             },
             "textMode": "auto"
           },
-          "pluginVersion": "10.1.5",
+          "pluginVersion": "9.5.1",
           "targets": [
             {
               "datasource": {
@@ -1769,7 +1225,7 @@ data:
             },
             "textMode": "auto"
           },
-          "pluginVersion": "10.1.5",
+          "pluginVersion": "9.5.1",
           "targets": [
             {
               "datasource": {
@@ -1843,7 +1299,7 @@ data:
             },
             "textMode": "auto"
           },
-          "pluginVersion": "10.1.5",
+          "pluginVersion": "9.5.1",
           "targets": [
             {
               "datasource": {
@@ -1918,7 +1374,7 @@ data:
             },
             "textMode": "value"
           },
-          "pluginVersion": "10.1.5",
+          "pluginVersion": "9.5.1",
           "targets": [
             {
               "datasource": {
@@ -2024,7 +1480,7 @@ data:
             },
             "textMode": "auto"
           },
-          "pluginVersion": "10.1.5",
+          "pluginVersion": "9.5.1",
           "targets": [
             {
               "datasource": {
@@ -2089,7 +1545,7 @@ data:
             "content": "",
             "mode": "html"
           },
-          "pluginVersion": "10.1.5",
+          "pluginVersion": "9.5.1",
           "repeatDirection": "v",
           "targets": [
             {
@@ -2130,7 +1586,7 @@ data:
             "content": "",
             "mode": "html"
           },
-          "pluginVersion": "10.1.5",
+          "pluginVersion": "9.5.1",
           "repeatDirection": "v",
           "targets": [
             {
@@ -2170,7 +1626,7 @@ data:
             "content": "",
             "mode": "html"
           },
-          "pluginVersion": "10.1.5",
+          "pluginVersion": "9.5.1",
           "repeatDirection": "v",
           "targets": [
             {
@@ -2210,7 +1666,7 @@ data:
             "content": "",
             "mode": "html"
           },
-          "pluginVersion": "10.1.5",
+          "pluginVersion": "9.5.1",
           "repeatDirection": "v",
           "targets": [
             {
@@ -2250,7 +1706,7 @@ data:
             "content": "",
             "mode": "html"
           },
-          "pluginVersion": "10.1.5",
+          "pluginVersion": "9.5.1",
           "repeatDirection": "v",
           "targets": [
             {
@@ -2290,7 +1746,7 @@ data:
             "content": "",
             "mode": "html"
           },
-          "pluginVersion": "10.1.5",
+          "pluginVersion": "9.5.1",
           "repeatDirection": "v",
           "targets": [
             {
@@ -2331,7 +1787,7 @@ data:
             "content": "",
             "mode": "html"
           },
-          "pluginVersion": "10.1.5",
+          "pluginVersion": "9.5.1",
           "repeatDirection": "v",
           "targets": [
             {
@@ -2371,7 +1827,7 @@ data:
             "content": "",
             "mode": "html"
           },
-          "pluginVersion": "10.1.5",
+          "pluginVersion": "9.5.1",
           "repeatDirection": "v",
           "targets": [
             {
@@ -2411,7 +1867,7 @@ data:
             "content": "",
             "mode": "html"
           },
-          "pluginVersion": "10.1.5",
+          "pluginVersion": "9.5.1",
           "repeatDirection": "v",
           "targets": [
             {
@@ -2451,7 +1907,7 @@ data:
             "content": "<table style=\"width:100%; height:100%;border:0px solid black;\">\n  <td style=\"text-align: center;vertical-align: middle;border:0px solid black; \"><p style=\"font-weight: bold;\">$instances</p>\n  </td>\n</table>",
             "mode": "html"
           },
-          "pluginVersion": "10.1.5",
+          "pluginVersion": "9.5.1",
           "repeat": "instances",
           "repeatDirection": "v",
           "targets": [
@@ -2533,7 +1989,7 @@ data:
             "text": {},
             "textMode": "value"
           },
-          "pluginVersion": "10.1.5",
+          "pluginVersion": "9.5.1",
           "repeat": "instances",
           "repeatDirection": "v",
           "targets": [
@@ -2620,7 +2076,7 @@ data:
             "text": {},
             "textMode": "value"
           },
-          "pluginVersion": "10.1.5",
+          "pluginVersion": "9.5.1",
           "repeat": "instances",
           "repeatDirection": "v",
           "targets": [
@@ -2691,7 +2147,7 @@ data:
             "text": {},
             "textMode": "value"
           },
-          "pluginVersion": "10.1.5",
+          "pluginVersion": "9.5.1",
           "repeat": "instances",
           "repeatDirection": "v",
           "targets": [
@@ -2759,7 +2215,7 @@ data:
             },
             "textMode": "value"
           },
-          "pluginVersion": "10.1.5",
+          "pluginVersion": "9.5.1",
           "repeat": "instances",
           "repeatDirection": "v",
           "targets": [
@@ -2934,7 +2390,7 @@ data:
             "showThresholdMarkers": true,
             "text": {}
           },
-          "pluginVersion": "10.1.5",
+          "pluginVersion": "9.5.1",
           "repeat": "instances",
           "repeatDirection": "v",
           "targets": [
@@ -3010,7 +2466,7 @@ data:
             "text": {},
             "valueMode": "color"
           },
-          "pluginVersion": "10.1.5",
+          "pluginVersion": "9.5.1",
           "repeat": "instances",
           "repeatDirection": "v",
           "targets": [
@@ -3076,7 +2532,7 @@ data:
             "text": {},
             "textMode": "value"
           },
-          "pluginVersion": "10.1.5",
+          "pluginVersion": "9.5.1",
           "repeat": "instances",
           "repeatDirection": "v",
           "targets": [
@@ -3146,7 +2602,7 @@ data:
             "text": {},
             "textMode": "value"
           },
-          "pluginVersion": "10.1.5",
+          "pluginVersion": "9.5.1",
           "repeat": "instances",
           "repeatDirection": "v",
           "targets": [
@@ -3179,7 +2635,7 @@ data:
             "h": 1,
             "w": 24,
             "x": 0,
-            "y": 12
+            "y": 18
           },
           "id": 41,
           "panels": [],
@@ -3203,7 +2659,7 @@ data:
             "h": 1,
             "w": 3,
             "x": 0,
-            "y": 13
+            "y": 19
           },
           "id": 187,
           "options": {
@@ -3215,7 +2671,7 @@ data:
             "content": "",
             "mode": "html"
           },
-          "pluginVersion": "10.1.5",
+          "pluginVersion": "9.5.1",
           "repeatDirection": "v",
           "targets": [
             {
@@ -3244,7 +2700,7 @@ data:
             "h": 1,
             "w": 3,
             "x": 3,
-            "y": 13
+            "y": 19
           },
           "id": 183,
           "options": {
@@ -3256,7 +2712,7 @@ data:
             "content": "",
             "mode": "html"
           },
-          "pluginVersion": "10.1.5",
+          "pluginVersion": "9.5.1",
           "repeatDirection": "v",
           "targets": [
             {
@@ -3284,7 +2740,7 @@ data:
             "h": 1,
             "w": 3,
             "x": 6,
-            "y": 13
+            "y": 19
           },
           "id": 184,
           "options": {
@@ -3296,7 +2752,7 @@ data:
             "content": "",
             "mode": "html"
           },
-          "pluginVersion": "10.1.5",
+          "pluginVersion": "9.5.1",
           "repeatDirection": "v",
           "targets": [
             {
@@ -3324,7 +2780,7 @@ data:
             "h": 1,
             "w": 3,
             "x": 9,
-            "y": 13
+            "y": 19
           },
           "id": 185,
           "options": {
@@ -3336,7 +2792,7 @@ data:
             "content": "",
             "mode": "html"
           },
-          "pluginVersion": "10.1.5",
+          "pluginVersion": "9.5.1",
           "repeatDirection": "v",
           "targets": [
             {
@@ -3364,7 +2820,7 @@ data:
             "h": 1,
             "w": 3,
             "x": 12,
-            "y": 13
+            "y": 19
           },
           "id": 186,
           "options": {
@@ -3376,7 +2832,7 @@ data:
             "content": "",
             "mode": "html"
           },
-          "pluginVersion": "10.1.5",
+          "pluginVersion": "9.5.1",
           "repeatDirection": "v",
           "targets": [
             {
@@ -3404,7 +2860,7 @@ data:
             "h": 1,
             "w": 3,
             "x": 15,
-            "y": 13
+            "y": 19
           },
           "id": 188,
           "options": {
@@ -3416,7 +2872,7 @@ data:
             "content": "",
             "mode": "html"
           },
-          "pluginVersion": "10.1.5",
+          "pluginVersion": "9.5.1",
           "repeatDirection": "v",
           "targets": [
             {
@@ -3444,7 +2900,7 @@ data:
             "h": 1,
             "w": 3,
             "x": 18,
-            "y": 13
+            "y": 19
           },
           "id": 189,
           "options": {
@@ -3456,7 +2912,7 @@ data:
             "content": "",
             "mode": "html"
           },
-          "pluginVersion": "10.1.5",
+          "pluginVersion": "9.5.1",
           "repeatDirection": "v",
           "targets": [
             {
@@ -3484,7 +2940,7 @@ data:
             "h": 1,
             "w": 3,
             "x": 21,
-            "y": 13
+            "y": 19
           },
           "id": 190,
           "options": {
@@ -3496,7 +2952,7 @@ data:
             "content": "",
             "mode": "html"
           },
-          "pluginVersion": "10.1.5",
+          "pluginVersion": "9.5.1",
           "repeatDirection": "v",
           "targets": [
             {
@@ -3524,7 +2980,7 @@ data:
             "h": 3,
             "w": 3,
             "x": 0,
-            "y": 14
+            "y": 20
           },
           "id": 86,
           "options": {
@@ -3536,7 +2992,7 @@ data:
             "content": "<table style=\"width:100%; height:100%;border:0px solid black;\">\n  <td style=\"text-align: center;vertical-align: middle;border:0px solid black; \"><p style=\"font-weight: bold;\">$instances</p>\n  </td>\n</table>",
             "mode": "html"
           },
-          "pluginVersion": "10.1.5",
+          "pluginVersion": "9.5.1",
           "repeat": "instances",
           "repeatDirection": "v",
           "targets": [
@@ -3582,7 +3038,7 @@ data:
             "h": 3,
             "w": 3,
             "x": 3,
-            "y": 14
+            "y": 20
           },
           "id": 30,
           "options": {
@@ -3600,7 +3056,7 @@ data:
             "text": {},
             "textMode": "value"
           },
-          "pluginVersion": "10.1.5",
+          "pluginVersion": "9.5.1",
           "repeat": "instances",
           "repeatDirection": "v",
           "targets": [
@@ -3648,7 +3104,7 @@ data:
             "h": 3,
             "w": 3,
             "x": 6,
-            "y": 14
+            "y": 20
           },
           "id": 24,
           "options": {
@@ -3666,7 +3122,7 @@ data:
             "text": {},
             "textMode": "value"
           },
-          "pluginVersion": "10.1.5",
+          "pluginVersion": "9.5.1",
           "repeat": "instances",
           "repeatDirection": "v",
           "targets": [
@@ -3714,7 +3170,7 @@ data:
             "h": 3,
             "w": 3,
             "x": 9,
-            "y": 14
+            "y": 20
           },
           "id": 57,
           "options": {
@@ -3732,7 +3188,7 @@ data:
             "text": {},
             "textMode": "value"
           },
-          "pluginVersion": "10.1.5",
+          "pluginVersion": "9.5.1",
           "repeat": "instances",
           "repeatDirection": "v",
           "targets": [
@@ -3780,7 +3236,7 @@ data:
             "h": 3,
             "w": 3,
             "x": 12,
-            "y": 14
+            "y": 20
           },
           "id": 26,
           "options": {
@@ -3798,7 +3254,7 @@ data:
             "text": {},
             "textMode": "value"
           },
-          "pluginVersion": "10.1.5",
+          "pluginVersion": "9.5.1",
           "repeat": "instances",
           "repeatDirection": "v",
           "targets": [
@@ -3845,7 +3301,7 @@ data:
             "h": 3,
             "w": 3,
             "x": 15,
-            "y": 14
+            "y": 20
           },
           "id": 47,
           "options": {
@@ -3863,7 +3319,7 @@ data:
             "text": {},
             "textMode": "value"
           },
-          "pluginVersion": "10.1.5",
+          "pluginVersion": "9.5.1",
           "repeat": "instances",
           "repeatDirection": "v",
           "targets": [
@@ -3910,7 +3366,7 @@ data:
             "h": 3,
             "w": 3,
             "x": 18,
-            "y": 14
+            "y": 20
           },
           "id": 48,
           "options": {
@@ -3928,7 +3384,7 @@ data:
             "text": {},
             "textMode": "value"
           },
-          "pluginVersion": "10.1.5",
+          "pluginVersion": "9.5.1",
           "repeat": "instances",
           "repeatDirection": "v",
           "targets": [
@@ -3975,7 +3431,7 @@ data:
             "h": 3,
             "w": 3,
             "x": 21,
-            "y": 14
+            "y": 20
           },
           "id": 56,
           "options": {
@@ -3993,7 +3449,7 @@ data:
             "text": {},
             "textMode": "value"
           },
-          "pluginVersion": "10.1.5",
+          "pluginVersion": "9.5.1",
           "repeat": "instances",
           "repeatDirection": "v",
           "targets": [
@@ -4047,7 +3503,7 @@ data:
             "h": 9,
             "w": 24,
             "x": 0,
-            "y": 17
+            "y": 29
           },
           "id": 150,
           "options": {
@@ -4063,7 +3519,7 @@ data:
             "showHeader": true,
             "sortBy": []
           },
-          "pluginVersion": "10.1.5",
+          "pluginVersion": "9.5.1",
           "repeatDirection": "v",
           "targets": [
             {
@@ -4144,7 +3600,7 @@ data:
             "h": 1,
             "w": 24,
             "x": 0,
-            "y": 26
+            "y": 38
           },
           "id": 10,
           "panels": [
@@ -4884,7 +4340,7 @@ data:
             "h": 1,
             "w": 24,
             "x": 0,
-            "y": 27
+            "y": 39
           },
           "id": 35,
           "panels": [
@@ -5521,7 +4977,7 @@ data:
             "h": 1,
             "w": 24,
             "x": 0,
-            "y": 28
+            "y": 40
           },
           "id": 37,
           "panels": [
@@ -5845,7 +5301,7 @@ data:
             "h": 1,
             "w": 24,
             "x": 0,
-            "y": 29
+            "y": 41
           },
           "id": 18,
           "panels": [
@@ -6246,7 +5702,7 @@ data:
             "h": 1,
             "w": 24,
             "x": 0,
-            "y": 30
+            "y": 42
           },
           "id": 231,
           "panels": [
@@ -6472,7 +5928,7 @@ data:
             "h": 1,
             "w": 24,
             "x": 0,
-            "y": 31
+            "y": 43
           },
           "id": 239,
           "panels": [
@@ -6590,7 +6046,7 @@ data:
             "h": 1,
             "w": 24,
             "x": 0,
-            "y": 32
+            "y": 44
           },
           "id": 293,
           "panels": [
@@ -6840,9 +6296,9 @@ data:
         "list": [
           {
             "current": {
-              "selected": true,
-              "text": "Prometheus",
-              "value": "PBFA97CFB590B2093"
+              "selected": false,
+              "text": "default",
+              "value": "default"
             },
             "hide": 0,
             "includeAll": false,
@@ -6858,11 +6314,7 @@ data:
             "type": "datasource"
           },
           {
-            "current": {
-              "selected": true,
-              "text": "media",
-              "value": "media"
-            },
+            "current": {},
             "datasource": {
               "type": "prometheus",
               "uid": "${DS_PROMETHEUS}"
@@ -6884,11 +6336,7 @@ data:
             "type": "query"
           },
           {
-            "current": {
-              "selected": false,
-              "text": "immich",
-              "value": "immich"
-            },
+            "current": {},
             "datasource": {
               "type": "prometheus",
               "uid": "${DS_PROMETHEUS}"
@@ -6904,17 +6352,13 @@ data:
               "refId": "PrometheusVariableQueryEditor-VariableQuery"
             },
             "refresh": 1,
-            "regex": "/\\bexported_cluster\\b=\"(?<text>[^\"]+)/g",
+            "regex": "/\\bcluster\\b=\"(?<text>[^\"]+)/g",
             "skipUrlSync": false,
             "sort": 1,
             "type": "query"
           },
           {
-            "current": {
-              "selected": false,
-              "text": "All",
-              "value": "$__all"
-            },
+            "current": {},
             "datasource": {
               "type": "prometheus",
               "uid": "${DS_PROMETHEUS}"
@@ -6927,7 +6371,7 @@ data:
             "options": [],
             "query": {
               "query": "cnpg_collector_up{namespace=~\"$namespace\",pod=~\"$cluster-[0-9]+$\"}",
-              "refId": "PrometheusVariableQueryEditor-VariableQuery"
+              "refId": "StandardVariableQuery"
             },
             "refresh": 1,
             "regex": "/pod=\"(?<text>[^\"]+)/g",
@@ -6938,7 +6382,7 @@ data:
         ]
       },
       "time": {
-        "from": "now-5m",
+        "from": "now-6h",
         "to": "now"
       },
       "timepicker": {
