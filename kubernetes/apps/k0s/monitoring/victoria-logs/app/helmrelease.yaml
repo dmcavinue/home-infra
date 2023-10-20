@@ -69,7 +69,7 @@ spec:
       terminationGracePeriodSeconds: 60
       service:
         annotations:
-          io.cilium/global-service: "true"
+          service.isovalent.com/phantom: "true"
       serviceMonitor:      
         enabled: true
     fluent-bit:      
