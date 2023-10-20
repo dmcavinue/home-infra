@@ -1,3 +1,4 @@
+---
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -5,8 +6,631 @@ metadata:
   namespace: monitoring
   labels:
     grafana_dashboard: "1"
+    namespace: monitoring
 data:
-  cnp.json: |-
+  power-monitoring.json: |-
+    {
+      "annotations": {
+        "list": [
+          {
+            "builtIn": 1,
+            "datasource": "-- Grafana --",
+            "enable": true,
+            "hide": true,
+            "iconColor": "rgba(0, 211, 255, 1)",
+            "name": "Annotations & Alerts",
+            "type": "dashboard"
+          }
+        ]
+      },
+      "editable": true,
+      "gnetId": null,
+      "graphTooltip": 0,
+      "links": [],
+      "panels": [
+        {
+          "datasource": null,
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "linear",
+                "lineStyle": {
+                  "fill": "solid"
+                },
+                "lineWidth": 1,
+                "pointSize": 6,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "amp"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 9,
+            "w": 24,
+            "x": 0,
+            "y": 0
+          },
+          "id": 2,
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "list",
+              "placement": "right"
+            },
+            "tooltip": {
+              "mode": "single"
+            }
+          },
+          "targets": [
+            {
+              "exemplar": true,
+              "expr": "hass_sensor_current_a{}",
+              "interval": "",
+              "legendFormat": "{{friendly_name}}",
+              "refId": "A"
+            },
+            {
+              "exemplar": true,
+              "expr": "hass_sensor_power_a{}",
+              "hide": false,
+              "interval": "",
+              "legendFormat": "{{friendly_name}}",
+              "refId": "B"
+            }
+          ],
+          "title": "Amps",
+          "transparent": true,
+          "type": "timeseries"
+        },
+        {
+          "datasource": null,
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "linear",
+                "lineStyle": {
+                  "fill": "solid"
+                },
+                "lineWidth": 1,
+                "pointSize": 6,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "watt"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 9,
+            "w": 24,
+            "x": 0,
+            "y": 9
+          },
+          "id": 3,
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "list",
+              "placement": "right"
+            },
+            "tooltip": {
+              "mode": "single"
+            }
+          },
+          "targets": [
+            {
+              "exemplar": true,
+              "expr": "hass_sensor_power_w{}",
+              "interval": "",
+              "legendFormat": "{{friendly_name}}",
+              "refId": "A"
+            }
+          ],
+          "title": "Watts",
+          "transparent": true,
+          "type": "timeseries"
+        },
+        {
+          "datasource": null,
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "linear",
+                "lineStyle": {
+                  "fill": "solid"
+                },
+                "lineWidth": 1,
+                "pointSize": 6,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "watt"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 24,
+            "x": 0,
+            "y": 18
+          },
+          "id": 4,
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "list",
+              "placement": "right"
+            },
+            "tooltip": {
+              "mode": "single"
+            }
+          },
+          "targets": [
+            {
+              "exemplar": true,
+              "expr": "hass_sensor_power_kwh{}",
+              "interval": "",
+              "legendFormat": "{{friendly_name}}",
+              "refId": "A"
+            }
+          ],
+          "title": "kwh",
+          "transparent": true,
+          "type": "timeseries"
+        }
+      ],
+      "refresh": "",
+      "schemaVersion": 30,
+      "style": "dark",
+      "tags": [],
+      "templating": {
+        "list": []
+      },
+      "time": {
+        "from": "2021-08-04T13:10:19.923Z",
+        "to": "2021-08-04T19:10:19.923Z"
+      },
+      "timepicker": {},
+      "timezone": "",
+      "title": "Power Monitoring",
+      "uid": "0lbCmOW7z",
+      "version": 1
+    }
+  utility-meters.json: |-
+    {
+      "annotations": {
+        "list": [
+          {
+            "builtIn": 1,
+            "datasource": "-- Grafana --",
+            "enable": true,
+            "hide": true,
+            "iconColor": "rgba(0, 211, 255, 1)",
+            "name": "Annotations & Alerts",
+            "target": {
+              "limit": 100,
+              "matchAny": false,
+              "tags": [],
+              "type": "dashboard"
+            },
+            "type": "dashboard"
+          }
+        ]
+      },
+      "editable": true,
+      "fiscalYearStartMonth": 0,
+      "gnetId": null,
+      "graphTooltip": 0,
+      "links": [],
+      "liveNow": false,
+      "panels": [
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "rtlamr-collect",
+          "decimals": 2,
+          "fieldConfig": {
+            "defaults": {
+              "unit": "kwatth"
+            },
+            "overrides": []
+          },
+          "fill": 1,
+          "fillGradient": 7,
+          "gridPos": {
+            "h": 9,
+            "w": 24,
+            "x": 0,
+            "y": 0
+          },
+          "hiddenSeries": false,
+          "id": 3,
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": true,
+            "max": true,
+            "min": true,
+            "show": true,
+            "total": true,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 3,
+          "nullPointMode": "null",
+          "options": {
+            "alertThreshold": true
+          },
+          "percentage": false,
+          "pluginVersion": "8.2.1",
+          "pointradius": 4,
+          "points": true,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "kwh",
+              "groupBy": [
+                {
+                  "params": [
+                    "$__interval"
+                  ],
+                  "type": "time"
+                }
+              ],
+              "measurement": "utilities",
+              "orderByTime": "ASC",
+              "policy": "autogen",
+              "query": "SELECT (difference(last(\"consumption\")) )/1000 FROM \"autogen\".\"utilities\" WHERE $timeFilter AND (\"endpoint_id\" = '101436633') GROUP BY time(24h)",
+              "rawQuery": true,
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "consumption"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "endpoint_id",
+                  "operator": "=",
+                  "value": "101436633"
+                }
+              ]
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "Electricity Consumption",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "transparent": true,
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "$hashKey": "object:1147",
+              "decimals": 2,
+              "format": "kwatth",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "$hashKey": "object:1148",
+              "decimals": 2,
+              "format": "kwatth",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "rtlamr-collect",
+          "decimals": 2,
+          "fieldConfig": {
+            "defaults": {
+              "unit": "flowcfs"
+            },
+            "overrides": []
+          },
+          "fill": 1,
+          "fillGradient": 7,
+          "gridPos": {
+            "h": 9,
+            "w": 24,
+            "x": 0,
+            "y": 9
+          },
+          "hiddenSeries": false,
+          "id": 2,
+          "legend": {
+            "alignAsTable": true,
+            "avg": false,
+            "current": false,
+            "hideEmpty": false,
+            "hideZero": false,
+            "max": true,
+            "min": true,
+            "rightSide": false,
+            "show": true,
+            "total": true,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 3,
+          "nullPointMode": "null",
+          "options": {
+            "alertThreshold": true
+          },
+          "percentage": false,
+          "pluginVersion": "8.2.1",
+          "pointradius": 4,
+          "points": true,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "cubic feet",
+              "groupBy": [
+                {
+                  "params": [
+                    "$__interval"
+                  ],
+                  "type": "time"
+                }
+              ],
+              "measurement": "utilities",
+              "orderByTime": "ASC",
+              "policy": "autogen",
+              "query": "SELECT difference(last(\"consumption\")) FROM \"autogen\".\"utilities\" WHERE $timeFilter AND (\"endpoint_id\" = '9250289') GROUP BY time(24h)",
+              "rawQuery": true,
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "consumption"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "endpoint_id",
+                  "operator": "=",
+                  "value": "101436633"
+                }
+              ]
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "Water Consumption",
+          "tooltip": {
+            "shared": false,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "transparent": true,
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "$hashKey": "object:187",
+              "decimals": 2,
+              "format": "flowcfs",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "$hashKey": "object:188",
+              "decimals": 2,
+              "format": "flowcfs",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        }
+      ],
+      "schemaVersion": 31,
+      "style": "dark",
+      "tags": [],
+      "templating": {
+        "list": []
+      },
+      "time": {
+        "from": "now-7d",
+        "to": "now"
+      },
+      "timepicker": {},
+      "timezone": "",
+      "title": "Utility Meters",
+      "uid": "CMlHQAuMz",
+      "version": 1
+    }
+  cloudnative-pg.json: |-
     {
       "__inputs": [
         {
@@ -134,7 +758,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$DS_PROMETHEUS"
           },
           "gridPos": {
             "h": 7,
@@ -167,7 +791,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$DS_PROMETHEUS"
           },
           "gridPos": {
             "h": 1,
@@ -192,7 +816,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$DS_PROMETHEUS"
           },
           "gridPos": {
             "h": 1,
@@ -217,7 +841,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$DS_PROMETHEUS"
           },
           "gridPos": {
             "h": 1,
@@ -242,7 +866,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$DS_PROMETHEUS"
           },
           "description": "",
           "fieldConfig": {
@@ -291,7 +915,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$DS_PROMETHEUS"
               },
               "editorMode": "code",
               "exemplar": false,
@@ -312,7 +936,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$DS_PROMETHEUS"
           },
           "fieldConfig": {
             "defaults": {
@@ -359,7 +983,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$DS_PROMETHEUS"
               },
               "editorMode": "code",
               "exemplar": true,
@@ -376,7 +1000,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$DS_PROMETHEUS"
           },
           "description": "CPU Utilisation from Requests",
           "fieldConfig": {
@@ -434,7 +1058,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$DS_PROMETHEUS"
               },
               "editorMode": "code",
               "expr": "sum(node_namespace_pod_container:container_cpu_usage_seconds_total:sum_irate{ namespace=\"$namespace\"}) / sum(kube_pod_container_resource_requests{job=\"kube-state-metrics\",  namespace=\"$namespace\", resource=\"cpu\"})",
@@ -450,7 +1074,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$DS_PROMETHEUS"
           },
           "description": "Memory Utilisation from Requests",
           "fieldConfig": {
@@ -508,7 +1132,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$DS_PROMETHEUS"
               },
               "editorMode": "code",
               "expr": "sum(container_memory_working_set_bytes{job=\"kubelet\", metrics_path=\"/metrics/cadvisor\", namespace=\"$namespace\",container!=\"\", image!=\"\"}) / sum(max by(pod) (kube_pod_container_resource_requests{job=\"kube-state-metrics\", namespace=\"$namespace\", resource=\"memory\"}))",
@@ -524,7 +1148,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$DS_PROMETHEUS"
           },
           "fieldConfig": {
             "defaults": {
@@ -585,7 +1209,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$DS_PROMETHEUS"
               },
               "editorMode": "code",
               "expr": "max(cnpg_pg_replication_lag{namespace=~\"$namespace\",pod=~\"$instances\"})",
@@ -600,7 +1224,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$DS_PROMETHEUS"
           },
           "fieldConfig": {
             "defaults": {
@@ -659,7 +1283,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$DS_PROMETHEUS"
               },
               "editorMode": "code",
               "expr": "max(cnpg_pg_stat_replication_write_lag_seconds{namespace=~\"$namespace\",pod=~\"$instances\"})",
@@ -674,7 +1298,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$DS_PROMETHEUS"
           },
           "fieldConfig": {
             "defaults": {
@@ -729,7 +1353,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$DS_PROMETHEUS"
               },
               "editorMode": "code",
               "expr": "max(max by(persistentvolumeclaim) (1 - kubelet_volume_stats_available_bytes{namespace=\"$namespace\", persistentvolumeclaim=~\"$instances\"} / kubelet_volume_stats_capacity_bytes{namespace=\"$namespace\", persistentvolumeclaim=~\"$instances\"}))",
@@ -742,7 +1366,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$DS_PROMETHEUS"
               },
               "editorMode": "code",
               "expr": "max(max by(persistentvolumeclaim) (1 - kubelet_volume_stats_available_bytes{namespace=\"$namespace\", persistentvolumeclaim=~\"(${instances})-wal\"} / kubelet_volume_stats_capacity_bytes{namespace=\"$namespace\", persistentvolumeclaim=~\"(${instances})-wal\"}))",
@@ -759,7 +1383,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$DS_PROMETHEUS"
           },
           "description": "Elapsed time since the last successful base backup.",
           "fieldConfig": {
@@ -848,7 +1472,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$DS_PROMETHEUS"
               },
               "editorMode": "code",
               "expr": "-(time() - max(cnpg_collector_last_available_backup_timestamp{namespace=\"$namespace\",pod=~\"$instances\"}))",
@@ -863,7 +1487,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$DS_PROMETHEUS"
           },
           "fieldConfig": {
             "defaults": {
@@ -934,7 +1558,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$DS_PROMETHEUS"
               },
               "editorMode": "code",
               "exemplar": true,
@@ -952,7 +1576,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$DS_PROMETHEUS"
           },
           "description": "",
           "fieldConfig": {
@@ -1002,7 +1626,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$DS_PROMETHEUS"
               },
               "editorMode": "builder",
               "exemplar": false,
@@ -1024,7 +1648,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$DS_PROMETHEUS"
           },
           "fieldConfig": {
             "defaults": {
@@ -1083,7 +1707,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$DS_PROMETHEUS"
               },
               "editorMode": "code",
               "expr": "max(cnpg_pg_stat_replication_flush_lag_seconds{namespace=~\"$namespace\",pod=~\"$cluster-[0-9]+$\"})",
@@ -1098,7 +1722,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$DS_PROMETHEUS"
           },
           "fieldConfig": {
             "defaults": {
@@ -1157,7 +1781,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$DS_PROMETHEUS"
               },
               "editorMode": "code",
               "expr": "max(cnpg_pg_stat_replication_replay_lag_seconds{namespace=~\"$namespace\",pod=~\"$cluster-[0-9]+$\"})",
@@ -1172,7 +1796,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$DS_PROMETHEUS"
           },
           "description": "",
           "fieldConfig": {
@@ -1230,7 +1854,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$DS_PROMETHEUS"
               },
               "editorMode": "code",
               "exemplar": true,
@@ -1247,7 +1871,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$DS_PROMETHEUS"
           },
           "description": "Excluding cache",
           "fieldConfig": {
@@ -1304,7 +1928,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$DS_PROMETHEUS"
               },
               "editorMode": "code",
               "exemplar": true,
@@ -1321,7 +1945,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$DS_PROMETHEUS"
           },
           "description": "",
           "fieldConfig": {
@@ -1379,7 +2003,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$DS_PROMETHEUS"
               },
               "editorMode": "code",
               "exemplar": false,
@@ -1416,7 +2040,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$DS_PROMETHEUS"
           },
           "fieldConfig": {
             "defaults": {
@@ -1485,7 +2109,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$DS_PROMETHEUS"
               },
               "editorMode": "code",
               "exemplar": true,
@@ -1503,7 +2127,7 @@ data:
         {
           "collapsed": false,
           "datasource": {
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$DS_PROMETHEUS"
           },
           "gridPos": {
             "h": 1,
@@ -1516,7 +2140,7 @@ data:
           "targets": [
             {
               "datasource": {
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$DS_PROMETHEUS"
               },
               "refId": "A"
             }
@@ -1527,7 +2151,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$DS_PROMETHEUS"
           },
           "gridPos": {
             "h": 1,
@@ -1551,7 +2175,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$DS_PROMETHEUS"
               },
               "exemplar": true,
               "expr": "kube_pod_container_status_ready{container=\"postgres\",namespace=~\"$namespace\",pod=~\"$instances\"}",
@@ -1568,7 +2192,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$DS_PROMETHEUS"
           },
           "gridPos": {
             "h": 1,
@@ -1592,7 +2216,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$DS_PROMETHEUS"
               },
               "exemplar": true,
               "expr": "kube_pod_container_status_ready{container=\"postgres\",namespace=~\"$namespace\",pod=~\"$instances\"}",
@@ -1608,7 +2232,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$DS_PROMETHEUS"
           },
           "gridPos": {
             "h": 1,
@@ -1632,7 +2256,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$DS_PROMETHEUS"
               },
               "exemplar": true,
               "expr": "kube_pod_container_status_ready{container=\"postgres\",namespace=~\"$namespace\",pod=~\"$instances\"}",
@@ -1648,7 +2272,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$DS_PROMETHEUS"
           },
           "gridPos": {
             "h": 1,
@@ -1672,7 +2296,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$DS_PROMETHEUS"
               },
               "exemplar": true,
               "expr": "kube_pod_container_status_ready{container=\"postgres\",namespace=~\"$namespace\",pod=~\"$instances\"}",
@@ -1688,7 +2312,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$DS_PROMETHEUS"
           },
           "gridPos": {
             "h": 1,
@@ -1712,7 +2336,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$DS_PROMETHEUS"
               },
               "exemplar": true,
               "expr": "kube_pod_container_status_ready{container=\"postgres\",namespace=~\"$namespace\",pod=~\"$instances\"}",
@@ -1728,7 +2352,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$DS_PROMETHEUS"
           },
           "gridPos": {
             "h": 1,
@@ -1752,7 +2376,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$DS_PROMETHEUS"
               },
               "exemplar": true,
               "expr": "kube_pod_container_status_ready{container=\"postgres\",namespace=~\"$namespace\",pod=~\"$instances\"}",
@@ -1768,7 +2392,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$DS_PROMETHEUS"
           },
           "description": "",
           "gridPos": {
@@ -1793,7 +2417,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$DS_PROMETHEUS"
               },
               "exemplar": true,
               "expr": "kube_pod_container_status_ready{container=\"postgres\",namespace=~\"$namespace\",pod=~\"$instances\"}",
@@ -1809,7 +2433,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$DS_PROMETHEUS"
           },
           "gridPos": {
             "h": 1,
@@ -1833,7 +2457,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$DS_PROMETHEUS"
               },
               "exemplar": true,
               "expr": "kube_pod_container_status_ready{container=\"postgres\",namespace=~\"$namespace\",pod=~\"$instances\"}",
@@ -1849,7 +2473,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$DS_PROMETHEUS"
           },
           "gridPos": {
             "h": 1,
@@ -1873,7 +2497,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$DS_PROMETHEUS"
               },
               "exemplar": true,
               "expr": "kube_pod_container_status_ready{container=\"postgres\",namespace=~\"$namespace\",pod=~\"$instances\"}",
@@ -1889,7 +2513,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$DS_PROMETHEUS"
           },
           "gridPos": {
             "h": 3,
@@ -1914,7 +2538,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$DS_PROMETHEUS"
               },
               "exemplar": true,
               "expr": "kube_pod_container_status_ready{container=\"postgres\",namespace=~\"$namespace\",pod=~\"$instances\"}",
@@ -1929,7 +2553,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$DS_PROMETHEUS"
           },
           "fieldConfig": {
             "defaults": {
@@ -1996,7 +2620,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$DS_PROMETHEUS"
               },
               "editorMode": "code",
               "exemplar": true,
@@ -2012,7 +2636,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$DS_PROMETHEUS"
           },
           "description": "",
           "fieldConfig": {
@@ -2083,7 +2707,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$DS_PROMETHEUS"
               },
               "exemplar": true,
               "expr": "1 - cnpg_pg_replication_in_recovery{namespace=~\"$namespace\",pod=~\"$instances\"} + cnpg_pg_replication_is_wal_receiver_up{namespace=~\"$namespace\",pod=~\"$instances\"}",
@@ -2099,7 +2723,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$DS_PROMETHEUS"
           },
           "description": "",
           "fieldConfig": {
@@ -2154,7 +2778,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$DS_PROMETHEUS"
               },
               "exemplar": true,
               "expr": "cnpg_pg_replication_streaming_replicas{namespace=~\"$namespace\",pod=~\"$instances\"}",
@@ -2170,7 +2794,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$DS_PROMETHEUS"
           },
           "description": "This metric depends on exporting the: `topology.kubernetes.io/zone` label through kube-state-metrics (not enabled by default). Can be added by changing its configuration with:\n\n```yaml\nmetricLabelsAllowlist:\n  - nodes=[topology.kubernetes.io/zone]\n```",
           "fieldConfig": {
@@ -2222,7 +2846,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$DS_PROMETHEUS"
               },
               "editorMode": "code",
               "exemplar": true,
@@ -2240,7 +2864,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$DS_PROMETHEUS"
           },
           "fieldConfig": {
             "defaults": {
@@ -2321,7 +2945,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$DS_PROMETHEUS"
               },
               "exemplar": true,
               "expr": "sum by (pod) (cnpg_backends_total{namespace=~\"$namespace\",pod=~\"$instances\"})",
@@ -2336,7 +2960,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$DS_PROMETHEUS"
           },
           "description": "",
           "fieldConfig": {
@@ -2397,7 +3021,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$DS_PROMETHEUS"
               },
               "exemplar": true,
               "expr": "100 * sum by (pod) (cnpg_backends_total{namespace=~\"$namespace\",pod=~\"$instances\"}) / sum by (pod) (cnpg_pg_settings_setting{name=\"max_connections\",namespace=~\"$namespace\",pod=~\"$instances\"})",
@@ -2412,7 +3036,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$DS_PROMETHEUS"
           },
           "fieldConfig": {
             "defaults": {
@@ -2473,7 +3097,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$DS_PROMETHEUS"
               },
               "exemplar": true,
               "expr": "max by (pod) (cnpg_pg_database_xid_age{namespace=~\"$namespace\",pod=~\"$instances\"})",
@@ -2488,7 +3112,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$DS_PROMETHEUS"
           },
           "description": "",
           "fieldConfig": {
@@ -2539,7 +3163,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$DS_PROMETHEUS"
               },
               "exemplar": false,
               "expr": "cnpg_pg_postmaster_start_time{namespace=~\"$namespace\",pod=~\"$instances\"}*1000",
@@ -2558,7 +3182,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$DS_PROMETHEUS"
           },
           "description": "",
           "fieldConfig": {
@@ -2609,7 +3233,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$DS_PROMETHEUS"
               },
               "editorMode": "code",
               "exemplar": false,
@@ -2629,7 +3253,7 @@ data:
         {
           "collapsed": false,
           "datasource": {
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$DS_PROMETHEUS"
           },
           "gridPos": {
             "h": 1,
@@ -2642,7 +3266,7 @@ data:
           "targets": [
             {
               "datasource": {
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$DS_PROMETHEUS"
               },
               "refId": "A"
             }
@@ -2653,7 +3277,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$DS_PROMETHEUS"
           },
           "gridPos": {
             "h": 1,
@@ -2677,7 +3301,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$DS_PROMETHEUS"
               },
               "exemplar": true,
               "expr": "kube_pod_container_status_ready{container=\"postgres\",namespace=~\"$namespace\",pod=~\"$instances\"}",
@@ -2694,7 +3318,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$DS_PROMETHEUS"
           },
           "gridPos": {
             "h": 1,
@@ -2718,7 +3342,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$DS_PROMETHEUS"
               },
               "exemplar": true,
               "expr": "kube_pod_container_status_ready{container=\"postgres\",namespace=~\"$namespace\",pod=~\"$instances\"}",
@@ -2734,7 +3358,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$DS_PROMETHEUS"
           },
           "gridPos": {
             "h": 1,
@@ -2758,7 +3382,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$DS_PROMETHEUS"
               },
               "exemplar": true,
               "expr": "kube_pod_container_status_ready{container=\"postgres\",namespace=~\"$namespace\",pod=~\"$instances\"}",
@@ -2774,7 +3398,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$DS_PROMETHEUS"
           },
           "gridPos": {
             "h": 1,
@@ -2798,7 +3422,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$DS_PROMETHEUS"
               },
               "exemplar": true,
               "expr": "kube_pod_container_status_ready{container=\"postgres\",namespace=~\"$namespace\",pod=~\"$instances\"}",
@@ -2814,7 +3438,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$DS_PROMETHEUS"
           },
           "gridPos": {
             "h": 1,
@@ -2838,7 +3462,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$DS_PROMETHEUS"
               },
               "exemplar": true,
               "expr": "kube_pod_container_status_ready{container=\"postgres\",namespace=~\"$namespace\",pod=~\"$instances\"}",
@@ -2854,7 +3478,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$DS_PROMETHEUS"
           },
           "gridPos": {
             "h": 1,
@@ -2878,7 +3502,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$DS_PROMETHEUS"
               },
               "exemplar": true,
               "expr": "kube_pod_container_status_ready{container=\"postgres\",namespace=~\"$namespace\",pod=~\"$instances\"}",
@@ -2894,7 +3518,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$DS_PROMETHEUS"
           },
           "gridPos": {
             "h": 1,
@@ -2918,7 +3542,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$DS_PROMETHEUS"
               },
               "exemplar": true,
               "expr": "kube_pod_container_status_ready{container=\"postgres\",namespace=~\"$namespace\",pod=~\"$instances\"}",
@@ -2934,7 +3558,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$DS_PROMETHEUS"
           },
           "gridPos": {
             "h": 1,
@@ -2958,7 +3582,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$DS_PROMETHEUS"
               },
               "exemplar": true,
               "expr": "kube_pod_container_status_ready{container=\"postgres\",namespace=~\"$namespace\",pod=~\"$instances\"}",
@@ -2974,7 +3598,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$DS_PROMETHEUS"
           },
           "gridPos": {
             "h": 3,
@@ -2999,7 +3623,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$DS_PROMETHEUS"
               },
               "exemplar": true,
               "expr": "kube_pod_container_status_ready{container=\"postgres\",namespace=~\"$namespace\",pod=~\"$instances\"}",
@@ -3014,7 +3638,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$DS_PROMETHEUS"
           },
           "fieldConfig": {
             "defaults": {
@@ -3063,7 +3687,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$DS_PROMETHEUS"
               },
               "exemplar": true,
               "expr": "cnpg_pg_settings_setting{name=\"max_connections\",namespace=~\"$namespace\",pod=~\"$instances\"}",
@@ -3078,7 +3702,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$DS_PROMETHEUS"
           },
           "description": "",
           "fieldConfig": {
@@ -3129,7 +3753,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$DS_PROMETHEUS"
               },
               "exemplar": true,
               "expr": "max by (pod) (cnpg_pg_settings_setting{name=\"shared_buffers\",namespace=~\"$namespace\",pod=~\"$instances\"}) * max by (pod) (cnpg_pg_settings_setting{name=\"block_size\",namespace=~\"$namespace\",pod=~\"$instances\"})",
@@ -3144,7 +3768,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$DS_PROMETHEUS"
           },
           "description": "",
           "fieldConfig": {
@@ -3195,7 +3819,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$DS_PROMETHEUS"
               },
               "exemplar": true,
               "expr": "max by (pod) (cnpg_pg_settings_setting{name=\"effective_cache_size\",namespace=~\"$namespace\",pod=~\"$instances\"}) * max by (pod) (cnpg_pg_settings_setting{name=\"block_size\",namespace=~\"$namespace\",pod=~\"$instances\"})",
@@ -3210,7 +3834,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$DS_PROMETHEUS"
           },
           "description": "",
           "fieldConfig": {
@@ -3261,7 +3885,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$DS_PROMETHEUS"
               },
               "exemplar": true,
               "expr": "cnpg_pg_settings_setting{name=\"work_mem\",namespace=~\"$namespace\",pod=~\"$instances\"} * 1024",
@@ -3276,7 +3900,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$DS_PROMETHEUS"
           },
           "fieldConfig": {
             "defaults": {
@@ -3326,7 +3950,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$DS_PROMETHEUS"
               },
               "exemplar": true,
               "expr": "cnpg_pg_settings_setting{name=\"maintenance_work_mem\",namespace=~\"$namespace\",pod=~\"$instances\"}",
@@ -3341,7 +3965,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$DS_PROMETHEUS"
           },
           "fieldConfig": {
             "defaults": {
@@ -3391,7 +4015,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$DS_PROMETHEUS"
               },
               "exemplar": true,
               "expr": "cnpg_pg_settings_setting{name=\"random_page_cost\",namespace=~\"$namespace\",pod=~\"$instances\"}",
@@ -3406,7 +4030,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$DS_PROMETHEUS"
           },
           "fieldConfig": {
             "defaults": {
@@ -3456,7 +4080,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$DS_PROMETHEUS"
               },
               "exemplar": true,
               "expr": "cnpg_pg_settings_setting{name=\"seq_page_cost\",namespace=~\"$namespace\",pod=~\"$instances\"}",
@@ -3471,7 +4095,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$DS_PROMETHEUS"
           },
           "fieldConfig": {
             "defaults": {
@@ -3525,7 +4149,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$DS_PROMETHEUS"
               },
               "exemplar": true,
               "expr": "cnpg_pg_settings_setting{namespace=~\"$namespace\",pod=~\"$instances\"}",
@@ -3594,7 +4218,7 @@ data:
         {
           "collapsed": true,
           "datasource": {
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$DS_PROMETHEUS"
           },
           "gridPos": {
             "h": 1,
@@ -3611,7 +4235,7 @@ data:
               "dashes": false,
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$DS_PROMETHEUS"
               },
               "fill": 1,
               "fillGradient": 0,
@@ -3652,7 +4276,7 @@ data:
                 {
                   "datasource": {
                     "type": "prometheus",
-                    "uid": "${DS_PROMETHEUS}"
+                    "uid": "$DS_PROMETHEUS"
                   },
                   "exemplar": true,
                   "expr": "sum(node_namespace_pod_container:container_cpu_usage_seconds_total:sum_irate{pod=~\"$instances\", namespace=~\"$namespace\"}) by (pod)",
@@ -3666,7 +4290,7 @@ data:
                 {
                   "datasource": {
                     "type": "prometheus",
-                    "uid": "${DS_PROMETHEUS}"
+                    "uid": "$DS_PROMETHEUS"
                   },
                   "exemplar": true,
                   "expr": "sum(node_namespace_pod_container:container_cpu_usage_seconds_total:sum_irate{pod=~\"$instances\", namespace=~\"$namespace\"})",
@@ -3716,7 +4340,7 @@ data:
               "dashes": false,
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$DS_PROMETHEUS"
               },
               "fill": 2,
               "fillGradient": 0,
@@ -3780,7 +4404,7 @@ data:
                 {
                   "datasource": {
                     "type": "prometheus",
-                    "uid": "${DS_PROMETHEUS}"
+                    "uid": "$DS_PROMETHEUS"
                   },
                   "exemplar": true,
                   "expr": "sum(container_memory_working_set_bytes{pod=~\"$instances\", namespace=\"$namespace\", container!=\"\", image!=\"\"}) by (pod)",
@@ -3794,7 +4418,7 @@ data:
                 {
                   "datasource": {
                     "type": "prometheus",
-                    "uid": "${DS_PROMETHEUS}"
+                    "uid": "$DS_PROMETHEUS"
                   },
                   "exemplar": true,
                   "expr": "sum(container_memory_working_set_bytes{pod=~\"$instances\", namespace=\"$namespace\", container!=\"\", image!=\"\"})",
@@ -3840,7 +4464,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$DS_PROMETHEUS"
               },
               "description": "",
               "fieldConfig": {
@@ -3913,7 +4537,7 @@ data:
                 {
                   "datasource": {
                     "type": "prometheus",
-                    "uid": "${DS_PROMETHEUS}"
+                    "uid": "$DS_PROMETHEUS"
                   },
                   "exemplar": true,
                   "expr": "sum(cnpg_backends_total{namespace=~\"$namespace\",pod=~\"$instances\"}) by (pod)",
@@ -3925,7 +4549,7 @@ data:
                 {
                   "datasource": {
                     "type": "prometheus",
-                    "uid": "${DS_PROMETHEUS}"
+                    "uid": "$DS_PROMETHEUS"
                   },
                   "exemplar": true,
                   "expr": "sum(cnpg_backends_total{namespace=~\"$namespace\",pod=~\"$instances\"}) by (state, pod)",
@@ -3940,7 +4564,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$DS_PROMETHEUS"
               },
               "fieldConfig": {
                 "defaults": {
@@ -4016,7 +4640,7 @@ data:
                 {
                   "datasource": {
                     "type": "prometheus",
-                    "uid": "${DS_PROMETHEUS}"
+                    "uid": "$DS_PROMETHEUS"
                   },
                   "exemplar": true,
                   "expr": "sum(rate(cnpg_pg_stat_database_xact_commit{namespace=~\"$namespace\",pod=~\"$instances\"}[5m])) by (pod)",
@@ -4027,7 +4651,7 @@ data:
                 {
                   "datasource": {
                     "type": "prometheus",
-                    "uid": "${DS_PROMETHEUS}"
+                    "uid": "$DS_PROMETHEUS"
                   },
                   "exemplar": true,
                   "expr": "sum(rate(cnpg_pg_stat_database_xact_rollback{namespace=~\"$namespace\",pod=~\"$instances\"}[5m])) by (pod)",
@@ -4043,7 +4667,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$DS_PROMETHEUS"
               },
               "description": "",
               "fieldConfig": {
@@ -4121,7 +4745,7 @@ data:
                 {
                   "datasource": {
                     "type": "prometheus",
-                    "uid": "${DS_PROMETHEUS}"
+                    "uid": "$DS_PROMETHEUS"
                   },
                   "exemplar": true,
                   "expr": "max by (pod) (cnpg_backends_max_tx_duration_seconds{namespace=~\"$namespace\",pod=~\"$instances\"})",
@@ -4136,7 +4760,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$DS_PROMETHEUS"
               },
               "description": "",
               "fieldConfig": {
@@ -4213,7 +4837,7 @@ data:
                 {
                   "datasource": {
                     "type": "prometheus",
-                    "uid": "${DS_PROMETHEUS}"
+                    "uid": "$DS_PROMETHEUS"
                   },
                   "exemplar": true,
                   "expr": "rate(cnpg_pg_stat_database_deadlocks{datname=\"\",namespace=~\"$namespace\",pod=~\"$instances\"}[5m])",
@@ -4230,7 +4854,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$DS_PROMETHEUS"
               },
               "description": "",
               "fieldConfig": {
@@ -4307,7 +4931,7 @@ data:
                 {
                   "datasource": {
                     "type": "prometheus",
-                    "uid": "${DS_PROMETHEUS}"
+                    "uid": "$DS_PROMETHEUS"
                   },
                   "exemplar": true,
                   "expr": "cnpg_backends_waiting_total{namespace=~\"$namespace\",pod=~\"$instances\"}",
@@ -4323,7 +4947,7 @@ data:
           "targets": [
             {
               "datasource": {
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$DS_PROMETHEUS"
               },
               "refId": "A"
             }
@@ -4334,7 +4958,7 @@ data:
         {
           "collapsed": true,
           "datasource": {
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$DS_PROMETHEUS"
           },
           "gridPos": {
             "h": 1,
@@ -4347,7 +4971,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$DS_PROMETHEUS"
               },
               "fieldConfig": {
                 "defaults": {
@@ -4402,7 +5026,7 @@ data:
                 {
                   "datasource": {
                     "type": "prometheus",
-                    "uid": "${DS_PROMETHEUS}"
+                    "uid": "$DS_PROMETHEUS"
                   },
                   "editorMode": "code",
                   "expr": "max by(persistentvolumeclaim) (1 - kubelet_volume_stats_available_bytes{namespace=\"$namespace\", persistentvolumeclaim=~\"$instances\"} / kubelet_volume_stats_capacity_bytes{namespace=\"$namespace\", persistentvolumeclaim=~\"$instances\"})",
@@ -4415,7 +5039,7 @@ data:
                 {
                   "datasource": {
                     "type": "prometheus",
-                    "uid": "${DS_PROMETHEUS}"
+                    "uid": "$DS_PROMETHEUS"
                   },
                   "editorMode": "code",
                   "expr": "max by(persistentvolumeclaim) (1 - kubelet_volume_stats_available_bytes{namespace=\"$namespace\", persistentvolumeclaim=~\"(${instances})-wal\"} / kubelet_volume_stats_capacity_bytes{namespace=\"$namespace\", persistentvolumeclaim=~\"(${instances})-wal\"})",
@@ -4433,7 +5057,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$DS_PROMETHEUS"
               },
               "fieldConfig": {
                 "defaults": {
@@ -4488,7 +5112,7 @@ data:
                 {
                   "datasource": {
                     "type": "prometheus",
-                    "uid": "${DS_PROMETHEUS}"
+                    "uid": "$DS_PROMETHEUS"
                   },
                   "editorMode": "code",
                   "expr": "max by(persistentvolumeclaim) (kubelet_volume_stats_inodes_used{namespace=\"$namespace\", persistentvolumeclaim=~\"$instances\"} / kubelet_volume_stats_inodes{namespace=\"$namespace\", persistentvolumeclaim=~\"$instances\"})",
@@ -4501,7 +5125,7 @@ data:
                 {
                   "datasource": {
                     "type": "prometheus",
-                    "uid": "${DS_PROMETHEUS}"
+                    "uid": "$DS_PROMETHEUS"
                   },
                   "editorMode": "code",
                   "expr": "max by(persistentvolumeclaim) (kubelet_volume_stats_inodes_used{namespace=\"$namespace\", persistentvolumeclaim=~\"(${instances})-wal\"} / kubelet_volume_stats_inodes{namespace=\"$namespace\", persistentvolumeclaim=~\"(${instances})-wal\"})",
@@ -4519,7 +5143,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$DS_PROMETHEUS"
               },
               "fieldConfig": {
                 "defaults": {
@@ -4595,7 +5219,7 @@ data:
                 {
                   "datasource": {
                     "type": "prometheus",
-                    "uid": "${DS_PROMETHEUS}"
+                    "uid": "$DS_PROMETHEUS"
                   },
                   "editorMode": "code",
                   "exemplar": true,
@@ -4608,7 +5232,7 @@ data:
                 {
                   "datasource": {
                     "type": "prometheus",
-                    "uid": "${DS_PROMETHEUS}"
+                    "uid": "$DS_PROMETHEUS"
                   },
                   "editorMode": "code",
                   "exemplar": true,
@@ -4622,7 +5246,7 @@ data:
                 {
                   "datasource": {
                     "type": "prometheus",
-                    "uid": "${DS_PROMETHEUS}"
+                    "uid": "$DS_PROMETHEUS"
                   },
                   "editorMode": "code",
                   "exemplar": true,
@@ -4636,7 +5260,7 @@ data:
                 {
                   "datasource": {
                     "type": "prometheus",
-                    "uid": "${DS_PROMETHEUS}"
+                    "uid": "$DS_PROMETHEUS"
                   },
                   "editorMode": "code",
                   "exemplar": true,
@@ -4650,7 +5274,7 @@ data:
                 {
                   "datasource": {
                     "type": "prometheus",
-                    "uid": "${DS_PROMETHEUS}"
+                    "uid": "$DS_PROMETHEUS"
                   },
                   "editorMode": "code",
                   "exemplar": true,
@@ -4668,7 +5292,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$DS_PROMETHEUS"
               },
               "fieldConfig": {
                 "defaults": {
@@ -4744,7 +5368,7 @@ data:
                 {
                   "datasource": {
                     "type": "prometheus",
-                    "uid": "${DS_PROMETHEUS}"
+                    "uid": "$DS_PROMETHEUS"
                   },
                   "editorMode": "code",
                   "exemplar": true,
@@ -4757,7 +5381,7 @@ data:
                 {
                   "datasource": {
                     "type": "prometheus",
-                    "uid": "${DS_PROMETHEUS}"
+                    "uid": "$DS_PROMETHEUS"
                   },
                   "editorMode": "code",
                   "exemplar": true,
@@ -4775,7 +5399,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$DS_PROMETHEUS"
               },
               "fieldConfig": {
                 "defaults": {
@@ -4849,7 +5473,7 @@ data:
                 {
                   "datasource": {
                     "type": "prometheus",
-                    "uid": "${DS_PROMETHEUS}"
+                    "uid": "$DS_PROMETHEUS"
                   },
                   "editorMode": "code",
                   "exemplar": true,
@@ -4866,7 +5490,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$DS_PROMETHEUS"
               },
               "fieldConfig": {
                 "defaults": {
@@ -4943,7 +5567,7 @@ data:
                 {
                   "datasource": {
                     "type": "prometheus",
-                    "uid": "${DS_PROMETHEUS}"
+                    "uid": "$DS_PROMETHEUS"
                   },
                   "exemplar": true,
                   "expr": "rate(cnpg_pg_stat_database_temp_bytes{datname=\"\",namespace=~\"$namespace\",pod=~\"$instances\"}[5m])",
@@ -4960,7 +5584,7 @@ data:
           "targets": [
             {
               "datasource": {
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$DS_PROMETHEUS"
               },
               "refId": "A"
             }
@@ -4971,7 +5595,7 @@ data:
         {
           "collapsed": true,
           "datasource": {
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$DS_PROMETHEUS"
           },
           "gridPos": {
             "h": 1,
@@ -4984,7 +5608,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$DS_PROMETHEUS"
               },
               "fieldConfig": {
                 "defaults": {
@@ -5060,7 +5684,7 @@ data:
                 {
                   "datasource": {
                     "type": "prometheus",
-                    "uid": "${DS_PROMETHEUS}"
+                    "uid": "$DS_PROMETHEUS"
                   },
                   "exemplar": true,
                   "expr": "cnpg_collector_pg_wal_archive_status{value=\"ready\",namespace=~\"$namespace\",pod=~\"$instances\"}",
@@ -5071,7 +5695,7 @@ data:
                 {
                   "datasource": {
                     "type": "prometheus",
-                    "uid": "${DS_PROMETHEUS}"
+                    "uid": "$DS_PROMETHEUS"
                   },
                   "exemplar": true,
                   "expr": "cnpg_collector_pg_wal_archive_status{value=\"done\",namespace=~\"$namespace\",pod=~\"$instances\"}",
@@ -5087,7 +5711,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$DS_PROMETHEUS"
               },
               "fieldConfig": {
                 "defaults": {
@@ -5163,7 +5787,7 @@ data:
                 {
                   "datasource": {
                     "type": "prometheus",
-                    "uid": "${DS_PROMETHEUS}"
+                    "uid": "$DS_PROMETHEUS"
                   },
                   "exemplar": true,
                   "expr": "rate(cnpg_pg_stat_archiver_archived_count{namespace=~\"$namespace\",pod=~\"$instances\"}[5m])",
@@ -5174,7 +5798,7 @@ data:
                 {
                   "datasource": {
                     "type": "prometheus",
-                    "uid": "${DS_PROMETHEUS}"
+                    "uid": "$DS_PROMETHEUS"
                   },
                   "exemplar": true,
                   "expr": "rate(cnpg_pg_stat_archiver_failed_count{namespace=~\"$namespace\",pod=~\"$instances\"}[5m])",
@@ -5190,7 +5814,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$DS_PROMETHEUS"
               },
               "description": "",
               "fieldConfig": {
@@ -5268,7 +5892,7 @@ data:
                 {
                   "datasource": {
                     "type": "prometheus",
-                    "uid": "${DS_PROMETHEUS}"
+                    "uid": "$DS_PROMETHEUS"
                   },
                   "exemplar": true,
                   "expr": "cnpg_pg_stat_archiver_seconds_since_last_archival{namespace=~\"$namespace\",pod=~\"$instances\"}",
@@ -5284,7 +5908,7 @@ data:
           "targets": [
             {
               "datasource": {
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$DS_PROMETHEUS"
               },
               "refId": "A"
             }
@@ -5295,7 +5919,7 @@ data:
         {
           "collapsed": true,
           "datasource": {
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$DS_PROMETHEUS"
           },
           "gridPos": {
             "h": 1,
@@ -5308,7 +5932,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$DS_PROMETHEUS"
               },
               "fieldConfig": {
                 "defaults": {
@@ -5389,7 +6013,7 @@ data:
                 {
                   "datasource": {
                     "type": "prometheus",
-                    "uid": "${DS_PROMETHEUS}"
+                    "uid": "$DS_PROMETHEUS"
                   },
                   "exemplar": true,
                   "expr": "cnpg_pg_replication_lag{namespace=~\"$namespace\",pod=~\"$instances\"}",
@@ -5405,7 +6029,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$DS_PROMETHEUS"
               },
               "fieldConfig": {
                 "defaults": {
@@ -5482,7 +6106,7 @@ data:
                 {
                   "datasource": {
                     "type": "prometheus",
-                    "uid": "${DS_PROMETHEUS}"
+                    "uid": "$DS_PROMETHEUS"
                   },
                   "exemplar": true,
                   "expr": "cnpg_pg_stat_replication_write_lag_seconds{namespace=~\"$namespace\",pod=~\"$cluster-[0-9]+$\"}",
@@ -5498,7 +6122,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$DS_PROMETHEUS"
               },
               "fieldConfig": {
                 "defaults": {
@@ -5575,7 +6199,7 @@ data:
                 {
                   "datasource": {
                     "type": "prometheus",
-                    "uid": "${DS_PROMETHEUS}"
+                    "uid": "$DS_PROMETHEUS"
                   },
                   "exemplar": true,
                   "expr": "cnpg_pg_stat_replication_flush_lag_seconds{namespace=~\"$namespace\",pod=~\"$cluster-[0-9]+$\"}",
@@ -5591,7 +6215,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$DS_PROMETHEUS"
               },
               "description": "",
               "fieldConfig": {
@@ -5669,7 +6293,7 @@ data:
                 {
                   "datasource": {
                     "type": "prometheus",
-                    "uid": "${DS_PROMETHEUS}"
+                    "uid": "$DS_PROMETHEUS"
                   },
                   "exemplar": true,
                   "expr": "cnpg_pg_stat_replication_replay_lag_seconds{namespace=~\"$namespace\",pod=~\"$cluster-[0-9]+$\"}",
@@ -5685,7 +6309,7 @@ data:
           "targets": [
             {
               "datasource": {
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$DS_PROMETHEUS"
               },
               "refId": "A"
             }
@@ -5696,7 +6320,7 @@ data:
         {
           "collapsed": true,
           "datasource": {
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$DS_PROMETHEUS"
           },
           "gridPos": {
             "h": 1,
@@ -5718,7 +6342,7 @@ data:
               "dataFormat": "timeseries",
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$DS_PROMETHEUS"
               },
               "fieldConfig": {
                 "defaults": {
@@ -5791,7 +6415,7 @@ data:
                 {
                   "datasource": {
                     "type": "prometheus",
-                    "uid": "${DS_PROMETHEUS}"
+                    "uid": "$DS_PROMETHEUS"
                   },
                   "exemplar": true,
                   "expr": "cnpg_collector_collection_duration_seconds{namespace=~\"$namespace\",pod=~\"$instances\"}",
@@ -5819,7 +6443,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$DS_PROMETHEUS"
               },
               "fieldConfig": {
                 "defaults": {
@@ -5895,7 +6519,7 @@ data:
                 {
                   "datasource": {
                     "type": "prometheus",
-                    "uid": "${DS_PROMETHEUS}"
+                    "uid": "$DS_PROMETHEUS"
                   },
                   "exemplar": true,
                   "expr": "cnpg_collector_last_collection_error{namespace=~\"$namespace\",pod=~\"$instances\"}",
@@ -5911,7 +6535,7 @@ data:
           "targets": [
             {
               "datasource": {
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$DS_PROMETHEUS"
               },
               "refId": "A"
             }
@@ -5922,7 +6546,7 @@ data:
         {
           "collapsed": true,
           "datasource": {
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$DS_PROMETHEUS"
           },
           "gridPos": {
             "h": 1,
@@ -5935,7 +6559,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$DS_PROMETHEUS"
               },
               "fieldConfig": {
                 "defaults": {
@@ -6012,7 +6636,7 @@ data:
                 {
                   "datasource": {
                     "type": "prometheus",
-                    "uid": "${DS_PROMETHEUS}"
+                    "uid": "$DS_PROMETHEUS"
                   },
                   "exemplar": true,
                   "expr": "cnpg_collector_first_recoverability_point{namespace=~\"$namespace\",pod=~\"$instances\"}*1000 > 0",
@@ -6029,7 +6653,7 @@ data:
           "targets": [
             {
               "datasource": {
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$DS_PROMETHEUS"
               },
               "refId": "A"
             }
@@ -6040,7 +6664,7 @@ data:
         {
           "collapsed": true,
           "datasource": {
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "$DS_PROMETHEUS"
           },
           "gridPos": {
             "h": 1,
@@ -6053,7 +6677,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$DS_PROMETHEUS"
               },
               "description": "",
               "fieldConfig": {
@@ -6132,7 +6756,7 @@ data:
                 {
                   "datasource": {
                     "type": "prometheus",
-                    "uid": "${DS_PROMETHEUS}"
+                    "uid": "$DS_PROMETHEUS"
                   },
                   "exemplar": true,
                   "expr": "cnpg_pg_stat_bgwriter_checkpoints_req{namespace=~\"$namespace\",pod=~\"$instances\"}",
@@ -6147,7 +6771,7 @@ data:
                 {
                   "datasource": {
                     "type": "prometheus",
-                    "uid": "${DS_PROMETHEUS}"
+                    "uid": "$DS_PROMETHEUS"
                   },
                   "exemplar": true,
                   "expr": "cnpg_pg_stat_bgwriter_checkpoints_timed{namespace=~\"$namespace\",pod=~\"$instances\"}",
@@ -6164,7 +6788,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$DS_PROMETHEUS"
               },
               "description": "",
               "fieldConfig": {
@@ -6243,7 +6867,7 @@ data:
                 {
                   "datasource": {
                     "type": "prometheus",
-                    "uid": "${DS_PROMETHEUS}"
+                    "uid": "$DS_PROMETHEUS"
                   },
                   "exemplar": true,
                   "expr": "cnpg_pg_stat_bgwriter_checkpoint_write_time{namespace=~\"$namespace\",pod=~\"$instances\"}",
@@ -6258,7 +6882,7 @@ data:
                 {
                   "datasource": {
                     "type": "prometheus",
-                    "uid": "${DS_PROMETHEUS}"
+                    "uid": "$DS_PROMETHEUS"
                   },
                   "exemplar": true,
                   "expr": "cnpg_pg_stat_bgwriter_checkpoint_sync_time{namespace=~\"$namespace\",pod=~\"$instances\"}",
@@ -6276,7 +6900,7 @@ data:
           "targets": [
             {
               "datasource": {
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "$DS_PROMETHEUS"
               },
               "refId": "A"
             }
@@ -6317,7 +6941,7 @@ data:
             "current": {},
             "datasource": {
               "type": "prometheus",
-              "uid": "${DS_PROMETHEUS}"
+              "uid": "$DS_PROMETHEUS"
             },
             "definition": "cnpg_collector_up",
             "hide": 0,
@@ -6339,7 +6963,7 @@ data:
             "current": {},
             "datasource": {
               "type": "prometheus",
-              "uid": "${DS_PROMETHEUS}"
+              "uid": "$DS_PROMETHEUS"
             },
             "definition": "cnpg_collector_up{namespace=~\"$namespace\"}",
             "hide": 0,
@@ -6361,7 +6985,7 @@ data:
             "current": {},
             "datasource": {
               "type": "prometheus",
-              "uid": "${DS_PROMETHEUS}"
+              "uid": "$DS_PROMETHEUS"
             },
             "definition": "cnpg_collector_up{namespace=~\"$namespace\",pod=~\"$cluster-[0-9]+$\"}",
             "hide": 0,
