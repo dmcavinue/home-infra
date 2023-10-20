@@ -142,7 +142,7 @@ spec:
         replicaCount: 1
         scrapeInterval: 60s
         externalLabels:
-          k8s-cluster: ${ENVIRONMENT}
+          k8s_cluster: ${ENVIRONMENT}
       ingress:
         enabled: false
         ingressClassName: nginx
