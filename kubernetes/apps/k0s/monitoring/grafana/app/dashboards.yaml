@@ -756,10 +756,7 @@ data:
       "liveNow": false,
       "panels": [
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "$DS_PROMETHEUS"
-          },
+          "datasource": null,
           "gridPos": {
             "h": 7,
             "w": 3,
@@ -789,10 +786,7 @@ data:
           "type": "alertlist"
         },
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "$DS_PROMETHEUS"
-          },
+          "datasource": null,
           "gridPos": {
             "h": 1,
             "w": 15,
@@ -814,10 +808,7 @@ data:
           "type": "text"
         },
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "$DS_PROMETHEUS"
-          },
+          "datasource": null,
           "gridPos": {
             "h": 1,
             "w": 3,
@@ -839,10 +830,7 @@ data:
           "type": "text"
         },
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "$DS_PROMETHEUS"
-          },
+          "datasource": null,
           "gridPos": {
             "h": 1,
             "w": 3,
@@ -864,10 +852,7 @@ data:
           "type": "text"
         },
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "$DS_PROMETHEUS"
-          },
+          "datasource": null,
           "description": "",
           "fieldConfig": {
             "defaults": {
@@ -934,10 +919,7 @@ data:
           "type": "stat"
         },
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "$DS_PROMETHEUS"
-          },
+          "datasource": null,
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -998,10 +980,7 @@ data:
           "type": "stat"
         },
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "$DS_PROMETHEUS"
-          },
+          "datasource": null,
           "description": "CPU Utilisation from Requests",
           "fieldConfig": {
             "defaults": {
@@ -1072,10 +1051,7 @@ data:
           "type": "gauge"
         },
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "$DS_PROMETHEUS"
-          },
+          "datasource": null,
           "description": "Memory Utilisation from Requests",
           "fieldConfig": {
             "defaults": {
@@ -1146,10 +1122,7 @@ data:
           "type": "gauge"
         },
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "$DS_PROMETHEUS"
-          },
+          "datasource": null,
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -1222,10 +1195,7 @@ data:
           "type": "stat"
         },
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "$DS_PROMETHEUS"
-          },
+          "datasource": null,
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -1296,10 +1266,7 @@ data:
           "type": "stat"
         },
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "$DS_PROMETHEUS"
-          },
+          "datasource": null,
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -1381,10 +1348,7 @@ data:
           "type": "gauge"
         },
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "$DS_PROMETHEUS"
-          },
+          "datasource": null,
           "description": "Elapsed time since the last successful base backup.",
           "fieldConfig": {
             "defaults": {
@@ -1485,10 +1449,7 @@ data:
           "type": "stat"
         },
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "$DS_PROMETHEUS"
-          },
+          "datasource": null,
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -1574,10 +1535,7 @@ data:
           "type": "stat"
         },
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "$DS_PROMETHEUS"
-          },
+          "datasource": null,
           "description": "",
           "fieldConfig": {
             "defaults": {
@@ -1646,10 +1604,7 @@ data:
           "type": "stat"
         },
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "$DS_PROMETHEUS"
-          },
+          "datasource": null,
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -1720,10 +1675,7 @@ data:
           "type": "stat"
         },
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "$DS_PROMETHEUS"
-          },
+          "datasource": null,
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -1794,10 +1746,7 @@ data:
           "type": "stat"
         },
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "$DS_PROMETHEUS"
-          },
+          "datasource": null,
           "description": "",
           "fieldConfig": {
             "defaults": {
@@ -1869,10 +1818,7 @@ data:
           "type": "stat"
         },
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "$DS_PROMETHEUS"
-          },
+          "datasource": null,
           "description": "Excluding cache",
           "fieldConfig": {
             "defaults": {
@@ -1943,10 +1889,7 @@ data:
           "type": "stat"
         },
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "$DS_PROMETHEUS"
-          },
+          "datasource": null,
           "description": "",
           "fieldConfig": {
             "defaults": {
@@ -2038,10 +1981,7 @@ data:
           "type": "stat"
         },
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "$DS_PROMETHEUS"
-          },
+          "datasource": null,
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -2149,10 +2089,7 @@ data:
           "type": "row"
         },
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "$DS_PROMETHEUS"
-          },
+          "datasource": null,
           "gridPos": {
             "h": 1,
             "w": 3,
@@ -2190,10 +2127,7 @@ data:
           "type": "text"
         },
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "$DS_PROMETHEUS"
-          },
+          "datasource": null,
           "gridPos": {
             "h": 1,
             "w": 2,
@@ -2230,10 +2164,7 @@ data:
           "type": "text"
         },
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "$DS_PROMETHEUS"
-          },
+          "datasource": null,
           "gridPos": {
             "h": 1,
             "w": 3,
@@ -2270,10 +2201,7 @@ data:
           "type": "text"
         },
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "$DS_PROMETHEUS"
-          },
+          "datasource": null,
           "gridPos": {
             "h": 1,
             "w": 2,
@@ -2310,10 +2238,7 @@ data:
           "type": "text"
         },
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "$DS_PROMETHEUS"
-          },
+          "datasource": null,
           "gridPos": {
             "h": 1,
             "w": 4,
@@ -2350,10 +2275,7 @@ data:
           "type": "text"
         },
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "$DS_PROMETHEUS"
-          },
+          "datasource": null,
           "gridPos": {
             "h": 1,
             "w": 3,
@@ -2390,10 +2312,7 @@ data:
           "type": "text"
         },
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "$DS_PROMETHEUS"
-          },
+          "datasource": null,
           "description": "",
           "gridPos": {
             "h": 1,
@@ -2431,10 +2350,7 @@ data:
           "type": "text"
         },
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "$DS_PROMETHEUS"
-          },
+          "datasource": null,
           "gridPos": {
             "h": 1,
             "w": 2,
@@ -2471,10 +2387,7 @@ data:
           "type": "text"
         },
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "$DS_PROMETHEUS"
-          },
+          "datasource": null,
           "gridPos": {
             "h": 1,
             "w": 2,
@@ -2511,10 +2424,7 @@ data:
           "type": "text"
         },
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "$DS_PROMETHEUS"
-          },
+          "datasource": null,
           "gridPos": {
             "h": 3,
             "w": 3,
@@ -2551,10 +2461,7 @@ data:
           "type": "text"
         },
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "$DS_PROMETHEUS"
-          },
+          "datasource": null,
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -2634,10 +2541,7 @@ data:
           "type": "stat"
         },
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "$DS_PROMETHEUS"
-          },
+          "datasource": null,
           "description": "",
           "fieldConfig": {
             "defaults": {
@@ -2721,10 +2625,7 @@ data:
           "type": "stat"
         },
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "$DS_PROMETHEUS"
-          },
+          "datasource": null,
           "description": "",
           "fieldConfig": {
             "defaults": {
@@ -2792,10 +2693,7 @@ data:
           "type": "stat"
         },
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "$DS_PROMETHEUS"
-          },
+          "datasource": null,
           "description": "This metric depends on exporting the: `topology.kubernetes.io/zone` label through kube-state-metrics (not enabled by default). Can be added by changing its configuration with:\n\n```yaml\nmetricLabelsAllowlist:\n  - nodes=[topology.kubernetes.io/zone]\n```",
           "fieldConfig": {
             "defaults": {
@@ -2862,10 +2760,7 @@ data:
           "type": "stat"
         },
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "$DS_PROMETHEUS"
-          },
+          "datasource": null,
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -2958,10 +2853,7 @@ data:
           "type": "timeseries"
         },
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "$DS_PROMETHEUS"
-          },
+          "datasource": null,
           "description": "",
           "fieldConfig": {
             "defaults": {
@@ -3034,10 +2926,7 @@ data:
           "type": "gauge"
         },
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "$DS_PROMETHEUS"
-          },
+          "datasource": null,
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -3110,10 +2999,7 @@ data:
           "type": "bargauge"
         },
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "$DS_PROMETHEUS"
-          },
+          "datasource": null,
           "description": "",
           "fieldConfig": {
             "defaults": {
@@ -3180,10 +3066,7 @@ data:
           "type": "stat"
         },
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "$DS_PROMETHEUS"
-          },
+          "datasource": null,
           "description": "",
           "fieldConfig": {
             "defaults": {
@@ -3275,10 +3158,7 @@ data:
           "type": "row"
         },
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "$DS_PROMETHEUS"
-          },
+          "datasource": null,
           "gridPos": {
             "h": 1,
             "w": 3,
@@ -3316,10 +3196,7 @@ data:
           "type": "text"
         },
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "$DS_PROMETHEUS"
-          },
+          "datasource": null,
           "gridPos": {
             "h": 1,
             "w": 3,
@@ -3356,10 +3233,7 @@ data:
           "type": "text"
         },
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "$DS_PROMETHEUS"
-          },
+          "datasource": null,
           "gridPos": {
             "h": 1,
             "w": 3,
@@ -3396,10 +3270,7 @@ data:
           "type": "text"
         },
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "$DS_PROMETHEUS"
-          },
+          "datasource": null,
           "gridPos": {
             "h": 1,
             "w": 3,
@@ -3436,10 +3307,7 @@ data:
           "type": "text"
         },
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "$DS_PROMETHEUS"
-          },
+          "datasource": null,
           "gridPos": {
             "h": 1,
             "w": 3,
@@ -3476,10 +3344,7 @@ data:
           "type": "text"
         },
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "$DS_PROMETHEUS"
-          },
+          "datasource": null,
           "gridPos": {
             "h": 1,
             "w": 3,
@@ -3516,10 +3381,7 @@ data:
           "type": "text"
         },
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "$DS_PROMETHEUS"
-          },
+          "datasource": null,
           "gridPos": {
             "h": 1,
             "w": 3,
@@ -3556,10 +3418,7 @@ data:
           "type": "text"
         },
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "$DS_PROMETHEUS"
-          },
+          "datasource": null,
           "gridPos": {
             "h": 1,
             "w": 3,
@@ -3596,10 +3455,7 @@ data:
           "type": "text"
         },
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "$DS_PROMETHEUS"
-          },
+          "datasource": null,
           "gridPos": {
             "h": 3,
             "w": 3,
@@ -3636,10 +3492,7 @@ data:
           "type": "text"
         },
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "$DS_PROMETHEUS"
-          },
+          "datasource": null,
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -3700,10 +3553,7 @@ data:
           "type": "stat"
         },
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "$DS_PROMETHEUS"
-          },
+          "datasource": null,
           "description": "",
           "fieldConfig": {
             "defaults": {
@@ -3766,10 +3616,7 @@ data:
           "type": "stat"
         },
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "$DS_PROMETHEUS"
-          },
+          "datasource": null,
           "description": "",
           "fieldConfig": {
             "defaults": {
@@ -3832,10 +3679,7 @@ data:
           "type": "stat"
         },
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "$DS_PROMETHEUS"
-          },
+          "datasource": null,
           "description": "",
           "fieldConfig": {
             "defaults": {
@@ -3898,10 +3742,7 @@ data:
           "type": "stat"
         },
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "$DS_PROMETHEUS"
-          },
+          "datasource": null,
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -3963,10 +3804,7 @@ data:
           "type": "stat"
         },
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "$DS_PROMETHEUS"
-          },
+          "datasource": null,
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -4028,10 +3866,7 @@ data:
           "type": "stat"
         },
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "$DS_PROMETHEUS"
-          },
+          "datasource": null,
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -4093,10 +3928,7 @@ data:
           "type": "stat"
         },
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "$DS_PROMETHEUS"
-          },
+          "datasource": null,
           "fieldConfig": {
             "defaults": {
               "color": {
