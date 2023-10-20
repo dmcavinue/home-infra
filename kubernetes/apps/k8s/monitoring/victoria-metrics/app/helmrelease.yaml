@@ -98,7 +98,7 @@ spec:
       enabled: false
       spec:
         externalLabels:
-          cluster: ${ENVIRONMENT}
+          k8s-cluster: ${ENVIRONMENT}
         notifiers:
           - selector:
               namespaceSelector:
