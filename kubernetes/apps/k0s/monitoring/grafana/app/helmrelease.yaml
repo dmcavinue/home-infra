@@ -178,6 +178,7 @@ spec:
     sidecar:
       dashboards:
         enabled: true
+        labelValue: 1
         searchNamespace: ALL
       datasources:
         enabled: true
