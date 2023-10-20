@@ -136,21 +136,6 @@ spec:
           gnetId: 12904
           revision: 2
           datasource: Prometheus
-        # Ref: https://grafana.com/grafana/dashboards/12683-victoriametrics-vmagent
-        victoriametrics-vmagent:
-          gnetId: 12683
-          revision: 13
-          datasource: Prometheus
-        # Ref: https://grafana.com/grafana/dashboards/11176-victoriametrics-cluster
-        victoriametrics-cluster:
-          gnetId: 11176
-          revision: 31
-          datasource: Prometheus
-        # Ref: https://grafana.com/grafana/dashboards/14950-victoriametrics-vmalert
-        victoriametrics-vmalert:
-          gnetId: 14950
-          revision: 6
-          datasource: Prometheus
         cert-manager:
           url: https://raw.githubusercontent.com/monitoring-mixins/website/master/assets/cert-manager/dashboards/cert-manager.json
           datasource: Prometheus
