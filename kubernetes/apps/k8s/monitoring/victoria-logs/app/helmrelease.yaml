@@ -94,12 +94,3 @@ spec:
             app: server
             app.kubernetes.io/instance: victoria-logs
             app.kubernetes.io/name: victoria-logs-single
-          clusterIP: None
-          clusterIPs:
-            - None
-          type: ClusterIP
-          sessionAffinity: None
-          ipFamilies:
-            - IPv4
-          ipFamilyPolicy: SingleStack
-          internalTrafficPolicy: Cluster
