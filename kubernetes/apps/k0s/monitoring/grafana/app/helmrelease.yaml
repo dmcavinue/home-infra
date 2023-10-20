@@ -87,6 +87,7 @@ spec:
             access: proxy
             url: http://vmselect-victoria-metrics.monitoring.svc.cluster.local:8481/select/0/prometheus
             isDefault: true
+            uid: prometheusds
           # - name: Loki
           #   type: loki
           #   access: proxy
