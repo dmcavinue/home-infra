@@ -49,7 +49,7 @@ spec:
           [OUTPUT]
               Name http
               Match kube.*
-              Host {{ .Release.Name }}-victoria-logs-single-server
+              Host 10.32.0.132
               port 9428
               compress gzip
               uri /insert/jsonline?_stream_fields=stream,kubernetes_pod_name&_msg_field=log&_time_field=date
@@ -72,21 +72,21 @@ spec:
               Operation lift
               Nested_under kubernetes
               Add_prefix   kubernetes_
-    extraObjects:
-      - apiVersion: v1
-        kind: Service
-        metadata:
-          name: victoria-logs-victoria-logs-single-server
-          namespace: monitoring
-          annotations:
-            io.cilium/global-service: 'true'
-        spec:
-          ports:
-            - name: http
-              protocol: TCP
-              port: 9428
-              targetPort: http
-          selector:
-            app: server
-            app.kubernetes.io/instance: victoria-logs
-            app.kubernetes.io/name: victoria-logs-single
+    # extraObjects:
+    #   - apiVersion: v1
+    #     kind: Service
+    #     metadata:
+    #       name: victoria-logs-victoria-logs-single-server
+    #       namespace: monitoring
+    #       annotations:
+    #         io.cilium/global-service: 'true'
+    #     spec:
+    #       ports:
+    #         - name: http
+    #           protocol: TCP
+    #           port: 9428
+    #           targetPort: http
+    #       selector:
+    #         app: server
+    #         app.kubernetes.io/instance: victoria-logs
+    #         app.kubernetes.io/name: victoria-logs-single
