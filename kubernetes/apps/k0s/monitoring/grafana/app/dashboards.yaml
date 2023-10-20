@@ -6,8 +6,9 @@ metadata:
   namespace: monitoring
   labels:
     grafana_dashboard: "1"
+    namespace: monitoring
 data:
-  cloudnative-pg.json: |-
+  cloudnativepg.json: |
     {
       "annotations": {
         "list": [
