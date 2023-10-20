@@ -630,7 +630,7 @@ data:
       "uid": "CMlHQAuMz",
       "version": 1
     }
-  cloudnativepg.json: |
+  cloudnativepg.json: |-
     {
       "annotations": {
         "list": [
