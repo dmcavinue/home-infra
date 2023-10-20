@@ -82,7 +82,10 @@ spec:
             io.cilium/global-service: 'true'
         spec:
           ports:
-            - port: 9428
+            - name: http
+              protocol: TCP
+              port: 9428
+              targetPort: http
           selector:
             app: server
             app.kubernetes.io/instance: victoria-logs
