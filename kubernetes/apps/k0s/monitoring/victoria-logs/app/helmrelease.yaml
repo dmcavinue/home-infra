@@ -67,6 +67,9 @@ spec:
         ingressClassName: nginx
         pathType: Prefix
       terminationGracePeriodSeconds: 60
+      service:
+        annotations:
+          io.cilium/global-service: "true"
       serviceMonitor:      
         enabled: true
     fluent-bit:      
