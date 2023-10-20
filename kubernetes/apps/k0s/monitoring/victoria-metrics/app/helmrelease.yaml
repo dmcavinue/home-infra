@@ -255,8 +255,7 @@ spec:
         datasources:
           enabled: false
         dashboards:
-          label:
-            grafana_dashboard: "1"
+          label: grafana_dashboard
           multicluster: true
     prometheus-node-exporter:
       enabled: true
