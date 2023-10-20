@@ -68,7 +68,7 @@ spec:
         pathType: Prefix
       terminationGracePeriodSeconds: 60
       service:
-        type: Loadbalancer
+        type: LoadBalancer
         annotations:
           service.isovalent.com/phantom: "true"
       serviceMonitor:      
