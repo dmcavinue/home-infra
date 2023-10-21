@@ -23,7 +23,6 @@ spec:
     cleanupOnFail: true
     remediation:
       retries: 3
-  uninstall:
   dependsOn:
     - name: rook-ceph-cluster
       namespace: rook-ceph
