@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.0.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -24,82 +24,98 @@ spec:
     remediation:
       retries: 3
   uninstall:
+    keepHistory: false
   dependsOn:
     - name: rook-ceph-cluster
       namespace: rook-ceph
     - name: volsync
       namespace: volsync
   values:
-    # hostNetwork: true
-    # dnsPolicy: ClusterFirstWithHostNet
-    controller:
-      type: statefulset
-      annotations:
-        reloader.stakater.com/auto: "true"
-    image:
-      repository: ghcr.io/home-assistant/home-assistant
-      tag: 2023.10.4
-    env:
-      TZ: America/New_York
-    envFrom:
-      - secretRef:
-          name: home-assistant-secret
+    defaultPodOptions:
+      securityContext:
+        privileged: true
+      nodeSelector:
+        feature.node.kubernetes.io/skyconnect: "true"
+    controllers:
+      main:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        type: statefulset
+        strategy: RollingUpdate
+        containers:
+          main:
+            image:
+              repository: ghcr.io/home-assistant/home-assistant
+              tag: 2023.10.4
+              imagePullPolicy: IfNotPresent
+            env:
+              TZ: America/New_York
+            envFrom:
+              - secretRef:
+                  name: home-assistant-secret
+            lifecycle:
+              postStart:
+                exec:
+                  command: ["/sbin/apk", "add", "openldap-clients"]
+            probes:
+              liveness:
+                enabled: false
+              readiness:
+                enabled: false
+              startup:
+                enabled: false
+            resources:
+              requests:
+                cpu: 10m
+                memory: 100Mi
+              limits:
+                memory: 750Mi
+        statefulset:
+          volumeClaimTemplates:
+            - name: config
+              globalMounts:
+                - path: /config
+              accessMode: ReadWriteOnce
+              size: 5Gi
+              storageClass: ceph-block
     service:
       main:
         ports:
           http:
-            port: 8123
+            port: &port 8123
     ingress:
       main:
-        enabled: false
-    securityContext:
-      privileged: true
-    probes:
-      liveness:
-        enabled: false
-      readiness:
-        enabled: false
-      startup:
-        enabled: false
-    volumeClaimTemplates:
-      - name: config
-        mountPath: /config
-        accessMode: ReadWriteOnce
-        size: 5Gi
-        storageClass: ceph-block
-    lifecycle:
-      postStart:
-        exec:
-          command: ["/sbin/apk", "add", "openldap-clients"]
+        enabled: true
+        className: nginx
+        hosts:
+          - host: &host hass.${DOMAIN}
+            paths:
+              - path: /
+                pathType: Prefix
+                service:
+                  name: main
+                  port: *port
+        tls:
+          - hosts:
+              - *host
     persistence:
       auth:
-        enabled: true
         type: secret
-        name: home-assistant-auth
-        subPath: home-assistant.cfg
-        mountPath: /secrets/home-assistant.cfg
-        readOnly: true
+        globalMounts:
+          - path: /secrets/home-assistant.cfg
+            subPath: home-assistant.cfg
+            readOnly: true
       auth-scripts:
-        enabled: true
-        type: custom
-        volumeSpec:
-          configMap:
-            name: home-assistant-scripts
+        type: configMap
+        globalMounts:
+          - path: /ldap.sh
+            subPath: ldap.sh
             defaultMode: 0777
-        subPath:
-          - path: ldap.sh
-            mountPath: /ldap.sh
+            readOnly: true
       usb:
-        enabled: true
         type: hostPath
         hostPath: /dev/serial/by-id/usb-Nabu_Casa_SkyConnect_v1.0_9ae749b85541ed11a39a83a7ccf2b06c-if00-port0
-        mountPath: /dev/ttyUSB0
         hostPathType: CharDevice
-    nodeSelector:    
-      feature.node.kubernetes.io/skyconnect: "true"
-    resources:
-      requests:
-        cpu: 10m
-        memory: 100Mi
-      limits:
-        memory: 750Mi
+        globalMounts:
+          - path: /dev/ttyUSB0
+            readOnly: true
