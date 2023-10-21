@@ -32,10 +32,10 @@ spec:
       namespace: volsync
   values:
     defaultPodOptions:
-      securityContext:
-        privileged: true
       nodeSelector:
         feature.node.kubernetes.io/skyconnect: "true"
+    securityContext:
+      privileged: true
     controllers:
       main:
         annotations:
