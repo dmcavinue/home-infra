@@ -112,4 +112,3 @@ spec:
         defaultMode: 511
         globalMounts:
           - path: /dev/ttyUSB0
-            readOnly: true
