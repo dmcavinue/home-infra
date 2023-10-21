@@ -100,6 +100,7 @@ spec:
               - *host
     persistence:
       auth:
+        name: home-assistant-auth
         type: secret
         globalMounts:
           - path: /secrets/home-assistant.cfg
