@@ -79,6 +79,25 @@ spec:
           - name: ${ENVIRONMENT}-6
             devices:
               - name: /dev/disk/by-id/scsi-0QEMU_QEMU_HARDDISK_drive-scsi1
+      healthCheck:
+        daemonHealth:
+          mon:
+            disabled: true
+            interval: 45s
+          osd:
+            disabled: true
+            interval: 60s
+          status:
+            disabled: true
+            interval: 60s
+        # Change pod liveness probe, it works for all mon, mgr, and osd pods.
+        livenessProbe:
+          mon:
+            disabled: true
+          mgr:
+            disabled: true
+          osd:
+            disabled: true
     cephBlockPools:
       - name: ceph-blockpool
         spec:
