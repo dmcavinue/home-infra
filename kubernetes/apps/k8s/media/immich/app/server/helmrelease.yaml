@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.0.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -31,21 +31,50 @@ spec:
     - name: redis
       namespace: database
   values:
-    controller:
-      replicas: 2
-      strategy: RollingUpdate
-      annotations:
-        configmap.reloader.stakater.com/reload: &configMap immich-configmap
-        secret.reloader.stakater.com/reload: &secret immich-secret
-    image:
-      repository: ghcr.io/immich-app/immich-server
-      tag: v1.82.1
-    args: ["start-server.sh"]
-    envFrom:
-      - configMapRef:
-          name: *configMap
-      - secretRef:
-          name: *secret
+    defaultPodOptions:
+      securityContext:
+        runAsUser: 568
+        runAsGroup: 568
+        fsGroup: 568
+        fsGroupChangePolicy: "OnRootMismatch"
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: kubernetes.io/hostname
+          whenUnsatisfiable: DoNotSchedule
+          labelSelector:
+            matchLabels:
+              app.kubernetes.io/name: *app
+    controllers:
+      main:
+        annotations:
+          configmap.reloader.stakater.com/reload: &configMap immich-configmap
+          secret.reloader.stakater.com/reload: &secret immich-secret
+        type: deployment
+        strategy: RollingUpdate
+        replicas: 2
+        initContainers:
+          01-init-db:
+            image:
+              repository: ghcr.io/onedr0p/postgres-init
+              tag: 14.9
+              imagePullPolicy: IfNotPresent
+            envFrom: &envFrom
+              - configMapRef:
+                  name: *configMap
+              - secretRef:
+                  name: *secret
+        containers:
+          main:
+            image:
+              repository: ghcr.io/immich-app/immich-server
+              tag: v1.82.1
+              imagePullPolicy: IfNotPresent
+            args: ["start-server.sh"]
+            envFrom: *envFrom
+            resources:
+              requests:
+                cpu: 100m
+                memory: 250Mi
     service:
       main:
         ports:
@@ -53,17 +82,8 @@ spec:
             port: 3001
     persistence:
       library:
-        enabled: true
+        type: persistentVolumeClaim
         existingClaim: immich-nfs
-        mountPath: /usr/src/app/upload
-    topologySpreadConstraints:
-      - maxSkew: 1
-        topologyKey: kubernetes.io/hostname
-        whenUnsatisfiable: DoNotSchedule
-        labelSelector:
-          matchLabels:
-            app.kubernetes.io/name: *app
-    resources:
-      requests:
-        cpu: 100m
-        memory: 250Mi
+        globalMounts:
+          - path: /usr/src/app/upload
+            subPath: Immich
