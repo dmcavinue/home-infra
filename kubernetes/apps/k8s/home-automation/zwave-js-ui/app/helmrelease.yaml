@@ -50,6 +50,9 @@ spec:
               imagePullPolicy: IfNotPresent
             env:
               TZ: America/New_York
+            pod:
+              securityContext:
+                privileged: true
             probes:
               liveness: &probes
                 enabled: false

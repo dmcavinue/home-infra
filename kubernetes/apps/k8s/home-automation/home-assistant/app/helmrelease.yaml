@@ -34,8 +34,6 @@ spec:
     defaultPodOptions:
       nodeSelector:
         feature.node.kubernetes.io/skyconnect: "true"
-      securityContext:
-        privileged: "true"
     controllers:
       main:
         annotations:
@@ -53,6 +51,9 @@ spec:
             envFrom:
               - secretRef:
                   name: home-assistant-secret
+            pod:
+              securityContext:
+                privileged: true
             lifecycle:
               postStart:
                 exec:
