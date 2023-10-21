@@ -111,4 +111,4 @@ spec:
         existingClaim: immich-nfs
         globalMounts:
           - path: /usr/src/app/upload
-            subPath: Immich
+            #subPath: Immich
