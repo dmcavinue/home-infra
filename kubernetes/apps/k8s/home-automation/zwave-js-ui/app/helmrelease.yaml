@@ -50,9 +50,6 @@ spec:
               imagePullPolicy: IfNotPresent
             env:
               TZ: America/New_York
-            envFrom:
-              - secretRef:
-                  name: home-assistant-secret
             probes:
               liveness: &probes
                 enabled: true
