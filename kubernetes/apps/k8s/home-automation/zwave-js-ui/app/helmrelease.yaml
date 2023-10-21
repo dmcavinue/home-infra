@@ -87,6 +87,8 @@ spec:
         ports:
           http:
             port: *port
+          websocket:
+            port: 3000
     ingress:
       main:
         enabled: true
