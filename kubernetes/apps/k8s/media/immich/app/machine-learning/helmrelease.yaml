@@ -79,7 +79,6 @@ spec:
         existingClaim: immich-nfs
         globalMounts:
           - path: /usr/src/app/upload
-            #subPath: Immich
       cache:
         type: emptyDir
       geocoding-dump:
