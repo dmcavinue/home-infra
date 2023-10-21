@@ -100,14 +100,14 @@ spec:
               - *host
     persistence:
       auth:
-        name: home-assistant-auth-config
+        name: home-assistant-auth
         type: secret
         globalMounts:
           - path: /secrets/home-assistant.cfg
             subPath: home-assistant.cfg
             readOnly: true
       auth-scripts:
-        name: home-assistant-auth-scripts
+        name: home-assistant-scripts
         type: configMap
         globalMounts:
           - path: /ldap.sh
