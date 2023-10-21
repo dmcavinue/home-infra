@@ -109,7 +109,7 @@ spec:
       auth-scripts:
         name: home-assistant-scripts
         type: configMap
-        defaultMode: 0777
+        defaultMode: 511
         globalMounts:
           - path: /ldap.sh
             subPath: ldap.sh
