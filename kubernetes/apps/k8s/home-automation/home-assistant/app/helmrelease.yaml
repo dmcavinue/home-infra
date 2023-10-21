@@ -109,10 +109,10 @@ spec:
       auth-scripts:
         name: home-assistant-scripts
         type: configMap
+        defaultMode: 0777
         globalMounts:
           - path: /ldap.sh
             subPath: ldap.sh
-            defaultMode: 0777
             readOnly: true
       usb:
         type: hostPath
