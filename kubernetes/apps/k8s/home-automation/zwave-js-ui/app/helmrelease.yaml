@@ -34,7 +34,8 @@ spec:
     defaultPodOptions:
       nodeSelector:
         feature.node.kubernetes.io/skyconnect: "true"
-      securityContext: {}
+      securityContext:
+        privileged: "true"
     controllers:
       main:
         annotations:
@@ -70,8 +71,6 @@ spec:
                 memory: 100Mi
               limits:
                 memory: 500Mi
-            securityContext:
-              privileged: true
         statefulset:
           volumeClaimTemplates:
             - name: config
