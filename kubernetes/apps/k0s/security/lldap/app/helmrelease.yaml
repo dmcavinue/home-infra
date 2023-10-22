@@ -99,13 +99,12 @@ spec:
       create: true
       name: lldap
     persistence:
-      certs:
-        type: custom
-        volumeSpec:
-          secret:
-            name: lldap-logfold-com-tls
-        subPath:
-          - path: tls.key
-            mountPath: /certs/tls.key
-          - path: tls.crt
-            mountPath: /certs/tls.crt
+      type: secret
+      name: lldap-logfold-com-tls
+      globalMounts:
+        - path: tls.key
+          mountPath: /certs/tls.key
+          readOnly: true
+        - path: tls.crt
+          mountPath: /certs/tls.crt
+          readOnly: true
