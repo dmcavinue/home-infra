@@ -46,9 +46,9 @@ spec:
         strategy: RollingUpdate
         containers:
           main:
-              image:
-                repository: ghcr.io/home-assistant/home-assistant
-                tag: 2023.10.4
+            image:
+              repository: ghcr.io/home-assistant/home-assistant
+              tag: 2023.10.4
               imagePullPolicy: IfNotPresent
             env:
               TZ: America/New_York
