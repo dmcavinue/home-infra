@@ -30,14 +30,15 @@ spec:
       namespace: volsync
   values:
     defaultPodOptions:
-      securityContext:
-        privileged: true
       nodeSelector:
         feature.node.kubernetes.io/skyconnect: "true"
     controllers:
       main:
         annotations:
           reloader.stakater.com/auto: "true"
+        pod:
+          securityContext:
+            privileged: true
         type: statefulset
         strategy: RollingUpdate
         containers:
@@ -51,9 +52,6 @@ spec:
             envFrom:
               - secretRef:
                   name: home-assistant-secret
-            pod:
-              securityContext:
-                privileged: true
             lifecycle:
               postStart:
                 exec:
