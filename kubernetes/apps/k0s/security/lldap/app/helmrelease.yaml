@@ -26,12 +26,12 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    defaultPodOptions:
-      securityContext:
-        fsGroup: 1001
-        runAsUser: 1001
-        runAsGroup: 1001
-        fsGroupChangePolicy: "OnRootMismatch"
+    # defaultPodOptions:
+    #   securityContext:
+    #     fsGroup: 1001
+    #     runAsUser: 1001
+    #     runAsGroup: 1001
+    #     fsGroupChangePolicy: "OnRootMismatch"
     controllers:
       main:
         type: statefulset
@@ -46,18 +46,18 @@ spec:
           reloader.stakater.com/auto: "true"
         containers:
           main:
-            securityContext:
-              fsGroup: 1001
-              runAsUser: 1001
-              runAsGroup: 1001
-              capabilities:
-                drop:
-                  - ALL
-              runAsNonRoot: true
-              readOnlyRootFilesystem: false
-              allowPrivilegeEscalation: false
-              seccompProfile:
-                type: RuntimeDefault
+            # securityContext:
+            #   fsGroup: 1001
+            #   runAsUser: 1001
+            #   runAsGroup: 1001
+            #   capabilities:
+            #     drop:
+            #       - ALL
+            #   runAsNonRoot: true
+            #   readOnlyRootFilesystem: false
+            #   allowPrivilegeEscalation: false
+            #   seccompProfile:
+            #     type: RuntimeDefault
             resources:
               requests:
                 cpu: 100m
