@@ -34,9 +34,6 @@ spec:
   users:
     - name: db-backup-secret
   buckets:
-    - name: "db-backup"
-      region: "us-east-1"
-      objectLock: true
     - name: "pg-backup"
       region: "us-east-1"
       objectLock: false
