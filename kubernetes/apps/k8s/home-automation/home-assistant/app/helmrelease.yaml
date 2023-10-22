@@ -31,11 +31,7 @@ spec:
   values:
     defaultPodOptions:
       securityContext:
-        runAsUser: 0
-        runAsGroup: 0
-        fsGroup: 0
-        fsGroupChangePolicy: "OnRootMismatch"
-        privileged: "true"
+        privileged: true
       nodeSelector:
         feature.node.kubernetes.io/skyconnect: "true"
     controllers:
