@@ -5,7 +5,7 @@ metadata:
   name: minio-pool
   namespace: storage
 spec:
-  prometheusOperator: true
+  prometheusOperator: false
   pools:
     - servers: 2
       name: minio-pool
