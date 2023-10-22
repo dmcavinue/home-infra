@@ -37,7 +37,8 @@ spec:
         statefulset:
           volumeClaimTemplates:
             - name: data
-              mountPath: /data
+              globalMounts:
+                - path: /data
               accessMode: ReadWriteOnce
               size: 20Gi
               storageClass: local-path
