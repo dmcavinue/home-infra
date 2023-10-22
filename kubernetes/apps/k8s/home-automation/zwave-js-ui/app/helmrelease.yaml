@@ -32,12 +32,13 @@ spec:
     defaultPodOptions:
       nodeSelector:
         feature.node.kubernetes.io/skyconnect: "true"
+    
     controllers:
       main:
         type: statefulset
         statefulset:
           volumeClaimTemplates:
-            - name: config
+            - name: store
               mountPath: /usr/src/app/store
               accessMode: ReadWriteOnce
               size: 1Gi
