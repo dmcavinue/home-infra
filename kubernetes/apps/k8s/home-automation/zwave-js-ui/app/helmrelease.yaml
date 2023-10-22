@@ -38,8 +38,9 @@ spec:
         type: statefulset
         statefulset:
           volumeClaimTemplates:
-            - name: data
-              mountPath: /usr/src/app/store
+            - name: config
+              globalMounts:
+                - path: /usr/src/app/store
               accessMode: ReadWriteOnce
               size: 1Gi
               storageClass: ceph-block
