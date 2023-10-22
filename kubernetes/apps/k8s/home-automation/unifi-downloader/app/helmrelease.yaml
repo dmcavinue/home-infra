@@ -34,6 +34,15 @@ spec:
         fsGroupChangePolicy: "OnRootMismatch"
     controllers:
       main:
+        type: statefulset
+        statefulset:
+          volumeClaimTemplates:
+            - name: download-path
+              globalMounts:
+                - path: /download
+              accessMode: ReadWriteOnce
+              size: 20Gi
+              storageClass: ceph-block
         pod:
           securityContext:
             fsGroup: 1001
@@ -61,14 +70,6 @@ spec:
             envFrom:
               - secretRef:
                   name: unifi-downloader
-        deployment:
-          volumeClaimTemplates:
-            - name: download-path
-              globalMounts:
-                - path: /download
-              accessMode: ReadWriteOnce
-              size: 20Gi
-              storageClass: ceph-block
     service:
       main:
         enabled: false
