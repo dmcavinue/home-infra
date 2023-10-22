@@ -30,12 +30,6 @@ spec:
       namespace: volsync
   values:
     defaultPodOptions:
-      securityContext:
-        runAsUser: 0
-        runAsGroup: 0
-        fsGroup: 0
-        fsGroupChangePolicy: "OnRootMismatch"
-        privileged: true
       nodeSelector:
         feature.node.kubernetes.io/skyconnect: "true"
     controllers:
@@ -55,6 +49,9 @@ spec:
             envFrom:
               - secretRef:
                   name: home-assistant-secret
+            pod:
+              securityContext:
+                privileged: true
             lifecycle:
               postStart:
                 exec:
