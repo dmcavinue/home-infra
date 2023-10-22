@@ -37,3 +37,6 @@ spec:
     - name: "db-backup"
       region: "us-east-1"
       objectLock: true
+    - name: "pg-backup"
+      region: "us-east-1"
+      objectLock: false
