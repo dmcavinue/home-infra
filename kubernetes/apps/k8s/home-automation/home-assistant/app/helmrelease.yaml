@@ -81,6 +81,7 @@ spec:
           http:
             port: &port 8123
     ingress:
+      enabled: true
       main:
         className: nginx
         hosts:
