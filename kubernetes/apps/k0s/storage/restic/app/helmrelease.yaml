@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.0.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -26,60 +26,66 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    controller:
-      type: statefulset
-      annotations:
-        reloader.stakater.com/auto: "true"
-    image:
-      repository: restic/rest-server
-      tag: 0.12.1
+    defaultPodOptions:
+      securityContext:
+        fsGroup: 1001
+        runAsUser: 1001
+        runAsGroup: 1001
+    controllers:
+      main:
+        type: statefulset
+        statefulset:
+          volumeClaimTemplates:
+            - name: data
+              mountPath: /data
+              accessMode: ReadWriteOnce
+              size: 20Gi
+              storageClass: local-path
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          main:
+            securityContext:
+              fsGroup: 1001
+              runAsUser: 1001
+              runAsGroup: 1001
+              capabilities:
+                drop:
+                  - ALL
+              runAsNonRoot: true
+              readOnlyRootFilesystem: true
+              allowPrivilegeEscalation: false
+              seccompProfile:
+                type: RuntimeDefault
+            resources:
+              requests:
+                cpu: 100m
+                memory: 100Mi
+              limits:
+                memory: 500Mi
+            image:
+              repository: restic/rest-server
+              tag: 0.12.1
     service:
       main:
-        annotations:
-          io.cilium/global-service: "true"
         ports:
           http:
-            port: 8000
+            port: &port 8000
     ingress:
       main:
         enabled: true
-        ingressClassName: nginx
+        className: nginx
         hosts:
-          - host: &host "restic.${DOMAIN}"
+          - host: &host restic.${DOMAIN}
             paths:
               - path: /
                 pathType: Prefix
+                service:
+                  name: main
+                  port: *port
         tls:
           - hosts:
               - *host
-    volumeClaimTemplates:
-      - name: data
-        mountPath: /data
-        accessMode: ReadWriteOnce
-        size: 20Gi
-        storageClass: local-path
-    resources:
-      requests:
-        cpu: 100m
-        memory: 100Mi
-      limits:
-        memory: 500Mi
     serviceAccount:
       create: true
       name: restic
-    podSecurityContext:
-      fsGroup: 1001
-      runAsUser: 1001
-      runAsGroup: 1001
-    securityContext:
-      fsGroup: 1001
-      runAsUser: 1001
-      runAsGroup: 1001
-      capabilities:
-        drop:
-          - ALL
-      runAsNonRoot: true
-      readOnlyRootFilesystem: true
-      allowPrivilegeEscalation: false
-      seccompProfile:
-        type: RuntimeDefault
