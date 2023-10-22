@@ -103,9 +103,9 @@ spec:
         type: secret
         name: lldap-logfold-com-tls
         globalMounts:
-          - path: tls.key
-            mountPath: /certs/tls.key
+          - path: /certs/tls.key
+            subPath: tls.key
             readOnly: true
-          - path: tls.crt
-            mountPath: /certs/tls.crt
+          - path: /certs/tls.crt
+            subPath: tls.crt
             readOnly: true
