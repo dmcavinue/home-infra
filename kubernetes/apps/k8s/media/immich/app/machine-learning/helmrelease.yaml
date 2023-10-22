@@ -57,13 +57,11 @@ spec:
               repository: ghcr.io/immich-app/immich-machine-learning
               tag: v1.82.1
               imagePullPolicy: IfNotPresent
-
             envFrom:
               - configMapRef:
                   name: *configMap
               - secretRef:
                   name: *secret
-
             resources:
               requests:
                 cpu: 100m

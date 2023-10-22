@@ -9,41 +9,78 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.0.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s
         namespace: flux-system
+  maxHistory: 2
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
   values:
-    image:
-      repository: "dmcavinue/unifi-downloader"
-      tag: 0.1.2
-    controller:
-      replicas: 1
-    envFrom:
-      - secretRef:
-          name: unifi-downloader
-    nameOverride: unifi-downloader
+    defaultPodOptions:
+      securityContext:
+        fsGroup: 1001
+        runAsUser: 1001
+        runAsGroup: 1001
+        fsGroupChangePolicy: "OnRootMismatch"
+    controllers:
+      main:
+        pod:
+          securityContext:
+            fsGroup: 1001
+            runAsUser: 1001
+            runAsGroup: 1001
+            capabilities:
+              drop:
+                - ALL
+            runAsNonRoot: true
+            readOnlyRootFilesystem: true
+            allowPrivilegeEscalation: false
+            seccompProfile:
+              type: RuntimeDefault
+        containers:
+          main:
+            resources:
+              requests:
+                memory: "64Mi"
+                cpu: "250m"
+              limits:
+                memory: "128Mi"
+            image:
+              repository: "dmcavinue/unifi-downloader"
+              tag: 0.1.2
+            envFrom:
+              - secretRef:
+                  name: unifi-downloader
+        deployment:
+          volumeClaimTemplates:
+            - name: download-path
+              globalMounts:
+                - path: /download
+              accessMode: ReadWriteOnce
+              size: 20Gi
+              storageClass: ceph-block
     service:
+      main:
+        enabled: false
+    ingress:
       main:
         enabled: false
     serviceAccount:
       create: true
       name: unifi-downloader
-    resources:
-      requests:
-        memory: "64Mi"
-        cpu: "250m"
-      limits:
-        memory: "128Mi"
-    volumeClaimTemplates:
-      - name: download-path
-        mountPath: /download
-        accessMode: ReadWriteOnce
-        size: 20Gi
-        storageClass: ceph-block
     persistence:
       backup-path:
-        enabled: true
+        type: persistentVolumeClaim
         existingClaim: unifi-downloader-nfs
-        mountPath: /backup
+        globalMounts:
+          - path: /backup
