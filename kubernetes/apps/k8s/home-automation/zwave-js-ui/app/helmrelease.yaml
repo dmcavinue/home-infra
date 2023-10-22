@@ -38,7 +38,7 @@ spec:
         type: statefulset
         statefulset:
           volumeClaimTemplates:
-            - name: store
+            - name: data
               mountPath: /usr/src/app/store
               accessMode: ReadWriteOnce
               size: 1Gi
