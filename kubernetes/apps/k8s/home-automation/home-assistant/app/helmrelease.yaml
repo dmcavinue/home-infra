@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.0.3
+      version: 1.5.1
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -29,137 +29,76 @@ spec:
     - name: volsync
       namespace: volsync
   values:
-    defaultPodOptions:
-      securityContext:
-        runAsUser: 0
-        runAsGroup: 0
-        fsGroup: 0
-        fsGroupChangePolicy: "OnRootMismatch"
-        privileged: true
-      nodeSelector:
-        feature.node.kubernetes.io/skyconnect: "true"
-    controllers:
-      main:
-        pod:
-          securityContext:
-            privileged: true
-        annotations:
-          reloader.stakater.com/auto: "true"
-        type: statefulset
-        strategy: RollingUpdate
-        containers:
-          main:
-            image:
-              repository: ghcr.io/home-assistant/home-assistant
-              tag: 2023.10.4
-              imagePullPolicy: IfNotPresent
-            env:
-              TZ: America/New_York
-            envFrom:
-              - secretRef:
-                  name: home-assistant-secret
-            lifecycle:
-              postStart:
-                exec:
-                  command: ["/sbin/apk", "add", "openldap-clients"]
-            probes:
-              liveness:
-                enabled: false
-              readiness:
-                enabled: false
-              startup:
-                enabled: false
-            resources:
-              requests:
-                cpu: 10m
-                memory: 100Mi
-              limits:
-                memory: 750Mi
-          codeserver:
-            image:
-              repository: ghcr.io/coder/code-server
-              tag: 4.18.0
-            env:
-              TZ: ${TIMEZONE}
-            args:
-              - "/config"
-              - --auth
-              - "none"
-              - --user-data-dir
-              - "/config/.vscode"
-              - --extensions-dir
-              - "/config/.vscode"
-            volumeMounts:
-            - name: config
-              mountPath: /config
-        statefulset:
-          volumeClaimTemplates:
-            - name: config
-              globalMounts:
-                - path: /config
-              accessMode: ReadWriteOnce
-              size: 5Gi
-              storageClass: ceph-block
+    # hostNetwork: true
+    # dnsPolicy: ClusterFirstWithHostNet
+    controller:
+      type: statefulset
+      annotations:
+        reloader.stakater.com/auto: "true"
+    image:
+      repository: ghcr.io/home-assistant/home-assistant
+      tag: 2023.10.4
+    env:
+      TZ: America/New_York
+    envFrom:
+      - secretRef:
+          name: home-assistant-secret
     service:
       main:
         ports:
           http:
-            port: &port 8123
-      codeserver:
-        type: ClusterIP
-        controller: main
-        ports:
-          http:
-            enabled: true
-            port: 8080
+            port: 8123
     ingress:
       main:
-        enabled: true
-        className: nginx
-        hosts:
-          - host: &host hass.${DOMAIN}
-            paths:
-              - path: /
-                pathType: Prefix
-                service:
-                  name: main
-                  port: *port
-        tls:
-          - hosts:
-              - *host
-      codeserver:
-        enabled: true
-        className: nginx
-        hosts:
-          - host: &host hass-code.${DOMAIN}
-            paths:
-            - path: /
-              pathType: Prefix
-              service:
-                name: codeserver
-                port: http
-        tls:
-          - hosts:
-              - *host
+        enabled: false
+    securityContext:
+      privileged: true
+    probes:
+      liveness:
+        enabled: false
+      readiness:
+        enabled: false
+      startup:
+        enabled: false
+    volumeClaimTemplates:
+      - name: config
+        mountPath: /config
+        accessMode: ReadWriteOnce
+        size: 5Gi
+        storageClass: ceph-block
+    lifecycle:
+      postStart:
+        exec:
+          command: ["/sbin/apk", "add", "openldap-clients"]
     persistence:
       auth:
-        name: home-assistant-auth
+        enabled: true
         type: secret
-        globalMounts:
-          - path: /secrets/home-assistant.cfg
-            subPath: home-assistant.cfg
-            readOnly: true
+        name: home-assistant-auth
+        subPath: home-assistant.cfg
+        mountPath: /secrets/home-assistant.cfg
+        readOnly: true
       auth-scripts:
-        name: home-assistant-scripts
-        type: configMap
-        defaultMode: 511
-        globalMounts:
-          - path: /ldap.sh
-            subPath: ldap.sh
-            readOnly: true
+        enabled: true
+        type: custom
+        volumeSpec:
+          configMap:
+            name: home-assistant-scripts
+            defaultMode: 0777
+        subPath:
+          - path: ldap.sh
+            mountPath: /ldap.sh
       usb:
+        enabled: true
         type: hostPath
         hostPath: /dev/serial/by-id/usb-Nabu_Casa_SkyConnect_v1.0_9ae749b85541ed11a39a83a7ccf2b06c-if00-port0
+        mountPath: /dev/ttyUSB0
         hostPathType: CharDevice
-        globalMounts:
-          - path: /dev/ttyUSB0
+    nodeSelector:    
+      feature.node.kubernetes.io/skyconnect: "true"
+    resources:
+      requests:
+        cpu: 10m
+        memory: 100Mi
+      limits:
+        memory: 750Mi
