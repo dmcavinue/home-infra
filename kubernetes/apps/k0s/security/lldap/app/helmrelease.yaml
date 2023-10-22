@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.0.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -26,25 +26,59 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    controller:
-      type: statefulset
-      annotations:
-        reloader.stakater.com/auto: "true"
-    image:
-      repository: ghcr.io/lldap/lldap
-      tag: latest-alpine@sha256:6ddd2f0747cd6c5156cc5d728dbd30a712590828e8168aff11ba5eddd578c905
-    env:
-      TZ: America/New_York
-      LLDAP_HTTP_PORT: &port 80
-      LLDAP_HTTP_URL: "https://lldap.${DOMAIN}"
-      LLDAP_LDAP_PORT: &ldapPort 389
-      LLDAP_LDAPS_OPTIONS__ENABLED: "true"
-      LLDAP_LDAPS_OPTIONS__PORT: &ldapsPort 636
-      LLDAP_LDAPS_OPTIONS__CERT_FILE: /certs/tls.crt
-      LLDAP_LDAPS_OPTIONS__KEY_FILE: /certs/tls.key
-    envFrom:
-      - secretRef:
-          name: lldap-secret
+    defaultPodOptions:
+      securityContext:
+        fsGroup: 1001
+        runAsUser: 1001
+        runAsGroup: 1001
+        fsGroupChangePolicy: "OnRootMismatch"
+    controllers:
+      main:
+        type: statefulset
+        statefulset:
+          volumeClaimTemplates:
+            - name: data
+              mountPath: /data
+              accessMode: ReadWriteOnce
+              size: 500Mi
+              storageClass: local-path
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          main:
+            securityContext:
+              fsGroup: 1001
+              runAsUser: 1001
+              runAsGroup: 1001
+              capabilities:
+                drop:
+                  - ALL
+              runAsNonRoot: true
+              readOnlyRootFilesystem: true
+              allowPrivilegeEscalation: false
+              seccompProfile:
+                type: RuntimeDefault
+            resources:
+              requests:
+                cpu: 100m
+                memory: 100Mi
+              limits:
+                memory: 500Mi
+            image:
+              repository: ghcr.io/lldap/lldap
+              tag: latest-alpine@sha256:6ddd2f0747cd6c5156cc5d728dbd30a712590828e8168aff11ba5eddd578c905
+            env:
+              TZ: America/New_York
+              LLDAP_HTTP_PORT: &port 80
+              LLDAP_HTTP_URL: "https://lldap.${DOMAIN}"
+              LLDAP_LDAP_PORT: &ldapPort 389
+              LLDAP_LDAPS_OPTIONS__ENABLED: "true"
+              LLDAP_LDAPS_OPTIONS__PORT: &ldapsPort 636
+              LLDAP_LDAPS_OPTIONS__CERT_FILE: /certs/tls.crt
+              LLDAP_LDAPS_OPTIONS__KEY_FILE: /certs/tls.key
+            envFrom:
+              - secretRef:
+                  name: lldap-secret
     service:
       main:
         type: LoadBalancer
@@ -55,51 +89,23 @@ spec:
           http:
             port: *port
           ldap:
-            enabled: true
             port: *ldapPort
           ldaps:
-            enabled: true
             port: *ldapsPort
     ingress:
       main:
         enabled: false
-        ingressClassName: nginx
-        hosts:
-          - host: &host "lldap.${DOMAIN}"
-            paths:
-              - path: /
-                pathType: Prefix
-        tls:
-          - hosts:
-              - *host
-    volumeClaimTemplates:
-      - name: data
-        mountPath: /data
-        accessMode: ReadWriteOnce
-        size: 500Mi
-        storageClass: local-path
+    serviceAccount:
+      create: true
+      name: lldap
     persistence:
       certs:
-        enabled: true
         type: custom
         volumeSpec:
           secret:
-            secretName: "lldap-logfold-com-tls"
+            name: lldap-logfold-com-tls
         subPath:
           - path: tls.key
             mountPath: /certs/tls.key
           - path: tls.crt
             mountPath: /certs/tls.crt
-    topologySpreadConstraints:
-      - maxSkew: 1
-        topologyKey: kubernetes.io/hostname
-        whenUnsatisfiable: DoNotSchedule
-        labelSelector:
-          matchLabels:
-            app.kubernetes.io/name: *app
-    resources:
-      requests:
-        cpu: 100m
-        memory: 100Mi
-      limits:
-        memory: 500Mi
