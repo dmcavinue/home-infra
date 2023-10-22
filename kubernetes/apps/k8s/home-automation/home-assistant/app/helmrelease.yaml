@@ -34,10 +34,17 @@ spec:
         feature.node.kubernetes.io/skyconnect: "true"
     controllers:
       main:
+        type: statefulset
+        statefulset:
+          volumeClaimTemplates:
+            - name: config
+              globalMounts:
+                - path: /config
+              accessMode: ReadWriteOnce
+              size: 5Gi
+              storageClass: ceph-block
         annotations:
           reloader.stakater.com/auto: "true"
-        type: statefulset
-        strategy: RollingUpdate
         containers:
           main:
             securityContext:
@@ -73,7 +80,7 @@ spec:
               repository: ghcr.io/coder/code-server
               tag: 4.18.0
             env:
-              TZ: ${TIMEZONE}
+              TZ: America/New_York
             args:
               - "/config"
               - --auth
@@ -85,55 +92,45 @@ spec:
             volumeMounts:
             - name: config
               mountPath: /config
-        statefulset:
-          volumeClaimTemplates:
-            - name: config
-              globalMounts:
-                - path: /config
-              accessMode: ReadWriteOnce
-              size: 5Gi
-              storageClass: ceph-block
     service:
       main:
         ports:
           http:
-            port: &port 8123
+            port: &hassPort 8123
       codeserver:
         type: ClusterIP
         controller: main
         ports:
           http:
             enabled: true
-            port: 8080
+            port: &codeserverPort 8080
     ingress:
       main:
-        enabled: true
         className: nginx
         hosts:
-          - host: &host hass.${DOMAIN}
+          - host: &hassHost hass.${DOMAIN}
             paths:
               - path: /
                 pathType: Prefix
                 service:
                   name: main
-                  port: *port
+                  port: *hassPort
         tls:
           - hosts:
-              - *host
+              - *hassHost
       codeserver:
-        enabled: true
         className: nginx
         hosts:
-          - host: &host hass-code.${DOMAIN}
+          - host: &codeserverHost hass-code.${DOMAIN}
             paths:
             - path: /
               pathType: Prefix
               service:
                 name: codeserver
-                port: http
+                port: *codeserverPort
         tls:
           - hosts:
-              - *host
+              - *codeserverHost
     persistence:
       auth:
         name: home-assistant-auth
