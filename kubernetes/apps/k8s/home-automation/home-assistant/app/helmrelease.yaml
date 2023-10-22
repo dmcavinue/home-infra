@@ -161,3 +161,5 @@ spec:
         type: hostPath
         hostPath: /dev/serial/by-id/usb-Nabu_Casa_SkyConnect_v1.0_9ae749b85541ed11a39a83a7ccf2b06c-if00-port0
         hostPathType: CharDevice
+        globalMounts:
+          - path: /dev/ttyUSB0
