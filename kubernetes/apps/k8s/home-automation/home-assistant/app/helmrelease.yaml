@@ -81,8 +81,8 @@ spec:
           http:
             port: &port 8123
     ingress:
-      enabled: "true"
       main:
+        enabled: true
         className: nginx
         hosts:
           - host: &host hass.${DOMAIN}
