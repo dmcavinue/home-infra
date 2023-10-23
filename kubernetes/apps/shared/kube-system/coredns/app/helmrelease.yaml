@@ -34,10 +34,11 @@ spec:
       #clusterIP: 10.31.0.10
     serviceAccount:
       create: true
+    podAnnotations:
+      policy.cilium.io/proxy-visibility: "<Egress/53/UDP/DNS>"
     deployment:
       annotations:
         reloader.stakater.com/auto: "true"
-        policy.cilium.io/proxy-visibility: "<Egress/53/UDP/DNS>"
     autoscaler:
       enabled: false
     servers:
