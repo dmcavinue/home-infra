@@ -1,0 +1,30 @@
+---
+apiVersion: "cilium.io/v2"
+kind: CiliumNetworkPolicy
+metadata:
+  name: "deny-all"
+  namespace: media
+spec:
+  description: "default deny-all policy"
+  endpointSelector:
+    matchLabels: {}
+  ingress:
+  - {}
+  egress:
+  - {}
+---
+apiVersion: "cilium.io/v2"
+kind: CiliumNetworkPolicy
+metadata:
+  name: "allow-all-within-namespace"
+specs:
+  - endpointSelector:
+      matchLabels: {}
+    egress:
+    - toEndpoints:
+      - matchLabels:
+          "k8s:io.kubernetes.pod.namespace": media
+    ingress:
+    - fromEndpoints:
+      - matchLabels:
+          "k8s:io.kubernetes.pod.namespace": media
