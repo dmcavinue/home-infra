@@ -51,7 +51,7 @@ specs:
 apiVersion: "cilium.io/v2"
 kind: CiliumNetworkPolicy
 metadata:
-  name: "allow-nginx-ingress-to-immich"
+  name: "allow-nginx-ingress-to-any"
   namespace: ingress
 specs:
   - endpointSelector:
@@ -61,10 +61,4 @@ specs:
         component: controller
     ingress:
     - toEndpoints:
-      - matchLabels:
-          k8s:io.kubernetes.pod.namespace: media
-          name: immich-server
-      toPorts:
-      - ports:
-        - port: "3001"
-          protocol: TCP
+      - matchLabels: {}
