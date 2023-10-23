@@ -3,10 +3,11 @@ apiVersion: "cilium.io/v2"
 kind: CiliumNetworkPolicy
 metadata:
   name: "deny-all"
+  namespace: media
 spec:
   description: "Default-deny ingress policy"
-  endpointSelector:
-    matchLabels:
-      org: empire
+  endpointSelector: {}
   ingress:
+  - {}
+  egress:
   - {}
