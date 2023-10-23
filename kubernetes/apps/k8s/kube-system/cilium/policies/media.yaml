@@ -17,6 +17,7 @@ apiVersion: "cilium.io/v2"
 kind: CiliumNetworkPolicy
 metadata:
   name: "allow-all-within-namespace"
+  namespace: media
 specs:
   - endpointSelector:
       matchLabels: {}
