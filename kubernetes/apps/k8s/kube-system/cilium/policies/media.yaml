@@ -51,7 +51,7 @@ specs:
 apiVersion: "cilium.io/v2"
 kind: CiliumNetworkPolicy
 metadata:
-  name: "allow-ingress-nginx-to-immich"
+  name: "allow-ingress-to-immich"
   namespace: media
 specs:
   - endpointSelector:
@@ -61,26 +61,10 @@ specs:
     - fromEndpoints:
       - matchLabels:
           k8s:io.kubernetes.pod.namespace: ingress
-          k8s:name: ingress-nginx
-          k8s:component: controller
----
-apiVersion: "cilium.io/v2"
-kind: CiliumNetworkPolicy
-metadata:
-  name: "allow-egress-nginx-to-immich"
-  namespace: media
-specs:
   - endpointSelector:
       matchLabels:
-        k8s:io.kubernetes.pod.namespace: ingress
-        k8s:name: ingress-nginx
-        k8s:component: controller
-    egress:
-    - toEndpoints:
+        k8s:name: immich-web
+    ingress:
+    - fromEndpoints:
       - matchLabels:
-          k8s:io.kubernetes.pod.namespace: media
-          k8s:name: immich-server
-    - toEndpoints:
-      - matchLabels:
-          k8s:io.kubernetes.pod.namespace: media
-          k8s:name: immich-web
+          k8s:io.kubernetes.pod.namespace: ingress
