@@ -63,10 +63,6 @@ specs:
           k8s:io.kubernetes.pod.namespace: ingress
           k8s:name: ingress-nginx
           k8s:component: controller
-      toPorts:
-      - ports:
-        - port: "3001"
-          protocol: TCP
 ---
 apiVersion: "cilium.io/v2"
 kind: CiliumNetworkPolicy
@@ -84,15 +80,7 @@ specs:
       - matchLabels:
           k8s:io.kubernetes.pod.namespace: media
           k8s:name: immich-server
-      toPorts:
-      - ports:
-        - port: "3001"
-          protocol: TCP
     - toEndpoints:
       - matchLabels:
           k8s:io.kubernetes.pod.namespace: media
           k8s:name: immich-web
-      toPorts:
-      - ports:
-        - port: "3000"
-          protocol: TCP
