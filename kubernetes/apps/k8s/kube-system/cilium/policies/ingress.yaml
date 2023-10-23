@@ -51,7 +51,7 @@ specs:
 apiVersion: "cilium.io/v2"
 kind: CiliumNetworkPolicy
 metadata:
-  name: "allow-nginx egress-to-any"
+  name: "allow-nginx-egress-to-any"
   namespace: ingress
 specs:
   - endpointSelector:
@@ -60,5 +60,4 @@ specs:
         name: ingress-nginx
         component: controller
     egress:
-    - toEndpoints:
-      - matchLabels: {}
+    - {}
