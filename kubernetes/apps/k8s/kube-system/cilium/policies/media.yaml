@@ -61,10 +61,6 @@ specs:
     - fromEndpoints:
       - matchLabels:
           k8s:io.kubernetes.pod.namespace: ingress
-  - endpointSelector:
-      matchLabels:
-        k8s:name: immich-web
-    ingress:
-    - fromEndpoints:
+    - toEndpoints:
       - matchLabels:
-          k8s:io.kubernetes.pod.namespace: ingress
+          k8s:io.kubernetes.pod.namespace: media
