@@ -37,6 +37,7 @@ spec:
     deployment:
       annotations:
         reloader.stakater.com/auto: "true"
+        policy.cilium.io/proxy-visibility: "<Egress/53/UDP/DNS>"
     autoscaler:
       enabled: false
     servers:
