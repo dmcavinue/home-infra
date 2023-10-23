@@ -44,5 +44,6 @@ specs:
       matchLabels:
         k8s:name: immich-server
     ingress:
-    - fromEndpoints: {}
-    - toEndpoints: {}
+    - fromEndpoints:
+      - matchLabels:
+          k8s:io.kubernetes.pod.namespace: ingress
