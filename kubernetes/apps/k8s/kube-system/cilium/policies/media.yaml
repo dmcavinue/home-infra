@@ -59,12 +59,13 @@ specs:
         k8s:io.kubernetes.pod.namespace: media
         name: immich-server
     ingress:
-    - fromEndpoints:
-      - matchLabels:
-          k8s:io.kubernetes.pod.namespace: ingress
-          name: ingress-nginx
-          component: controller
-      toPorts:
-      - ports:
-        - port: "3001"
-          protocol: TCP
+    - {}
+      # fromEndpoints:
+      # - matchLabels:
+      #     k8s:io.kubernetes.pod.namespace: ingress
+      #     name: ingress-nginx
+      #     component: controller
+      # toPorts:
+      # - ports:
+      #   - port: "3001"
+      #     protocol: TCP
