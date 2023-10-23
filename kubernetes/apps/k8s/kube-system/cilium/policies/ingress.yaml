@@ -56,7 +56,6 @@ metadata:
 specs:
   - endpointSelector:
       matchLabels:
-        k8s:io.kubernetes.pod.namespace: ingress
         name: ingress-nginx
         component: controller
     egress:
