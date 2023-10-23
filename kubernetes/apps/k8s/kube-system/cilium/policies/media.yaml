@@ -42,7 +42,7 @@ specs:
     - toEndpoints:
       - matchLabels:
           k8s:io.kubernetes.pod.namespace: kube-system
-          k8s:k8s-app: kube-dns
+          k8s-app: kube-dns
       toPorts:
       - ports:
         - port: "53"
@@ -57,13 +57,13 @@ specs:
   - endpointSelector:
       matchLabels:
         k8s:io.kubernetes.pod.namespace: media
-        k8s:name: immich-server
+        name: immich-server
     ingress:
     - fromEndpoints:
       - matchLabels:
           k8s:io.kubernetes.pod.namespace: ingress
-          k8s:name: ingress-nginx
-          k8s:component: controller
+          name: ingress-nginx
+          component: controller
       toPorts:
       - ports:
         - port: "3001"
