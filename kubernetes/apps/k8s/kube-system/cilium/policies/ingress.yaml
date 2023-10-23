@@ -51,7 +51,7 @@ specs:
 apiVersion: "cilium.io/v2"
 kind: CiliumNetworkPolicy
 metadata:
-  name: "allow-nginx-ingress-to-any"
+  name: "allow-nginx egress-to-any"
   namespace: ingress
 specs:
   - endpointSelector:
@@ -59,6 +59,6 @@ specs:
         k8s:io.kubernetes.pod.namespace: ingress
         name: ingress-nginx
         component: controller
-    ingress:
+    egress:
     - toEndpoints:
       - matchLabels: {}
