@@ -60,7 +60,7 @@ specs:
         name: ingress-nginx
         component: controller
     ingress:
-    - toEndpoints:
+    - fromEndpoints:
       - matchLabels:
           k8s:io.kubernetes.pod.namespace: media
           name: immich-server
