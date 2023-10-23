@@ -24,11 +24,11 @@ specs:
     egress:
     - toEndpoints:
       - matchLabels:
-          "k8s:io.kubernetes.pod.namespace": media
+          k8s:io.kubernetes.pod.namespace: media
     ingress:
     - fromEndpoints:
       - matchLabels:
-          "k8s:io.kubernetes.pod.namespace": media
+          k8s:io.kubernetes.pod.namespace: media
 ---
 apiVersion: "cilium.io/v2"
 kind: CiliumNetworkPolicy
@@ -41,5 +41,30 @@ specs:
     egress:
     - toEndpoints:
       - matchLabels:
-          "k8s:io.kubernetes.pod.namespace": kube-system
+          k8s:io.kubernetes.pod.namespace: kube-system
           k8s-app: kube-dns
+      toPorts:
+      - ports:
+        - port: "53"
+          protocol: UDP
+---
+apiVersion: "cilium.io/v2"
+kind: CiliumNetworkPolicy
+metadata:
+  name: "allow-ingress-to-immich-server"
+  namespace: media
+specs:
+  - endpointSelector:
+      matchLabels:
+        k8s:io.kubernetes.pod.namespace: ingress
+        name: ingress-nginx
+        component: controller
+    ingress:
+    - toEndpoints:
+      - matchLabels:
+          k8s:io.kubernetes.pod.namespace: media
+          name: immich-server
+      toPorts:
+      - ports:
+        - port: "3001"
+          protocol: TCP
