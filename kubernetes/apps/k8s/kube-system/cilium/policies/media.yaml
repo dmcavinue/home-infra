@@ -68,3 +68,13 @@ specs:
       - ports:
         - port: "3001"
           protocol: TCP
+    egress:
+    - toEndpoints:
+      - matchLabels:
+          k8s:io.kubernetes.pod.namespace: ingress
+          name: ingress-nginx
+          component: controller
+      toPorts:
+      - ports:
+        - port: "3001"
+          protocol: TCP
