@@ -2,20 +2,6 @@
 apiVersion: "cilium.io/v2"
 kind: CiliumNetworkPolicy
 metadata:
-  name: "deny-all"
-  namespace: ingress
-spec:
-  description: "default deny-all policy"
-  endpointSelector:
-    matchLabels: {}
-  ingress:
-  - {}
-  egress:
-  - {}
----
-apiVersion: "cilium.io/v2"
-kind: CiliumNetworkPolicy
-metadata:
   name: "allow-all-within-namespace"
   namespace: ingress
 specs:
