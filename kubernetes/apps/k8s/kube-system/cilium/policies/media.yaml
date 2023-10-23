@@ -41,5 +41,5 @@ specs:
     egress:
     - toEndpoints:
       - matchLabels:
-          "k8s:io.kubernetes.pod.namespace": media
+          "k8s:io.kubernetes.pod.namespace": kube-system
           k8s-app: kube-dns
