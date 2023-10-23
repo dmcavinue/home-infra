@@ -57,13 +57,13 @@ specs:
   - endpointSelector:
       matchLabels:
         k8s:io.kubernetes.pod.namespace: ingress
-        name: ingress-nginx
-        component: controller
+        k8s:io.kubernetes.pod.name: ingress-nginx
+        k8s:io.kubernetes.pod.component: controller
     ingress:
     - fromEndpoints:
       - matchLabels:
           k8s:io.kubernetes.pod.namespace: media
-          name: immich-server
+          k8s:io.kubernetes.pod.name: immich-server
       toPorts:
       - ports:
         - port: "3001"
