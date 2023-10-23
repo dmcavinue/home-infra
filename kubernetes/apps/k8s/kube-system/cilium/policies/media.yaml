@@ -63,4 +63,4 @@ specs:
           k8s:io.kubernetes.pod.namespace: ingress
     - toEndpoints:
       - matchLabels:
-          k8s:io.kubernetes.pod.namespace: media
+          k8s:io.kubernetes.pod.namespace: ingress
