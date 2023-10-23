@@ -29,3 +29,17 @@ specs:
     - fromEndpoints:
       - matchLabels:
           "k8s:io.kubernetes.pod.namespace": media
+---
+apiVersion: "cilium.io/v2"
+kind: CiliumNetworkPolicy
+metadata:
+  name: "allow-all-to-kube-system-coredns"
+  namespace: media
+specs:
+  - endpointSelector:
+      matchLabels: {}
+    egress:
+    - toEndpoints:
+      - matchLabels:
+          "k8s:io.kubernetes.pod.namespace": media
+          k8s-app: kube-dns
