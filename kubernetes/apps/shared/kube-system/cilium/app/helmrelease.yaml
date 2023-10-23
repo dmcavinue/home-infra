@@ -55,6 +55,9 @@ spec:
       socketPath: /var/run/k3s/containerd/containerd.sock
     endpointRoutes:
       enabled: true
+    endpointStatus:
+      enabled: true
+      status: "policy"
     hubble:
       enabled: true
       tls:
