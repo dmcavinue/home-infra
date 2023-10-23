@@ -51,7 +51,7 @@ specs:
 apiVersion: "cilium.io/v2"
 kind: CiliumNetworkPolicy
 metadata:
-  name: "allow-ingress-to-immich-server"
+  name: "allow-ingress-to-immich"
   namespace: media
 specs:
   - endpointSelector:
