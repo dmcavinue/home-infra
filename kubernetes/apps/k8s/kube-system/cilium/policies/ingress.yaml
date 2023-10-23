@@ -47,18 +47,3 @@ specs:
       - ports:
         - port: "53"
           protocol: UDP
----
-apiVersion: "cilium.io/v2"
-kind: CiliumClusterwideNetworkPolicy
-metadata:
-  name: "allow-nginx-egress-to-any"
-  namespace: ingress
-specs:
-  - endpointSelector:
-      matchLabels:
-        k8s:name: ingress-nginx
-        k8s:component: controller
-    egress:
-    - toEndpoints:
-      - matchLabels:
-          k8s:io.kubernetes.pod.namespace: media
