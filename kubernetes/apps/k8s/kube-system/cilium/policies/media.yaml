@@ -64,8 +64,8 @@ specs:
           protocol: "TCP"
   - endpointSelector:
       matchLabels:
-        cnpg.io/cluster: immich
-        cnpg.io/instancename: immich-1
+        "cnpg.io/cluster": immich
+        "cnpg.io/instancename": immich-1
     ingress:
     - fromEndpoints:
       - matchLabels:
