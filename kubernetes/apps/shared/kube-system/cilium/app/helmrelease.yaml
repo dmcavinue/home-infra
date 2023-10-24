@@ -28,7 +28,7 @@ spec:
   values:
     autoDirectNodeRoutes: true
     enable-ipv4-masquerade: true
-    policyAuditMode: true
+    #policyAuditMode: true
     bpf:
       masquerade: true
     bgp:
