@@ -62,18 +62,3 @@ specs:
       - ports:
         - port: "3000"
           protocol: "TCP"
-  - endpointSelector:
-      matchLabels:
-        "cnpg.io/cluster": immich
-        "cnpg.io/instancename": immich-1
-    ingress:
-    - fromEndpoints:
-      - matchLabels:
-          "k8s:io.kubernetes.pod.namespace": monitoring
-          component: monitoring
-          instance: victoria-metrics
-          name: vmagent
-      toPorts:
-      - ports:
-        - port: "9187"
-          protocol: "TCP"
