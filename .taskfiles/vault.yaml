@@ -31,7 +31,7 @@ tasks:
   unseal:
     desc: vault unseal
     cmds:
-      - kubectl --context {{.ENVIRONMENT}} -n vault exec -ti vault-0 -- vault operator unseal $( cat {{.ROOT_DIR}}/.vault.json | jq -r '.unseal_keys_b64[0]')
+      - kubectl --context k0s -n vault exec -ti vault-0 -- vault operator unseal $( cat {{.ROOT_DIR}}/.vault.json | jq -r '.unseal_keys_b64[0]')
   # ca
   add-rootca:
     desc: setup root ca pki engine
