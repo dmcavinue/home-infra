@@ -5,4 +5,4 @@ kind: Kustomization
 resources:
   # Flux-Kustomizations
   #- ./cilium/ks.yaml
-  - ./tetragon/ks.yaml
+  #- ./tetragon/ks.yaml
