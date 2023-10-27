@@ -41,9 +41,6 @@ spec:
       config:
         enabled: true
         clusters:
-        - name: k0s
-          address: 192.168.9.114
-          port: 2379
         - name: k8s
           address: 192.168.9.228
           port: 2379

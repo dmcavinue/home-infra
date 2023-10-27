@@ -1,0 +1,64 @@
+---
+apiVersion: "cilium.io/v2"
+kind: CiliumNetworkPolicy
+metadata:
+  name: deny-all
+  namespace: media
+spec:
+  description: "Default deny policy"
+  endpointSelector:
+    matchLabels: {}
+  ingress:
+  - {}
+  egress:
+  - {}
+---
+apiVersion: "cilium.io/v2"
+kind: CiliumNetworkPolicy
+metadata:
+  name: allowed
+  namespace: media
+specs:
+  - endpointSelector:
+      matchLabels: {}
+    egress:
+    - toEndpoints:
+      - matchLabels:
+          "k8s:io.kubernetes.pod.namespace": media
+    ingress:
+    - fromEndpoints:
+      - matchLabels:
+          "k8s:io.kubernetes.pod.namespace": media
+  - endpointSelector:
+      matchLabels: {}
+    egress:
+    - toEndpoints:
+      - matchLabels:
+          "k8s:io.kubernetes.pod.namespace": kube-system
+          "k8s:k8s-app": kube-dns
+  - endpointSelector:
+      matchLabels:
+        name: immich-server
+    ingress:
+    - fromEndpoints:
+      - matchLabels:
+          "k8s:io.kubernetes.pod.namespace": ingress
+          name: ingress-nginx
+          component: controller
+      toPorts:
+      - ports:
+        - port: "3001"
+          protocol: "TCP"
+  - endpointSelector:
+      matchLabels:
+        name: immich-web
+    ingress:
+    - fromEndpoints:
+      - matchLabels:
+          "k8s:io.kubernetes.pod.namespace": ingress
+          name: ingress-nginx
+          component: controller
+      toPorts:
+      - ports:
+        - port: "3000"
+          protocol: "TCP"
