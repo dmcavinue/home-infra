@@ -42,10 +42,10 @@ spec:
         enabled: true
         clusters:
         - name: k0s
-          address: k0s.mesh.cilium.io
+          address: 192.168.9.114
           port: 2379
         - name: k8s
-          address: k8s.mesh.cilium.io
+          address: 192.168.9.228
           port: 2379
       apiserver:
         tls:
