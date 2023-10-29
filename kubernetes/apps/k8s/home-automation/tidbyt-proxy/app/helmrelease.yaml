@@ -43,7 +43,7 @@ spec:
                 drop:
                   - ALL
               runAsNonRoot: true
-              readOnlyRootFilesystem: true
+              readOnlyRootFilesystem: false
               allowPrivilegeEscalation: false
               seccompProfile:
                 type: RuntimeDefault
