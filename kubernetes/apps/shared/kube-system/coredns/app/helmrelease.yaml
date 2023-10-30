@@ -55,7 +55,47 @@ spec:
               lameduck 5s
           - name: hosts
             configBlock: |-
-              192.168.9.101 foo.bar.com
+              # cluster mesh
+              192.168.9.114 k0s.mesh.cilium.io
+              192.168.9.228 k8s.mesh.cilium.io
+              # synology services              
+              192.168.10.2 nas.feelingsmachine.com
+              192.168.10.2 registry.feelingsmachine.com
+              # k0s services
+              192.168.9.113 alertmanager.logfold.com
+              192.168.9.113 dex.logfold.com
+              192.168.9.113 grafana.logfold.com
+              192.168.9.113 minio-console.logfold.com
+              192.168.9.113 minio.logfold.com
+              192.168.9.113 vault.logfold.com
+              192.168.9.113 vmagent.logfold.com
+              192.168.9.113 vmalert.logfold.com
+              192.168.9.113 vmetrics.logfold.com
+              192.168.9.113 vminsert.logfold.com
+              192.168.9.113 vmlogs.logfold.com
+              192.168.9.113 vmselect.logfold.com
+              # external services
+              192.168.9.113 adguard.logfold.com
+              192.168.9.113 drac.logfold.com
+              192.168.9.113 kvm.logfold.com
+              192.168.9.113 proxmox.logfold.com
+              192.168.9.113 restic.logfold.com
+              192.168.9.113 unifi.logfold.com
+              192.168.9.113 vacuum.logfold.com
+              192.168.9.115 lldap.logfold.com
+              # k8s services
+              192.168.9.226 dex.nucstack.com
+              192.168.9.226 esphome.nucstack.com
+              192.168.9.226 gitops.nucstack.com
+              192.168.9.226 grafana.nucstack.com
+              192.168.9.226 hass.nucstack.com
+              192.168.9.226 hubble.nucstack.com
+              192.168.9.226 immich.nucstack.com
+              192.168.9.226 loki.nucstack.com
+              192.168.9.226 oauth.nucstack.com
+              192.168.9.226 rook.nucstack.com
+              192.168.9.226 zwavejs.nucstack.com
+              192.168.9.227 mqtt.nucstack.com
               fallthrough
           - name: ready
           - name: kubernetes
