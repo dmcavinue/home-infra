@@ -91,7 +91,6 @@ spec:
               192.168.9.226 hass.nucstack.com
               192.168.9.226 hubble.nucstack.com
               192.168.9.226 immich.nucstack.com
-              192.168.9.226 loki.nucstack.com
               192.168.9.226 oauth.nucstack.com
               192.168.9.226 rook.nucstack.com
               192.168.9.226 zwavejs.nucstack.com
