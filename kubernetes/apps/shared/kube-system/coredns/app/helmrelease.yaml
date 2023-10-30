@@ -53,9 +53,11 @@ spec:
           - name: health
             configBlock: |-
               lameduck 5s
+          - name: hosts
+            configBlock: |-
+              192.168.9.101 foo.bar.com
+              fallthrough
           - name: ready
-          - name: rewrite
-            parameters: name foo.bar.com 192.168.9.101
           - name: kubernetes
             parameters: cluster.local in-addr.arpa ip6.arpa
             configBlock: |-
