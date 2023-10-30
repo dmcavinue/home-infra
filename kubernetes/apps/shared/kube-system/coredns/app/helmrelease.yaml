@@ -84,7 +84,6 @@ spec:
               192.168.9.113 vacuum.logfold.com
               192.168.9.115 lldap.logfold.com
               # k8s services
-              192.168.9.226 dex.nucstack.com
               192.168.9.226 esphome.nucstack.com
               192.168.9.226 gitops.nucstack.com
               192.168.9.226 grafana.nucstack.com
