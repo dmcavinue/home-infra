@@ -18,11 +18,11 @@ k3s_server_manifests_urls:
     filename: custom-prometheus-prometheusrules.yaml
   - url: https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.66.0/example/prometheus-operator-crd/monitoring.coreos.com_servicemonitors.yaml
     filename: custom-prometheus-servicemonitors.yaml
-# k3s_registries:
-#   mirrors:
-#     docker.io:
-#       endpoint:
-#         - "https://registry.feelingsmachine.com"
-#     "*":
-#       endpoint:
-#         - "https://registry.feelingsmachine.com"
+k3s_registries:
+  mirrors:
+    docker.io:
+      endpoint:
+        - "https://registry.feelingsmachine.com"
+    "*":
+      endpoint:
+        - "https://registry.feelingsmachine.com"
