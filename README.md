@@ -16,8 +16,17 @@ task flux:install     # applies k0s flux deployments from this repository, sets 
 task vault:bootstrap  # bootstraps the vault cluster with all auth backends, kv secrets, roles and policies required to function
 ```
 
-**Provision main k8s cluster**
-This cluster runs everything else (home-assistant, immich, etc)
+**Provision main k1s cluster**
+```bash
+export ENVIRONMENT="k1s"
+task ansible:install       # installs k3s with a basic cilium CNI configuration for initial bootstrap
+task flux:install          # applies k8s flux deployments from this repository
+task vault:enable-k8s-auth # add this clusters k8s auth configuration
+task vault:add-roles       # adds vault policies/roles to both k8s auth backends
+task cilium:connect-mesh   # connects the two cilium clusters via cilium clustermesh
+```
+
+**Provision k8s cluster**
 ```bash
 export ENVIRONMENT="k8s"
 task ansible:install       # installs k3s with a basic cilium CNI configuration for initial bootstrap
