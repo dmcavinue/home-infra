@@ -1,0 +1,13 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cluster-settings
+  namespace: flux-system
+data:
+  ENVIRONMENT: k1s
+  DOMAIN: k1s.logfold.com
+  CILIUM_ID: "3"
+  CILIUM_IPAM_CIDR: 192.168.8.16/28
+  CILIUM_MESH_LB_IP: 192.168.8.17
+  K8S_SERVICE_HOST: 192.168.8.3

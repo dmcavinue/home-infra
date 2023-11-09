@@ -53,9 +53,11 @@ tasks:
       - vault write -format=json pki/int_ca/intermediate/generate/internal common_name="svc" | jq -r '.data.csr' > pki_intermediate.csr
       - vault write -format=json pki/root_ca/root/sign-intermediate csr=@pki_intermediate.csr format=pem_bundle ttl="43800h" | jq -r '.data.certificate' > ca.cert.pem
       - vault write pki/int_ca/intermediate/set-signed certificate=@ca.cert.pem
-      - vault write pki/int_ca/roles/default issuer_ref="$(vault read -field=default pki/int_ca/config/issuers)" allowed_domains="admin-k8s,admin-k0s,remote,svc,cilium.io" allowed_uri_sans="admin-k0s,admin-k0s,remote,clustermesh-apiserver" allow_bare_domains=true allow_subdomains=true max_ttl="720h"
+      - vault write pki/int_ca/roles/default issuer_ref="$(vault read -field=default pki/int_ca/config/issuers)" allowed_domains="admin-k0s,admin-k1s,admin-k8s,remote,svc,cilium.io" allowed_uri_sans="admin-k0s,admin-k1s,admin-k8s,remote,clustermesh-apiserver" allow_bare_domains=true allow_subdomains=true max_ttl="720h"
       - kubectl --context k0s -n cert-manager delete secret vault-root-ca || true
       - kubectl --context k0s -n cert-manager create secret generic vault-root-ca --from-file=ca.cert.pem=ca.cert.pem || true
+      - kubectl --context k1s -n cert-manager delete secret vault-root-ca || true
+      - kubectl --context k1s -n cert-manager create secret generic vault-root-ca --from-file=ca.cert.pem=ca.cert.pem || true
       - kubectl --context k8s -n cert-manager delete secret vault-root-ca || true
       - kubectl --context k8s -n cert-manager create secret generic vault-root-ca --from-file=ca.cert.pem=ca.cert.pem || true
       - rm ca.cert.pem
@@ -67,8 +69,10 @@ tasks:
       # private issuer
       - vault write auth/approle/role/cert-manager token_policies="cert-manager" token_ttl=1h token_max_ttl=4h
       - kubectl --context k0s -n kube-system create secret generic cert-manager-vault-approle --from-literal=secretId=$(vault write -force -field=secret_id auth/approle/role/cert-manager/secret-id) || true
+      - kubectl --context k1s -n kube-system create secret generic cert-manager-vault-approle --from-literal=secretId=$(vault write -force -field=secret_id auth/approle/role/cert-manager/secret-id) || true
       - kubectl --context k8s -n kube-system create secret generic cert-manager-vault-approle --from-literal=secretId=$(vault write -force -field=secret_id auth/approle/role/cert-manager/secret-id) || true
       - ROLE_ID=$(vault read -field role_id auth/approle/role/cert-manager/role-id ) envsubst < {{.CLUSTER_DIR}}/templates/vault-issuer.yaml | kubectl --context k0s apply -f -
+      - ROLE_ID=$(vault read -field role_id auth/approle/role/cert-manager/role-id ) envsubst < {{.CLUSTER_DIR}}/templates/vault-issuer.yaml | kubectl --context k1s apply -f -
       - ROLE_ID=$(vault read -field role_id auth/approle/role/cert-manager/role-id ) envsubst < {{.CLUSTER_DIR}}/templates/vault-issuer.yaml | kubectl --context k8s apply -f -
   # oidc
   enable-oidc-provider:
@@ -121,6 +125,17 @@ tasks:
           kubernetes_ca_cert=@ca.crt
           disable_iss_validation=true
       - rm ca.crt
+      # k1s
+      - vault auth disable kubernetes/k1s || true
+      - vault auth enable -path=kubernetes/k1s kubernetes || true
+      - kubectl --context k1s -n kube-system apply -f {{.ROOT_DIR}}/kubernetes/templates/vault-auth.yaml
+      - kubectl --context k1s -n kube-system get secret vault-auth-token -o jsonpath="{.data['ca\.crt']}" | base64 -d > ca.crt
+      - vault write auth/kubernetes/k1s/config
+          token_reviewer_jwt="$(kubectl --context k1s -n kube-system get secret vault-auth-token -o jsonpath=\"{.data.token}\" | base64 -d; echo)"
+          kubernetes_host="$(kubectl --context k1s config view --minify | yq e '.clusters[].cluster.server')"
+          kubernetes_ca_cert=@ca.crt
+          disable_iss_validation=true
+      - rm ca.crt
   add-roles:
     desc: add k8s roles/policies
     cmds:
@@ -131,6 +146,11 @@ tasks:
           policies=flux-system,security,default
           ttl=1440h
       - vault write auth/kubernetes/k0s/role/flux-system
+          bound_service_account_names=vault-auth
+          bound_service_account_namespaces=flux-system
+          policies=flux-system,security,default
+          ttl=1440h
+      - vault write auth/kubernetes/k1s/role/flux-system
           bound_service_account_names=vault-auth
           bound_service_account_namespaces=flux-system
           policies=flux-system,security,default
@@ -146,6 +166,11 @@ tasks:
           bound_service_account_namespaces=database
           policies=database,media,home-automation,default
           ttl=1440h
+      - vault write auth/kubernetes/k1s/role/database
+          bound_service_account_names=vault-auth
+          bound_service_account_namespaces=database
+          policies=database,media,home-automation,default
+          ttl=1440h
       - echo "path \"secret/data/home-automation/*\" { capabilities = [\"read\", \"list\"] }" | vault policy write home-automation -
       - vault write auth/kubernetes/k8s/role/home-automation
           bound_service_account_names=vault-auth
@@ -157,8 +182,18 @@ tasks:
           bound_service_account_namespaces=home-automation
           policies=volsync,database,home-automation,default
           ttl=1440h
+      - vault write auth/kubernetes/k1s/role/home-automation
+          bound_service_account_names=vault-auth
+          bound_service_account_namespaces=home-automation
+          policies=volsync,database,home-automation,default
+          ttl=1440h
       - echo "path \"secret/data/media/*\" { capabilities = [\"read\", \"list\"] }" | vault policy write media -
       - vault write auth/kubernetes/k8s/role/media
+          bound_service_account_names=vault-auth
+          bound_service_account_namespaces=media
+          policies=media,default
+          ttl=1440h
+      - vault write auth/kubernetes/k1s/role/media
           bound_service_account_names=vault-auth
           bound_service_account_namespaces=media
           policies=media,default
@@ -174,6 +209,11 @@ tasks:
           bound_service_account_namespaces=monitoring
           policies=monitoring,flux-system,default
           ttl=1440h
+      - vault write auth/kubernetes/k1s/role/monitoring
+          bound_service_account_names=vault-auth,kube-prometheus-stack-prometheus,vmagent-victoria-metrics
+          bound_service_account_namespaces=monitoring
+          policies=monitoring,flux-system,default
+          ttl=1440h
       - echo -e "path \"pki/int_ca/sign/default\" { capabilities = [\"update\"] }\npath \"secret/data/cert-manager/*\" { capabilities = [\"read\", \"list\"] }" | vault policy write cert-manager -
       - vault write auth/kubernetes/k8s/role/cert-manager
           bound_service_account_names=vault-auth
@@ -181,6 +221,11 @@ tasks:
           policies=cert-manager,default
           ttl=1440h
       - vault write auth/kubernetes/k0s/role/cert-manager
+          bound_service_account_names=vault-auth
+          bound_service_account_namespaces=cert-manager
+          policies=cert-manager,default
+          ttl=1440h
+      - vault write auth/kubernetes/k1s/role/cert-manager
           bound_service_account_names=vault-auth
           bound_service_account_namespaces=cert-manager
           policies=cert-manager,default
@@ -196,6 +241,11 @@ tasks:
           bound_service_account_namespaces=kube-system
           policies=kube-system,default
           ttl=1440h
+      - vault write auth/kubernetes/k1s/role/kube-system
+          bound_service_account_names=vault-auth
+          bound_service_account_namespaces=kube-system
+          policies=kube-system,default
+          ttl=1440h
       - echo "path \"secret/data/ingress/*\" { capabilities = [\"read\", \"list\"] }" | vault policy write ingress -
       - vault write auth/kubernetes/k8s/role/ingress
           bound_service_account_names=vault-auth
@@ -207,7 +257,7 @@ tasks:
           bound_service_account_namespaces=ingress
           policies=ingress,default
           ttl=1440h
-      - vault write auth/kubernetes/k0s/role/ingress
+      - vault write auth/kubernetes/k1s/role/ingress
           bound_service_account_names=vault-auth
           bound_service_account_namespaces=ingress
           policies=ingress,default
@@ -223,6 +273,11 @@ tasks:
           bound_service_account_namespaces=volsync
           policies=volsync,default
           ttl=1440h
+      - vault write auth/kubernetes/k1s/role/volsync
+          bound_service_account_names=vault-auth
+          bound_service_account_namespaces=volsync
+          policies=volsync,default
+          ttl=1440h
       - echo "path \"secret/data/security/*\" { capabilities = [\"read\", \"list\"] }" | vault policy write security -
       - vault write auth/kubernetes/k0s/role/security
           bound_service_account_names=vault-auth
@@ -234,6 +289,11 @@ tasks:
           bound_service_account_namespaces=security
           policies=security,default
           ttl=1440h
+      - vault write auth/kubernetes/k1s/role/security
+          bound_service_account_names=vault-auth
+          bound_service_account_namespaces=security
+          policies=security,default
+          ttl=1440h
       - echo "path \"secret/data/storage/*\" { capabilities = [\"read\", \"list\"] }" | vault policy write storage -
       - vault write auth/kubernetes/k8s/role/storage
           bound_service_account_names=vault-auth
@@ -241,6 +301,11 @@ tasks:
           policies=security,storage,default
           ttl=1440h
       - vault write auth/kubernetes/k0s/role/storage
+          bound_service_account_names=vault-auth
+          bound_service_account_namespaces=storage
+          policies=security,storage,default
+          ttl=1440h
+      - vault write auth/kubernetes/k1s/role/storage
           bound_service_account_names=vault-auth
           bound_service_account_namespaces=storage
           policies=security,storage,default

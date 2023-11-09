@@ -4,8 +4,8 @@ k3s_control_node: true
 k3s_server:
   node-ip: "{{ ansible_host }}"
   tls-san:
-    - "k8s.logfold.com"
-    - "192.168.9.8"
+    - "kubernetes.k1s.logfold.com"
+    - "192.168.8.3"
   https-listen-port: 6443
   docker: false
   flannel-backend: "none" # quote
@@ -19,8 +19,8 @@ k3s_server:
   disable-network-policy: true
   disable-cloud-controller: true
   disable-kube-proxy: true
-  cluster-cidr: 10.30.0.0/16
-  service-cidr: 10.31.0.0/16
+  cluster-cidr: 10.32.0.0/16
+  service-cidr: 10.33.0.0/16
   write-kubeconfig-mode: "0644"
   kube-controller-manager-arg:
     - bind-address=0.0.0.0
