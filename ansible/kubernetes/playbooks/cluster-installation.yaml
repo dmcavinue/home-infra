@@ -56,7 +56,7 @@
       ansible.builtin.replace:
         path: "~/workspace/.kubeconfigs/{{ lookup('env', 'ENVIRONMENT') }}.kubeconfig"
         regexp: "https://127.0.0.1:6443"
-        replace: "https://{{ lookup('env', (lookup('env', 'ENVIRONMENT')|upper) + '_VIP_IP' ) }}"
+        replace: "https://{{ k3s_registration_address }}"
 
     - name: Update kubeconfig with the environment context name
       delegate_to: localhost
