@@ -52,7 +52,8 @@ tasks:
   bootstrap-child:
     description: performs all steps end to end to provision a target child cluster
     cmds:
-      #- task ansible:install
+      - task ansible:install
+      - sleep 2
       - task flux:install
       - sleep 2
       - task vault:enable-k8s-auth
