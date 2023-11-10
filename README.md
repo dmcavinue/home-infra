@@ -10,17 +10,17 @@ Based off [this](https://github.com/onedr0p/flux-cluster-template) template.
 **bootstrap parent (k0s) cluster**
 This cluster is intended to manage services the main cluster is dependent on (vault, restic, minio, reverse proxy ingresses to services)
 ```bash
-export ENVIRONMENT="k0s" task ansible:bootstrap-parent
+ENVIRONMENT="k0s" task ansible:bootstrap-parent
 ```
 
 **bootstrap development (k1s) cluster**
 This cluster is used for development of services/changes before being promoted to production
 ```bash
-export ENVIRONMENT="k1s" task ansible:bootstrap-child
+ENVIRONMENT="k1s" task ansible:bootstrap-child
 ```
 
 **bootstrap production (k8s) cluster**
 This cluster is used for production services
 ```bash
-export ENVIRONMENT="k8s" task ansible:bootstrap-child
+ENVIRONMENT="k8s" task ansible:bootstrap-child
 ```

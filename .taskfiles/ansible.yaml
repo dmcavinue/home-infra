@@ -43,16 +43,20 @@ tasks:
     description: performs all steps end to end to provision a target child cluster
     cmds:
       - task ansible:install
+      - sleep 2
       - task flux:install
+      - sleep 2
       - task vault:bootstrap
     silent: true
 
   bootstrap-child:
     description: performs all steps end to end to provision a target child cluster
     cmds:
-      - task ansible:install
+      #- task ansible:install
       - task flux:install
+      - sleep 2
       - task vault:enable-k8s-auth
+      - sleep 2
       - task vault:add-roles
     silent: true
 
