@@ -19,8 +19,8 @@ This cluster is used for development of services/changes before being promoted t
 ENVIRONMENT="k1s" task ansible:bootstrap-child
 ```
 
-**bootstrap production (k8s) cluster**
+**bootstrap production (k2s) cluster**
 This cluster is used for production services
 ```bash
-ENVIRONMENT="k8s" task ansible:bootstrap-child
+ENVIRONMENT="k2s" task ansible:bootstrap-child
 ```

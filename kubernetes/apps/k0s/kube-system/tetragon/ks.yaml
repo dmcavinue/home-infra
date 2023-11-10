@@ -5,7 +5,7 @@ metadata:
   name: cluster-apps-tetragon-policies
   namespace: flux-system
 spec:
-  path: ./kubernetes/apps/k8s/kube-system/tetragon/policies
+  path: ./kubernetes/apps/${ENVIRONMENT}/kube-system/tetragon/policies
   prune: false
   sourceRef:
     kind: GitRepository

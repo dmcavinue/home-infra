@@ -2,15 +2,15 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: cluster-apps-victoria-metrics
+  name: cluster-apps-cloudflared
   namespace: flux-system
 spec:
-  path: ./kubernetes/apps/k8s/monitoring/victoria-metrics/app
+  path: ./kubernetes/apps/${ENVIRONMENT}/ingress/cloudflared/app
   prune: true
   sourceRef:
     kind: GitRepository
     name: home-kubernetes
-  wait: false
+  wait: true
   interval: 30m
   retryInterval: 1m
   timeout: 5m
