@@ -9,8 +9,9 @@ k3s_server_manifests_templates:
   - custom-cilium-l2.yaml.j2
   - custom-coredns-helmchart.yaml.j2
   - custom-external-secrets-helmchart.yaml.j2
-  - custom-cluster-settings.yaml.j2
-  - custom-cluster-secrets.yaml.j2
+  - custom-flux-system-namespace.yaml.j2
+  - custom-cluster-settings-configmap.yaml.j2
+  - custom-cluster-secrets-secret.yaml.j2
 # /var/lib/rancher/k3s/server/manifests
 k3s_server_manifests_urls:
   # Essential Prometheus Operator CRDs (the rest are installed with the kube-prometheus-stack helm release)

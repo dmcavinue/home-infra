@@ -86,6 +86,7 @@
         - { name: external-secrets, kind: HelmChart, namespace: kube-system }
         - { name: policy, kind: CiliumL2AnnouncementPolicy }
         - { name: pool, kind: CiliumLoadBalancerIPPool }
+        - { name: flux-system, kind: Namespace }
         - { name: cluster-settings, kind: ConfigMap, namespace: flux-system }
         - { name: cluster-secrets, kind: Secret, namespace: flux-system }
 
