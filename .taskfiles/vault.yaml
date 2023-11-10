@@ -103,6 +103,7 @@ tasks:
   enable-k8s-auth:
     desc: configure vault k8s auth
     cmds:
+      - task vault:add-vault-issuers
       - vault auth disable kubernetes/{{.ENVIRONMENT}} || true
       - vault auth enable -path=kubernetes/{{.ENVIRONMENT}} kubernetes || true
       - kubectl --context {{.ENVIRONMENT}} -n kube-system apply -f {{.ROOT_DIR}}/kubernetes/templates/vault-auth.yaml
@@ -113,7 +114,6 @@ tasks:
           kubernetes_ca_cert=@ca.crt
           disable_iss_validation=true
       - rm ca.crt
-      - task vault:add-vault-issuers
   add-policies:
     desc: add policies
     cmds:
