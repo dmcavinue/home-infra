@@ -37,7 +37,7 @@ spec:
       name: "${ENVIRONMENT}"
       id: "${CILIUM_ID}"
     clustermesh:
-      useAPIServer: false
+      useAPIServer: true
       # config:
       #   enabled: true
       #   clusters:
@@ -53,7 +53,7 @@ spec:
               kind: Issuer
               name: vault-issuer
         kvstoremesh:
-          enabled: false
+          enabled: true
         service:
           type: LoadBalancer
           loadBalancerIP: "${CILIUM_MESH_LB_IP}"
