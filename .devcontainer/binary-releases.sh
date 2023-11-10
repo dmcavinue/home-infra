@@ -36,6 +36,11 @@ curl https://github.com/direnv/direnv/releases/download/${DIRENV_VERSION}/direnv
   -o /usr/local/bin/direnv && \
   chmod +x /usr/local/bin/direnv
 
+export K9S_VERSION="v0.28.0"
+curl -fsSL https://github.com/derailed/k9s/releases/download/${K9S_VERSION}/k9s_Linux_amd64.tar.gz \
+    | tar xvz --overwrite --file - --directory /tmp
+mv /tmp/k9s /usr/local/bin/k9s
+
 curl https://dl.min.io/client/mc/release/linux-amd64/mc \
   -o /usr/local/bin/mc && \
   chmod +x /usr/local/bin/mc
