@@ -20,7 +20,7 @@ spec:
     #   secret:
     #     name: home-assistant-database-user
     recovery:
-      source: &previousCluster home-assistant-5
+      source: &previousCluster home-assistant-4
   storage:
     size: 5Gi
     storageClass: local-path
