@@ -38,12 +38,12 @@ spec:
       id: "${CILIUM_ID}"
     clustermesh:
       useAPIServer: true
-      config:
-        enabled: true
-        clusters:
-        - name: k1s
-          address: k1s.mesh.cilium.io
-          port: 2379
+      # config:
+      #   enabled: true
+      #   clusters:
+      #   - name: k1s
+      #     address: k1s.mesh.cilium.io
+      #     port: 2379
       apiserver:
         tls:
           auto:
