@@ -58,7 +58,7 @@ spec:
               # cluster mesh
               192.168.9.114 k0s.mesh.cilium.io
               192.168.8.17 k1s.mesh.cilium.io
-              192.168.8.49 k8s.mesh.cilium.io
+              192.168.8.49 k2s.mesh.cilium.io
               # synology services              
               192.168.10.2 nas.feelingsmachine.com
               192.168.10.2 registry.feelingsmachine.com
