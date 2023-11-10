@@ -42,7 +42,7 @@ spec:
                 - path: /config
               accessMode: ReadWriteOnce
               size: 5Gi
-              storageClass: ceph-block
+              storageClass: ceph-pool
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
