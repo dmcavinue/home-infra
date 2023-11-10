@@ -16,9 +16,7 @@ spec:
       - kind: ConfigMap
         name: cluster-settings
       - kind: Secret
-        name: shared-secrets
-      - kind: ConfigMap
-        name: shared-settings
+        name: cluster-secrets
   patches:
     - patch: |-
         apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -30,10 +28,8 @@ spec:
             substituteFrom:
               - kind: ConfigMap
                 name: cluster-settings
-              - kind: ConfigMap
-                name: shared-settings
               - kind: Secret
-                name: shared-secrets
+                name: cluster-secrets
       target:
         group: kustomize.toolkit.fluxcd.io
         kind: Kustomization
@@ -56,9 +52,7 @@ spec:
       - kind: ConfigMap
         name: cluster-settings
       - kind: Secret
-        name: shared-secrets
-      - kind: ConfigMap
-        name: shared-settings
+        name: cluster-secrets
   patches:
     - patch: |-
         apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -70,10 +64,8 @@ spec:
             substituteFrom:
               - kind: ConfigMap
                 name: cluster-settings
-              - kind: ConfigMap
-                name: shared-settings
               - kind: Secret
-                name: shared-secrets
+                name: cluster-secrets
       target:
         group: kustomize.toolkit.fluxcd.io
         kind: Kustomization

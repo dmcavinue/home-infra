@@ -33,9 +33,6 @@ spec:
       - kind: ConfigMap
         name: cluster-settings
         optional: false
-      - kind: ConfigMap
-        name: shared-settings
-        optional: false
       - kind: Secret
-        name: shared-secrets
+        name: cluster-secrets
         optional: false
