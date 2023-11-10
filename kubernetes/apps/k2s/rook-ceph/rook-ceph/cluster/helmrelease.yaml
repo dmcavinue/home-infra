@@ -70,13 +70,13 @@ spec:
         config:
           osdsPerDevice: "1"
         nodes:
-          - name: ${ENVIRONMENT}-4
+          - name: k2s-4
             devices:
               - name: /dev/disk/by-id/scsi-0QEMU_QEMU_HARDDISK_drive-scsi1
-          - name: ${ENVIRONMENT}-5
+          - name: k2s-5
             devices:
               - name: /dev/disk/by-id/scsi-0QEMU_QEMU_HARDDISK_drive-scsi1
-          - name: ${ENVIRONMENT}-6
+          - name: k2s-6
             devices:
               - name: /dev/disk/by-id/scsi-0QEMU_QEMU_HARDDISK_drive-scsi1
       healthCheck:
@@ -113,13 +113,13 @@ spec:
           parameters:
             imageFormat: "2"
             imageFeatures: layering
-            csi.storage.${ENVIRONMENT}.io/provisioner-secret-name: rook-csi-rbd-provisioner
-            csi.storage.${ENVIRONMENT}.io/provisioner-secret-namespace: rook-ceph
-            csi.storage.${ENVIRONMENT}.io/controller-expand-secret-name: rook-csi-rbd-provisioner
-            csi.storage.${ENVIRONMENT}.io/controller-expand-secret-namespace: rook-ceph
-            csi.storage.${ENVIRONMENT}.io/node-stage-secret-name: rook-csi-rbd-node
-            csi.storage.${ENVIRONMENT}.io/node-stage-secret-namespace: rook-ceph
-            csi.storage.${ENVIRONMENT}.io/fstype: ext4
+            csi.storage.k8s.io/provisioner-secret-name: rook-csi-rbd-provisioner
+            csi.storage.k8s.io/provisioner-secret-namespace: rook-ceph
+            csi.storage.k8s.io/controller-expand-secret-name: rook-csi-rbd-provisioner
+            csi.storage.k8s.io/controller-expand-secret-namespace: rook-ceph
+            csi.storage.k8s.io/node-stage-secret-name: rook-csi-rbd-node
+            csi.storage.k8s.io/node-stage-secret-namespace: rook-ceph
+            csi.storage.k8s.io/fstype: ext4
     cephFileSystems:
       - name: ceph-filesystem
         spec:
@@ -148,11 +148,11 @@ spec:
           reclaimPolicy: Delete
           allowVolumeExpansion: true
           parameters:
-            csi.storage.${ENVIRONMENT}.io/provisioner-secret-name: rook-csi-cephfs-provisioner
-            csi.storage.${ENVIRONMENT}.io/provisioner-secret-namespace: rook-ceph
-            csi.storage.${ENVIRONMENT}.io/controller-expand-secret-name: rook-csi-cephfs-provisioner
-            csi.storage.${ENVIRONMENT}.io/controller-expand-secret-namespace: rook-ceph
-            csi.storage.${ENVIRONMENT}.io/node-stage-secret-name: rook-csi-cephfs-node
-            csi.storage.${ENVIRONMENT}.io/node-stage-secret-namespace: rook-ceph
-            csi.storage.${ENVIRONMENT}.io/fstype: ext4
+            csi.storage.k8s.io/provisioner-secret-name: rook-csi-cephfs-provisioner
+            csi.storage.k8s.io/provisioner-secret-namespace: rook-ceph
+            csi.storage.k8s.io/controller-expand-secret-name: rook-csi-cephfs-provisioner
+            csi.storage.k8s.io/controller-expand-secret-namespace: rook-ceph
+            csi.storage.k8s.io/node-stage-secret-name: rook-csi-cephfs-node
+            csi.storage.k8s.io/node-stage-secret-namespace: rook-ceph
+            csi.storage.k8s.io/fstype: ext4
     cephObjectStores: []
