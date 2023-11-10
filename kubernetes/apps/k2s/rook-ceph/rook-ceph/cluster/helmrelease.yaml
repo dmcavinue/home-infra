@@ -52,14 +52,9 @@ spec:
         connections:
           compression:
             enabled: true
+          requireMsgr2: true
       crashCollector:
         disable: false
-      mgr:
-        modules:
-          - name: pg_autoscaler
-            enabled: true
-          - name: rook
-            enabled: true
       dashboard:
         enabled: true
         urlPrefix: /
@@ -79,25 +74,6 @@ spec:
           - name: k2s-6
             devices:
               - name: /dev/disk/by-id/scsi-0QEMU_QEMU_HARDDISK_drive-scsi1
-      healthCheck:
-        daemonHealth:
-          mon:
-            disabled: true
-            interval: 45s
-          osd:
-            disabled: true
-            interval: 60s
-          status:
-            disabled: true
-            interval: 60s
-        # Change pod liveness probe, it works for all mon, mgr, and osd pods.
-        livenessProbe:
-          mon:
-            disabled: true
-          mgr:
-            disabled: true
-          osd:
-            disabled: true
     cephBlockPools:
       - name: ceph-blockpool
         spec:
@@ -155,4 +131,34 @@ spec:
             csi.storage.k8s.io/node-stage-secret-name: rook-csi-cephfs-node
             csi.storage.k8s.io/node-stage-secret-namespace: rook-ceph
             csi.storage.k8s.io/fstype: ext4
-    cephObjectStores: []
+    cephObjectStores:
+      - name: ceph-objectstore
+        spec:
+          metadataPool:
+            failureDomain: host
+            replicated:
+              size: 3
+          dataPool:
+            failureDomain: host
+            erasureCoded:
+              dataChunks: 4
+              codingChunks: 2
+          preservePoolsOnDelete: true
+          gateway:
+            port: 80
+            resources:
+              requests:
+                cpu: 1000m
+                memory: 1Gi
+              limits:
+                memory: 2Gi
+            instances: 2
+          healthCheck:
+            bucket:
+              interval: 60s
+        storageClass:
+          enabled: true
+          name: ceph-bucket
+          reclaimPolicy: Delete
+          parameters:
+            region: us-east-1
