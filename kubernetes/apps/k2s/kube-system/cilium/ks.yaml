@@ -5,7 +5,7 @@ metadata:
   name: cluster-apps-cilium
   namespace: flux-system
 spec:
-  path: ./kubernetes/apps/{$ENVIRONMENT}/kube-system/cilium/app
+  path: ./kubernetes/apps/k2s/kube-system/cilium/app
   prune: false
   sourceRef:
     kind: GitRepository
@@ -21,7 +21,7 @@ spec:
 #   name: cluster-apps-cilium-policies
 #   namespace: flux-system
 # spec:
-#   path: ./kubernetes/apps/{$ENVIRONMENT}/kube-system/cilium/policies
+#   path: ./kubernetes/apps/k2s/kube-system/cilium/policies
 #   prune: false
 #   sourceRef:
 #     kind: GitRepository
