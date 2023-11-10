@@ -87,6 +87,7 @@
         - { name: policy, kind: CiliumL2AnnouncementPolicy }
         - { name: pool, kind: CiliumLoadBalancerIPPool }
         - { name: cluster-settings, kind: ConfigMap, namespace: flux-system }
+        - { name: cluster-secrets, kind: Secret, namespace: flux-system }
 
     - name: Coredns
       when: k3s_primary_control_node
