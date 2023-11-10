@@ -6,12 +6,6 @@ tasks:
   status:
     cmds:
       - cilium clustermesh status --context k0s
-      - cilium clustermesh status --context k1s
-      - cilium clustermesh status --context k8s
-  connect-mesh:
-    cmds:
-      - cilium clustermesh connect --context k0s --destination-context k8s
-      - cilium clustermesh connect --context k0s --destination-context k1s
   tetragon-events:
     cmds:
       - kubectl --context {{.ENVIRONMENT}} logs --max-log-requests=6 -n kube-system -l app.kubernetes.io/name=tetragon -c export-stdout -f | tetra getevents -o compact --namespaces {{.namespace}}
