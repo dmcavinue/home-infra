@@ -42,5 +42,5 @@ tasks:
   reset:
     deps: [ping]
     cmds:
-      - "ansible-playbook -i {{.ANSIBLE_HOSTS_FILE}} {{.ANSIBLE_PLAYBOOK_DIR}}/cluster-nuke.yaml -b"
+      - "ansible-playbook --extra-vars 'k3s_etcd_datastore=null' -i {{.ANSIBLE_HOSTS_FILE}} {{.ANSIBLE_PLAYBOOK_DIR}}/cluster-nuke.yaml -b"
     silent: true

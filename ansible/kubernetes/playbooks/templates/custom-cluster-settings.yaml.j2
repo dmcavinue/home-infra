@@ -1,0 +1,18 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: flux-system
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cluster-settings
+  namespace: flux-system
+data:
+  ENVIRONMENT: "{{ lookup('env', 'ENVIRONMENT') }}"
+  DOMAIN: "{{ domain }}"
+  CILIUM_ID: "{{ cilium_id }}"
+  CILIUM_IPAM_CIDR: "{{ cilium_ipam_cidr }}"
+  CILIUM_MESH_LB_IP: "{{ cilium_mesh_lb_ip }}"
+  K8S_SERVICE_HOST: "{{ k3s_registration_address }}"

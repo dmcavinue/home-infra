@@ -8,16 +8,8 @@ tasks:
     cmds:
       - flux check --pre
 
-  bootstrap:
-    deps: [check]
-    desc: Flux bootstrap
-    cmds:
-      - kubectl --context {{.ENVIRONMENT}} create namespace flux-system
-      - envsubst < {{.ROOT_DIR}}/kubernetes/bootstrap/shared/sharedsecrets.yaml | kubectl --context {{.ENVIRONMENT}} apply -f -
-      - kubectl --context {{.ENVIRONMENT}} apply --server-side --kustomize={{.ROOT_DIR}}/kubernetes/bootstrap/{{.ENVIRONMENT}}
-
   install:
-    deps: [bootstrap]
+    deps: [check]
     desc: Flux install
     cmds:
       - kubectl --context {{.ENVIRONMENT}} apply --server-side --kustomize={{.ROOT_DIR}}/kubernetes/flux/config
