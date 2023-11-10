@@ -58,7 +58,7 @@ spec:
               # cluster mesh
               192.168.9.114 k0s.mesh.cilium.io
               192.168.8.17 k1s.mesh.cilium.io
-              192.168.9.228 k8s.mesh.cilium.io
+              192.168.8.49 k8s.mesh.cilium.io
               # synology services              
               192.168.10.2 nas.feelingsmachine.com
               192.168.10.2 registry.feelingsmachine.com
@@ -89,16 +89,16 @@ spec:
               192.168.8.18 hubble.k1s.logfold.com
               192.168.8.18 oauth.k1s.logfold.com
               # k8s services
-              192.168.9.226 esphome.nucstack.com
-              192.168.9.226 gitops.nucstack.com
-              192.168.9.226 grafana.nucstack.com
-              192.168.9.226 hass.nucstack.com
-              192.168.9.226 hubble.nucstack.com
-              192.168.9.226 immich.nucstack.com
-              192.168.9.226 oauth.nucstack.com
-              192.168.9.226 rook.nucstack.com
-              192.168.9.226 zwavejs.nucstack.com
-              192.168.9.227 mqtt.nucstack.com
+              192.168.8.49 esphome.nucstack.com
+              192.168.8.49 gitops.nucstack.com
+              192.168.8.49 grafana.nucstack.com
+              192.168.8.49 hass.nucstack.com
+              192.168.8.49 hubble.nucstack.com
+              192.168.8.49 immich.nucstack.com
+              192.168.8.49 oauth.nucstack.com
+              192.168.8.49 rook.nucstack.com
+              192.168.8.49 zwavejs.nucstack.com
+              192.168.8.50 mqtt.nucstack.com
               fallthrough
           - name: ready
           - name: kubernetes
