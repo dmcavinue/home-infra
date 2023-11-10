@@ -7,29 +7,20 @@
 
 Based off [this](https://github.com/onedr0p/flux-cluster-template) template.
 
-**Provision boostrap k0s cluster**
+**bootstrap parent (k0s) cluster**
 This cluster is intended to manage services the main cluster is dependent on (vault, restic, minio, reverse proxy ingresses to services)
 ```bash
-export ENVIRONMENT="k0s"
-task ansible:install  # installs k3s with a basic cilium CNI configuration for initial bootstrap
-task flux:install     # applies k0s flux deployments from this repository, sets up better cilium configuration
-task vault:bootstrap  # bootstraps the vault cluster with all auth backends, kv secrets, roles and policies required to function
+export ENVIRONMENT="k0s" task ansible:bootstrap-parent
 ```
 
-**Provision k1s cluster**
+**bootstrap development (k1s) cluster**
+This cluster is used for development of services/changes before being promoted to production
 ```bash
-export ENVIRONMENT="k1s"
-task ansible:install
-task flux:install
-task vault:enable-k8s-auth # add this clusters k8s auth configuration
-task vault:add-roles       # adds vault policies/roles to both k8s auth backends
+export ENVIRONMENT="k1s" task ansible:bootstrap-child
 ```
 
-**Provision k8s cluster**
+**bootstrap production (k8s) cluster**
+This cluster is used for production services
 ```bash
-export ENVIRONMENT="k8s"
-task ansible:install
-task flux:install
-task vault:enable-k8s-auth
-task vault:add-roles
+export ENVIRONMENT="k8s" task ansible:bootstrap-child
 ```

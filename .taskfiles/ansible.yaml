@@ -39,6 +39,23 @@ tasks:
       - "task kubernetes:install-crds"
     silent: true
 
+  bootstrap-parent:
+    description: performs all steps end to end to provision a target child cluster
+    cmds:
+      - task ansible:install
+      - task flux:install
+      - task vault:bootstrap
+    silent: true
+
+  bootstrap-child:
+    description: performs all steps end to end to provision a target child cluster
+    cmds:
+      - task ansible:install
+      - task flux:install
+      - task vault:enable-k8s-auth
+      - task vault:add-roles
+    silent: true
+
   reset:
     deps: [ping]
     cmds:
