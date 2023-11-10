@@ -37,7 +37,7 @@ spec:
       name: "${ENVIRONMENT}"
       id: "${CILIUM_ID}"
     clustermesh:
-      useAPIServer: true
+      useAPIServer: false
       # config:
       #   enabled: true
       #   clusters:
@@ -53,7 +53,7 @@ spec:
               kind: Issuer
               name: vault-issuer
         kvstoremesh:
-          enabled: true
+          enabled: false
         service:
           type: LoadBalancer
           loadBalancerIP: "${CILIUM_MESH_LB_IP}"
@@ -67,13 +67,13 @@ spec:
       status: "policy"
     hubble:
       enabled: true
-      tls:
-        auto:
-          method: certmanager
-          certManagerIssuerRef:
-            group: cert-manager.io
-            kind: Issuer
-            name: vault-issuer
+      # tls:
+      #   auto:
+      #     method: certmanager
+      #     certManagerIssuerRef:
+      #       group: cert-manager.io
+      #       kind: Issuer
+      #       name: vault-issuer
       metrics:
         enabled:
           - dns:query
