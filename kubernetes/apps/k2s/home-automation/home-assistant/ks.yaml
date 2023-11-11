@@ -7,7 +7,6 @@ metadata:
 spec:
   dependsOn:
     - name: cluster-apps-home-automation-home-assistant-database
-    - name: cluster-apps-influxdb
   path: ./kubernetes/apps/${ENVIRONMENT}/home-automation/home-assistant/app
   prune: true
   sourceRef:
