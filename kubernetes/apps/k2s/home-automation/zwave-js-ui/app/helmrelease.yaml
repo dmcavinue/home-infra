@@ -43,7 +43,7 @@ spec:
                 - path: /usr/src/app/store
               accessMode: ReadWriteOnce
               size: 1Gi
-              storageClass: local-path
+              storageClass: ceph-pool
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
