@@ -36,7 +36,7 @@ spec:
         memory: 512Mi
     persistence:
       enabled: true
-      storageClassName: local-path
+      storageClassName: ceph-pool
       size: 8Gi
     setDefaultUser:
       enabled: true
