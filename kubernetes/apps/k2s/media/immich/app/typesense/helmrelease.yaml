@@ -83,7 +83,7 @@ spec:
                 - path: /config
               accessMode: ReadWriteOnce
               size: 5Gi
-              storageClass: ceph-pool
+              storageClass: local-path
     service:
       main:
         ports:

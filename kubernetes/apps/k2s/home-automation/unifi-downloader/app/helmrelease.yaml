@@ -42,7 +42,7 @@ spec:
                 - path: /download
               accessMode: ReadWriteOnce
               size: 20Gi
-              storageClass: ceph-pool
+              storageClass: local-path
         pod:
           securityContext:
             fsGroup: 1001
