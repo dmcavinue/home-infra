@@ -1,7 +1,7 @@
 ---
 cilium_id: 1
 cilium_ipam_cidr: 192.168.8.48/28
-cilium_mesh_lb_ip: 192.168.8.49
+cilium_mesh_lb_ip: 192.168.8.51
 domain: nucstack.com
 github_username: dmcavinue
 timezone: America/New_York
