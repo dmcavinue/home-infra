@@ -1,7 +1,7 @@
 ---
 cilium_id: 2
 cilium_ipam_cidr: 192.168.9.112/28
-cilium_mesh_lb_ip: 192.168.9.114
+cilium_mesh_lb_ip: 192.168.9.113
 domain: logfold.com
 github_username: dmcavinue
 timezone: America/New_York
