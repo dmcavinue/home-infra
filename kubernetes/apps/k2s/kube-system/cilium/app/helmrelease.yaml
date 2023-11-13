@@ -26,7 +26,7 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    autoDirectNodeRoutes: true
+    autoDirectNodeRoutes: false
     enable-ipv4-masquerade: true
     #policyAuditMode: true
     bpf:
