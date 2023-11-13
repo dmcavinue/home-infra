@@ -37,7 +37,7 @@ spec:
       name: "${ENVIRONMENT}"
       id: "${CILIUM_ID}"
     clustermesh:
-      useAPIServer: false
+      useAPIServer: true
       apiserver:
         tls:
           auto:
