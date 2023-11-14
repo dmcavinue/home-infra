@@ -12,8 +12,8 @@ haproxy_backend_name: 'kube-apiserver'
 haproxy_backend_mode: 'tcp'
 haproxy_backend_balance_method: 'roundrobin'
 haproxy_backend_servers:
-  - name: k8s-0
-    address: 192.168.9.9:6443
+  - name: k0s-1
+    address: 192.168.8.226:6443
 keepalived_instances:
   internal:
     interface: "{{ ansible_default_ipv4.interface }}"
@@ -21,4 +21,4 @@ keepalived_instances:
     virtual_router_id: 42
     priority: "{{ (inventory_hostname == groups['master'][0]) | ternary('250', '100') }}"
     vips:
-      - "192.168.9.8/32 dev {{ ansible_default_ipv4.interface }}"
+      - "192.168.8.227/32 dev {{ ansible_default_ipv4.interface }}"

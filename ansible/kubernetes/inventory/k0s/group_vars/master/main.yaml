@@ -4,8 +4,8 @@ k3s_control_node: true
 k3s_server:
   node-ip: "{{ ansible_host }}"
   tls-san:
-    - "kubernetes.k0s.logfold.com"
-    - "192.168.9.8"
+    - "kubernetes.logfold.com"
+    - "192.168.8.227"
   https-listen-port: 6443
   docker: false
   flannel-backend: "none" # quote
