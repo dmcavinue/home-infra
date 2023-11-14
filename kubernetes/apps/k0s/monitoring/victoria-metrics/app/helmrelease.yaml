@@ -124,6 +124,8 @@ spec:
     vmagent:
       enabled: true
       spec:
+        externalLabels:
+          k8s_cluster: ${ENVIRONMENT}
         podMetadata:
           annotations:
             vault.hashicorp.com/agent-inject: 'true'
@@ -142,7 +144,7 @@ spec:
         replicaCount: 1
         scrapeInterval: 60s
         externalLabels:
-          k8s_cluster: ${ENVIRONMENT}
+          cluster: ${ENVIRONMENT}
       ingress:
         enabled: false
         ingressClassName: nginx
