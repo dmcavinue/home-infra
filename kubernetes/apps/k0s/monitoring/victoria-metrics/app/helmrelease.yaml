@@ -104,6 +104,8 @@ spec:
     vmalert:
       enabled: true
       spec:
+        externalLabels:
+          k8s_cluster: ${ENVIRONMENT}
         evaluationInterval: 60s
         notifiers:
           - selector:
@@ -124,8 +126,6 @@ spec:
     vmagent:
       enabled: true
       spec:
-        externalLabels:
-          k8s_cluster: ${ENVIRONMENT}
         podMetadata:
           annotations:
             vault.hashicorp.com/agent-inject: 'true'
