@@ -39,7 +39,7 @@ spec:
     clustermesh:
       useAPIServer: true
       config:
-        enabled: false
+        enabled: true
         clusters:
         - name: k1s
           address: k1s.mesh.cilium.io
