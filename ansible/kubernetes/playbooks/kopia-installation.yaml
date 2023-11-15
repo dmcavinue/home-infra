@@ -15,8 +15,8 @@
     - name: kopia
       block:
         - name: Packages | Add kopia key
-          apt_key:
-            url: https://kopia.io/signing-key
+          ansible.builtin.shell:
+            cmd: curl -s https://kopia.io/signing-key | sudo gpg --dearmor -o /etc/apt/keyrings/kopia-keyring.gpg
         - name: Packages | Add kopia repository
           ansible.builtin.apt_repository:
             repo: "deb [signed-by=/etc/apt/keyrings/kopia-keyring.gpg] http://packages.kopia.io/apt/ stable main"
