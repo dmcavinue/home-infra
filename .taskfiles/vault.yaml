@@ -86,7 +86,7 @@ tasks:
       - vault auth disable ldap
       - vault auth enable ldap
       - vault write auth/ldap/config
-          url="ldaps://lldap.{{.K0S_DOMAIN}}"
+          url="ldaps://lldap.logfold.com"
           userattr=uid
           userdn="ou=people,{{.LLDAP_LDAP_BASE_DN}}"
           discoverdn=true

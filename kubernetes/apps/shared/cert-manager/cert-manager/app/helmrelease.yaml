@@ -32,10 +32,10 @@ spec:
       - --dns01-recursive-nameservers-only
       - --cluster-resource-namespace=flux-system
     podDnsPolicy: None
-    podDnsConfig:
-      nameservers:
-        - "1.1.1.1"
-        - "9.9.9.9"
+    # podDnsConfig:
+    #   nameservers:
+    #     - "1.1.1.1"
+    #     - "9.9.9.9"
     prometheus:
       enabled: true
       servicemonitor:
