@@ -68,6 +68,23 @@ spec:
     endpointStatus:
       enabled: true
       status: "policy"
+    gatewayAPI:
+      enabled: true
+      secretsNamespace:        
+        create: false        
+        name: ingress
+        sync: false
+    encryption:
+      enabled: true
+      type: wireguard
+      nodeEncryption: true
+      # strictMode:
+      #   enabled: false
+      #   cidr: ""
+      #   allowRemoteNodeIdentities: false
+      # wireguard:
+      #   userspaceFallback: false
+      #   persistentKeepalive: 0s
     hubble:
       enabled: true
       tls:
