@@ -26,9 +26,6 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    tunnelProtocol: vxlan
-    routingMode: tunnel
-    tunnelPort: 8472
     autoDirectNodeRoutes: false
     enable-ipv4-masquerade: true
     #policyAuditMode: true
@@ -145,7 +142,7 @@ spec:
     loadBalancer:
       algorithm: maglev
       serviceTopology: true
-      mode: snat
+      mode: dsr
     localRedirectPolicy: true
     operator:
       replicas: 1
