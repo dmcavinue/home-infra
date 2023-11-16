@@ -26,6 +26,9 @@ spec:
   uninstall:
     keepHistory: false
   values:
+    tunnelProtocol: vxlan
+    routingMode: tunnel
+    tunnelPort: 8472
     autoDirectNodeRoutes: false
     enable-ipv4-masquerade: true
     #policyAuditMode: true
