@@ -29,10 +29,14 @@ spec:
     operator:
       replicaCount: 1
       image:
-          repository: quay.io/minio/operator
-          tag: v5.0.11-amd64
-          pullPolicy: IfNotPresent
+        repository: quay.io/minio/operator
+        tag: v5.0.11-amd64
+        pullPolicy: IfNotPresent
     console:
+      image:
+        repository: quay.io/minio/operator
+        tag: v5.0.11-amd64
+        pullPolicy: IfNotPresent
       ingress:
         enabled: true
         ingressClassName: "nginx"
