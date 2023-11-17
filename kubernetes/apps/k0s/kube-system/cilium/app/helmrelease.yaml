@@ -142,7 +142,7 @@ spec:
     loadBalancer:
       algorithm: maglev
       serviceTopology: true
-      mode: dsr
+      # mode: dsr
     localRedirectPolicy: true
     operator:
       replicas: 1
@@ -162,4 +162,4 @@ spec:
     rollOutCiliumPods: true
     securityContext:
       privileged: true
-    tunnel: disabled
+    # tunnel: disabled
