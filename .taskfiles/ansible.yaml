@@ -44,6 +44,7 @@ tasks:
     cmds:
       - task ansible:install
       - task flux:install
+      - kubectl --context {{.ENVIRONMENT}} -n cert-manager wait --for condition=available --timeout=120s deploy/cert-manager-webhook
       - task vault:bootstrap
     silent: true
 
@@ -52,6 +53,7 @@ tasks:
     cmds:
       - task ansible:install
       - task flux:install
+      - kubectl --context {{.ENVIRONMENT}} -n cert-manager wait --for condition=available --timeout=120s deploy/cert-manager-webhook
       - task vault:enable-k8s-auth
       - task vault:add-roles
     silent: true
