@@ -23,4 +23,9 @@ ENVIRONMENT="k1s" task ansible:bootstrap-child
 This cluster is used for production services
 ```bash
 ENVIRONMENT="k2s" task ansible:bootstrap-child
+
+# restoring pv data from backups 
+ENVIRONMENT="k2s" task vs:restore namespace=home-automation rsrc=esphome
+ENVIRONMENT="k2s" task vs:restore namespace=home-automation rsrc=zwavejs
+ENVIRONMENT="k2s" task vs:restore namespace=home-automation rsrc=home-assistant
 ```

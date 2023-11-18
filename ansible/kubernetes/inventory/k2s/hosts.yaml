@@ -17,12 +17,12 @@ kubernetes:
         k2s-4:
           ansible_host: 192.168.8.39
           ceph_drives:
-            - /dev/disk/by-id/ata-Samsung_SSD_870_EVO_4TB_S6PJNJ0W408334H
+            - /dev/disk/by-id/scsi-0QEMU_QEMU_HARDDISK_drive-scsi1
         k2s-5:
           ansible_host: 192.168.8.40
           ceph_drives:
-            - /dev/disk/by-id/ata-Samsung_SSD_870_EVO_4TB_S6PJNJ0W408323L
+            - /dev/disk/by-id/scsi-0QEMU_QEMU_HARDDISK_drive-scsi1
         k2s-6:
           ansible_host: 192.168.8.41
           ceph_drives:
-            - /dev/disk/by-id/ata-Samsung_SSD_870_EVO_4TB_S757NS0W601378Z
+            - /dev/disk/by-id/scsi-0QEMU_QEMU_HARDDISK_drive-scsi1
