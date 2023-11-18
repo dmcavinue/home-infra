@@ -77,7 +77,7 @@ spec:
     encryption:
       enabled: true
       type: wireguard
-      nodeEncryption: true
+      nodeEncryption: false
       # strictMode:
       #   enabled: false
       #   cidr: ""
@@ -162,4 +162,5 @@ spec:
     rollOutCiliumPods: true
     securityContext:
       privileged: true
-    #tunnel: disabled
+    routingMode: native
+    tunnel: disabled
