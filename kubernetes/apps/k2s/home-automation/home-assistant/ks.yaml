@@ -8,7 +8,7 @@ spec:
   dependsOn:
     - name: cluster-apps-home-automation-home-assistant-database
   path: ./kubernetes/clusters/${ENVIRONMENT}/home-automation/home-assistant/app
-  prune: true
+  prune: false
   sourceRef:
     kind: GitRepository
     name: home-kubernetes
@@ -26,7 +26,7 @@ spec:
   dependsOn:
     - name: shared-apps-cloudnative-pg
   path: ./kubernetes/clusters/${ENVIRONMENT}/home-automation/home-assistant/database
-  prune: true
+  prune: false
   sourceRef:
     kind: GitRepository
     name: home-kubernetes

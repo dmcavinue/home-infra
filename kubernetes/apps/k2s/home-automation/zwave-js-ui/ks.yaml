@@ -8,7 +8,7 @@ spec:
   dependsOn:
     - name: shared-apps-node-feature-rules
   path: ./kubernetes/clusters/${ENVIRONMENT}/home-automation/zwave-js-ui/app
-  prune: true
+  prune: false
   sourceRef:
     kind: GitRepository
     name: home-kubernetes

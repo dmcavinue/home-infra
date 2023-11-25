@@ -6,7 +6,7 @@ metadata:
   namespace: flux-system
 spec:
   path: ./kubernetes/clusters/${ENVIRONMENT}/storage/minio-operator/app
-  prune: true
+  prune: false
   sourceRef:
     kind: GitRepository
     name: home-kubernetes
@@ -26,7 +26,7 @@ spec:
     - name: cluster-apps-lldap
     - name: cluster-apps-minio-operator
   path: ./kubernetes/clusters/${ENVIRONMENT}/storage/minio-operator/tenant
-  prune: true
+  prune: false
   sourceRef:
     kind: GitRepository
     name: home-kubernetes

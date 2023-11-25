@@ -8,7 +8,7 @@ spec:
   dependsOn:
     - name: shared-apps-snapshot-controller
   path: ./kubernetes/clusters/${ENVIRONMENT}/volsync/volsync/app
-  prune: true
+  prune: false
   sourceRef:
     kind: GitRepository
     name: home-kubernetes

@@ -8,7 +8,7 @@ spec:
   dependsOn:
     - name: cluster-apps-lldap
   path: ./kubernetes/clusters/${ENVIRONMENT}/security/dex/app
-  prune: true
+  prune: false
   sourceRef:
     kind: GitRepository
     name: home-kubernetes

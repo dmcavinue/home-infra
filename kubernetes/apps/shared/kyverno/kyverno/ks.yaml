@@ -6,7 +6,7 @@ metadata:
   namespace: flux-system
 spec:
   path: ./kubernetes/clusters/shared/kyverno/kyverno/app
-  prune: true
+  prune: false
   sourceRef:
     kind: GitRepository
     name: home-kubernetes
@@ -24,7 +24,7 @@ spec:
   dependsOn:
     - name: shared-apps-kyverno
   path: ./kubernetes/clusters/shared/kyverno/kyverno/policies
-  prune: true
+  prune: false
   sourceRef:
     kind: GitRepository
     name: home-kubernetes

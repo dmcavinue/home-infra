@@ -6,7 +6,7 @@ metadata:
   namespace: flux-system
 spec:
   path: ./kubernetes/clusters/shared/kube-system/node-feature-discovery/app
-  prune: true
+  prune: false
   sourceRef:
     kind: GitRepository
     name: home-kubernetes
@@ -24,7 +24,7 @@ spec:
   dependsOn:
     - name: shared-apps-node-feature-discovery
   path: ./kubernetes/clusters/shared/kube-system/node-feature-discovery/rules
-  prune: true
+  prune: false
   sourceRef:
     kind: GitRepository
     name: home-kubernetes
