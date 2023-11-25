@@ -119,7 +119,7 @@ spec:
       enabled: true
       spec:
         remoteWrite:
-          - url: "http://vminsert-victoria-metrics.monitoring:8480/insert/0/prometheus/api/v1/write"
+          - url: "http://vminsert.monitoring:8480/insert/0/prometheus/api/v1/write"
         replicaCount: 1
         scrapeInterval: 60s
         externalLabels:
