@@ -73,6 +73,10 @@ spec:
           replicaCount: 2
           extraArgs:
             maxLabelsPerTimeseries: "180" # More needed if you are scraping a LOT of stuff and having issues
+          serviceSpec:
+            metadata:
+              annotations:
+                io.cilium/global-service: true
       ingress:
         storage:
           enabled: false
