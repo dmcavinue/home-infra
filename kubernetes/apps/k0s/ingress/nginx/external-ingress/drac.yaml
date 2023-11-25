@@ -4,8 +4,6 @@ kind: Service
 metadata:
   name: drac
   namespace: ingress
-  annotations:
-    io.cilium/global-service: "true"
 spec:
   ports:
   - name: http
