@@ -20,7 +20,7 @@ spec:
     #   secret:
     #     name: home-assistant-database-user
     recovery:
-      source: &previousCluster home-assistant-7
+      source: &previousCluster home-assistant-8
   storage:
     size: 5Gi
     storageClass: local-path
@@ -41,7 +41,7 @@ spec:
         maxParallel: 8
       destinationPath: s3://pg-backup/home-assistant
       endpointURL: "https://minio.logfold.com"
-      serverName: &currentCluster home-assistant-8
+      serverName: &currentCluster home-assistant-9
       s3Credentials:
         accessKeyId:
           name: home-assistant-database-superuser
