@@ -76,7 +76,7 @@ spec:
           serviceSpec:
             metadata:
               annotations:
-                io.cilium/global-service: true
+                io.cilium/global-service: "true"
       ingress:
         storage:
           enabled: false
