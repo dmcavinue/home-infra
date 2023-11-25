@@ -29,3 +29,4 @@ ENVIRONMENT="k2s" task vs:restore namespace=home-automation rsrc=esphome
 ENVIRONMENT="k2s" task vs:restore namespace=home-automation rsrc=zwavejs
 ENVIRONMENT="k2s" task vs:restore namespace=home-automation rsrc=home-assistant
 ```
+```
