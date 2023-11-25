@@ -74,6 +74,18 @@ spec:
           extraArgs:
             maxLabelsPerTimeseries: "180" # More needed if you are scraping a LOT of stuff and having issues
           serviceSpec:
+            spec:
+              ports:
+                - name: http
+                  protocol: TCP
+                  port: 8480
+                  targetPort: 8480
+              selector:
+                app.kubernetes.io/component: monitoring
+                app.kubernetes.io/instance: victoria-metrics
+                app.kubernetes.io/name: vminsert
+                managed-by: vm-operator
+              type: ClusterIP
             metadata:
               annotations:
                 io.cilium/global-service: "true"
