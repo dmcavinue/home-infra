@@ -4,6 +4,8 @@ kind: Service
 metadata:
   name: unifi
   namespace: ingress
+  annotations:
+    io.cilium/global-service: "true"
 spec:
   ports:
   - name: http
