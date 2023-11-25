@@ -110,7 +110,7 @@ spec:
             - hosts:
                 - *hostselect
         insert:
-          enabled: true
+          enabled: false
           ingressClassName: nginx
           pathType: Prefix
           hosts:
