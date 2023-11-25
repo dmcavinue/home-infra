@@ -5,7 +5,7 @@ metadata:
   name: shared-apps-grafana
   namespace: flux-system
 spec:
-  path: ./kubernetes/apps/shared/monitoring/grafana/app
+  path: ./kubernetes/clusters/shared/monitoring/grafana/app
   prune: true
   sourceRef:
     kind: GitRepository

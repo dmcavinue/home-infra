@@ -5,7 +5,7 @@ metadata:
   name: shared-apps-flux-addons
   namespace: flux-system
 spec:
-  path: ./kubernetes/apps/shared/flux-system/addons/app
+  path: ./kubernetes/clusters/shared/flux-system/addons/app
   prune: true
   sourceRef:
     kind: GitRepository

@@ -5,7 +5,7 @@ metadata:
   name: shared-apps-promtail
   namespace: flux-system
 spec:
-  path: ./kubernetes/apps/shared/monitoring/promtail/app
+  path: ./kubernetes/clusters/shared/monitoring/promtail/app
   prune: true
   sourceRef:
     kind: GitRepository

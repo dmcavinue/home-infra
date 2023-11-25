@@ -5,7 +5,7 @@ metadata:
   name: cluster-apps-cilium
   namespace: flux-system
 spec:
-  path: ./kubernetes/apps/k1s/kube-system/cilium/app
+  path: ./kubernetes/clusters/k1s/kube-system/cilium/app
   prune: false
   sourceRef:
     kind: GitRepository

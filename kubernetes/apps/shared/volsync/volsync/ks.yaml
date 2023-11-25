@@ -7,7 +7,7 @@ metadata:
 spec:
   dependsOn:
     - name: shared-apps-snapshot-controller
-  path: ./kubernetes/apps/shared/volsync/volsync/app
+  path: ./kubernetes/clusters/shared/volsync/volsync/app
   prune: true
   sourceRef:
     kind: GitRepository

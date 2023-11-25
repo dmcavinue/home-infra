@@ -5,7 +5,7 @@ metadata:
   name: shared-apps-external-secrets
   namespace: flux-system
 spec:
-  path: ./kubernetes/apps/shared/kube-system/external-secrets/app
+  path: ./kubernetes/clusters/shared/kube-system/external-secrets/app
   prune: true
   sourceRef:
     kind: GitRepository

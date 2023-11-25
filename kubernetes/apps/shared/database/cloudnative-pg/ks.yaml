@@ -5,7 +5,7 @@ metadata:
   name: shared-apps-cloudnative-pg
   namespace: flux-system
 spec:
-  path: ./kubernetes/apps/shared/database/cloudnative-pg/app
+  path: ./kubernetes/clusters/shared/database/cloudnative-pg/app
   prune: true
   sourceRef:
     kind: GitRepository

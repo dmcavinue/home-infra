@@ -5,7 +5,7 @@ metadata:
   name: cluster-apps-victoria-metrics
   namespace: flux-system
 spec:
-  path: ./kubernetes/apps/${ENVIRONMENT}/monitoring/victoria-metrics/app
+  path: ./kubernetes/clusters/${ENVIRONMENT}/monitoring/victoria-metrics/app
   prune: true
   sourceRef:
     kind: GitRepository

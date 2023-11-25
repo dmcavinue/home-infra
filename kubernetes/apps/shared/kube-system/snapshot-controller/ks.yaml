@@ -5,7 +5,7 @@ metadata:
   name: shared-apps-snapshot-controller
   namespace: flux-system
 spec:
-  path: ./kubernetes/apps/shared/kube-system/snapshot-controller/app
+  path: ./kubernetes/clusters/shared/kube-system/snapshot-controller/app
   prune: true
   sourceRef:
     kind: GitRepository

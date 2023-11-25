@@ -5,7 +5,7 @@ metadata:
   name: cluster-apps-vault-injector
   namespace: flux-system
 spec:
-  path: ./kubernetes/apps/${ENVIRONMENT}/vault/vault-injector/app
+  path: ./kubernetes/clusters/${ENVIRONMENT}/vault/vault-injector/app
   prune: true
   sourceRef:
     kind: GitRepository

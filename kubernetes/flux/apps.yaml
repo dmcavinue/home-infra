@@ -6,7 +6,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m
-  path: "./kubernetes/apps/shared"
+  path: "./kubernetes/clusters/shared"
   prune: true
   sourceRef:
     kind: GitRepository
@@ -42,7 +42,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m
-  path: "./kubernetes/apps/${ENVIRONMENT}"
+  path: "./kubernetes/clusters/${ENVIRONMENT}"
   prune: true
   sourceRef:
     kind: GitRepository
