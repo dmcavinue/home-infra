@@ -87,6 +87,7 @@ spec:
                 managed-by: vm-operator
               type: ClusterIP
             metadata:
+              name: vminsert
               annotations:
                 io.cilium/global-service: "true"
       ingress:
