@@ -29,6 +29,12 @@ spec:
     autoDirectNodeRoutes: false
     enable-ipv4-masquerade: true
     #policyAuditMode: true
+    authentication:
+      mutual:
+        spire:
+          enabled: true
+          install:
+            enabled: true
     bpf:
       masquerade: true
     bgp:
