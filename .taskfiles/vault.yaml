@@ -118,6 +118,7 @@ tasks:
     desc: add policies
     cmds:
       - echo -e "path \"pki/int_ca/sign/default\" { capabilities = [\"update\"] }\npath \"secret/data/cert-manager/*\" { capabilities = [\"read\", \"list\"] }" | vault policy write cert-manager -
+      - echo -e "path \"pki/int_ca/sign/default\" { capabilities = [\"update\"] } " | vault policy write vault-issuer -
       - echo -e "path \"secret/data/database/*\" { capabilities = [\"read\", \"list\"] } " | vault policy write database -
       - echo -e "path \"secret/data/flux-system/*\" { capabilities = [\"read\", \"list\"] }" | vault policy write flux-system -
       - echo -e "path \"secret/data/home-automation/*\" { capabilities = [\"read\", \"list\"] }" | vault policy write home-automation -
