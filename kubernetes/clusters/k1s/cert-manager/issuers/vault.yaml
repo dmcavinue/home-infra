@@ -10,7 +10,7 @@ spec:
     server: http://vault.vault:8200
     auth:
       kubernetes:
-        role: cert-manager
+        role: vault-issuer
         mountPath: "/v1/auth/kubernetes/${ENVIRONMENT}"
         serviceAccountRef:
-          name: vault-auth
+          name: vault-issuer
