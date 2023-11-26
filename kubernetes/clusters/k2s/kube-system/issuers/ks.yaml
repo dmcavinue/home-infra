@@ -5,7 +5,7 @@ metadata:
   name: cluster-apps-issuers-vault
   namespace: flux-system
 spec:
-  path: ./kubernetes/clusters/${ENVIRONMENT}}/kube-system/issuers/vault
+  path: ./kubernetes/clusters/${ENVIRONMENT}/kube-system/issuers/vault
   prune: false
   sourceRef:
     kind: GitRepository
