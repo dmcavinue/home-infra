@@ -5,6 +5,5 @@ kind: Kustomization
 resources:
   # Flux-Kustomizations
   - ./cilium/ks.yaml
-  # Flux-Kustomizations
-  - ./issuers
+  - ./issuers/ks.yaml
 
