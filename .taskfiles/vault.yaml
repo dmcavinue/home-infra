@@ -21,10 +21,8 @@ tasks:
       - task vault:add-roles
       - task vault:add-rootca
       - task vault:add-intca
-      - task vault:add-vault-issuers
       - task vault:enable-ldap
       - task vault:enable-kv
-      - task vault:enable-approles
       - task vault:add-kv-secrets
   status:
     desc: vault status
@@ -64,21 +62,11 @@ tasks:
       - kubectl --context k2s -n cert-manager create secret generic vault-root-ca --from-file=ca.cert.pem=ca.cert.pem || true
       - rm ca.cert.pem
       - rm pki_intermediate.csr
-  add-vault-issuers:
-    desc: add vault issuers
-    cmds:      
-      - kubectl --context {{.ENVIRONMENT}} -n kube-system create secret generic cert-manager-vault-approle --from-literal=secretId=$(vault write -force -field=secret_id auth/approle/role/cert-manager/secret-id) || true      
-      - ROLE_ID=$(vault read -field role_id auth/approle/role/cert-manager/role-id ) envsubst < {{.CLUSTER_DIR}}/templates/vault-issuer.yaml | kubectl --context {{.ENVIRONMENT}} apply -f -      
   # oidc
   enable-oidc-provider:
     cmds:
       - vault write identity/oidc/provider/default
           allowed_client_ids="*"
-  # approle
-  enable-approles:
-    cmds:
-      - vault auth enable -path=approle approle || true
-      - vault write auth/approle/role/cert-manager token_policies="cert-manager" token_ttl=1h token_max_ttl=4h
   # ldap
   enable-ldap:
     desc: configure vault ldap auth
@@ -103,7 +91,6 @@ tasks:
   enable-k8s-auth:
     desc: configure vault k8s auth
     cmds:
-      - task vault:add-vault-issuers
       - vault auth disable kubernetes/{{.ENVIRONMENT}} || true
       - vault auth enable -path=kubernetes/{{.ENVIRONMENT}} kubernetes || true
       - kubectl --context {{.ENVIRONMENT}} -n kube-system apply -f {{.ROOT_DIR}}/kubernetes/templates/vault-auth.yaml
