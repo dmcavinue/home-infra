@@ -33,14 +33,14 @@ spec:
       mutual:
         spire:
           enabled: true
-          server:
-            dataStorage:
-              enabled: true
-              size: 1Gi
-              accessMode: ReadWriteOnce
-              storageClass: local-path
           install:
             enabled: true
+            server:
+              enabled: true
+              dataStorage:
+                size: 1Gi
+                accessMode: ReadWriteOnce
+                storageClass: local-path
     bpf:
       masquerade: true
     bgp:
