@@ -36,6 +36,9 @@ spec:
           server:
             datastorage:
               enabled: false
+              size: 1Gi
+              accessMode: ReadWriteOnce
+              storageClass: local-path
           install:
             enabled: true
     bpf:
