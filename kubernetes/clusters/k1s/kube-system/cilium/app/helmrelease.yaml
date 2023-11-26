@@ -29,6 +29,18 @@ spec:
     autoDirectNodeRoutes: false
     enable-ipv4-masquerade: true
     #policyAuditMode: true
+    authentication:
+      mutual:
+        spire:
+          enabled: true
+          install:
+            enabled: true
+            server:
+              enabled: true
+              dataStorage:
+                size: 1Gi
+                accessMode: ReadWriteOnce
+                storageClass: local-path
     bpf:
       masquerade: true
     bgp:
