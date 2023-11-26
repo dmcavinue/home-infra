@@ -8,3 +8,12 @@
         - name: Wipe (sgdisk)
           ansible.builtin.command: "sgdisk --zap-all $(realpath {{ item }})"
           loop: "{{ ceph_drives }}"
+        - name: Wipe (dd)
+          ansible.builtin.command: "dd if=/dev/zero of={{ item }} bs=1M count=100 oflag=direct,dsync"
+          loop: "{{ ceph_drives }}"
+        - name: Wipe (blkdiscard)
+          ansible.builtin.command: "blkdiscard {{ item }}"
+          loop: "{{ ceph_drives }}"
+        - name: Wipe (partprobe)
+          ansible.builtin.command: "partprobe {{ item }}"
+          loop: "{{ ceph_drives }}"
