@@ -1,0 +1,16 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: vault-issuer-test
+  namespace: kube-system
+spec:
+  vault:
+    path: pki/int_ca/sign/default
+    server: http://vault.vault:8200
+    auth:
+      kubernetes:
+        role: cert-manager
+        mountPath: "/v1/auth/kubernetes/${ENVIRONMENT}"
+        serviceAccountRef:
+          name: vault-auth
