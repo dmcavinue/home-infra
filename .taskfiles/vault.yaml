@@ -132,6 +132,11 @@ tasks:
   add-roles:
     desc: add k8s roles
     cmds:
+      - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/vault-issuer
+          bound_service_account_names=vault-issuer
+          bound_service_account_namespaces=kube-system
+          policies=vault-issuer,default
+          ttl=1h
       - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/flux-system
           bound_service_account_names=vault-auth
           bound_service_account_namespaces=flux-system
