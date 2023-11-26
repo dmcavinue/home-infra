@@ -1,7 +1,7 @@
 ---
 - name: Ceph
   block:
-    - name: Reset Ceph Drives # noqa: ignore-errors
+    - name: Reset Ceph Drives
       ignore_errors: true
       when: ceph_drives | default([]) | length > 0
       block:
