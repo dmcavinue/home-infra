@@ -270,6 +270,10 @@ tasks:
           IMMICH_POSTGRES_PASSWORD="{{.IMMICH_POSTGRES_PASSWORD}}"
           IMMICH_DB_BACKUP_ACCESS_KEY="{{.IMMICH_DB_BACKUP_ACCESS_KEY}}"
           IMMICH_DB_BACKUP_SECRET="{{.IMMICH_DB_BACKUP_SECRET}}"
+      # monitoring/loki
+      - vault kv put -mount=secret monitoring/loki
+          MINIO_ACCESS_KEY="{{.LOKI_MINIO_ACCESS_KEY}}"
+          MINIO_SECRET_KEY="{{.LOKI_MINIO_SECRET_KEY}}"
       # monitoring/grafana
       - vault kv put -mount=secret monitoring/grafana
           ADMIN_USER="{{.GRAFANA_ADMIN_USER}}"

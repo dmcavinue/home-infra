@@ -37,3 +37,6 @@ spec:
     - name: "pg-backup"
       region: "us-east-1"
       objectLock: false
+    - name: "loki"
+      region: "us-east-1"
+      objectLock: false
