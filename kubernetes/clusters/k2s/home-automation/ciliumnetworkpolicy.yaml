@@ -93,6 +93,11 @@ spec:
       toPorts:
         - ports:
             - port: "443"
+    - toCIDRSet:
+        - cidr: 192.168.1.1/32
+      toPorts:
+        - ports:
+            - port: "7441"
     - toEntities:
         - world
       toPorts:
