@@ -62,7 +62,7 @@ spec:
           storage:
             s3:
               bucketnames: loki
-              endpoint: minio-pool-hl.storage.svc.cluster.local:9000
+              endpoint: minio.storage.svc.cluster.local
               region: us-east-1
               s3: null
               insecure: true
