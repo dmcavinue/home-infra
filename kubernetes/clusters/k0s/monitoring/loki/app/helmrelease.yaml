@@ -61,6 +61,7 @@ spec:
           replication_factor: 2
           storage:
             type: filesystem
+            s3: null
           ring:
             kvstore:
               store: memberlist
