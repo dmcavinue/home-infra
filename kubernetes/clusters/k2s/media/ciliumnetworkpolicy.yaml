@@ -152,3 +152,27 @@ spec:
       toPorts:
         - ports:
             - port: "5432"
+    - toEndpoints:
+        - matchLabels:
+            k8s:cnpg.io/cluster: immich
+            k8s:cnpg.io/instanceName: immich-1
+            k8s:cnpg.io/instanceRole: primary
+            k8s:cnpg.io/podRole: instance
+            k8s:io.cilium.k8s.namespace.labels.kubernetes.io/metadata.name: media
+            k8s:io.cilium.k8s.namespace.labels.kustomize.toolkit.fluxcd.io/name: cluster-apps
+            k8s:io.cilium.k8s.namespace.labels.kustomize.toolkit.fluxcd.io/namespace: flux-system
+            k8s:io.cilium.k8s.namespace.labels.kustomize.toolkit.fluxcd.io/prune: disabled
+            k8s:io.kubernetes.pod.namespace: media
+            k8s:kube-image-keeper.enix.io/image-caching-policy: ignore
+            k8s:role: primary
+      toPorts:
+        - ports:
+            - port: "5432"
+
+    - toCIDRSet:
+        - cidr: 192.168.8.48/28
+        - cidr: 192.168.8.16/28
+        - cidr: 192.168.8.240/28
+      toPorts:
+        - ports:
+            - port: "443"
