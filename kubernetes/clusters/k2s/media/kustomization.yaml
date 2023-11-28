@@ -6,6 +6,7 @@ resources:
   # Pre Flux-Kustomizations
   - ./namespace.yaml
   - ./externalsecret.yaml
+  - ./clusternetworkpolicy.yaml
   # Flux-Kustomizations
   - ./immich/ks.yaml
 
