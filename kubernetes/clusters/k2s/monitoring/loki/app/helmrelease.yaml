@@ -67,6 +67,8 @@ spec:
               s3: null
               insecure: false
               s3forcepathstyle: true
+              http_config:
+                insecure_skip_verify: true
           ring:
             kvstore:
               store: memberlist
