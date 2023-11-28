@@ -58,13 +58,14 @@ spec:
                 period: 24h
         common:
           path_prefix: /var/loki
+          replication_factor: 1
           storage:
             s3:
               bucketnames: loki
-              endpoint: https://minio.logfold.com
+              endpoint: minio.storage.svc.cluster.local
               region: us-east-1
               s3: null
-              insecure: false
+              insecure: true
               s3forcepathstyle: true
           ring:
             kvstore:
