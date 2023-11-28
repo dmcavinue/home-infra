@@ -60,7 +60,6 @@ spec:
           path_prefix: /var/loki
           replication_factor: 2
           storage:
-            type: filesystem
             s3:
               bucketnames: loki
               endpoint: https://minio.logfold.com
