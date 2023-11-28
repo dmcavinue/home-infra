@@ -89,6 +89,18 @@ spec:
       toPorts:
         - ports:
             - port: "5432"
+    - fromEndpoints:
+        - matchLabels:
+            k8s:app.kubernetes.io/instance: cloudnative-pg
+            k8s:app.kubernetes.io/name: cloudnative-pg
+            k8s:io.cilium.k8s.namespace.labels.kubernetes.io/metadata.name: database
+            k8s:io.cilium.k8s.namespace.labels.kustomize.toolkit.fluxcd.io/name: cluster-apps
+            k8s:io.cilium.k8s.namespace.labels.kustomize.toolkit.fluxcd.io/namespace: flux-system
+            k8s:io.cilium.k8s.namespace.labels.kustomize.toolkit.fluxcd.io/prune: disabled
+            k8s:io.kubernetes.pod.namespace: database
+      toPorts:
+        - ports:
+            - port: "8000"
   egress:
     # allow to all k8s cluster ipam ranges
     - toCIDRSet:
