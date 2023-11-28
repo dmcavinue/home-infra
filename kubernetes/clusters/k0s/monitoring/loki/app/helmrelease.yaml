@@ -58,7 +58,6 @@ spec:
                 period: 24h
         common:
           path_prefix: /var/loki
-          replication_factor: 2
           storage:
             s3:
               bucketnames: loki
