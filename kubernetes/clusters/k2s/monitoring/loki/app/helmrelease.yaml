@@ -65,7 +65,7 @@ spec:
               endpoint: minio.storage.svc.cluster.local
               region: us-east-1
               s3: null
-              insecure: true
+              insecure: false
               s3forcepathstyle: true
           ring:
             kvstore:
