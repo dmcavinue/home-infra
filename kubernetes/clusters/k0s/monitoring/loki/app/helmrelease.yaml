@@ -61,9 +61,13 @@ spec:
           replication_factor: 2
           storage:
             type: filesystem
-            filesystem:
-              chunks_directory: /var/loki/chunks
-              rules_directory: /var/loki/rules
+            s3:
+              bucketnames: loki
+              endpoint: https://minio.logfold.com
+              region: us-east-1
+              s3: null
+              insecure: false
+              s3forcepathstyle: true
           ring:
             kvstore:
               store: memberlist
@@ -160,3 +164,12 @@ spec:
         enabled: false
     test:
       enabled: false
+  valuesFrom:
+    - kind: Secret
+      name: loki-secret
+      valuesKey: MINIO_ACCESS_KEY
+      targetPath: loki.structuredConfig.common.storage.s3.access_key_id
+    - kind: Secret
+      name: loki-secret
+      valuesKey: MINIO_SECRET_KEY
+      targetPath: loki.structuredConfig.common.storage.s3.secret_access_key
