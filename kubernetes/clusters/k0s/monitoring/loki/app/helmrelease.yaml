@@ -104,7 +104,7 @@ spec:
       podAnnotations:
         secret.reloader.stakater.com/reload: loki-secret
     gateway:
-      replicas: 1
+      replicas: 2
       image:
         registry: ghcr.io
       ingress:
@@ -119,11 +119,11 @@ spec:
           - hosts:
               - *host
     write:
-      replicas: 1
+      replicas: 2
       persistence:
         storageClass: local-path
     read:
-      replicas: 1
+      replicas: 2
       persistence:
         storageClass: local-path
       extraVolumeMounts:
@@ -133,7 +133,7 @@ spec:
         - name: rules
           emptyDir: {}
     backend:
-      replicas: 1
+      replicas: 2
       persistence:
         storageClass: local-path
       extraVolumeMounts:
