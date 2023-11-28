@@ -62,13 +62,11 @@ spec:
           storage:
             s3:
               bucketnames: loki
-              endpoint: minio.storage.svc.cluster.local
+              endpoint: minio.logfold.com
               region: us-east-1
               s3: null
               insecure: false
               s3forcepathstyle: true
-              http_config:
-                insecure_skip_verify: true
           ring:
             kvstore:
               store: memberlist
