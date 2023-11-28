@@ -60,13 +60,7 @@ spec:
           path_prefix: /var/loki
           replication_factor: 2
           storage:
-            s3:
-              bucketnames: loki
-              endpoint: https://minio.logfold.com
-              region: us-east-1
-              s3: null
-              insecure: false
-              s3forcepathstyle: true
+            type: filesystem
           ring:
             kvstore:
               store: memberlist
