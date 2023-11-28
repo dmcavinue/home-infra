@@ -168,7 +168,6 @@ spec:
       toPorts:
         - ports:
             - port: "5432"
-
     - toCIDRSet:
         - cidr: 192.168.8.48/28
         - cidr: 192.168.8.16/28
