@@ -8,43 +8,24 @@ spec:
   ingress:
     - fromEndpoints:
         - matchLabels:
-            k8s:app.kubernetes.io/component: monitoring
             k8s:app.kubernetes.io/instance: victoria-metrics
             k8s:app.kubernetes.io/name: vmagent
-            k8s:io.cilium.k8s.namespace.labels.kubernetes.io/metadata.name: monitoring
-            k8s:io.cilium.k8s.namespace.labels.kustomize.toolkit.fluxcd.io/name: cluster-apps
-            k8s:io.cilium.k8s.namespace.labels.kustomize.toolkit.fluxcd.io/namespace: flux-system
-            k8s:io.cilium.k8s.namespace.labels.kustomize.toolkit.fluxcd.io/prune: disabled
             k8s:io.kubernetes.pod.namespace: monitoring
-            k8s:managed-by: vm-operator
       toPorts:
         - ports:
             - port: "443"
     - fromEndpoints:
         - matchLabels:
-            k8s:app.kubernetes.io/component: monitoring
             k8s:app.kubernetes.io/instance: victoria-metrics
             k8s:app.kubernetes.io/name: vmagent
-            k8s:io.cilium.k8s.namespace.labels.kubernetes.io/metadata.name: monitoring
-            k8s:io.cilium.k8s.namespace.labels.kustomize.toolkit.fluxcd.io/name: cluster-apps
-            k8s:io.cilium.k8s.namespace.labels.kustomize.toolkit.fluxcd.io/namespace: flux-system
-            k8s:io.cilium.k8s.namespace.labels.kustomize.toolkit.fluxcd.io/prune: disabled
             k8s:io.kubernetes.pod.namespace: monitoring
-            k8s:managed-by: vm-operator
       toPorts:
         - ports:
             - port: "10254"
     - fromEndpoints:
         - matchLabels:
             k8s:app.kubernetes.io/instance: external-secrets
-            k8s:app.kubernetes.io/managed-by: Helm
             k8s:app.kubernetes.io/name: external-secrets
-            k8s:app.kubernetes.io/version: v0.9.9
-            k8s:helm.sh/chart: external-secrets-0.9.9
-            k8s:io.cilium.k8s.namespace.labels.kubernetes.io/metadata.name: kube-system
-            k8s:io.cilium.k8s.namespace.labels.kustomize.toolkit.fluxcd.io/name: shared-apps
-            k8s:io.cilium.k8s.namespace.labels.kustomize.toolkit.fluxcd.io/namespace: flux-system
-            k8s:io.cilium.k8s.namespace.labels.kustomize.toolkit.fluxcd.io/prune: disabled
             k8s:io.kubernetes.pod.namespace: kube-system
       toPorts:
         - ports:
@@ -53,15 +34,7 @@ spec:
         - matchLabels:
             k8s:app.kubernetes.io/component: controller
             k8s:app.kubernetes.io/instance: nginx
-            k8s:app.kubernetes.io/managed-by: Helm
             k8s:app.kubernetes.io/name: ingress-nginx
-            k8s:app.kubernetes.io/part-of: ingress-nginx
-            k8s:app.kubernetes.io/version: 1.9.4
-            k8s:helm.sh/chart: ingress-nginx-4.8.3
-            k8s:io.cilium.k8s.namespace.labels.kubernetes.io/metadata.name: ingress
-            k8s:io.cilium.k8s.namespace.labels.kustomize.toolkit.fluxcd.io/name: cluster-apps
-            k8s:io.cilium.k8s.namespace.labels.kustomize.toolkit.fluxcd.io/namespace: flux-system
-            k8s:io.cilium.k8s.namespace.labels.kustomize.toolkit.fluxcd.io/prune: disabled
             k8s:io.kubernetes.pod.namespace: ingress
       toPorts:
         - ports:
@@ -77,31 +50,17 @@ spec:
             - port: "443"
     - toEndpoints:
         - matchLabels:
-            k8s:app.kubernetes.io/component: main
             k8s:app.kubernetes.io/instance: home-assistant
             k8s:app.kubernetes.io/name: home-assistant
-            k8s:apps.kubernetes.io/pod-index: "0"
-            k8s:io.cilium.k8s.namespace.labels.kubernetes.io/metadata.name: home-automation
-            k8s:io.cilium.k8s.namespace.labels.kustomize.toolkit.fluxcd.io/name: cluster-apps
-            k8s:io.cilium.k8s.namespace.labels.kustomize.toolkit.fluxcd.io/namespace: flux-system
-            k8s:io.cilium.k8s.namespace.labels.kustomize.toolkit.fluxcd.io/prune: disabled
             k8s:io.kubernetes.pod.namespace: home-automation
-            k8s:statefulset.kubernetes.io/pod-name: home-assistant-0
       toPorts:
         - ports:
             - port: "8123"
     - toEndpoints:
         - matchLabels:
-            k8s:app.kubernetes.io/component: main
             k8s:app.kubernetes.io/instance: zwave-js-ui
             k8s:app.kubernetes.io/name: zwave-js-ui
-            k8s:apps.kubernetes.io/pod-index: "0"
-            k8s:io.cilium.k8s.namespace.labels.kubernetes.io/metadata.name: home-automation
-            k8s:io.cilium.k8s.namespace.labels.kustomize.toolkit.fluxcd.io/name: cluster-apps
-            k8s:io.cilium.k8s.namespace.labels.kustomize.toolkit.fluxcd.io/namespace: flux-system
-            k8s:io.cilium.k8s.namespace.labels.kustomize.toolkit.fluxcd.io/prune: disabled
             k8s:io.kubernetes.pod.namespace: home-automation
-            k8s:statefulset.kubernetes.io/pod-name: zwave-js-ui-0
       toPorts:
         - ports:
             - port: "8091"
@@ -109,15 +68,7 @@ spec:
         - matchLabels:
             k8s:app.kubernetes.io/component: controller
             k8s:app.kubernetes.io/instance: nginx
-            k8s:app.kubernetes.io/managed-by: Helm
             k8s:app.kubernetes.io/name: ingress-nginx
-            k8s:app.kubernetes.io/part-of: ingress-nginx
-            k8s:app.kubernetes.io/version: 1.9.4
-            k8s:helm.sh/chart: ingress-nginx-4.8.3
-            k8s:io.cilium.k8s.namespace.labels.kubernetes.io/metadata.name: ingress
-            k8s:io.cilium.k8s.namespace.labels.kustomize.toolkit.fluxcd.io/name: cluster-apps
-            k8s:io.cilium.k8s.namespace.labels.kustomize.toolkit.fluxcd.io/namespace: flux-system
-            k8s:io.cilium.k8s.namespace.labels.kustomize.toolkit.fluxcd.io/prune: disabled
             k8s:io.kubernetes.pod.namespace: ingress
       toPorts:
         - ports:
@@ -125,11 +76,6 @@ spec:
     - toEndpoints:
         - matchLabels:
             k8s:app.kubernetes.io/name: hubble-ui
-            k8s:app.kubernetes.io/part-of: cilium
-            k8s:io.cilium.k8s.namespace.labels.kubernetes.io/metadata.name: kube-system
-            k8s:io.cilium.k8s.namespace.labels.kustomize.toolkit.fluxcd.io/name: shared-apps
-            k8s:io.cilium.k8s.namespace.labels.kustomize.toolkit.fluxcd.io/namespace: flux-system
-            k8s:io.cilium.k8s.namespace.labels.kustomize.toolkit.fluxcd.io/prune: disabled
             k8s:io.kubernetes.pod.namespace: kube-system
             k8s:k8s-app: hubble-ui
       toPorts:
@@ -137,31 +83,16 @@ spec:
             - port: "8081"
     - toEndpoints:
         - matchLabels:
-            k8s:app.kubernetes.io/component: main
             k8s:app.kubernetes.io/instance: immich-server
             k8s:app.kubernetes.io/name: immich-server
-            k8s:io.cilium.k8s.namespace.labels.kubernetes.io/metadata.name: media
-            k8s:io.cilium.k8s.namespace.labels.kustomize.toolkit.fluxcd.io/name: cluster-apps
-            k8s:io.cilium.k8s.namespace.labels.kustomize.toolkit.fluxcd.io/namespace: flux-system
-            k8s:io.cilium.k8s.namespace.labels.kustomize.toolkit.fluxcd.io/prune: disabled
             k8s:io.kubernetes.pod.namespace: media
       toPorts:
         - ports:
             - port: "3001"
     - toEndpoints:
         - matchLabels:
-            k8s:app.kubernetes.io/component: authentication-proxy
             k8s:app.kubernetes.io/instance: oauth2-proxy
-            k8s:app.kubernetes.io/managed-by: Helm
             k8s:app.kubernetes.io/name: oauth2-proxy
-            k8s:app.kubernetes.io/part-of: oauth2-proxy
-            k8s:app.kubernetes.io/version: 7.5.1
-            k8s:app: oauth2-proxy
-            k8s:helm.sh/chart: oauth2-proxy-6.19.1
-            k8s:io.cilium.k8s.namespace.labels.kubernetes.io/metadata.name: security
-            k8s:io.cilium.k8s.namespace.labels.kustomize.toolkit.fluxcd.io/name: cluster-apps
-            k8s:io.cilium.k8s.namespace.labels.kustomize.toolkit.fluxcd.io/namespace: flux-system
-            k8s:io.cilium.k8s.namespace.labels.kustomize.toolkit.fluxcd.io/prune: disabled
             k8s:io.kubernetes.pod.namespace: security
       toPorts:
         - ports:

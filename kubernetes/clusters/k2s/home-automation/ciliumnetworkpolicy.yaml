@@ -26,45 +26,25 @@ spec:
             - port: "8123"
     - fromEndpoints:
         - matchLabels:
-            k8s:app.kubernetes.io/component: main
             k8s:app.kubernetes.io/instance: home-assistant
             k8s:app.kubernetes.io/name: home-assistant
-            k8s:apps.kubernetes.io/pod-index: "0"
-            k8s:io.cilium.k8s.namespace.labels.kubernetes.io/metadata.name: home-automation
-            k8s:io.cilium.k8s.namespace.labels.kustomize.toolkit.fluxcd.io/name: cluster-apps
-            k8s:io.cilium.k8s.namespace.labels.kustomize.toolkit.fluxcd.io/namespace: flux-system
-            k8s:io.cilium.k8s.namespace.labels.kustomize.toolkit.fluxcd.io/prune: disabled
             k8s:io.kubernetes.pod.namespace: home-automation
-            k8s:statefulset.kubernetes.io/pod-name: home-assistant-0
       toPorts:
         - ports:
             - port: "5432"
     - fromEndpoints:
         - matchLabels:
-            k8s:app.kubernetes.io/component: monitoring
             k8s:app.kubernetes.io/instance: victoria-metrics
             k8s:app.kubernetes.io/name: vmagent
-            k8s:io.cilium.k8s.namespace.labels.kubernetes.io/metadata.name: monitoring
-            k8s:io.cilium.k8s.namespace.labels.kustomize.toolkit.fluxcd.io/name: cluster-apps
-            k8s:io.cilium.k8s.namespace.labels.kustomize.toolkit.fluxcd.io/namespace: flux-system
-            k8s:io.cilium.k8s.namespace.labels.kustomize.toolkit.fluxcd.io/prune: disabled
             k8s:io.kubernetes.pod.namespace: monitoring
-            k8s:managed-by: vm-operator
       toPorts:
         - ports:
             - port: "9187"
     - fromEndpoints:
         - matchLabels:
-            k8s:app.kubernetes.io/component: main
             k8s:app.kubernetes.io/instance: home-assistant
             k8s:app.kubernetes.io/name: home-assistant
-            k8s:apps.kubernetes.io/pod-index: "0"
-            k8s:io.cilium.k8s.namespace.labels.kubernetes.io/metadata.name: home-automation
-            k8s:io.cilium.k8s.namespace.labels.kustomize.toolkit.fluxcd.io/name: cluster-apps
-            k8s:io.cilium.k8s.namespace.labels.kustomize.toolkit.fluxcd.io/namespace: flux-system
-            k8s:io.cilium.k8s.namespace.labels.kustomize.toolkit.fluxcd.io/prune: disabled
             k8s:io.kubernetes.pod.namespace: home-automation
-            k8s:statefulset.kubernetes.io/pod-name: home-assistant-0
       toPorts:
         - ports:
             - port: "3000"
@@ -141,30 +121,14 @@ spec:
             k8s:app.kubernetes.io/instance: emqx
             k8s:app.kubernetes.io/name: emqx
             k8s:app: emqx
-            k8s:apps.kubernetes.io/pod-index: "0"
-            k8s:io.cilium.k8s.namespace.labels.kubernetes.io/metadata.name: database
-            k8s:io.cilium.k8s.namespace.labels.kustomize.toolkit.fluxcd.io/name: cluster-apps
-            k8s:io.cilium.k8s.namespace.labels.kustomize.toolkit.fluxcd.io/namespace: flux-system
-            k8s:io.cilium.k8s.namespace.labels.kustomize.toolkit.fluxcd.io/prune: disabled
             k8s:io.kubernetes.pod.namespace: database
-            k8s:statefulset.kubernetes.io/pod-name: emqx-0
-            k8s:version: 5.3.1
       toPorts:
         - ports:
             - port: "1883"
     - toEndpoints:
         - matchLabels:
             k8s:cnpg.io/cluster: home-assistant
-            k8s:cnpg.io/instanceName: home-assistant-1
-            k8s:cnpg.io/instanceRole: primary
-            k8s:cnpg.io/podRole: instance
-            k8s:io.cilium.k8s.namespace.labels.kubernetes.io/metadata.name: home-automation
-            k8s:io.cilium.k8s.namespace.labels.kustomize.toolkit.fluxcd.io/name: cluster-apps
-            k8s:io.cilium.k8s.namespace.labels.kustomize.toolkit.fluxcd.io/namespace: flux-system
-            k8s:io.cilium.k8s.namespace.labels.kustomize.toolkit.fluxcd.io/prune: disabled
             k8s:io.kubernetes.pod.namespace: home-automation
-            k8s:kube-image-keeper.enix.io/image-caching-policy: ignore
-            k8s:role: primary
       toPorts:
         - ports:
             - port: "5432"
@@ -172,7 +136,6 @@ spec:
         - matchLabels:
             k8s:app.kubernetes.io/instance: esphome
             k8s:app.kubernetes.io/name: esphome
-            k8s:io.cilium.k8s.namespace.labels.kubernetes.io/metadata.name: home-automation
             k8s:io.kubernetes.pod.namespace: home-automation
       toPorts:
         - ports:
