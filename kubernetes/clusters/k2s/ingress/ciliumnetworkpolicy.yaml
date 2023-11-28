@@ -67,6 +67,14 @@ spec:
         - ports:
             - port: "443"
   egress:
+    # allow to all k8s cluster ipam ranges
+    - toCIDRSet:
+        - cidr: 192.168.8.48/28
+        - cidr: 192.168.8.16/28
+        - cidr: 192.168.8.240/28
+      toPorts:
+        - ports:
+            - port: "443"
     - toEndpoints:
         - matchLabels:
             k8s:app.kubernetes.io/component: main
