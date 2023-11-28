@@ -7,6 +7,5 @@ resources:
   - ./namespace.yaml
   - ./externalsecret.yaml
   # Flux-Kustomizations
-  - ./loki/ks.yaml
   - ./victoria-metrics/ks.yaml
   - ./grafana/ks.yaml

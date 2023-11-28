@@ -40,3 +40,6 @@ spec:
     - name: "loki"
       region: "us-east-1"
       objectLock: false
+  serviceMetadata:
+    minioServiceAnnotations:
+      io.cilium/global-service: "true"
