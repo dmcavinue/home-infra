@@ -1,0 +1,172 @@
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: default
+  namespace: home-automation
+spec:
+  endpointSelector: {}
+  ingress:
+    - fromEndpoints:
+        - matchLabels:
+            k8s:app.kubernetes.io/component: controller
+            k8s:app.kubernetes.io/instance: nginx
+            k8s:app.kubernetes.io/managed-by: Helm
+            k8s:app.kubernetes.io/name: ingress-nginx
+            k8s:app.kubernetes.io/part-of: ingress-nginx
+            k8s:app.kubernetes.io/version: 1.9.4
+            k8s:helm.sh/chart: ingress-nginx-4.8.3
+            k8s:io.cilium.k8s.namespace.labels.kubernetes.io/metadata.name: ingress
+            k8s:io.cilium.k8s.namespace.labels.kustomize.toolkit.fluxcd.io/name: cluster-apps
+            k8s:io.cilium.k8s.namespace.labels.kustomize.toolkit.fluxcd.io/namespace: flux-system
+            k8s:io.cilium.k8s.namespace.labels.kustomize.toolkit.fluxcd.io/prune: disabled
+            k8s:io.kubernetes.pod.namespace: ingress
+      toPorts:
+        - ports:
+            - port: "8123"
+    - fromEndpoints:
+        - matchLabels:
+            k8s:app.kubernetes.io/component: main
+            k8s:app.kubernetes.io/instance: home-assistant
+            k8s:app.kubernetes.io/name: home-assistant
+            k8s:apps.kubernetes.io/pod-index: "0"
+            k8s:io.cilium.k8s.namespace.labels.kubernetes.io/metadata.name: home-automation
+            k8s:io.cilium.k8s.namespace.labels.kustomize.toolkit.fluxcd.io/name: cluster-apps
+            k8s:io.cilium.k8s.namespace.labels.kustomize.toolkit.fluxcd.io/namespace: flux-system
+            k8s:io.cilium.k8s.namespace.labels.kustomize.toolkit.fluxcd.io/prune: disabled
+            k8s:io.kubernetes.pod.namespace: home-automation
+            k8s:statefulset.kubernetes.io/pod-name: home-assistant-0
+      toPorts:
+        - ports:
+            - port: "5432"
+    - fromEndpoints:
+        - matchLabels:
+            k8s:app.kubernetes.io/component: monitoring
+            k8s:app.kubernetes.io/instance: victoria-metrics
+            k8s:app.kubernetes.io/name: vmagent
+            k8s:io.cilium.k8s.namespace.labels.kubernetes.io/metadata.name: monitoring
+            k8s:io.cilium.k8s.namespace.labels.kustomize.toolkit.fluxcd.io/name: cluster-apps
+            k8s:io.cilium.k8s.namespace.labels.kustomize.toolkit.fluxcd.io/namespace: flux-system
+            k8s:io.cilium.k8s.namespace.labels.kustomize.toolkit.fluxcd.io/prune: disabled
+            k8s:io.kubernetes.pod.namespace: monitoring
+            k8s:managed-by: vm-operator
+      toPorts:
+        - ports:
+            - port: "9187"
+    - fromEndpoints:
+        - matchLabels:
+            k8s:app.kubernetes.io/component: main
+            k8s:app.kubernetes.io/instance: home-assistant
+            k8s:app.kubernetes.io/name: home-assistant
+            k8s:apps.kubernetes.io/pod-index: "0"
+            k8s:io.cilium.k8s.namespace.labels.kubernetes.io/metadata.name: home-automation
+            k8s:io.cilium.k8s.namespace.labels.kustomize.toolkit.fluxcd.io/name: cluster-apps
+            k8s:io.cilium.k8s.namespace.labels.kustomize.toolkit.fluxcd.io/namespace: flux-system
+            k8s:io.cilium.k8s.namespace.labels.kustomize.toolkit.fluxcd.io/prune: disabled
+            k8s:io.kubernetes.pod.namespace: home-automation
+            k8s:statefulset.kubernetes.io/pod-name: home-assistant-0
+      toPorts:
+        - ports:
+            - port: "3000"
+    - fromEndpoints:
+        - matchLabels:
+            k8s:app.kubernetes.io/component: controller
+            k8s:app.kubernetes.io/instance: nginx
+            k8s:app.kubernetes.io/managed-by: Helm
+            k8s:app.kubernetes.io/name: ingress-nginx
+            k8s:app.kubernetes.io/part-of: ingress-nginx
+            k8s:app.kubernetes.io/version: 1.9.4
+            k8s:helm.sh/chart: ingress-nginx-4.8.3
+            k8s:io.cilium.k8s.namespace.labels.kubernetes.io/metadata.name: ingress
+            k8s:io.cilium.k8s.namespace.labels.kustomize.toolkit.fluxcd.io/name: cluster-apps
+            k8s:io.cilium.k8s.namespace.labels.kustomize.toolkit.fluxcd.io/namespace: flux-system
+            k8s:io.cilium.k8s.namespace.labels.kustomize.toolkit.fluxcd.io/prune: disabled
+            k8s:io.kubernetes.pod.namespace: ingress
+      toPorts:
+        - ports:
+            - port: "8091"
+  egress:
+    # allow to all k8s cluster ipam ranges
+    - toCIDRSet:
+        - cidr: 192.168.8.48/28
+        - cidr: 192.168.8.16/28
+        - cidr: 192.168.8.240/28
+      toPorts:
+        - ports:
+            - port: "443"
+    - toEntities:
+        - world
+      toPorts:
+        - ports:
+            - port: "161"
+    - toEntities:
+        - world
+      toPorts:
+        - ports:
+            - port: "1900"
+    - toEntities:
+        - world
+      toPorts:
+        - ports:
+            - port: "2323"
+    - toEntities:
+        - world
+      toPorts:
+        - ports:
+            - port: "32052"
+    - toEntities:
+        - world
+      toPorts:
+        - ports:
+            - port: "443"
+    - toEntities:
+        - world
+      toPorts:
+        - ports:
+            - port: "6053"
+    - toEntities:
+        - world
+      toPorts:
+        - ports:
+            - port: "6466"
+    - toEntities:
+        - world
+      toPorts:
+        - ports:
+            - port: "8009"
+    - toEntities:
+        - world
+      toPorts:
+        - ports:
+            - port: "8443"
+    - toEndpoints:
+        - matchLabels:
+            k8s:app.kubernetes.io/instance: emqx
+            k8s:app.kubernetes.io/name: emqx
+            k8s:app: emqx
+            k8s:apps.kubernetes.io/pod-index: "0"
+            k8s:io.cilium.k8s.namespace.labels.kubernetes.io/metadata.name: database
+            k8s:io.cilium.k8s.namespace.labels.kustomize.toolkit.fluxcd.io/name: cluster-apps
+            k8s:io.cilium.k8s.namespace.labels.kustomize.toolkit.fluxcd.io/namespace: flux-system
+            k8s:io.cilium.k8s.namespace.labels.kustomize.toolkit.fluxcd.io/prune: disabled
+            k8s:io.kubernetes.pod.namespace: database
+            k8s:statefulset.kubernetes.io/pod-name: emqx-0
+            k8s:version: 5.3.1
+      toPorts:
+        - ports:
+            - port: "1883"
+    - toEndpoints:
+        - matchLabels:
+            k8s:cnpg.io/cluster: home-assistant
+            k8s:cnpg.io/instanceName: home-assistant-1
+            k8s:cnpg.io/instanceRole: primary
+            k8s:cnpg.io/podRole: instance
+            k8s:io.cilium.k8s.namespace.labels.kubernetes.io/metadata.name: home-automation
+            k8s:io.cilium.k8s.namespace.labels.kustomize.toolkit.fluxcd.io/name: cluster-apps
+            k8s:io.cilium.k8s.namespace.labels.kustomize.toolkit.fluxcd.io/namespace: flux-system
+            k8s:io.cilium.k8s.namespace.labels.kustomize.toolkit.fluxcd.io/prune: disabled
+            k8s:io.kubernetes.pod.namespace: home-automation
+            k8s:kube-image-keeper.enix.io/image-caching-policy: ignore
+            k8s:role: primary
+      toPorts:
+        - ports:
+            - port: "5432"

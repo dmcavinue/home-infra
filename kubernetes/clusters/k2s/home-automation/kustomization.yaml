@@ -6,6 +6,7 @@ resources:
   # Pre Flux-Kustomizations
   - ./namespace.yaml
   - ./externalsecret.yaml
+  - ./ciliumnetworkpolicy.yaml
   # Flux-Kustomizations
   - ./esphome/ks.yaml
   - ./home-assistant/ks.yaml
