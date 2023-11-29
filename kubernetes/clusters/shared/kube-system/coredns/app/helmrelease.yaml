@@ -69,6 +69,7 @@ spec:
               192.168.8.242 minio-ui.logfold.com
               192.168.8.242 minio-console.logfold.com
               192.168.8.242 minio.logfold.com
+              192.168.8.242 s3.logfold.com
               192.168.8.242 vault.logfold.com
               192.168.8.242 vmagent.logfold.com
               192.168.8.242 vmalert.logfold.com
