@@ -34,8 +34,8 @@ spec:
               repository: quay.io/minio/minio
               tag: RELEASE.2023-11-20T22-40-07Z
             env:
-              MINIO_API_CORS_ALLOW_ORIGIN: "https://minio-console.${DOMAIN},https://s3.${DOMAIN}"
-              MINIO_BROWSER_REDIRECT_URL: "https://minio.${DOMAIN}"
+              MINIO_API_CORS_ALLOW_ORIGIN: "https://minio-console.${DOMAIN}"
+              #MINIO_BROWSER_REDIRECT_URL: "https://minio.${DOMAIN}"
               MINIO_PROMETHEUS_JOB_ID: minio
               MINIO_PROMETHEUS_URL: "https://prometheus.${DOMAIN}"
               MINIO_PROMETHEUS_AUTH_TYPE: public
