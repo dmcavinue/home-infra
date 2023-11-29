@@ -8,6 +8,19 @@ spec:
   ingress:
     - fromEndpoints:
         - {}
+    - fromEntities:
+        - kube-apiserver
+        - remote-node
+      toEndpoints:
+        - matchLabels:
+            k8s:app.kubernetes.io/component: controller
+            k8s:app.kubernetes.io/instance: nginx
+            k8s:app.kubernetes.io/name: ingress-nginx
+            k8s:io.kubernetes.pod.namespace: ingress
+      toPorts:
+        - ports:
+            - port: "443"
+            - port: "8443"
     - fromEndpoints:
         - matchLabels:
             k8s:app.kubernetes.io/instance: victoria-metrics
