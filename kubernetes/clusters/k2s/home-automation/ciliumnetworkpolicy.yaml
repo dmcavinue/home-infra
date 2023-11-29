@@ -7,6 +7,8 @@ spec:
   endpointSelector: {}
   ingress:
     - fromEndpoints:
+        - {}
+    - fromEndpoints:
         - matchLabels:
             k8s:app.kubernetes.io/component: controller
             k8s:app.kubernetes.io/instance: nginx
@@ -58,6 +60,20 @@ spec:
         - ports:
             - port: "8091"
   egress:
+    # dns
+    - toEndpoints:
+        - matchLabels:
+            io.kubernetes.pod.namespace: kube-system
+            k8s-app: kube-dns
+      toPorts:
+        - ports:
+            - port: "53"
+              protocol: UDP
+          rules:
+            dns:
+              - matchPattern: "*"
+    - toEndpoints:
+        - {}
     # allow to all k8s cluster ipam ranges
     - toCIDRSet:
         - cidr: 192.168.8.48/28

@@ -7,6 +7,8 @@ spec:
   endpointSelector: {}
   ingress:
     - fromEndpoints:
+        - {}
+    - fromEndpoints:
         - matchLabels:
             k8s:app.kubernetes.io/instance: victoria-metrics
             k8s:app.kubernetes.io/name: vmagent
@@ -40,6 +42,18 @@ spec:
         - ports:
             - port: "443"
   egress:
+    # dns
+    - toEndpoints:
+        - matchLabels:
+            io.kubernetes.pod.namespace: kube-system
+            k8s-app: kube-dns
+      toPorts:
+        - ports:
+            - port: "53"
+              protocol: UDP
+          rules:
+            dns:
+              - matchPattern: "*"
     # allow to all k8s cluster ipam ranges
     - toCIDRSet:
         - cidr: 192.168.8.48/28
