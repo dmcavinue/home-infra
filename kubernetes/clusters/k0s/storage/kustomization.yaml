@@ -6,7 +6,6 @@ resources:
   # Pre Flux-Kustomizations  
   - ./namespace.yaml
   - ./externalsecret.yaml
-  # Flux-Kustomizations
-  #- ./minio-operator/ks.yaml  
+  # Flux-Kustomizations 
   - ./minio/ks.yaml
   - ./restic/ks.yaml
