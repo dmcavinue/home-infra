@@ -6,16 +6,19 @@
   "workspaceMount": "src=${localWorkspaceFolder},dst=/home/rootless/workspace,type=bind,consistency=cached",
   "workspaceFolder": "/home/rootless/workspace",
   "overrideCommand": false,
-  "extensions": [
-    "ms-azuretools.vscode-docker",
-    "MarkLarah.pre-commit-vscode",
-    "redhat.vscode-yaml",
-    "4ops.terraform"
-  ],
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-azuretools.vscode-docker",
+        "MarkLarah.pre-commit-vscode",
+        "redhat.vscode-yaml",
+        "4ops.terraform"
+      ]
+    }
+  },
   "mounts": [
     "source=/etc/timezone,target=/etc/timezone,type=bind",
     "source=/etc/localtime,target=/etc/localtime,type=bind",
-    "source=${localEnv:HOME}/.gnupg,target=/home/rootless/.gnupg,type=bind",
     "source=${localEnv:HOME}/.ssh,target=/home/rootless/.ssh,type=bind"
   ]
 }
