@@ -2,10 +2,10 @@
 FROM docker.io/cloudflare/cloudflared:2023.10.0 as cloudflared
 FROM docker.io/fluxcd/flux-cli:v2.1.2 as flux
 FROM docker.io/alpine/helm:3.13.2 as helm
-FROM docker.io/kopia/kopia:20231129.0.212618 as kopia
+FROM docker.io/kopia/kopia:20231202.0.173400 as kopia
 FROM docker.io/bitnami/kubectl:1.28.4 as kubectl
-FROM docker.io/hashicorp/vault:1.15.2 as vault
-FROM docker.io/mikefarah/yq:4.40.3 as yq
+FROM docker.io/hashicorp/vault:1.15.3 as vault
+FROM docker.io/mikefarah/yq:4.40.4 as yq
 
 # base image
 FROM docker:24.0.7-dind-rootless
