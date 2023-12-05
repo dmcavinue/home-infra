@@ -197,18 +197,11 @@ tasks:
       # flux-system/notification
       - vault kv put -mount=secret flux-system/notification
           FLUX_SLACK_WEBHOOK="{{.SLACK_WEBHOOK}}"
-      # flux-system/weave-gitops
-      - vault kv put -mount=secret flux-system/weave-gitops
-          ADMIN_PASSWORD="{{.ADMIN_PASSWORD}}"
       # database/emqx
       - vault kv put -mount=secret database/emqx
           admin_password="{{.EMQX_ADMIN_PASSWORD}}"
           user_1_username="{{.EMQX_USER1_NAME}}"
           user_1_password="{{.EMQX_USER1_PASSWORD}}"
-      # database/influxdb
-      - vault kv put -mount=secret database/influxdb
-          influxdb-user="{{.INFLUXDB_USER}}"
-          influxdb-password="{{.INFLUXDB_PASSWORD}}"
       # home-automation/home-assistant
       - vault kv put -mount=secret home-automation/home-assistant
           HASS_POSTGRES_SUPER_USER="{{.HASS_POSTGRES_SUPER_USER}}"
@@ -226,26 +219,6 @@ tasks:
           LOCATION_LAT="{{.HASS_LOCATION_LAT}}"
           LOCATION_LONG="{{.HASS_LOCATION_LONG}}"
           DRAC_IP="{{.HASS_DRAC_IP}}"
-      # home-automation/frigate
-      - vault kv put -mount=secret home-automation/frigate
-          DVR_URL="{{.FRIGATE_DVR_URL}}"
-          CAM1_NAME="{{.FRIGATE_CAM1_NAME}}"
-          CAM1_ID="{{.FRIGATE_CAM1_ID}}"
-          CAM2_NAME="{{.FRIGATE_CAM2_NAME}}"
-          CAM2_ID="{{.FRIGATE_CAM2_ID}}"
-          CAM3_NAME="{{.FRIGATE_CAM3_NAME}}"
-          CAM3_ID="{{.FRIGATE_CAM3_ID}}"
-          CAM4_NAME="{{.FRIGATE_CAM4_NAME}}"
-          CAM4_ID="{{.FRIGATE_CAM4_ID}}"
-          CAM5_NAME="{{.FRIGATE_CAM5_NAME}}"
-          CAM5_ID="{{.FRIGATE_CAM5_ID}}"
-          CAM6_NAME="{{.FRIGATE_CAM6_NAME}}"
-          CAM6_ID="{{.FRIGATE_CAM6_ID}}"
-          CAM7_NAME="{{.FRIGATE_CAM7_NAME}}"
-          CAM7_ID="{{.FRIGATE_CAM7_ID}}"
-          CAM8_NAME="{{.FRIGATE_CAM8_NAME}}"
-          CAM8_ID="{{.FRIGATE_CAM8_ID}}"
-          PLUS_API_KEY="{{.FRIGATE_PLUS_API_KEY}}"
       # home-automation/tidbyt-proxy
       - vault kv put -mount=secret home-automation/tidbyt-proxy
           TIDBYT_API_KEY="{{.TIDBYT_API_KEY}}"
@@ -270,10 +243,6 @@ tasks:
           IMMICH_POSTGRES_PASSWORD="{{.IMMICH_POSTGRES_PASSWORD}}"
           IMMICH_DB_BACKUP_ACCESS_KEY="{{.IMMICH_DB_BACKUP_ACCESS_KEY}}"
           IMMICH_DB_BACKUP_SECRET="{{.IMMICH_DB_BACKUP_SECRET}}"
-      # monitoring/loki
-      - vault kv put -mount=secret monitoring/loki
-          MINIO_ACCESS_KEY="{{.LOKI_MINIO_ACCESS_KEY}}"
-          MINIO_SECRET_KEY="{{.LOKI_MINIO_SECRET_KEY}}"
       # monitoring/grafana
       - vault kv put -mount=secret monitoring/grafana
           ADMIN_USER="{{.GRAFANA_ADMIN_USER}}"
@@ -323,6 +292,29 @@ tasks:
           RESTIC_HASS_PASSWORD="{{.RESTIC_HASS_PASSWORD}}"
       - vault kv put -mount=secret volsync/zwavejs
           RESTIC_ZWAVEJS_PASSWORD="{{.RESTIC_ZWAVEJS_PASSWORD}}"
+  generate-env-file:
+    desc: regenerate env file from vault kv secrets
+    vars:
+      SECRET_PATH: secret/
+      OUTPUT_FILE: test.env
+    cmds:
+    - echo "" > {{.OUTPUT_FILE}}      
+    # vault kv secrets
+    - |
+      function traverse {
+        local path="$1"
+        vault_keys=$(vault kv list -format=json $1 2>&1)
+        for secret in $(echo "$vault_keys" | jq -r '.[]'); do
+          if [[ "$secret" == */ ]]; then
+            traverse "$path$secret"
+          else
+            echo "# $path$secret" >> {{.OUTPUT_FILE}}
+            vault kv get -format=yaml "$path$secret" | yq '.data.data' | sed 's/: /=/' >> {{.OUTPUT_FILE}}
+            echo "" >> {{.OUTPUT_FILE}}
+          fi
+        done
+      }
+      traverse {{.SECRET_PATH}}
   # database
   disable-database-engine:
     desc: disable vault database engine
