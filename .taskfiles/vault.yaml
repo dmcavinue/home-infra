@@ -191,17 +191,14 @@ tasks:
   add-kv-secrets:
     desc: add kv secrets
     cmds:
-      # cert-manager
-      - vault kv put -mount=secret cert-manager/cloudflare          
-          CLOUDFLARE_TOKEN="{{.CLOUDFLARE_TOKEN}}"
       # flux-system/notification
       - vault kv put -mount=secret flux-system/notification
           SLACK_WEBHOOK="{{.SLACK_WEBHOOK}}"
       # database/emqx
       - vault kv put -mount=secret database/emqx
-          admin_password="{{.EMQX_ADMIN_PASSWORD}}"
-          user_1_username="{{.EMQX_USER1_NAME}}"
-          user_1_password="{{.EMQX_USER1_PASSWORD}}"
+          EMQX_ADMIN_PASSWORD="{{.EMQX_ADMIN_PASSWORD}}"
+          EMQX_USER1_NAME="{{.EMQX_USER1_NAME}}"
+          EMQX_USER1_PASSWORD="{{.EMQX_USER1_PASSWORD}}"
       # home-automation/home-assistant
       - vault kv put -mount=secret home-automation/home-assistant
           HASS_POSTGRES_SUPER_USER="{{.HASS_POSTGRES_SUPER_USER}}"
@@ -210,15 +207,14 @@ tasks:
           HASS_POSTGRES_PASSWORD="{{.HASS_POSTGRES_PASSWORD}}"
           HASS_DB_BACKUP_ACCESS_KEY="{{.HASS_DB_BACKUP_ACCESS_KEY}}"
           HASS_DB_BACKUP_SECRET="{{.HASS_DB_BACKUP_SECRET}}"
-          ALARM_CODE="{{.HASS_ALARM_CODE}}"
-          GIT_REPO="{{.HASS_GIT_REPO}}"
-          DEPLOY_KEY_B64="{{.HASS_DEPLOY_KEY_B64}}"
-          HACS_TOKEN="{{.HASS_HACS_TOKEN}}"
-          LDAP_ROOT="{{.HASS_LDAP_ROOT}}"
-          LOCAL_DOMAIN="{{.LOCAL_DOMAIN}}"
-          LOCATION_LAT="{{.HASS_LOCATION_LAT}}"
-          LOCATION_LONG="{{.HASS_LOCATION_LONG}}"
-          DRAC_IP="{{.HASS_DRAC_IP}}"
+          HASS_ALARM_CODE="{{.HASS_ALARM_CODE}}"
+          HASS_GIT_REPO="{{.HASS_GIT_REPO}}"
+          HASS_DEPLOY_KEY_B64="{{.HASS_DEPLOY_KEY_B64}}"
+          HASS_HACS_TOKEN="{{.HASS_HACS_TOKEN}}"
+          HASS_LDAP_ROOT="{{.HASS_LDAP_ROOT}}"
+          HASS_LOCATION_LAT="{{.HASS_LOCATION_LAT}}"
+          HASS_LOCATION_LONG="{{.HASS_LOCATION_LONG}}"
+          HASS_DRAC_IP="{{.HASS_DRAC_IP}}"
       # home-automation/tidbyt-proxy
       - vault kv put -mount=secret home-automation/tidbyt-proxy
           TIDBYT_API_KEY="{{.TIDBYT_API_KEY}}"
@@ -245,15 +241,15 @@ tasks:
           IMMICH_DB_BACKUP_SECRET="{{.IMMICH_DB_BACKUP_SECRET}}"
       # monitoring/grafana
       - vault kv put -mount=secret monitoring/grafana
-          ADMIN_USER="{{.GRAFANA_ADMIN_USER}}"
-          ADMIN_PASSWORD="{{.GRAFANA_ADMIN_PASSWORD}}"
-          LDAP_USERNAME="{{.GRAFANA_LDAP_USERNAME}}"
-          LDAP_PASSWORD="{{.GRAFANA_LDAP_PASSWORD}}"
-          LDAP_ROOT="{{.GRAFANA_LDAP_ROOT}}"
+          GRAFANA_ADMIN_USER="{{.GRAFANA_ADMIN_USER}}"
+          GRAFANA_ADMIN_PASSWORD="{{.GRAFANA_ADMIN_PASSWORD}}"
+          GRAFANA_LDAP_USERNAME="{{.GRAFANA_LDAP_USERNAME}}"
+          GRAFANA_LDAP_PASSWORD="{{.GRAFANA_LDAP_PASSWORD}}"
+          GRAFANA_LDAP_ROOT="{{.GRAFANA_LDAP_ROOT}}"
       # security/dex
       - vault kv put -mount=secret security/dex
-          IMMICH_CLIENT_SECRET="{{.DEX_IMMICH_CLIENT_SECRET}}"
-          GITOPS_CLIENT_SECRET="{{.DEX_GITOPS_CLIENT_SECRET}}"
+          DEX_IMMICH_CLIENT_SECRET="{{.DEX_IMMICH_CLIENT_SECRET}}"
+          DEX_GITOPS_CLIENT_SECRET="{{.DEX_GITOPS_CLIENT_SECRET}}"
       # security/lldap
       - vault kv put -mount=secret security/lldap
           LLDAP_POSTGRES_SUPER_USER="{{.LLDAP_POSTGRES_SUPER_USER}}"
@@ -273,10 +269,10 @@ tasks:
           OAUTH2_COOKIE_SECRET="{{.OAUTH2_COOKIE_SECRET}}"
       # storage/minio
       - vault kv put -mount=secret storage/minio
-          ROOT_USER="{{.MINIO_ROOT_USER}}"
-          ROOT_PASSWORD="{{.MINIO_ROOT_PASSWORD}}"
-          CONSOLE_SECRET_KEY="{{.MINIO_CONSOLE_SECRET_KEY}}"
-          CONSOLE_ACCESS_KEY="{{.MINIO_CONSOLE_ACCESS_KEY}}"
+          MINIO_ROOT_USER="{{.MINIO_ROOT_USER}}"
+          MINIO_ROOT_PASSWORD="{{.MINIO_ROOT_PASSWORD}}"
+          MINIO_CONSOLE_SECRET_KEY="{{.MINIO_CONSOLE_SECRET_KEY}}"
+          MINIO_CONSOLE_ACCESS_KEY="{{.MINIO_CONSOLE_ACCESS_KEY}}"
       # volsync
       - vault kv put -mount=secret volsync/volsync
           RESTIC_URL="{{.RESTIC_URL}}"

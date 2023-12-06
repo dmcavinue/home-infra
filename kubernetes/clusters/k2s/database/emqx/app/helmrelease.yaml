@@ -61,12 +61,12 @@ spec:
     - targetPath: emqxConfig.EMQX_DASHBOARD__DEFAULT_PASSWORD
       kind: Secret
       name: emqx-secret
-      valuesKey: admin_password
+      valuesKey: EMQX_ADMIN_PASSWORD
     - targetPath: emqxConfig.EMQX_AUTH__USER__1__USERNAME
       kind: Secret
       name: emqx-secret
-      valuesKey: user_1_username
+      valuesKey: EMQX_USER1_NAME
     - targetPath: emqxConfig.EMQX_AUTH__USER__1__PASSWORD
       kind: Secret
       name: emqx-secret
-      valuesKey: user_1_password
+      valuesKey: EMQX_USER1_PASSWORD
