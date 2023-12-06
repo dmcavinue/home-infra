@@ -8,6 +8,7 @@ kubernetes/schemas
 # extras
 config.xml
 *.env
+*.env
 TODO
 .vault.json
 .kopia-sa.json
