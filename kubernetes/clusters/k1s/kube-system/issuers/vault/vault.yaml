@@ -6,7 +6,7 @@ metadata:
   namespace: kube-system
 spec:
   vault:
-    path: pki/int_ca/sign/default
+    path: pki/int_ca/sign/${ENVIRONMENT}
     server: http://vault.vault:8200
     auth:
       kubernetes:
