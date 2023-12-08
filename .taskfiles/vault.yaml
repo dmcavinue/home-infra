@@ -284,7 +284,7 @@ tasks:
     desc: regenerate env file from vault kv secrets
     vars:
       SECRET_PATH: secret/
-      OUTPUT_FILE: test.env
+      OUTPUT_FILE: .env
     cmds:
     - echo "" > {{.OUTPUT_FILE}}      
     # vault kv secrets
