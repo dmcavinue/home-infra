@@ -82,6 +82,7 @@ spec:
       walSegmentSize: 32
       import:
         schemaOnly: true
+        type: microservice
         source:
           externalCluster: immich-11
       owner: immich
