@@ -61,74 +61,74 @@ spec:
         secretAccessKey:
           name: immich-database-superuser
           key: secret
----
-apiVersion: postgresql.cnpg.io/v1
-kind: Cluster
-metadata:
-  name: immich-pg15
-  namespace: media
-  annotations:
-    kyverno.io/ignore: "true"
-spec:
-  instances: 1
-  imageName: ghcr.io/cloudnative-pg/postgresql:15.5-5
-  inheritedMetadata:
-    labels:
-      kube-image-keeper.enix.io/image-caching-policy: ignore
-  primaryUpdateStrategy: unsupervised
-  bootstrap:
-    initdb:
-      dataChecksums: true
-      walSegmentSize: 32
-      import:
-        schemaOnly: true
-        type: microservice
-        databases:
-          - immich
-        source:
-          externalCluster: immich-11
-      owner: immich
-      secret:
-        name: immich-database-user
-    # recovery:
-    #   source: immich-11
-  storage:
-    size: 5Gi
-    storageClass: local-path
-  enableSuperuserAccess: true
-  superuserSecret:
-    name: immich-database-superuser
-  postgresql:
-    parameters:
-      max_connections: "600"
-      shared_buffers: 512MB
-  monitoring:
-    enablePodMonitor: true
-  backup:
-    retentionPolicy: 14d
-    barmanObjectStore:
-      wal:
-        compression: bzip2
-        maxParallel: 8
-      destinationPath: s3://pg-backup/immich-pg15
-      endpointURL: "https://minio.logfold.com"
-      serverName: immich-1
-      s3Credentials:
-        accessKeyId:
-          name: immich-database-superuser
-          key: access-key
-        secretAccessKey:
-          name: immich-database-superuser
-          key: secret
-  externalClusters:
-  - name: immich-11
-    barmanObjectStore:
-      destinationPath: s3://pg-backup/immich
-      endpointURL: "https://minio.logfold.com"
-      s3Credentials:
-        accessKeyId:
-          name: immich-database-superuser
-          key: access-key
-        secretAccessKey:
-          name: immich-database-superuser
-          key: secret
+# ---
+# apiVersion: postgresql.cnpg.io/v1
+# kind: Cluster
+# metadata:
+#   name: immich-pg15
+#   namespace: media
+#   annotations:
+#     kyverno.io/ignore: "true"
+# spec:
+#   instances: 1
+#   imageName: ghcr.io/cloudnative-pg/postgresql:15.5-5
+#   inheritedMetadata:
+#     labels:
+#       kube-image-keeper.enix.io/image-caching-policy: ignore
+#   primaryUpdateStrategy: unsupervised
+#   bootstrap:
+#     initdb:
+#       dataChecksums: true
+#       walSegmentSize: 32
+#       import:
+#         schemaOnly: true
+#         type: microservice
+#         databases:
+#           - immich
+#         source:
+#           externalCluster: immich-11
+#       owner: immich
+#       secret:
+#         name: immich-database-user
+#     # recovery:
+#     #   source: immich-11
+#   storage:
+#     size: 5Gi
+#     storageClass: local-path
+#   enableSuperuserAccess: true
+#   superuserSecret:
+#     name: immich-database-superuser
+#   postgresql:
+#     parameters:
+#       max_connections: "600"
+#       shared_buffers: 512MB
+#   monitoring:
+#     enablePodMonitor: true
+#   backup:
+#     retentionPolicy: 14d
+#     barmanObjectStore:
+#       wal:
+#         compression: bzip2
+#         maxParallel: 8
+#       destinationPath: s3://pg-backup/immich-pg15
+#       endpointURL: "https://minio.logfold.com"
+#       serverName: immich-1
+#       s3Credentials:
+#         accessKeyId:
+#           name: immich-database-superuser
+#           key: access-key
+#         secretAccessKey:
+#           name: immich-database-superuser
+#           key: secret
+#   externalClusters:
+#   - name: immich-11
+#     barmanObjectStore:
+#       destinationPath: s3://pg-backup/immich
+#       endpointURL: "https://minio.logfold.com"
+#       s3Credentials:
+#         accessKeyId:
+#           name: immich-database-superuser
+#           key: access-key
+#         secretAccessKey:
+#           name: immich-database-superuser
+#           key: secret
