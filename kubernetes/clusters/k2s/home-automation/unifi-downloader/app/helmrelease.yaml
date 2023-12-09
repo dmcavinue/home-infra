@@ -41,7 +41,7 @@ spec:
               globalMounts:
                 - path: /download
               accessMode: ReadWriteOnce
-              size: 20Gi
+              size: 30Gi
               storageClass: ceph-pool
         pod:
           securityContext:
