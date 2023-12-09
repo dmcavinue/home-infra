@@ -23,6 +23,7 @@ tasks:
       - task vault:add-intca
       - task vault:enable-ldap
       - task vault:enable-kv
+      - task vault:enable-password-generators
       - task vault:add-kv-secrets
   status:
     desc: vault status
@@ -177,6 +178,33 @@ tasks:
           bound_service_account_namespaces=storage
           policies=security,storage,default
           ttl=1h
+  # password generators
+  enable-password-generators:
+    desc: enable password generators
+    cmds:
+      # default
+      - echo -e '
+        length=45
+
+        rule "charset" {
+          charset = "abcdefghijklmnopqrstuvwxyz"
+          min-chars = 3
+        }
+
+        rule "charset" {
+          charset = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+          min-chars = 3
+        }
+
+        rule "charset" {
+          charset = "0123456789"
+          min-chars = 3
+        }
+
+        rule "charset" {
+          charset = "!@#_-+=%&*<>"
+          min-chars = 3
+        }'| vault write sys/policies/password/default policy=-
   # kv
   disable-kv:
     desc: disable kv secrets engine
