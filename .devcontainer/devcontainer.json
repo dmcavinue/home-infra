@@ -12,7 +12,8 @@
         "ms-azuretools.vscode-docker",
         "MarkLarah.pre-commit-vscode",
         "redhat.vscode-yaml",
-        "4ops.terraform"
+        "4ops.terraform",
+        "Weaveworks.vscode-gitops-tools"
       ]
     }
   },
