@@ -14,11 +14,13 @@ spec:
       kube-image-keeper.enix.io/image-caching-policy: ignore
   primaryUpdateStrategy: unsupervised
   bootstrap:
-    initdb:
-      database: immich
-      owner: immich
-      secret:
-        name: immich-database-user
+    # initdb:
+    #   database: immich
+    #   owner: immich
+    #   secret:
+    #     name: immich-database-user
+    recovery:
+      source: immich-1
   storage:
     size: 5Gi
     storageClass: local-path
