@@ -31,7 +31,7 @@ spec:
   managed:
     roles:
     - name: role_vault
-      ensure: role_present
+      ensure: present
       login: false
       superuser: true
       disablePassword: true
