@@ -2,7 +2,7 @@
 apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
-  name: immich-pg15
+  name: immich-db
   namespace: media
   annotations:
     kyverno.io/ignore: "true"
@@ -47,7 +47,7 @@ spec:
       wal:
         compression: bzip2
         maxParallel: 8
-      destinationPath: s3://pg-backup/immich-pg15
+      destinationPath: s3://pg-backup/immich-db
       endpointURL: "https://minio.logfold.com"
       serverName: immich-1
       s3Credentials:
