@@ -222,17 +222,17 @@ tasks:
           SLACK_WEBHOOK="{{.SLACK_WEBHOOK}}"
       # database/emqx
       - vault kv put -mount=secret database/emqx
-          EMQX_ADMIN_PASSWORD="{{.EMQX_ADMIN_PASSWORD}}"
-          EMQX_USER1_NAME="{{.EMQX_USER1_NAME}}"
-          EMQX_USER1_PASSWORD="{{.EMQX_USER1_PASSWORD}}"
+          EMQX_ADMIN_PASSWORD="$(vault read -field=password sys/policies/password/default/generate)"
+          EMQX_USER1_NAME="mqtt"
+          EMQX_USER1_PASSWORD="$(vault read -field=password sys/policies/password/default/generate)"
       # home-automation/home-assistant
       - vault kv put -mount=secret home-automation/home-assistant
           HASS_POSTGRES_SUPER_USER="{{.HASS_POSTGRES_SUPER_USER}}"
           HASS_POSTGRES_SUPER_PASSWORD="{{.HASS_POSTGRES_SUPER_PASSWORD}}"
           HASS_POSTGRES_USER="{{.HASS_POSTGRES_USER}}"
           HASS_POSTGRES_PASSWORD="{{.HASS_POSTGRES_PASSWORD}}"
-          HASS_DB_BACKUP_ACCESS_KEY="{{.HASS_DB_BACKUP_ACCESS_KEY}}"
-          HASS_DB_BACKUP_SECRET="{{.HASS_DB_BACKUP_SECRET}}"
+          HASS_DB_BACKUP_ACCESS_KEY="$(vault read -field=password sys/policies/password/default/generate)"
+          HASS_DB_BACKUP_SECRET="$(vault read -field=password sys/policies/password/default/generate)"
           HASS_ALARM_CODE="{{.HASS_ALARM_CODE}}"
           HASS_GIT_REPO="{{.HASS_GIT_REPO}}"
           HASS_DEPLOY_KEY_B64="{{.HASS_DEPLOY_KEY_B64}}"
@@ -257,48 +257,48 @@ tasks:
           CLOUDFLARE_RECORD_NAME="{{.CLOUDFLARE_RECORD_NAME}}"
       # media/immich
       - vault kv put -mount=secret media/immich
-          IMMICH_JWT_SECRET="{{.IMMICH_JWT_SECRET}}"
+          IMMICH_JWT_SECRET="$(vault read -field=password sys/policies/password/default/generate)"
           IMMICH_TYPESENSE_API_KEY="{{.IMMICH_TYPESENSE_API_KEY}}"
           IMMICH_POSTGRES_SUPER_USER="{{.IMMICH_POSTGRES_SUPER_USER}}"
           IMMICH_POSTGRES_SUPER_PASSWORD="{{.IMMICH_POSTGRES_SUPER_PASSWORD}}"
           IMMICH_POSTGRES_USER="{{.IMMICH_POSTGRES_USER}}"
           IMMICH_POSTGRES_PASSWORD="{{.IMMICH_POSTGRES_PASSWORD}}"
-          IMMICH_DB_BACKUP_ACCESS_KEY="{{.IMMICH_DB_BACKUP_ACCESS_KEY}}"
-          IMMICH_DB_BACKUP_SECRET="{{.IMMICH_DB_BACKUP_SECRET}}"
+          IMMICH_DB_BACKUP_ACCESS_KEY="$(vault read -field=password sys/policies/password/default/generate)"
+          IMMICH_DB_BACKUP_SECRET="$(vault read -field=password sys/policies/password/default/generate)"
       # monitoring/grafana
       - vault kv put -mount=secret monitoring/grafana
-          GRAFANA_ADMIN_USER="{{.GRAFANA_ADMIN_USER}}"
-          GRAFANA_ADMIN_PASSWORD="{{.GRAFANA_ADMIN_PASSWORD}}"
+          GRAFANA_ADMIN_USER="admin"
+          GRAFANA_ADMIN_PASSWORD="$(vault read -field=password sys/policies/password/default/generate)"
           GRAFANA_LDAP_USERNAME="{{.GRAFANA_LDAP_USERNAME}}"
           GRAFANA_LDAP_PASSWORD="{{.GRAFANA_LDAP_PASSWORD}}"
           GRAFANA_LDAP_ROOT="{{.GRAFANA_LDAP_ROOT}}"
       # security/dex
       - vault kv put -mount=secret security/dex
-          DEX_IMMICH_CLIENT_SECRET="{{.DEX_IMMICH_CLIENT_SECRET}}"
-          DEX_GITOPS_CLIENT_SECRET="{{.DEX_GITOPS_CLIENT_SECRET}}"
+          DEX_IMMICH_CLIENT_SECRET="$(vault read -field=password sys/policies/password/default/generate)"
+          DEX_GITOPS_CLIENT_SECRET="$(vault read -field=password sys/policies/password/default/generate)"
       # security/lldap
       - vault kv put -mount=secret security/lldap
           LLDAP_POSTGRES_SUPER_USER="{{.LLDAP_POSTGRES_SUPER_USER}}"
           LLDAP_POSTGRES_SUPER_PASSWORD="{{.LLDAP_POSTGRES_SUPER_PASSWORD}}"
           LLDAP_POSTGRES_USER="{{.LLDAP_POSTGRES_USER}}"
           LLDAP_POSTGRES_PASSWORD="{{.LLDAP_POSTGRES_PASSWORD}}"
-          LLDAP_DB_BACKUP_ACCESS_KEY="{{.LLDAP_DB_BACKUP_ACCESS_KEY}}"
-          LLDAP_DB_BACKUP_SECRET="{{.LLDAP_DB_BACKUP_SECRET}}"
-          LLDAP_JWT_SECRET="{{.LLDAP_JWT_SECRET}}"
+          LLDAP_DB_BACKUP_ACCESS_KEY="$(vault read -field=password sys/policies/password/default/generate)"
+          LLDAP_DB_BACKUP_SECRET="$(vault read -field=password sys/policies/password/default/generate)"
+          LLDAP_JWT_SECRET="$(vault read -field=password sys/policies/password/default/generate)"
           LLDAP_LDAP_USER_EMAIL="{{.LLDAP_LDAP_USER_EMAIL}}"
           LLDAP_LDAP_USER_PASS="{{.LLDAP_LDAP_USER_PASS}}"
           LLDAP_SERVER_KEY_SEED="{{.LLDAP_SERVER_KEY_SEED}}"
           LLDAP_LDAP_BASE_DN="{{.LLDAP_LDAP_BASE_DN}}"
       # security/oauth2-proxy
       - vault kv put -mount=secret security/oauth2-proxy
-          OAUTH2_CLIENT_SECRET="{{.OAUTH2_CLIENT_SECRET}}"
-          OAUTH2_COOKIE_SECRET="{{.OAUTH2_COOKIE_SECRET}}"
+          OAUTH2_CLIENT_SECRET="$(vault read -field=password sys/policies/password/default/generate)"
+          OAUTH2_COOKIE_SECRET="$(vault read -field=password sys/policies/password/default/generate)"
       # storage/minio
       - vault kv put -mount=secret storage/minio
-          MINIO_ROOT_USER="{{.MINIO_ROOT_USER}}"
-          MINIO_ROOT_PASSWORD="{{.MINIO_ROOT_PASSWORD}}"
-          MINIO_CONSOLE_SECRET_KEY="{{.MINIO_CONSOLE_SECRET_KEY}}"
-          MINIO_CONSOLE_ACCESS_KEY="{{.MINIO_CONSOLE_ACCESS_KEY}}"
+          MINIO_ROOT_USER="minio"
+          MINIO_ROOT_PASSWORD="$(vault read -field=password sys/policies/password/default/generate)"
+          MINIO_CONSOLE_SECRET_KEY="$(vault read -field=password sys/policies/password/default/generate)"
+          MINIO_CONSOLE_ACCESS_KEY="$(vault read -field=password sys/policies/password/default/generate)"
       # volsync
       - vault kv put -mount=secret volsync/volsync
           RESTIC_URL="{{.RESTIC_URL}}"
