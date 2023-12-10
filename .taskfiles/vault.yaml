@@ -349,7 +349,7 @@ tasks:
           allowed_roles="home-assistant"
           connection_url="postgresql://{{`{{username}}`}}:{{`{{password}}`}}@home-assistant-db.home-automation:5432/home_assistant"
           username="postgres"
-          password="{{.HASS_POSTGRES_PASSWORD}}"
+          password="{{.HASS_POSTGRES_SUPER_PASSWORD}}"
           username_template="{{`{{.RoleName}}`}}-{{`{{random 8}}`}}"
       - vault write databases/roles/home-assistant
           db_name="home_assistant"
@@ -363,7 +363,7 @@ tasks:
           allowed_roles="immich"
           connection_url="postgresql://{{`{{username}}`}}:{{`{{password}}`}}@immich-db.media:5432/immich"
           username="postgres"
-          password="{{.IMMICH_POSTGRES_PASSWORD}}"
+          password="{{.IMMICH_POSTGRES_SUPER_PASSWORD}}"
           username_template="{{`{{.RoleName}}`}}-{{`{{random 8}}`}}"
       - vault write databases/roles/immich
           db_name="immich"
