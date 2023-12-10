@@ -15,18 +15,23 @@ spec:
   primaryUpdateStrategy: unsupervised
   bootstrap:
     initdb:
-      dataChecksums: true
-      walSegmentSize: 32
-      import:
-        schemaOnly: true
-        type: microservice
-        databases:
-          - immich
-        source:
-          externalCluster: immich-11
+      database: immich
       owner: immich
       secret:
         name: immich-database-user
+    # initdb:
+    #   dataChecksums: true
+    #   walSegmentSize: 32
+    #   import:
+    #     schemaOnly: true
+    #     type: microservice
+    #     databases:
+    #       - immich
+    #     source:
+    #       externalCluster: immich-11
+    #   owner: immich
+    #   secret:
+    #     name: immich-database-user
     # recovery:
     #   source: immich-11
   storage:
