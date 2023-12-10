@@ -343,7 +343,7 @@ tasks:
   add-database-connections:
     desc: add vault database connections
     cmds:
-      # postgresql/home_assistant
+      # home-automation/home_assistant
       - vault write databases/config/home_assistant
           plugin_name="postgresql-database-plugin"
           allowed_roles="home-assistant"
@@ -355,5 +355,19 @@ tasks:
           db_name="home_assistant"
           creation_statements="CREATE ROLE \"{{`{{name}}`}}\" WITH LOGIN PASSWORD '{{`{{password}}`}}' VALID UNTIL '{{`{{expiration}}`}}'; GRANT role_home_assistant TO \"{{`{{name}}`}}\"; SET ROLE role_home_assistant;"
           revocation_statements="REVOKE role_home_assistant FROM \"{{`{{name}}`}}\"; DROP ROLE \"{{`{{name}}`}}\";"
+          default_ttl="1h"
+          max_ttl="1h"
+      # media/immich
+      - vault write databases/config/immich
+          plugin_name="postgresql-database-plugin"
+          allowed_roles="immich"
+          connection_url="postgresql://{{`{{username}}`}}:{{`{{password}}`}}@immich-db-rw.media:5432/immich"
+          username="postgres"
+          password="{{.IMMICH_POSTGRES_PASSWORD}}"
+          username_template="{{`{{.RoleName}}`}}-{{`{{random 8}}`}}"
+      - vault write databases/roles/immich
+          db_name="immich"
+          creation_statements="CREATE ROLE \"{{`{{name}}`}}\" WITH LOGIN PASSWORD '{{`{{password}}`}}' VALID UNTIL '{{`{{expiration}}`}}'; GRANT role_immich TO \"{{`{{name}}`}}\"; SET ROLE role_immich;"
+          revocation_statements="REVOKE role_immich FROM \"{{`{{name}}`}}\"; DROP ROLE \"{{`{{name}}`}}\";"
           default_ttl="1h"
           max_ttl="1h"
