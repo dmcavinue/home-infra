@@ -19,21 +19,6 @@ spec:
       owner: immich
       secret:
         name: immich-database-user
-    # initdb:
-    #   dataChecksums: true
-    #   walSegmentSize: 32
-    #   import:
-    #     schemaOnly: true
-    #     type: microservice
-    #     databases:
-    #       - immich
-    #     source:
-    #       externalCluster: immich-11
-    #   owner: immich
-    #   secret:
-    #     name: immich-database-user
-    # recovery:
-    #   source: immich-11
   storage:
     size: 5Gi
     storageClass: local-path
@@ -63,9 +48,9 @@ spec:
           name: immich-database-superuser
           key: secret
   externalClusters:
-  - name: immich-11
+  - name: immich-1
     barmanObjectStore:
-      destinationPath: s3://pg-backup/immich
+      destinationPath: s3://pg-backup/immich-db
       endpointURL: "https://minio.logfold.com"
       s3Credentials:
         accessKeyId:
