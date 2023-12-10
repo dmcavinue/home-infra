@@ -25,6 +25,13 @@ spec:
     size: 5Gi
     storageClass: local-path
   enableSuperuserAccess: true
+  managed:
+    roles:
+    - name: role_vault
+      ensure: role_present
+      login: false
+      superuser: true
+      disablePassword: true
   superuserSecret:
     name: home-assistant-database-superuser
   postgresql:

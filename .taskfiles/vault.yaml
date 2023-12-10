@@ -353,8 +353,8 @@ tasks:
           username_template="{{`{{.RoleName}}`}}-{{`{{random 8}}`}}"
       - vault write databases/roles/home-assistant
           db_name="home_assistant"
-          creation_statements="CREATE ROLE \"{{`{{name}}`}}\" WITH LOGIN PASSWORD '{{`{{password}}`}}' VALID UNTIL '{{`{{expiration}}`}}'; GRANT role_home_assistant TO \"{{`{{name}}`}}\"; SET ROLE role_home_assistant;"
-          revocation_statements="REVOKE role_home_assistant FROM \"{{`{{name}}`}}\"; DROP ROLE \"{{`{{name}}`}}\";"
+          creation_statements="CREATE ROLE \"{{`{{name}}`}}\" WITH LOGIN PASSWORD '{{`{{password}}`}}' VALID UNTIL '{{`{{expiration}}`}}'; GRANT role_vault TO \"{{`{{name}}`}}\"; SET ROLE role_vault;"
+          revocation_statements="REVOKE role_vault FROM \"{{`{{name}}`}}\"; DROP ROLE \"{{`{{name}}`}}\";"
           default_ttl="1h"
           max_ttl="1h"
       # media/immich
@@ -367,7 +367,7 @@ tasks:
           username_template="{{`{{.RoleName}}`}}-{{`{{random 8}}`}}"
       - vault write databases/roles/immich
           db_name="immich"
-          creation_statements="CREATE ROLE \"{{`{{name}}`}}\" WITH LOGIN PASSWORD '{{`{{password}}`}}' VALID UNTIL '{{`{{expiration}}`}}'; GRANT role_immich TO \"{{`{{name}}`}}\"; SET ROLE role_immich;"
-          revocation_statements="REVOKE role_immich FROM \"{{`{{name}}`}}\"; DROP ROLE \"{{`{{name}}`}}\";"
+          creation_statements="CREATE ROLE \"{{`{{name}}`}}\" WITH LOGIN PASSWORD '{{`{{password}}`}}' VALID UNTIL '{{`{{expiration}}`}}'; GRANT role_vault TO \"{{`{{name}}`}}\"; SET ROLE role_vault;"
+          revocation_statements="REVOKE role_vault FROM \"{{`{{name}}`}}\"; DROP ROLE \"{{`{{name}}`}}\";"
           default_ttl="1h"
           max_ttl="1h"

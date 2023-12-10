@@ -28,6 +28,13 @@ spec:
   enableSuperuserAccess: true
   superuserSecret:
     name: immich-database-superuser
+  managed:
+    roles:
+    - name: role_vault
+      ensure: role_present
+      login: false
+      superuser: true
+      disablePassword: true
   postgresql:
     shared_preload_libraries:
     - vectors.so
