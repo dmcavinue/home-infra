@@ -21,7 +21,7 @@ spec:
         schemaOnly: true
         type: microservice
         databases:
-          - public
+          - immich
         source:
           externalCluster: immich-11
       owner: immich
