@@ -82,7 +82,6 @@ tasks:
           bindpass="{{.LLDAP_LDAP_USER_PASS}}"
           insecure_tls=false
           starttls=true
-      - echo "path \"*\" { capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\", \"sudo\"] }" | vault policy write admin -
       - vault write auth/ldap/groups/vault-admin policies=admin
   # k8s auth backend
   enable-k8s-auth:
@@ -100,7 +99,51 @@ tasks:
       - rm ca.crt
   add-policies:
     desc: add policies
-    cmds:      
+    cmds:
+      - echo '
+        path "sys/health" {
+          capabilities = ["read", "sudo"]
+        }
+        path "sys/policies/acl"
+        {
+          capabilities = ["list"]
+        }
+        path "sys/policies/acl/*"
+        {
+          capabilities = ["create", "read", "update", "delete", "list", "sudo"]
+        }
+        path "auth/*"
+        {
+          capabilities = ["create", "read", "update", "delete", "list", "sudo"]
+        }
+        path "sys/auth/*"
+        {
+          capabilities = ["create", "update", "delete", "sudo"]
+        }
+        path "sys/auth"
+        {
+          capabilities = ["read"]
+        }
+        path "secret/*"
+        {
+          capabilities = ["create", "read", "update", "delete", "list", "sudo"]
+        }
+        path "sys/leases/*"
+        {
+          capabilities = ["create", "read", "update", "delete", "list", "sudo"]
+        }
+        path "sys/leases/lookup"
+        {
+          capabilities = ["list", "sudo"]
+        }
+        path "sys/mounts/*"
+        {
+          capabilities = ["create", "read", "update", "delete", "list", "sudo"]
+        }
+        path "sys/mounts"
+        {
+          capabilities = ["read"]
+        }' | vault policy write admin -
       - echo -e "path \"pki/int_ca/sign/k0s\" { capabilities = [\"update\"] } " | vault policy write k0s -
       - echo -e "path \"pki/int_ca/sign/k1s\" { capabilities = [\"update\"] } " | vault policy write k1s -
       - echo -e "path \"pki/int_ca/sign/k2s\" { capabilities = [\"update\"] } " | vault policy write k2s -
