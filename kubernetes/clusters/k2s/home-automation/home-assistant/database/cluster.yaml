@@ -30,7 +30,7 @@ spec:
     - name: role_vault
       ensure: present
       login: false
-      superuser: true
+      superuser: false
       disablePassword: true
   superuserSecret:
     name: home-assistant-database-superuser
