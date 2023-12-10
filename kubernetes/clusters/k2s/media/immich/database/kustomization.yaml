@@ -6,6 +6,5 @@ namespace: media
 resources:
   - ./externalsecret.yaml
   - ./cluster.yaml
-  - ./cluster-pg15.yaml
   - ./scheduledbackup.yaml
   - ./podmonitor.yaml

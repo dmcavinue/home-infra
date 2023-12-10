@@ -2,25 +2,23 @@
 apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
-  name: immich
+  name: immich-db
   namespace: media
   annotations:
     kyverno.io/ignore: "true"
 spec:
   instances: 1
-  imageName: ghcr.io/cloudnative-pg/postgresql:14.8-7
+  imageName: ghcr.io/cloudnative-pg/postgresql:15.5-5
   inheritedMetadata:
     labels:
       kube-image-keeper.enix.io/image-caching-policy: ignore
   primaryUpdateStrategy: unsupervised
   bootstrap:
-    # initdb:
-    #   database: immich
-    #   owner: immich
-    #   secret:
-    #     name: immich-database-user
-    recovery:
-      source: immich-10
+    initdb:
+      database: immich
+      owner: immich
+      secret:
+        name: immich-database-user
   storage:
     size: 5Gi
     storageClass: local-path
@@ -39,9 +37,9 @@ spec:
       wal:
         compression: bzip2
         maxParallel: 8
-      destinationPath: s3://pg-backup/immich
+      destinationPath: s3://pg-backup/immich-db
       endpointURL: "https://minio.logfold.com"
-      serverName: immich-11
+      serverName: immich-1
       s3Credentials:
         accessKeyId:
           name: immich-database-superuser
@@ -50,9 +48,9 @@ spec:
           name: immich-database-superuser
           key: secret
   externalClusters:
-  - name: immich-10
+  - name: immich-1
     barmanObjectStore:
-      destinationPath: s3://pg-backup/immich
+      destinationPath: s3://pg-backup/immich-db
       endpointURL: "https://minio.logfold.com"
       s3Credentials:
         accessKeyId:
