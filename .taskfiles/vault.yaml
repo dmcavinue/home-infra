@@ -82,7 +82,6 @@ tasks:
           bindpass="{{.LLDAP_LDAP_USER_PASS}}"
           insecure_tls=false
           starttls=true
-      - echo "path \"*\" { capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\", \"sudo\"] }" | vault policy write admin -
       - vault write auth/ldap/groups/vault-admin policies=admin
   # k8s auth backend
   enable-k8s-auth:
@@ -100,7 +99,51 @@ tasks:
       - rm ca.crt
   add-policies:
     desc: add policies
-    cmds:      
+    cmds:
+      - echo '
+        path "sys/health" {
+          capabilities = ["read", "sudo"]
+        }
+        path "sys/policies/acl"
+        {
+          capabilities = ["list"]
+        }
+        path "sys/policies/acl/*"
+        {
+          capabilities = ["create", "read", "update", "delete", "list", "sudo"]
+        }
+        path "auth/*"
+        {
+          capabilities = ["create", "read", "update", "delete", "list", "sudo"]
+        }
+        path "sys/auth/*"
+        {
+          capabilities = ["create", "update", "delete", "sudo"]
+        }
+        path "sys/auth"
+        {
+          capabilities = ["read"]
+        }
+        path "secret/*"
+        {
+          capabilities = ["create", "read", "update", "delete", "list", "sudo"]
+        }
+        path "sys/leases/*"
+        {
+          capabilities = ["create", "read", "update", "delete", "list", "sudo"]
+        }
+        path "sys/leases/lookup"
+        {
+          capabilities = ["list", "sudo"]
+        }
+        path "sys/mounts/*"
+        {
+          capabilities = ["create", "read", "update", "delete", "list", "sudo"]
+        }
+        path "sys/mounts"
+        {
+          capabilities = ["read"]
+        }' | vault policy write admin -
       - echo -e "path \"pki/int_ca/sign/k0s\" { capabilities = [\"update\"] } " | vault policy write k0s -
       - echo -e "path \"pki/int_ca/sign/k1s\" { capabilities = [\"update\"] } " | vault policy write k1s -
       - echo -e "path \"pki/int_ca/sign/k2s\" { capabilities = [\"update\"] } " | vault policy write k2s -
@@ -347,27 +390,27 @@ tasks:
       - vault write databases/config/home_assistant
           plugin_name="postgresql-database-plugin"
           allowed_roles="home-assistant"
-          connection_url="postgresql://{{`{{username}}`}}:{{`{{password}}`}}@home-assistant-rw.home-automation:5432/home_assistant"
+          connection_url="postgresql://{{`{{username}}`}}:{{`{{password}}`}}@home-assistant-db.home-automation:5432/home_assistant"
           username="postgres"
-          password="{{.HASS_POSTGRES_PASSWORD}}"
+          password="{{.HASS_POSTGRES_SUPER_PASSWORD}}"
           username_template="{{`{{.RoleName}}`}}-{{`{{random 8}}`}}"
       - vault write databases/roles/home-assistant
           db_name="home_assistant"
-          creation_statements="CREATE ROLE \"{{`{{name}}`}}\" WITH LOGIN PASSWORD '{{`{{password}}`}}' VALID UNTIL '{{`{{expiration}}`}}'; GRANT role_home_assistant TO \"{{`{{name}}`}}\"; SET ROLE role_home_assistant;"
-          revocation_statements="REVOKE role_home_assistant FROM \"{{`{{name}}`}}\"; DROP ROLE \"{{`{{name}}`}}\";"
+          creation_statements="CREATE ROLE \"{{`{{name}}`}}\" WITH LOGIN PASSWORD '{{`{{password}}`}}' VALID UNTIL '{{`{{expiration}}`}}'; GRANT role_vault TO \"{{`{{name}}`}}\";"
+          revocation_statements="REVOKE role_vault FROM \"{{`{{name}}`}}\"; DROP ROLE \"{{`{{name}}`}}\";"
           default_ttl="1h"
           max_ttl="1h"
       # media/immich
       - vault write databases/config/immich
           plugin_name="postgresql-database-plugin"
           allowed_roles="immich"
-          connection_url="postgresql://{{`{{username}}`}}:{{`{{password}}`}}@immich-db-rw.media:5432/immich"
+          connection_url="postgresql://{{`{{username}}`}}:{{`{{password}}`}}@immich-db.media:5432/immich"
           username="postgres"
-          password="{{.IMMICH_POSTGRES_PASSWORD}}"
+          password="{{.IMMICH_POSTGRES_SUPER_PASSWORD}}"
           username_template="{{`{{.RoleName}}`}}-{{`{{random 8}}`}}"
       - vault write databases/roles/immich
           db_name="immich"
-          creation_statements="CREATE ROLE \"{{`{{name}}`}}\" WITH LOGIN PASSWORD '{{`{{password}}`}}' VALID UNTIL '{{`{{expiration}}`}}'; GRANT role_immich TO \"{{`{{name}}`}}\"; SET ROLE role_immich;"
-          revocation_statements="REVOKE role_immich FROM \"{{`{{name}}`}}\"; DROP ROLE \"{{`{{name}}`}}\";"
+          creation_statements="CREATE ROLE \"{{`{{name}}`}}\" WITH LOGIN PASSWORD '{{`{{password}}`}}' VALID UNTIL '{{`{{expiration}}`}}'; GRANT role_vault TO \"{{`{{name}}`}}\";"
+          revocation_statements="REVOKE role_vault FROM \"{{`{{name}}`}}\"; DROP ROLE \"{{`{{name}}`}}\";"
           default_ttl="1h"
           max_ttl="1h"

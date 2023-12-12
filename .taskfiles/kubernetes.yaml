@@ -3,6 +3,37 @@ version: "3"
 
 tasks:
 
+  generate-synology-kubeconfig:
+    env:
+      KUBECONFIG: .kubeconfigs/k2s.yaml
+    vars:
+      NAME: synology-dns
+      CA: 
+        sh: kubectl --context {{.ENVIRONMENT}} -n ingress get secret {{.NAME}} -o jsonpath='{.data.ca\.crt}'
+      TOKEN:
+        sh: kubectl --context {{.ENVIRONMENT}} -n ingress get secret {{.NAME}} -o jsonpath='{.data.token}' | base64 -d
+    cmd: |
+      echo "---
+      apiVersion: v1
+      kind: Config
+      clusters:
+      - name: default
+        cluster:
+          certificate-authority-data: {{.CA}}
+          server: https://192.168.8.34
+      contexts:
+      - name: default
+        context:
+          cluster: default
+          namespace: ingress
+          user: default
+      current-context: default
+      users:
+      - name: default
+        user:
+          token: {{.TOKEN}}
+      " > synology.kubeconfig
+
   mount:
     desc: Mount a PersistentVolumeClaim to a pod temporarily
     interactive: true
