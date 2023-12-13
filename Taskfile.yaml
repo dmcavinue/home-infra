@@ -14,6 +14,7 @@ dotenv: [".env"]
 
 includes:
   ansible: .taskfiles/ansible.yaml
+  bw: .taskfiles/bitwarden.yaml
   cilium: .taskfiles/cilium.yaml
   cloudflare: .taskfiles/cloudflare.yaml
   db: .taskfiles/database.yaml

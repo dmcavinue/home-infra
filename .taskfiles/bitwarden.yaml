@@ -1,0 +1,25 @@
+---
+version: '3'
+
+env:
+  BW_SESSION:
+    sh: if [ -f {{.ROOT_DIR}}/.bitwarden_session ] && [ -z "$BW_SESSION" ]; then cat {{.ROOT_DIR}}/.bitwarden_session; fi
+
+tasks:
+  login:
+    cmds:
+      - bw login {{.BITWARDEN_EMAIL}} --raw > .bitwarden_session
+    silent: true
+  unlock:
+    cmds:
+      - bw unlock --raw > .bitwarden_session
+    silent: true
+  lock:
+    cmds:
+      - bw lock
+  status:
+    cmds:
+      - bw status | jq -r '.'
+  list-items:
+    cmds:
+      - bw list items | jq -r '.'

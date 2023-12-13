@@ -34,10 +34,11 @@ RUN apk --update --no-cache add \
     libffi-dev \
     libintl \
     nano \
-    py-netaddr \
+    npm \
     openssh-client \
     openssl \
     openssl-dev \
+    py-netaddr \
     py-cryptography \
     python3 \
     python3-dev \
@@ -73,6 +74,9 @@ RUN wget https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud
     mkdir -p /usr/local/gcloud \
     && tar -C /usr/local/gcloud -xvzf /tmp/google-cloud-sdk.tar.gz \
     && /usr/local/gcloud/google-cloud-sdk/install.sh -q
+
+# npm packages
+RUN npm install -g @bitwarden/cli@2023.12.0
 
 # Setup user/profile
 RUN mkdir -p /etc/sudoers.d && \
