@@ -62,7 +62,7 @@ spec:
       main:
         ports:
           http:
-            port: 5000
+            port: 80
     ingress:
       main:
         enabled: false
