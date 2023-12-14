@@ -27,10 +27,10 @@ spec:
     keepHistory: false
   values:
     defaultPodOptions:
-      securityContext:
-        fsGroup: 101
-        runAsUser: 101
-        runAsGroup: 101
+      # securityContext:
+      #   fsGroup: 101
+      #   runAsUser: 101
+      #   runAsGroup: 101
     controllers:
       main:
         annotations:
