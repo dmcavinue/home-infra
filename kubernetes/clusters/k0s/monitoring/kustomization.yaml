@@ -8,4 +8,5 @@ resources:
   - ./externalsecret.yaml
   # Flux-Kustomizations
   - ./victoria-metrics/ks.yaml
+  - ./unpoller/ks.yaml
   - ./grafana/ks.yaml
