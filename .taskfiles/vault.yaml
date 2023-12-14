@@ -315,6 +315,10 @@ tasks:
           GRAFANA_LDAP_USERNAME="{{.GRAFANA_LDAP_USERNAME}}"
           GRAFANA_LDAP_PASSWORD="{{.GRAFANA_LDAP_PASSWORD}}"
           GRAFANA_LDAP_ROOT="{{.GRAFANA_LDAP_ROOT}}"
+      # monitoring/unpoller
+      - vault kv put -mount=secret monitoring/unpoller
+          UP_UNIFI_DEFAULT_USER="{{.UP_UNIFI_DEFAULT_USER}}"
+          UP_UNIFI_DEFAULT_PASS="{{.UP_UNIFI_DEFAULT_PASS}}"
       # security/dex
       - vault kv put -mount=secret security/dex
           DEX_IMMICH_CLIENT_SECRET="$(vault read -field=password sys/policies/password/default/generate)"
