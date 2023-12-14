@@ -37,18 +37,18 @@ spec:
           reloader.stakater.com/auto: "true"
         containers:
           main:
-            securityContext:
-              fsGroup: 101
-              runAsUser: 101
-              runAsGroup: 101
-              capabilities:
-                drop:
-                  - ALL
-              runAsNonRoot: false
-              readOnlyRootFilesystem: false
-              allowPrivilegeEscalation: false
-              seccompProfile:
-                type: RuntimeDefault
+            # securityContext:
+            #   fsGroup: 101
+            #   runAsUser: 101
+            #   runAsGroup: 101
+            #   capabilities:
+            #     drop:
+            #       - ALL
+            #   runAsNonRoot: false
+            #   readOnlyRootFilesystem: false
+            #   allowPrivilegeEscalation: false
+            #   seccompProfile:
+            #     type: RuntimeDefault
             resources:
               limits:
                 memory: 1500Mi
