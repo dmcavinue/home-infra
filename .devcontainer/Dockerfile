@@ -1,6 +1,6 @@
 # dependencies
 FROM docker.io/cloudflare/cloudflared:2023.10.0 as cloudflared
-FROM docker.io/fluxcd/flux-cli:v2.2.0 as flux
+FROM docker.io/fluxcd/flux-cli:v2.2.1 as flux
 FROM docker.io/alpine/helm:3.13.2 as helm
 FROM docker.io/kopia/kopia:20231212.0.40346 as kopia
 FROM docker.io/bitnami/kubectl:1.28.4 as kubectl
