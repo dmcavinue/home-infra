@@ -21,7 +21,7 @@ spec:
     #   secret:
     #     name: immich-database-user
     recovery:
-      source: immich-1
+      source: &previousCluster immich-1
   storage:
     size: 5Gi
     storageClass: local-path
@@ -51,7 +51,7 @@ spec:
         maxParallel: 8
       destinationPath: s3://pg-backup/immich-db
       endpointURL: "https://minio.logfold.com"
-      serverName: immich-1
+      serverName: &currentCluster immich-2
       s3Credentials:
         accessKeyId:
           name: immich-database-superuser
@@ -60,7 +60,7 @@ spec:
           name: immich-database-superuser
           key: secret
   externalClusters:
-  - name: immich-1
+  - name: *previousCluster
     barmanObjectStore:
       destinationPath: s3://pg-backup/immich-db
       endpointURL: "https://minio.logfold.com"

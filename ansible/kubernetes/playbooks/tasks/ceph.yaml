@@ -6,7 +6,7 @@
       when: ceph_drives | default([]) | length > 0
       block:
         - name: Wipe (sgdisk)
-          ansible.builtin.command: "sgdisk --zap-all $(realpath {{ item }})"
+          ansible.builtin.command: 'sgdisk --zap-all $(realpath {{ item }})'
           loop: "{{ ceph_drives }}"
         - name: Wipe (dd)
           ansible.builtin.command: "dd if=/dev/zero of={{ item }} bs=1M count=100 oflag=direct,dsync"
