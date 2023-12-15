@@ -89,6 +89,7 @@ tasks:
     cmds:
       - vault auth disable kubernetes/{{.ENVIRONMENT}} || true
       - vault auth enable -path=kubernetes/{{.ENVIRONMENT}} kubernetes || true
+      - kubectl --context {{.ENVIRONMENT}} -n kube-system apply -f {{.ROOT_DIR}}/kubernetes/templates/vault-auth.yaml
       - kubectl --context {{.ENVIRONMENT}} -n kube-system get secret vault-auth-token -o jsonpath="{.data['ca\.crt']}" | base64 -d > ca.crt
       - vault write auth/kubernetes/{{.ENVIRONMENT}}/config
           token_reviewer_jwt="$(kubectl --context {{.ENVIRONMENT}} -n kube-system get secret vault-auth-token -o jsonpath=\"{.data.token}\" | base64 -d; echo)"
