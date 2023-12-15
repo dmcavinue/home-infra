@@ -163,7 +163,7 @@ tasks:
     cmds:
       - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/vault-issuer
           bound_service_account_names=vault-issuer
-          bound_service_account_namespaces=kube-system
+          bound_service_account_namespaces=kube-system,cert-manager
           policies={{.ENVIRONMENT}},default
           ttl=1h
       - vault write auth/kubernetes/{{.ENVIRONMENT}}/role/flux-system
