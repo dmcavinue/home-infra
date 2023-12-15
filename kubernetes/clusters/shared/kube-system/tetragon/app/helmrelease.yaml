@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: tetragon
-      version: 1.0.0
+      version: 1.0.1
       sourceRef:
         kind: HelmRepository
         name: cilium
@@ -33,7 +33,7 @@ spec:
     tetragon:
       image:
         repository: quay.io/cilium/tetragon
-        tag: v1.0.0
+        tag: v1.0.1
       securityContext:
         privileged: true
       prometheus:
@@ -53,7 +53,7 @@ spec:
       image:
         override: ~
         repository: quay.io/cilium/tetragon-operator
-        tag: v1.0.0
+        tag: v1.0.1
     export:
       stdout:
         image:
