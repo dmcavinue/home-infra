@@ -46,7 +46,7 @@ spec:
       wal:
         compression: bzip2
         maxParallel: 8
-      destinationPath: s3://pg-backup/home-assistant
+      destinationPath: s3://home-assistant
       endpointURL: "https://minio.logfold.com"
       serverName: &currentCluster home-assistant-10
       s3Credentials:
@@ -59,7 +59,7 @@ spec:
   externalClusters:
   - name: *previousCluster
     barmanObjectStore:
-      destinationPath: s3://pg-backup/home-assistant
+      destinationPath: s3://home-assistant
       endpointURL: "https://minio.logfold.com"
       s3Credentials:
         accessKeyId:
