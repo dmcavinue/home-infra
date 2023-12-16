@@ -115,18 +115,18 @@ tasks:
     silent: true
     cmds:
       # loki
-      - vault kv patch secret/monitoring/loki MINIO_SECRET="$(vault read -field=password sys/policies/password/default/generate)" > /dev/null
+      - vault kv patch secret/monitoring/loki MINIO_ACCESS_KEY="loki" MINIO_SECRET="$(vault read -field=password sys/policies/password/default/generate)" > /dev/null
       - mc admin user add logfold/loki loki $(vault kv get -field=MINIO_SECRET secret/monitoring/loki)
       - mc admin policy attach logfold loki-rw --user loki -q || true
       # thanos
-      - vault kv patch secret/monitoring/thanos MINIO_SECRET="$(vault read -field=password sys/policies/password/default/generate)" > /dev/null
+      - vault kv patch secret/monitoring/thanos MINIO_ACCESS_KEY="thanos" MINIO_SECRET="$(vault read -field=password sys/policies/password/default/generate)" > /dev/null
       - mc admin user add logfold/thanos thanos $(vault kv get -field=MINIO_SECRET secret/monitoring/thanos)
       - mc admin policy attach logfold thanos-rw --user thanos -q || true
       # immich
-      - vault kv patch secret/media/immich MINIO_SECRET="$(vault read -field=password sys/policies/password/default/generate)" > /dev/null
+      - vault kv patch secret/media/immich MINIO_ACCESS_KEY="immich" MINIO_SECRET="$(vault read -field=password sys/policies/password/default/generate)" > /dev/null
       - mc admin user add logfold/loki immich $(vault kv get -field=MINIO_SECRET secret/media/immich)
       - mc admin policy attach logfold immich-rw --user immich -q || true
       # home-assistant
-      - vault kv patch secret/home-automation/home-assistant MINIO_SECRET="$(vault read -field=password sys/policies/password/default/generate)" > /dev/null
-      - mc admin user add logfold/loki immich $(vault kv get -field=MINIO_SECRET secret/home-automation/home-assistant)
+      - vault kv patch secret/home-automation/home-assistant MINIO_ACCESS_KEY="home-assistant" MINIO_SECRET="$(vault read -field=password sys/policies/password/default/generate)" > /dev/null
+      - mc admin user add logfold/loki home-assistant $(vault kv get -field=MINIO_SECRET secret/home-automation/home-assistant)
       - mc admin policy attach logfold home-assistant-rw --user home-assistant -q || true

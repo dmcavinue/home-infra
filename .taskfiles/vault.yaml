@@ -279,8 +279,6 @@ tasks:
           HASS_POSTGRES_SUPER_PASSWORD="{{.HASS_POSTGRES_SUPER_PASSWORD}}"
           HASS_POSTGRES_USER="{{.HASS_POSTGRES_USER}}"
           HASS_POSTGRES_PASSWORD="{{.HASS_POSTGRES_PASSWORD}}"
-          HASS_DB_BACKUP_ACCESS_KEY="$(vault read -field=password sys/policies/password/default/generate)"
-          HASS_DB_BACKUP_SECRET="$(vault read -field=password sys/policies/password/default/generate)"
           HASS_ALARM_CODE="{{.HASS_ALARM_CODE}}"
           HASS_GIT_REPO="{{.HASS_GIT_REPO}}"
           HASS_DEPLOY_KEY_B64="{{.HASS_DEPLOY_KEY_B64}}"
@@ -311,8 +309,6 @@ tasks:
           IMMICH_POSTGRES_SUPER_PASSWORD="{{.IMMICH_POSTGRES_SUPER_PASSWORD}}"
           IMMICH_POSTGRES_USER="{{.IMMICH_POSTGRES_USER}}"
           IMMICH_POSTGRES_PASSWORD="{{.IMMICH_POSTGRES_PASSWORD}}"
-          IMMICH_DB_BACKUP_ACCESS_KEY="$(vault read -field=password sys/policies/password/default/generate)"
-          IMMICH_DB_BACKUP_SECRET="$(vault read -field=password sys/policies/password/default/generate)"
       # monitoring/grafana
       - vault kv put -mount=secret monitoring/grafana
           GRAFANA_ADMIN_USER="admin"
@@ -334,8 +330,6 @@ tasks:
           LLDAP_POSTGRES_SUPER_PASSWORD="{{.LLDAP_POSTGRES_SUPER_PASSWORD}}"
           LLDAP_POSTGRES_USER="{{.LLDAP_POSTGRES_USER}}"
           LLDAP_POSTGRES_PASSWORD="{{.LLDAP_POSTGRES_PASSWORD}}"
-          LLDAP_DB_BACKUP_ACCESS_KEY="$(vault read -field=password sys/policies/password/default/generate)"
-          LLDAP_DB_BACKUP_SECRET="$(vault read -field=password sys/policies/password/default/generate)"
           LLDAP_JWT_SECRET="$(vault read -field=password sys/policies/password/default/generate)"
           LLDAP_LDAP_USER_EMAIL="{{.LLDAP_LDAP_USER_EMAIL}}"
           LLDAP_LDAP_USER_PASS="{{.LLDAP_LDAP_USER_PASS}}"
@@ -349,8 +343,6 @@ tasks:
       - vault kv put -mount=secret storage/minio
           MINIO_ROOT_USER="minio"
           MINIO_ROOT_PASSWORD="$(vault read -field=password sys/policies/password/default/generate)"
-          MINIO_CONSOLE_SECRET_KEY="$(vault read -field=password sys/policies/password/default/generate)"
-          MINIO_CONSOLE_ACCESS_KEY="$(vault read -field=password sys/policies/password/default/generate)"
       # volsync
       - vault kv put -mount=secret volsync/volsync
           RESTIC_URL="{{.RESTIC_URL}}"
