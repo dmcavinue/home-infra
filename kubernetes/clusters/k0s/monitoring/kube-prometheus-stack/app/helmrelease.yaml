@@ -159,6 +159,16 @@ spec:
               resources:
                 requests:
                   storage: 20Gi
+        additionalScrapeConfigs:
+          - job_name: vault
+            metrics_path: /v1/sys/metrics
+            params:
+              format: ['prometheus']
+            scheme: https
+            authorization:
+              credentials_file: /vault/secrets/token
+            static_configs:
+              - targets: ["vault.${DOMAIN}"]
     nodeExporter:
       enabled: true
     prometheus-node-exporter:
