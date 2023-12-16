@@ -47,6 +47,7 @@ tasks:
       - kubectl --context {{.ENVIRONMENT}} wait --for jsonpath='{.status.phase}=Active' --timeout=120s namespace/cert-manager
       - kubectl --context {{.ENVIRONMENT}} -n cert-manager wait --for condition=available --timeout=120s deploy/cert-manager-webhook
       - task vault:bootstrap
+      - task minio:bootstrap
     silent: true
 
   bootstrap-child:
