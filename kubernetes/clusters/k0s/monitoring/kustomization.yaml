@@ -8,6 +8,6 @@ resources:
   - ./externalsecret.yaml
   # Flux-Kustomizations
   - ./thanos/ks.yaml
-  - ./victoria-metrics/ks.yaml
+  - ./kube-prometheus-stack/ks.yaml
   - ./unpoller/ks.yaml
   - ./grafana/ks.yaml
