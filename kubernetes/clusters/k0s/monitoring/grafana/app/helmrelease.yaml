@@ -77,27 +77,32 @@ spec:
       datasources.yaml:
         apiVersion: 1
         deleteDatasources:
-          - name: Loki
-            orgId: 1
-          - name: Alertmanager
-            orgId: 1
+          - { name: Alertmanager, orgId: 1 }
+          - { name: Loki, orgId: 1 }
+          - { name: Prometheus, orgId: 1 }
         datasources:
           - name: Prometheus
             type: prometheus
+            uid: prometheus
             access: proxy
-            url: http://vmselect-victoria-metrics.monitoring.svc.cluster.local:8481/select/0/prometheus
-            isDefault: true
-            uid: prometheusds
-          - name: Loki
-            type: loki
-            access: proxy
-            url: http://loki-gateway.monitoring.svc.cluster.local
+            url: http://thanos-query-frontend.monitoring.svc.cluster.local:9090
+            # url: http://vmselect-victoria-metrics.monitoring.svc.cluster.local:8481/select/0/prometheus
             jsonData:
-              maxLines: 250
+              prometheusType: Thanos # Prometheus for victoria-metrics
+            isDefault: true
+          # - name: Loki
+          #   type: loki
+          #   uid: loki
+          #   access: proxy
+          #   url: http://loki-gateway.monitoring.svc.cluster.local
+          #   jsonData:
+          #     maxLines: 250
           - name: Alertmanager
             type: alertmanager
+            uid: alertmanager
             access: proxy
-            url: http://vmalertmanager-victoria-metrics.monitoring.svc.cluster.local:9093
+            url: http://alertmanager-operated.monitoring.svc.cluster.local:9093
+            # url: http://vmalertmanager-victoria-metrics.monitoring.svc.cluster.local:9093
             jsonData:
               implementation: prometheus
     dashboards:
