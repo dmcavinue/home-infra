@@ -11,6 +11,9 @@ tasks:
       - task minio:create-buckets
       - task minio:create-policies
       - task minio:create-users
+  stat:
+    cmds:
+      - mc stat logfold/thanos
   list:
     cmds:
       - mc ls logfold
