@@ -20,8 +20,10 @@ tasks:
       - mc mb logfold/loki --with-versioning=false --with-lock=false --ignore-existing
       # thanos
       - mc mb logfold/thanos --with-versioning=false --with-lock=false --ignore-existing
-      # pg-backup
-      - mc mb logfold/pg-backup --with-versioning=false --with-lock=false --ignore-existing
+      # immich
+      - mc mb logfold/immich --with-versioning=false --with-lock=false --ignore-existing
+      # home-assistant
+      - mc mb logfold/home-assistant --with-versioning=false --with-lock=false --ignore-existing
   create-policies:
     cmd: |
       # thanos
@@ -82,7 +84,7 @@ tasks:
               "s3:GetObject*"
             ],
             "Resource": [
-              "arn:aws:s3:::pg-backup/immich-db/*"
+              "arn:aws:s3:::immich/*"
             ]
           }
         ]
@@ -104,7 +106,7 @@ tasks:
               "s3:GetObject*"
             ],
             "Resource": [
-              "arn:aws:s3:::pg-backup/home-assistant/*"
+              "arn:aws:s3:::home-assistant/*"
             ]
           }
         ]
