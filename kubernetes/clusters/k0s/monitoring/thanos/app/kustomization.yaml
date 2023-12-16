@@ -3,11 +3,5 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  # Pre Flux-Kustomizations
-  - ./namespace.yaml
   - ./externalsecret.yaml
-  # Flux-Kustomizations
-  - ./thanos/ks.yaml
-  - ./victoria-metrics/ks.yaml
-  - ./unpoller/ks.yaml
-  - ./grafana/ks.yaml
+  - ./helmrelease.yaml
