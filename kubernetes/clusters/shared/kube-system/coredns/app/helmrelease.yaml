@@ -67,6 +67,7 @@ spec:
               192.168.8.242 dex.logfold.com
               192.168.8.242 grafana.logfold.com
               192.168.8.242 hubble.logfold.com
+              192.168.8.242 loki.logfold.com
               192.168.8.242 minio-console.logfold.com
               192.168.8.242 minio.logfold.com
               192.168.8.242 oauth.logfold.com
