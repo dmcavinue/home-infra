@@ -39,7 +39,7 @@ spec:
       config:
         insecure: true
         bucket: thanos
-        endpoint: "minio.${DOMAIN}"
+        endpoint: minio
         region: us-east1
     queryFrontend:
       enabled: true
