@@ -130,6 +130,11 @@ spec:
         enabled: true
       prometheusSpec:
         replicas: 1
+        podMetadata:
+          annotations:
+            vault.hashicorp.com/agent-inject: 'true'
+            vault.hashicorp.com/agent-inject-token: 'true'
+            vault.hashicorp.com/role: monitoring
         replicaExternalLabelName: __replica__
         ruleSelectorNilUsesHelmValues: false
         serviceMonitorSelectorNilUsesHelmValues: false
