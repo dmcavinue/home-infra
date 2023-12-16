@@ -9,5 +9,6 @@ resources:
   # Flux-Kustomizations
   - ./thanos/ks.yaml
   - ./kube-prometheus-stack/ks.yaml
+  - ./loki/ks.yaml
   - ./unpoller/ks.yaml
   - ./grafana/ks.yaml
