@@ -54,11 +54,16 @@ tasks:
       - vault write -format=json pki/int_ca/intermediate/generate/internal common_name="svc" | jq -r '.data.csr' > pki_intermediate.csr
       - vault write -format=json pki/root_ca/root/sign-intermediate csr=@pki_intermediate.csr format=pem_bundle ttl="43800h" | jq -r '.data.certificate' > ca.cert.pem
       - vault write pki/int_ca/intermediate/set-signed certificate=@ca.cert.pem
+      - task vault:add-intca-issuer
+      - rm pki_intermediate.csr
+  add-intca-issuer:
+    cmds:
       - vault write pki/int_ca/roles/{{.ENVIRONMENT}} issuer_ref="$(vault read -field=default pki/int_ca/config/issuers)" allowed_domains="admin-{{.ENVIRONMENT}},remote,svc,cilium.io" allowed_uri_sans="admin-{{.ENVIRONMENT}},remote,clustermesh-apiserver" allow_bare_domains=true allow_subdomains=true max_ttl="720h"
+      - vault read --format=json pki/int_ca/cert/ca | jq -r .data.certificate > ca.cert.pem
       - kubectl --context {{.ENVIRONMENT}} -n cert-manager delete secret vault-root-ca || true
       - kubectl --context {{.ENVIRONMENT}} -n cert-manager create secret generic vault-root-ca --from-file=ca.cert.pem=ca.cert.pem || true
       - rm ca.cert.pem
-      - rm pki_intermediate.csr
+
   # oidc
   enable-oidc-provider:
     cmds:
@@ -144,9 +149,9 @@ tasks:
         {
           capabilities = ["read"]
         }' | vault policy write admin -
-      - echo -e "path \"pki/int_ca/sign/k0s\" { capabilities = [\"update\"] } " | vault policy write k0s -
-      - echo -e "path \"pki/int_ca/sign/k1s\" { capabilities = [\"update\"] } " | vault policy write k1s -
-      - echo -e "path \"pki/int_ca/sign/k2s\" { capabilities = [\"update\"] } " | vault policy write k2s -
+      - echo -e "path \"pki/int_ca/sign/k0s\" { capabilities = [\"update\"] }\npath \"secret/data/cert-manager/*\" { capabilities = [\"read\", \"list\"] }" | vault policy write k0s -
+      - echo -e "path \"pki/int_ca/sign/k1s\" { capabilities = [\"update\"] }\npath \"secret/data/cert-manager/*\" { capabilities = [\"read\", \"list\"] }" | vault policy write k1s -
+      - echo -e "path \"pki/int_ca/sign/k2s\" { capabilities = [\"update\"] }\npath \"secret/data/cert-manager/*\" { capabilities = [\"read\", \"list\"] }" | vault policy write k2s -
       - echo -e "path \"pki/int_ca/sign/default\" { capabilities = [\"update\"] }\npath \"secret/data/cert-manager/*\" { capabilities = [\"read\", \"list\"] }" | vault policy write cert-manager -
       - echo -e "path \"secret/data/database/*\" { capabilities = [\"read\", \"list\"] } " | vault policy write database -
       - echo -e "path \"secret/data/flux-system/*\" { capabilities = [\"read\", \"list\"] }" | vault policy write flux-system -
