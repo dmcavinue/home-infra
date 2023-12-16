@@ -66,8 +66,10 @@ spec:
               192.168.8.242 alertmanager.logfold.com
               192.168.8.242 dex.logfold.com
               192.168.8.242 grafana.logfold.com
+              192.168.8.242 hubble.logfold.com
               192.168.8.242 minio-console.logfold.com
               192.168.8.242 minio.logfold.com
+              192.168.8.242 oauth.logfold.com
               192.168.8.242 vault.logfold.com
               192.168.8.242 vmagent.logfold.com
               192.168.8.242 vmalert.logfold.com
@@ -78,22 +80,17 @@ spec:
               # external services
               192.168.8.242 adguard.logfold.com
               192.168.8.242 drac.logfold.com
-              192.168.8.242 kvm.logfold.com
               192.168.8.242 proxmox.logfold.com
               192.168.8.242 restic.logfold.com
               192.168.8.242 unifi.logfold.com
               192.168.8.242 vacuum.logfold.com
               192.168.8.243 lldap.logfold.com
               # k1s services
-              192.168.8.18 gitops.k1s.logfold.com
-              192.168.8.18 hubble.k1s.logfold.com
               192.168.8.18 oauth.k1s.logfold.com
               # k8s services
               192.168.8.49 esphome.nucstack.com
-              192.168.8.49 gitops.nucstack.com
               192.168.8.49 grafana.nucstack.com
               192.168.8.49 hass.nucstack.com
-              192.168.8.49 hubble.nucstack.com
               192.168.8.49 immich.nucstack.com
               192.168.8.49 oauth.nucstack.com
               192.168.8.49 rook.nucstack.com
