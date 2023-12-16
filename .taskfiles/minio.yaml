@@ -1,0 +1,78 @@
+---
+version: "3"
+
+env:
+  MC_HOST_logfold: https://{{.MINIO_ROOT_USER}}:{{.MINIO_ROOT_PASSWORD}}@minio.logfold.com
+
+tasks:
+
+  bootstrap:
+    cmds:
+      - task minio:create-buckets
+      - task minio:create-policies
+      - task minio:create-users
+  list:
+    cmds:
+      - mc ls logfold
+  create-buckets:
+    cmds:
+      # loki
+      - mc mb logfold/loki --with-versioning=false --with-lock=false --ignore-existing
+      # thanos
+      - mc mb logfold/thanos --with-versioning=false --with-lock=false --ignore-existing
+  create-policies:
+    cmd: |
+      # thanos
+      echo '
+      {
+        "Version": "2012-10-17",
+        "Statement": [
+          {
+            "Effect": "Allow",
+            "Action": [
+              "s3:ListBucket",
+              "s3:PutObject*",
+              "s3:DeleteObject*",
+              "s3:GetObject*"
+            ],
+            "Resource": [
+              "arn:aws:s3:::thanos/*"
+            ]
+          }
+        ]
+      }' > policy.json
+      mc admin policy create logfold thanos-rw policy.json
+      rm policy.json
+      
+      # loki
+      echo '
+      {
+        "Version": "2012-10-17",
+        "Statement": [
+          {
+            "Effect": "Allow",
+            "Action": [
+              "s3:ListBucket",
+              "s3:PutObject*",
+              "s3:DeleteObject*",
+              "s3:GetObject*"
+            ],
+            "Resource": [
+              "arn:aws:s3:::loki/*"
+            ]
+          }
+        ]
+      }' > policy.json
+      mc admin policy create logfold loki-rw policy.json
+      rm policy.json
+  create-users:
+    silent: true
+    cmds:
+      # loki
+      - vault kv put -mount=secret monitoring/loki MINIO_SECRET="$(vault read -field=password sys/policies/password/default/generate)" > /dev/null
+      - mc admin user add logfold/loki loki $(vault kv get -field=MINIO_SECRET secret/monitoring/loki)
+      - mc admin policy attach logfold loki-rw --user loki -q || true
+      # thanos
+      - vault kv put -mount=secret monitoring/thanos MINIO_SECRET="$(vault read -field=password sys/policies/password/default/generate)" > /dev/null
+      - mc admin user add logfold/thanos thanos $(vault kv get -field=MINIO_SECRET secret/monitoring/thanos)
+      - mc admin policy attach logfold thanos-rw --user thanos -q || true

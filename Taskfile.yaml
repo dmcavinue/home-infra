@@ -22,6 +22,7 @@ includes:
   flux: .taskfiles/flux.yaml
   kopia: .taskfiles/kopia.yaml
   kubernetes: .taskfiles/kubernetes.yaml
+  minio: .taskfiles/minio.yaml
   proxmox: .taskfiles/proxmox.yaml
   restic: .taskfiles/restic.yaml
   vault: .taskfiles/vault.yaml

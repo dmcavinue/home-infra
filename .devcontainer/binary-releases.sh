@@ -31,4 +31,8 @@ curl https://github.com/direnv/direnv/releases/download/${DIRENV_VERSION}/direnv
   -o /usr/local/bin/direnv && \
   chmod +x /usr/local/bin/direnv
 
+curl https://dl.min.io/client/mc/release/linux-amd64/mc \
+  -o /usr/local/bin/mc && \
+  chmod +x /usr/local/bin/mc
+
 rm -rf /tmp/*
