@@ -20,6 +20,8 @@ tasks:
       - mc mb logfold/loki --with-versioning=false --with-lock=false --ignore-existing
       # thanos
       - mc mb logfold/thanos --with-versioning=false --with-lock=false --ignore-existing
+      # pg-backup
+      - mc mb logfold/pg-backup --with-versioning=false --with-lock=false --ignore-existing
   create-policies:
     cmd: |
       # thanos
@@ -65,14 +67,66 @@ tasks:
       }' > policy.json
       mc admin policy create logfold loki-rw policy.json
       rm policy.json
+
+      # immich
+      echo '
+      {
+        "Version": "2012-10-17",
+        "Statement": [
+          {
+            "Effect": "Allow",
+            "Action": [
+              "s3:ListBucket",
+              "s3:PutObject*",
+              "s3:DeleteObject*",
+              "s3:GetObject*"
+            ],
+            "Resource": [
+              "arn:aws:s3:::pg-backup/immich-db/*"
+            ]
+          }
+        ]
+      }' > policy.json
+      mc admin policy create logfold immich-rw policy.json
+      rm policy.json
+
+      # home-assistant
+      echo '
+      {
+        "Version": "2012-10-17",
+        "Statement": [
+          {
+            "Effect": "Allow",
+            "Action": [
+              "s3:ListBucket",
+              "s3:PutObject*",
+              "s3:DeleteObject*",
+              "s3:GetObject*"
+            ],
+            "Resource": [
+              "arn:aws:s3:::pg-backup/home-assistant/*"
+            ]
+          }
+        ]
+      }' > policy.json
+      mc admin policy create logfold home-assistant-rw policy.json
+      rm policy.json
   create-users:
     silent: true
     cmds:
       # loki
-      - vault kv put -mount=secret monitoring/loki MINIO_SECRET="$(vault read -field=password sys/policies/password/default/generate)" > /dev/null
+      - vault kv patch secret/monitoring/loki MINIO_SECRET="$(vault read -field=password sys/policies/password/default/generate)" > /dev/null
       - mc admin user add logfold/loki loki $(vault kv get -field=MINIO_SECRET secret/monitoring/loki)
       - mc admin policy attach logfold loki-rw --user loki -q || true
       # thanos
-      - vault kv put -mount=secret monitoring/thanos MINIO_SECRET="$(vault read -field=password sys/policies/password/default/generate)" > /dev/null
+      - vault kv patch secret/monitoring/thanos MINIO_SECRET="$(vault read -field=password sys/policies/password/default/generate)" > /dev/null
       - mc admin user add logfold/thanos thanos $(vault kv get -field=MINIO_SECRET secret/monitoring/thanos)
       - mc admin policy attach logfold thanos-rw --user thanos -q || true
+      # immich
+      - vault kv patch secret/media/immich MINIO_SECRET="$(vault read -field=password sys/policies/password/default/generate)" > /dev/null
+      - mc admin user add logfold/loki immich $(vault kv get -field=MINIO_SECRET secret/media/immich)
+      - mc admin policy attach logfold immich-rw --user immich -q || true
+      # home-assistant
+      - vault kv patch secret/home-automation/home-assistant MINIO_SECRET="$(vault read -field=password sys/policies/password/default/generate)" > /dev/null
+      - mc admin user add logfold/loki immich $(vault kv get -field=MINIO_SECRET secret/home-automation/home-assistant)
+      - mc admin policy attach logfold home-assistant-rw --user home-assistant -q || true
