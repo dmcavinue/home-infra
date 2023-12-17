@@ -61,66 +61,6 @@ spec:
         config_file: /etc/grafana/ldap.toml
       news:
         news_feed_enabled: false
-    dashboardProviders:
-      dashboardproviders.yaml:
-        apiVersion: 1
-        providers:
-          - name: default
-            orgId: 1
-            folder: ""
-            type: file
-            disableDeletion: false
-            editable: true
-            options:
-              path: /var/lib/grafana/dashboards/default
-          - name: ceph
-            orgId: 1
-            folder: Ceph
-            type: file
-            disableDeletion: false
-            editable: true
-            options:
-              path: /var/lib/grafana/dashboards/ceph
-          - name: flux
-            orgId: 1
-            folder: Flux
-            type: file
-            disableDeletion: false
-            editable: true
-            options:
-              path: /var/lib/grafana/dashboards/flux
-          - name: kubernetes
-            orgId: 1
-            folder: Kubernetes
-            type: file
-            disableDeletion: false
-            editable: true
-            options:
-              path: /var/lib/grafana/dashboards/kubernetes
-          - name: nginx
-            orgId: 1
-            folder: Nginx
-            type: file
-            disableDeletion: false
-            editable: true
-            options:
-              path: /var/lib/grafana/dashboards/nginx
-          - name: thanos
-            orgId: 1
-            folder: Thanos
-            type: file
-            disableDeletion: false
-            editable: true
-            options:
-              path: /var/lib/grafana/dashboards/thanos
-          - name: unifi
-            orgId: 1
-            folder: Unifi
-            type: file
-            disableDeletion: false
-            editable: true
-            options:
-              path: /var/lib/grafana/dashboards/unifi
     datasources:
       datasources.yaml:
         apiVersion: 1
@@ -190,7 +130,6 @@ spec:
         external-secrets:
           url: https://raw.githubusercontent.com/external-secrets/external-secrets/main/docs/snippets/dashboard.json
           datasource: Prometheus
-      ceph:
         ceph-cluster:
           # renovate: depName="Ceph Cluster"
           gnetId: 2842
@@ -206,17 +145,15 @@ spec:
           gnetId: 5342
           revision: 9
           datasource: Prometheus
-      # flux:
-      #   flux-cluster:
-      #     url: https://raw.githubusercontent.com/fluxcd/flux2/main/manifests/monitoring/monitoring-config/dashboards/cluster.json
-      #     datasource: Prometheus
-      #   flux-control-plane:
-      #     url: https://raw.githubusercontent.com/fluxcd/flux2/main/manifests/monitoring/monitoring-config/dashboards/control-plane.json
-      #     datasource: Prometheus
-      #   flux-logs:
-      #     url: https://raw.githubusercontent.com/fluxcd/flux2/main/manifests/monitoring/monitoring-config/dashboards/logs.json
-      #     datasource: Prometheus
-      kubernetes:
+        # flux-cluster:
+        #   url: https://raw.githubusercontent.com/fluxcd/flux2/main/manifests/monitoring/monitoring-config/dashboards/cluster.json
+        #   datasource: Prometheus
+        # flux-control-plane:
+        #   url: https://raw.githubusercontent.com/fluxcd/flux2/main/manifests/monitoring/monitoring-config/dashboards/control-plane.json
+        #   datasource: Prometheus
+        # flux-logs:
+        #   url: https://raw.githubusercontent.com/fluxcd/flux2/main/manifests/monitoring/monitoring-config/dashboards/logs.json
+        #   datasource: Prometheus
         kubernetes-api-server:
           # renovate: depName="Kubernetes / System / API Server"
           gnetId: 15761
@@ -252,14 +189,12 @@ spec:
           gnetId: 11454
           revision: 14
           datasource: Prometheus
-      nginx:
         nginx:
           url: https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/grafana/dashboards/nginx.json
           datasource: Prometheus
         nginx-request-handling-performance:
           url: https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/grafana/dashboards/request-handling-performance.json
           datasource: Prometheus
-      thanos:
         thanos-bucket-replicate:
           url: https://raw.githubusercontent.com/monitoring-mixins/website/master/assets/thanos/dashboards/bucket-replicate.json
           datasource: Prometheus
@@ -287,7 +222,6 @@ spec:
         thanos-store:
           url: https://raw.githubusercontent.com/monitoring-mixins/website/master/assets/thanos/dashboards/store.json
           datasource: Prometheus
-      unifi:
         unifi-insights:
           # renovate: depName="UniFi-Poller: Client Insights - Prometheus"
           gnetId: 11315
