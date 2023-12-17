@@ -1,6 +1,7 @@
 ---
 global:
   resolve_timeout: 5m
+  slack_api_url: "{{ .SLACK_WEBHOOK }}"
 route:
   group_by: ["alertname", "job"]
   group_interval: 10m
@@ -27,7 +28,6 @@ receivers:
       - channel: "#prometheus-alerts"
         icon_url: https://avatars3.githubusercontent.com/u/3380462
         username: "Prometheus"
-        slack_api_url: "{{ .SLACK_WEBHOOK }}"
         send_resolved: true
         title: |-
           [{{ .Status }}{{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{ end }}] {{ if ne .CommonAnnotations.summary ""}}{{ .CommonAnnotations.summary }}{{ else }}{{ .CommonLabels.alertname }}{{ end }}
