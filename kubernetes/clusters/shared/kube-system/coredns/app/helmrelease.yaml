@@ -67,12 +67,14 @@ spec:
               192.168.8.242 dex.logfold.com
               192.168.8.242 grafana.logfold.com
               192.168.8.242 hubble.logfold.com
+              192.168.8.242 loki.logfold.com
               192.168.8.242 minio-console.logfold.com
               192.168.8.242 minio.logfold.com
               192.168.8.242 oauth.logfold.com
               192.168.8.242 prometheus.logfold.com
               192.168.8.242 thanos-query-frontend.logfold.com/
               192.168.8.242 vault.logfold.com
+              192.168.8.244 vector.logfold.com
               # external services
               192.168.8.242 adguard.logfold.com
               192.168.8.242 drac.logfold.com
