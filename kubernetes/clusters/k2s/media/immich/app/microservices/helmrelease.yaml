@@ -54,7 +54,7 @@ spec:
           main:
             image:
               repository: ghcr.io/immich-app/immich-server
-              tag: v1.91.2
+              tag: v1.91.3
               imagePullPolicy: IfNotPresent
             args: ["start-microservices.sh"]
             envFrom:
