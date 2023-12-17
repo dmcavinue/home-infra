@@ -70,7 +70,7 @@ spec:
         enabled: true
         className: nginx
         hosts:
-          - host: &host "{{ .Release.Name }}.${DOMAIN}"
+          - host: &host "code.${DOMAIN}"
             paths:
               - path: /
                 service:
