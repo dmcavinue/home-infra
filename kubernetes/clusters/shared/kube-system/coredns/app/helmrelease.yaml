@@ -86,6 +86,7 @@ spec:
               # k1s services
               192.168.8.18 oauth.k1s.logfold.com
               # k8s services
+              192.168.8.49 code.nucstack.com
               192.168.8.49 esphome.nucstack.com
               192.168.8.49 grafana.nucstack.com
               192.168.8.49 hass.nucstack.com
