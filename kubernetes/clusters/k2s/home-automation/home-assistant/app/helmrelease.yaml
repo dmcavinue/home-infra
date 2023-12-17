@@ -34,6 +34,15 @@ spec:
         feature.node.kubernetes.io/skyconnect: "true"
     controllers:
       main:
+        type: statefulset
+        statefulset:
+          volumeClaimTemplates:
+            - name: config
+              globalMounts:
+                - path: /config
+              accessMode: ReadWriteMany
+              size: 5Gi
+              storageClass: ceph-pool
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
@@ -87,9 +96,6 @@ spec:
           - hosts:
               - *host
     persistence:
-      config:
-        enabled: true
-        existingClaim: home-assistant
       auth:
         name: home-assistant-auth
         type: secret
