@@ -119,7 +119,7 @@ spec:
         tls:
           - hosts:
               - *host
-        affinity: {}
+      affinity: {}
     read:
       replicas: 2
       persistence:
