@@ -53,7 +53,7 @@ RUN apk --update --no-cache add \
     zsh
 
 COPY pip-requirements.txt ansible-requirements.yml /tmp/
-RUN pip3 install --no-cache-dir --requirement /tmp/pip-requirements.txt && \
+RUN pip3 install --no-cache-dir --break-system-packages --requirement /tmp/pip-requirements.txt && \
     ansible-galaxy install -r /tmp/ansible-requirements.yml
 
 # install binary releases
