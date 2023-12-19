@@ -38,6 +38,39 @@ transforms:
       # Drop pod_labels
       del(.pod_labels)
 
+
+  # Dec 18 20:38:16 udm-pro [LAN_IN-D-40122] DESCR=\"deny-vlan-to-vlan\" IN=br70 OUT=br50 MAC=74:83:c2:7f:df:c1:bc:d0:74:22:34:d3:08:00 SRC=192.168.7.122 DST=192.168.5.43 LEN=64 TOS=00 PREC=0x00 TTL=63 ID=0 DF PROTO=TCP SPT=62340 DPT=8009 SEQ=836450930 ACK=0 WINDOW=65535 SYN URGP=0 MARK=1a0000
+  unifi_firewall_route:
+    type: route
+    inputs: ["unifi_source"]
+    route:
+      firewall: |
+        match!(.message, r'^[a-zA-Z0-9 :-]+\[(.*?)\].(.*)')
+
+  unifi_firewall_remap:
+    type: remap
+    inputs: ["unifi_firewall_route.firewall"]
+    source: |
+      # Parse firewall rule message
+      split_message, split_err = parse_regex(.message, r'^[a-zA-Z0-9 :-]+\[(?P<rule>.*?)\](?P<fields>.*)')
+      if split_err != null {
+          abort
+      }
+      # Extract separate fields from message
+      split_message.fields, split_err = strip_whitespace(split_message.fields)
+      if split_err != null {
+          abort
+      }
+      .message, parse_err = parse_key_value(split_message.fields, whitespace: "strict")
+      if parse_err != null {
+          abort
+      }
+      # Add more information about the triggered rule
+      .message.RULE, parse_err = parse_regex(split_message.rule, r'^(?P<from_zone>\w+)-(?P<to_zone>\w+)-(?P<id>\w+)-(?P<action>\w+)$')
+      if parse_err != null {
+          abort
+      }
+
 #
 # Sinks
 #
@@ -68,7 +101,7 @@ sinks:
       node: '{{ kubernetes.pod_node_name }}'
 
   unifi:
-    inputs: ["unifi_source"]
+    inputs: ["unifi_firewall_remap"]
     type: loki
     endpoint: http://loki-gateway.monitoring.svc.cluster.local
     encoding: { codec: json }
@@ -76,4 +109,4 @@ sinks:
     remove_label_fields: true
     remove_timestamp: true
     labels:
-      hostname: '{{ host }}'
+      app: 'unifi-firewall'
