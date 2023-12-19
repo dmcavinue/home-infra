@@ -61,7 +61,7 @@ transforms:
       if split_err != null {
           abort
       }
-      .message, parse_err = parse_key_value(split_message.fields, whitespace: "strict")
+      ., parse_err = parse_key_value(split_message.fields, whitespace: "strict")
       if parse_err != null {
           abort
       }
