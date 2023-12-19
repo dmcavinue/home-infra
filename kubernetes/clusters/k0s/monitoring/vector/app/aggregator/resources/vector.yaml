@@ -45,14 +45,14 @@ transforms:
     inputs: ["unifi_source"]
     route:
       firewall: |
-        match!(.message, r'^[a-zA-Z0-9 :-]+\[(.*?)\].(.*)')
+        .file == "/logs/udm/ulog/syslogemu.log" && match!(.message, r'^[a-zA-Z0-9 :-]+\[(.*?)\].(.*)')
 
   unifi_firewall_remap:
     type: remap
     inputs: ["unifi_firewall_route.firewall"]
     source: |
       # Parse firewall rule message
-      split_message, split_err = parse_regex(.message, r'^[a-zA-Z0-9 :-]+\[(?P<rule>.*?)\](?P<fields>.*)')
+      split_message, split_err = parse_regex(.message, r'^[a-zA-Z0-9 :-]+\[(?P<RULE>.*?)\](?P<fields>.*)')
       if split_err != null {
           abort
       }
@@ -62,11 +62,6 @@ transforms:
           abort
       }
       .message, parse_err = parse_key_value(split_message.fields, whitespace: "strict")
-      if parse_err != null {
-          abort
-      }
-      # Add more information about the triggered rule
-      .message.RULE, parse_err = parse_regex(split_message.rule, r'^(?P<from_zone>\w+)-(?P<to_zone>\w+)-(?P<id>\w+)-(?P<action>\w+)$')
       if parse_err != null {
           abort
       }
