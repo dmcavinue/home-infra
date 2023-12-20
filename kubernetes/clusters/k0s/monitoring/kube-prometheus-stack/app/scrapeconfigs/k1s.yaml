@@ -5,7 +5,7 @@ kind: ScrapeConfig
 metadata:
   name: k1s
 spec:
-  honorLabels: true
+  honorLabels: false
   scrapeInterval: 30s
   staticConfigs:
     - targets: ["prom-k1s-prometheus:9090"]
