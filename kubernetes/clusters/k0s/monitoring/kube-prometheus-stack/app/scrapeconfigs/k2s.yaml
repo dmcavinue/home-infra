@@ -12,10 +12,5 @@ spec:
   metricsPath: /federate
   params:
     "match[]":
-      - '{job="media"}'
-      - '{job="home-automation"}'
-      - '{job="database"}'
-      - '{job="flux-system"}'
-      - '{job="rook-ceph-mgr"}'
-      - '{job="volsync"}'
+      - '{job="node-exporter"}'
   
