@@ -9,6 +9,8 @@ spec:
   scrapeInterval: 30s
   staticConfigs:
     - targets: ["prom-k2s-prometheus:9090"]
+      labels:
+        clusterID: k2s
   metricsPath: /federate
   params:
     "match[]":
