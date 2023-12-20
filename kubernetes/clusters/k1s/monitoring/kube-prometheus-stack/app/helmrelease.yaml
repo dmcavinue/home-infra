@@ -34,26 +34,9 @@ spec:
       enabled: true
     cleanPrometheusOperatorObjectNames: true
     alertmanager:
-      ingress:
-        enabled: true
-        pathType: Prefix
-        ingressClassName: nginx
-        hosts:
-          - &host alertmanager.${DOMAIN}
-        tls:
-          - hosts:
-              - *host
-      alertmanagerSpec:
-        replicas: 1
-        useExistingSecret: true
-        configSecret: alertmanager-secret
-        storage:
-          volumeClaimTemplate:
-            spec:
-              storageClassName: local-path
-              resources:
-                requests:
-                  storage: 1Gi
+      enabled: false
+    defaultRules:
+      create: false
     kubelet:
       enabled: true
       serviceMonitor:
@@ -91,9 +74,7 @@ spec:
     kubeControllerManager:
       enabled: true
       endpoints: &cp
-        - 192.168.8.36
-        - 192.168.8.37
-        - 192.168.8.38
+        - 192.168.8.2
       serviceMonitor:
         metricRelabelings:
           # Remove duplicate labels provided by k3s
@@ -101,8 +82,7 @@ spec:
             sourceLabels: ["__name__"]
             regex: "(apiserver_audit|apiserver_client|apiserver_delegated|apiserver_envelope|apiserver_storage|apiserver_webhooks|attachdetach_controller|authenticated_user|authentication|cronjob_controller|disabled_metric|endpoint_slice|ephemeral_volume|garbagecollector_controller|get_token|go|hidden_metric|job_controller|kubernetes_build|kubernetes_feature|leader_election|node_collector|node_ipam|process_cpu|process_max|process_open|process_resident|process_start|process_virtual|pv_collector|registered_metric|replicaset_controller|rest_client|retroactive_storageclass|root_ca|running_managed|scrape_duration|scrape_samples|scrape_series|service_controller|storage_count|storage_operation|ttl_after|volume_operation|workqueue)_(.+)"
     kubeEtcd:
-      enabled: true
-      endpoints: *cp
+      enabled: false
     kubeScheduler:
       enabled: true
       endpoints: *cp
@@ -124,18 +104,8 @@ spec:
         tls:
           - hosts:
               - *host
-      thanosService:
-        enabled: true
-      thanosServiceMonitor:
-        enabled: true
       prometheusSpec:
         replicas: 1
-        podMetadata:
-          annotations:
-            vault.hashicorp.com/agent-inject: 'true'
-            vault.hashicorp.com/agent-inject-token: 'true'
-            vault.hashicorp.com/role: monitoring
-        replicaExternalLabelName: __replica__
         ruleSelectorNilUsesHelmValues: false
         serviceMonitorSelectorNilUsesHelmValues: false
         podMonitorSelectorNilUsesHelmValues: false
@@ -147,16 +117,10 @@ spec:
           - auto-gomaxprocs
           - memory-snapshot-on-shutdown
           - new-service-discovery-manager
-        thanos:
-          image: quay.io/thanos/thanos:v0.33.0
-          objectStorageConfig:
-            existingSecret:
-              name: thanos-objstore-secret
-              key: objstore.yml
         retention: 2d
         retentionSize: 15GB
         externalLabels:
-          cluster: k0s
+          cluster: "${ENVIRONMENT}"
         storageSpec:
           volumeClaimTemplate:
             spec:
@@ -164,16 +128,6 @@ spec:
               resources:
                 requests:
                   storage: 20Gi
-        additionalScrapeConfigs:
-          - job_name: vault
-            metrics_path: /v1/sys/metrics
-            params:
-              format: ['prometheus']
-            scheme: https
-            authorization:
-              credentials_file: /vault/secrets/token
-            static_configs:
-              - targets: ["vault.${DOMAIN}"]
     nodeExporter:
       enabled: true
     prometheus-node-exporter:
@@ -208,9 +162,3 @@ spec:
               targetLabel: kubernetes_node
     grafana:
       enabled: false
-      forceDeployDashboards: true
-      sidecar:
-        dashboards:
-          multicluster:
-            etcd:
-              enabled: true
