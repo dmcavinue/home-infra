@@ -11,6 +11,8 @@ spec:
     - targets: ["prom-k1s-prometheus:9090"]
   metricsPath: /federate
   params:
-    'match[]':
-      - '{job="prometheus"}'
+    "match[]":
+      - '{job="database"}'
+      - '{job="flux-system"}'
+      - '{job="volsync"}'
   
