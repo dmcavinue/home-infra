@@ -10,6 +10,6 @@ spec:
   staticConfigs:
     - targets: ["prom-k1s-prometheus:9090"]
   metricsPath: /federate
-  # params:
-  #   'match[]':
-  #     - '{job="prometheus"}'
+  params:
+    'match[]':
+      - '{__name__=~".+"}'
