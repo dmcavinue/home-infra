@@ -110,6 +110,7 @@ spec:
           io.cilium/global-service: "true"
       prometheusSpec:
         replicas: 1
+        replicaExternalLabelName: ""
         ruleSelectorNilUsesHelmValues: false
         serviceMonitorSelectorNilUsesHelmValues: false
         podMonitorSelectorNilUsesHelmValues: false
