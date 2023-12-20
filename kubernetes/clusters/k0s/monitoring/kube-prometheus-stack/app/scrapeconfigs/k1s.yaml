@@ -12,7 +12,4 @@ spec:
   metricsPath: /federate
   params:
     "match[]":
-      - '{job="database"}'
-      - '{job="flux-system"}'
-      - '{job="volsync"}'
-  
+      - '{job="node-exporter"}'
