@@ -7,7 +7,6 @@ metadata:
 spec:
   honorLabels: true
   scrapeInterval: 30s
-  scheme: HTTP
   staticConfigs:
     - targets: ["prom-k2s-prometheus:9090"]
   metricsPath: /federate
