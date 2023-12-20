@@ -15,4 +15,5 @@ spec:
   params:
     "match[]":
       - '{job="node-exporter"}'
-  
+      - '{job="home-automation/home-assistant-database"}'
+      - '{job="media/immich-database"}'
