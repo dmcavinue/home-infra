@@ -10,7 +10,7 @@ spec:
   staticConfigs:
     - targets: ["prom-k2s-prometheus:9090"]
       labels:
-        clusterID: k2s
+        cluster: k2s
   metricsPath: /federate
   params:
     "match[]":
