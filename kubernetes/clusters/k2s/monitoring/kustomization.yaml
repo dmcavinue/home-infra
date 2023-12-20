@@ -7,4 +7,5 @@ resources:
   - ./namespace.yaml
   - ./externalsecret.yaml
   # Flux-Kustomizations
+  - ./kube-prometheus-stack/ks.yaml
   - ./vector/ks.yaml
