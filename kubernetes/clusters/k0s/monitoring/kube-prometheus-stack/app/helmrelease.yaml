@@ -156,7 +156,7 @@ spec:
         retention: 2d
         retentionSize: 15GB
         externalLabels:
-          cluster: main
+          cluster: k0s
         storageSpec:
           volumeClaimTemplate:
             spec:
