@@ -14,6 +14,7 @@ spec:
   metricsPath: /federate
   params:
     "match[]":
+      - '{job="kube-state-metrics"}'
       - '{job="node-exporter"}'
       - '{job="home-automation/home-assistant-database"}'
       - '{job="media/immich-database"}'
