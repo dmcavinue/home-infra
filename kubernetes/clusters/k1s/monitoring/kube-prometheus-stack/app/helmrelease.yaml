@@ -30,7 +30,7 @@ spec:
     - name: local-path-provisioner
       namespace: kube-system
   values:
-    fullnameOverride: "${ENVIRONMENT}"
+    fullnameOverride: "prom-${ENVIRONMENT}"
     crds:
       enabled: true
     cleanPrometheusOperatorObjectNames: true
