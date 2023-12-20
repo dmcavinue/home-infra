@@ -7,6 +7,6 @@ metadata:
 spec:
   selector:
     matchLabels:
-      postgresql: immich
+      cnpg.io/cluster: immich-db
   podMetricsEndpoints:
   - port: metrics
