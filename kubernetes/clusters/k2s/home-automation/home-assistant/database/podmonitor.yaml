@@ -7,6 +7,6 @@ metadata:
 spec:
   selector:
     matchLabels:
-      postgresql: home-assistant
+      cnpg.io/cluster: home-assistant
   podMetricsEndpoints:
   - port: metrics
