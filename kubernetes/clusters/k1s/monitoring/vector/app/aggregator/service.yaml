@@ -31,4 +31,4 @@ spec:
     app.kubernetes.io/component: main
     app.kubernetes.io/instance: vector-aggregator
     app.kubernetes.io/name: vector-aggregator
-  type: clusterIP
+  type: ClusterIP
