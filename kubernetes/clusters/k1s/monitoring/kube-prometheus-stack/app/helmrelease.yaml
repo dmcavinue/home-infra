@@ -30,6 +30,7 @@ spec:
     - name: local-path-provisioner
       namespace: kube-system
   values:
+    fullnameOverride: "${ENVIRONMENT}"
     crds:
       enabled: true
     cleanPrometheusOperatorObjectNames: true
@@ -96,7 +97,7 @@ spec:
       enabled: false
     prometheus:
       ingress:
-        enabled: true
+        enabled: false
         ingressClassName: nginx
         pathType: Prefix
         hosts:
@@ -104,6 +105,9 @@ spec:
         tls:
           - hosts:
               - *host
+      service:
+        annotations:
+          io.cilium/global-service: "true"
       prometheusSpec:
         replicas: 1
         ruleSelectorNilUsesHelmValues: false
