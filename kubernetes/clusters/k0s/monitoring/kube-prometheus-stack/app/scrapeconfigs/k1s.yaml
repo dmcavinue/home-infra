@@ -12,4 +12,5 @@ spec:
   metricsPath: /federate
   params:
     'match[]':
-      - '{__name__=~".+"}'
+      - '{job="prometheus"}'
+  
