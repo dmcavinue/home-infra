@@ -49,6 +49,7 @@ spec:
                   [{{ .Status | toUpper }}{{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{ end }}] {{ if ne .CommonAnnotations.summary ""}}{{ .CommonAnnotations.summary }}{{ else }}{{ .CommonLabels.alertname }}{{ end }}
                 text: >-
                   {{ range .Alerts -}}
+                    **Cluster:** {{ .Annotations.title }}{{ if .Labels.severity }} - `{{ .Labels.severity }}`{{ end }}
                     **Alert:** {{ .Annotations.title }}{{ if .Labels.severity }} - `{{ .Labels.severity }}`{{ end }}
                   **Description:** {{ if ne .Annotations.description ""}}{{ .Annotations.description }}{{else}}N/A{{ end }}
                   **Details:**
@@ -140,6 +141,10 @@ spec:
     kubeEtcd:
       enabled: true
       endpoints: *cp
+      service:
+        enabled: true
+        port: 2379
+        targetPort: 2379
     kubeScheduler:
       enabled: true
       endpoints: *cp
