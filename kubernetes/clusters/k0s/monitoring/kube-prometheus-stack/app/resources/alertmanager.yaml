@@ -6,13 +6,13 @@ route:
   group_by: ["alertname", "job"]
   group_interval: 10m
   group_wait: 1m
-  receiver: slack
+  receiver: "slack"
   repeat_interval: 12h
   routes:
     - receiver: "null"
       matchers:
         - alertname =~ "InfoInhibitor"
-    - receiver: slack
+    - receiver: "slack"
       continue: true
       matchers:
         - severity = "critical"
@@ -23,6 +23,7 @@ inhibit_rules:
     target_matchers:
       - severity = "warning"
 receivers:
+  - name: "null"
   - name: "slack"
     slack_configs:
       - channel: "#prometheus-alerts"
