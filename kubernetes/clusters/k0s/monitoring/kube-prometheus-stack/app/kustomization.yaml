@@ -8,9 +8,3 @@ resources:
   - ./services
   - ./prometheusrules
   - ./scrapeconfigs
-configMapGenerator:
-  - name: alertmanager-config-tpl
-    files:
-      - alertmanager.yaml=./resources/alertmanager.yaml
-generatorOptions:
-  disableNameSuffixHash: true
