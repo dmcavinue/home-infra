@@ -38,18 +38,20 @@ transforms:
       # Drop pod_labels
       del(.pod_labels)
 
-
-  # Dec 18 20:38:16 udm-pro [LAN_IN-D-40122] DESCR=\"deny-vlan-to-vlan\" IN=br70 OUT=br50 MAC=74:83:c2:7f:df:c1:bc:d0:74:22:34:d3:08:00 SRC=192.168.7.122 DST=192.168.5.43 LEN=64 TOS=00 PREC=0x00 TTL=63 ID=0 DF PROTO=TCP SPT=62340 DPT=8009 SEQ=836450930 ACK=0 WINDOW=65535 SYN URGP=0 MARK=1a0000
-  unifi_firewall_route:
+  unifi_route:
     type: route
     inputs: ["unifi_source"]
     route:
       firewall: |
         .file == "/logs/udm/ulog/syslogemu.log" && match!(.message, r'^[a-zA-Z0-9 :-]+\[(.*?)\].(.*)')
+      auth: |
+        .file == "/logs/udm/auth.log"
+      bash_history: |
+        .file == "/logs/udm/bash_history.log"
 
   unifi_firewall_remap:
     type: remap
-    inputs: ["unifi_firewall_route.firewall"]
+    inputs: ["unifi_route.firewall"]
     source: |
       # Parse firewall rule message
       split_message, split_err = parse_regex(.message, r'^[a-zA-Z0-9 :-]+\[(?P<RULE>.*?)\](?P<fields>.*)')
@@ -113,3 +115,25 @@ sinks:
       source_port: '{{ message.SPT }}'
       dest_ip: '{{ message.DST }}'
       dest_port: '{{ message.DPT }}'
+
+  auth:
+    inputs: ["unifi_route.auth"]
+    type: loki
+    endpoint: http://loki-gateway.monitoring.svc.cluster.local
+    encoding: { codec: json }
+    out_of_order_action: accept
+    remove_label_fields: false
+    remove_timestamp: true
+    labels:
+      app: 'unifi-auth'
+
+  bash_history:
+    inputs: ["unifi_route.bash_history"]
+    type: loki
+    endpoint: http://loki-gateway.monitoring.svc.cluster.local
+    encoding: { codec: json }
+    out_of_order_action: accept
+    remove_label_fields: false
+    remove_timestamp: true
+    labels:
+      app: 'unifi-bash-history'
