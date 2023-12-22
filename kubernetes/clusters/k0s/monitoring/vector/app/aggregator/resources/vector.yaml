@@ -48,6 +48,8 @@ transforms:
         .file == "/logs/udm/auth.log"
       bash_history: |
         .file == "/logs/udm/bash_history.log"
+      protect_client_notify: |
+        .file == "/logs/unifi-protect/clientnotify.log"
 
   unifi_firewall_remap:
     type: remap
@@ -137,3 +139,14 @@ sinks:
     remove_timestamp: true
     labels:
       app: 'unifi-bash-history'
+
+  protect_client_notify:
+    inputs: ["unifi_route.protect_client_notify"]
+    type: loki
+    endpoint: http://loki-gateway.monitoring.svc.cluster.local
+    encoding: { codec: json }
+    out_of_order_action: accept
+    remove_label_fields: false
+    remove_timestamp: true
+    labels:
+      app: 'unifi-protect-clientnotify'
