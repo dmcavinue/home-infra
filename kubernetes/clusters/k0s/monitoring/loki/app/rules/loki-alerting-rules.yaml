@@ -34,8 +34,21 @@ groups:
           sum by (app) (count_over_time({app="unifi-auth"} |~ "(?i)session opened[2m])) > 0
         for: 2m
         labels:
-          severity: critical
+          severity: info
           category: logs
         annotations:
           app: "{{ $labels.app }}"
           summary: "{{ $labels.app }} ssh session opened"
+
+  - name: unifi-protect-client
+    rules:
+      - alert: UnifiProtectClient
+        expr: |
+          sum by (app) (count_over_time({app="unifi-protect-clientnotify"} |~ "(?i)userName[2m])) > 0
+        for: 2m
+        labels:
+          severity: info
+          category: logs
+        annotations:
+          app: "{{ $labels.app }}"
+          summary: "{{ $labels.app }} protect client connected"
