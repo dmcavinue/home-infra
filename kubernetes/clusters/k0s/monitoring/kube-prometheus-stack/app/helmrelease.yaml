@@ -251,6 +251,7 @@ spec:
           multicluster:
             etcd:
               enabled: true
+  valuesFrom:
     - targetPath: alertmanager.config.global.slack_api_url
       kind: Secret
       name: alertmanager
