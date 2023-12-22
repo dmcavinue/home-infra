@@ -8,5 +8,3 @@ resources:
   - ./services
   - ./prometheusrules
   - ./scrapeconfigs
-generatorOptions:
-  disableNameSuffixHash: true
