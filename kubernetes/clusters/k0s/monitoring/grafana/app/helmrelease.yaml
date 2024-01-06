@@ -41,6 +41,7 @@ spec:
       GF_DATE_FORMATS_INTERVAL_DAY: "DD/MM"
       GF_DATE_FORMATS_INTERVAL_MONTH: "MM-YYYY"
       GF_DATE_FORMATS_INTERVAL_YEAR: "YYYY"
+      GF_SECURITY_COOKIE_SAMESITE: grafana
     admin:
       existingSecret: grafana
     ldap:
