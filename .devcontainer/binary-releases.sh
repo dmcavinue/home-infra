@@ -11,6 +11,11 @@ curl -fsSL "https://github.com/cilium/cilium-cli/releases/download/${CILIUM_VERS
     | tar xvz --overwrite --file - --directory /tmp
 mv /tmp/cilium /usr/local/bin/cilium
 
+export CMCTL_VERSION=v1.12.7
+curl -fsSL "https://github.com/cert-manager/cert-manager/releases/download/${CMCTL_VERSION}/cmctl-linux-amd64.tar.gz" \
+    | tar xvz --overwrite --file - --directory /tmp
+mv /tmp/cmctl /usr/local/bin/cmctl
+
 export HUBBLE_VERSION="v0.12.2"
 curl -fsSL "https://github.com/cilium/hubble/releases/download/${HUBBLE_VERSION}/hubble-linux-amd64.tar.gz" \
     | tar xvz --overwrite --file - --directory /tmp
