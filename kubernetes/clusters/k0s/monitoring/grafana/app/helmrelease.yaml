@@ -74,9 +74,8 @@ spec:
             uid: prometheus
             access: proxy
             url: http://thanos-query-frontend.monitoring.svc.cluster.local:9090
-            # url: http://vmselect-victoria-metrics.monitoring.svc.cluster.local:8481/select/0/prometheus
             jsonData:
-              prometheusType: Thanos # Prometheus for victoria-metrics
+              prometheusType: Thanos
             isDefault: true
           - name: Loki
             type: loki
@@ -90,7 +89,6 @@ spec:
             uid: alertmanager
             access: proxy
             url: http://alertmanager-operated.monitoring.svc.cluster.local:9093
-            # url: http://vmalertmanager-victoria-metrics.monitoring.svc.cluster.local:9093
             jsonData:
               implementation: prometheus
     dashboards:
@@ -116,7 +114,6 @@ spec:
           gnetId: 763
           revision: 5
           datasource: Prometheus
-        # Ref: https://grafana.com/grafana/dashboards/12904-hashicorp-vault/
         vault:
           gnetId: 12904
           revision: 2

@@ -29,7 +29,7 @@ spec:
     crds:
       install: true
     grafana:
-      enabled: true
+      enabled: false
       annotations:
         grafana_folder: System
     backgroundController:
