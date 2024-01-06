@@ -49,7 +49,7 @@ spec:
                   [{{ .Status | toUpper }}{{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{ end }}] {{ if ne .CommonAnnotations.summary ""}}{{ .CommonAnnotations.summary }}{{ else }}{{ .CommonLabels.alertname }}{{ end }}
                 text: >-
                   {{ range .Alerts -}}
-                    **Cluster:** {{ .Annotations.title }}{{ if .Labels.severity }} - `{{ .Labels.severity }}`{{ end }}
+                    **Cluster:** {{ .Annotations.title }}{{ if .Labels.cluster }} - `{{ .Labels.cluster }}`{{ end }}
                     **Alert:** {{ .Annotations.title }}{{ if .Labels.severity }} - `{{ .Labels.severity }}`{{ end }}
                   **Description:** {{ if ne .Annotations.description ""}}{{ .Annotations.description }}{{else}}N/A{{ end }}
                   **Details:**
