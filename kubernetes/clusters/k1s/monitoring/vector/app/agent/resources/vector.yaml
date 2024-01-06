@@ -27,8 +27,6 @@ sinks:
     version: "2"
     address: vector-aggregator.monitoring.svc.cluster.local:6000
     inputs: ["journald_source"]
-    labels:
-      cluster: k1s
 
   kubernetes:
     type: vector
@@ -36,5 +34,3 @@ sinks:
     version: "2"
     address: vector-aggregator.monitoring.svc.cluster.local:6010
     inputs: ["kubernetes_source"]
-    labels:
-      cluster: k1s
