@@ -189,6 +189,11 @@ spec:
           gnetId: 11454
           revision: 14
           datasource: Prometheus
+        memcached:
+          # renovate: depName="Memcached
+          gnetId: 3063
+          revision: 1
+          datasource: Prometheus
         nginx:
           url: https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/grafana/dashboards/nginx.json
           datasource: Prometheus
