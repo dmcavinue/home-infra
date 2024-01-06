@@ -14,19 +14,19 @@ spec:
   interval: 30m
   retryInterval: 1m
   timeout: 15m
-# ---
-# apiVersion: kustomize.toolkit.fluxcd.io/v1
-# kind: Kustomization
-# metadata:
-#   name: memcached-loki-chunk-cache
-#   namespace: flux-system
-# spec:
-#   path: ./kubernetes/clusters/${ENVIRONMENT}/database/memcached/loki-chunk-cache
-#   prune: false
-#   sourceRef:
-#     kind: GitRepository
-#     name: home-kubernetes
-#   wait: false
-#   interval: 30m
-#   retryInterval: 1m
-#   timeout: 15m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: memcached-loki-chunk-cache
+  namespace: flux-system
+spec:
+  path: ./kubernetes/clusters/${ENVIRONMENT}/database/memcached/loki-chunk-cache
+  prune: false
+  sourceRef:
+    kind: GitRepository
+    name: home-kubernetes
+  wait: false
+  interval: 30m
+  retryInterval: 1m
+  timeout: 15m
