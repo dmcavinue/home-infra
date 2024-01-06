@@ -273,6 +273,9 @@ tasks:
           EMQX_ADMIN_PASSWORD="$(vault read -field=password sys/policies/password/default/generate)"
           EMQX_USER1_NAME="mqtt"
           EMQX_USER1_PASSWORD="$(vault read -field=password sys/policies/password/default/generate)"
+      # database/memcached
+      - vault kv put -mount=secret database/memcached
+          MEMCACHED_PASSWORD="$(vault read -field=password sys/policies/password/default/generate)"
       # home-automation/home-assistant
       - vault kv put -mount=secret home-automation/home-assistant
           HASS_POSTGRES_SUPER_USER="{{.HASS_POSTGRES_SUPER_USER}}"

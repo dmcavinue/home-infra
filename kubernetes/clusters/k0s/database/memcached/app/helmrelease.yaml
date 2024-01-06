@@ -1,0 +1,43 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: memcached
+  namespace: database
+spec:
+  interval: 30m
+  timeout: 15m
+  chart:
+    spec:
+      chart: memcached
+      version: 6.7.2
+      sourceRef:
+        kind: HelmRepository
+        name: bitnami
+        namespace: flux-system
+  maxHistory: 2
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    auth:
+      enabled: true
+      username: memcached
+      existingPasswordSecret: memcached
+    replicaCount: 1
+    persistence:
+      enabled: true
+      storageClass: local-path
+      size: 10Gi
+    metrics:
+      enabled: true
+      serviceMonitor:
+        enabled: true
+        interval: 1m
