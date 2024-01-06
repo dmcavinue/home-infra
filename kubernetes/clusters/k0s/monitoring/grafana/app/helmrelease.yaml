@@ -53,9 +53,9 @@ spec:
         check_for_plugin_updates: false
         reporting_enabled: false
       auth.basic:
-        enabled: false
+        enabled: true
       auth.anonymous:
-        enabled: false
+        enabled: true
       auth.ldap:
         enabled: true
         allow_sign_up: true
