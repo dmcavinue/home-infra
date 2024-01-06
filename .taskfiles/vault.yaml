@@ -307,7 +307,6 @@ tasks:
       # media/immich
       - vault kv put -mount=secret media/immich
           IMMICH_JWT_SECRET="$(vault read -field=password sys/policies/password/default/generate)"
-          IMMICH_TYPESENSE_API_KEY="{{.IMMICH_TYPESENSE_API_KEY}}"
           IMMICH_POSTGRES_SUPER_USER="{{.IMMICH_POSTGRES_SUPER_USER}}"
           IMMICH_POSTGRES_SUPER_PASSWORD="{{.IMMICH_POSTGRES_SUPER_PASSWORD}}"
           IMMICH_POSTGRES_USER="{{.IMMICH_POSTGRES_USER}}"
@@ -319,6 +318,10 @@ tasks:
           GRAFANA_LDAP_USERNAME="{{.GRAFANA_LDAP_USERNAME}}"
           GRAFANA_LDAP_PASSWORD="{{.GRAFANA_LDAP_PASSWORD}}"
           GRAFANA_LDAP_ROOT="{{.GRAFANA_LDAP_ROOT}}"
+          GRAFANA_POSTGRES_SUPER_USER="{{.GRAFANA_POSTGRES_SUPER_USER}}"
+          GRAFANA_POSTGRES_SUPER_PASSWORD="{{.GRAFANA_POSTGRES_SUPER_PASSWORD}}"
+          GRAFANA_POSTGRES_USER="{{.GRAFANA_POSTGRES_USER}}"
+          GRAFANA_POSTGRES_PASSWORD="{{.GRAFANA_POSTGRES_PASSWORD}}"
       # monitoring/unpoller
       - vault kv put -mount=secret monitoring/unpoller
           UP_UNIFI_DEFAULT_USER="{{.UP_UNIFI_DEFAULT_USER}}"
