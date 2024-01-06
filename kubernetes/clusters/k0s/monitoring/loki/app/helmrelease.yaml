@@ -31,6 +31,18 @@ spec:
     loki:
       structuredConfig:
         auth_enabled: false
+        memcached:
+          chunk_cache:
+            enabled: true
+            host: memcached-loki-chunk.database.svc
+            service: memcached-client
+            batch_size: 256
+            parallelism: 10
+          results_cache:
+            enabled: true
+            host: memcached-loki-results.database.svc
+            service: memcached-client
+            default_validity: 12h
         server:
           log_level: info
           http_listen_port: 3100
