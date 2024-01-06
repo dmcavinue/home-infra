@@ -31,7 +31,7 @@ groups:
     rules:
       - alert: UnifiSSHAuthEvent
         expr: |
-          sum by (app) (count_over_time({app="unifi-auth"} |~ "(?i)session opened[2m])) > 0
+          sum by (app) (count_over_time({app="unifi-auth"} |~ "(?i)session opened"[2m])) > 0
         labels:
           severity: info
           category: logs
@@ -43,7 +43,7 @@ groups:
     rules:
       - alert: UnifiProtectClient
         expr: |
-          sum by (app) (count_over_time({app="unifi-protect-clientnotify"} |~ "(?i)userName[2m])) > 0
+          sum by (app) (count_over_time({app="unifi-protect-clientnotify"} |~ "(?i)userName"[2m])) > 0
         labels:
           severity: info
           category: logs
