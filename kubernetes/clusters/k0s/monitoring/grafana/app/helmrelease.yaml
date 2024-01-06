@@ -163,6 +163,11 @@ spec:
           gnetId: 15038
           revision: 3
           datasource: Prometheus
+        memcached:
+          # renovate: depName="Memcached"
+          gnetId: 3063
+          revision: 1
+          datasource: Prometheus
         minio:
           # renovate: depName="MinIO Dashboard"
           gnetId: 13502
