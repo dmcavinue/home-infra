@@ -18,8 +18,6 @@ spec:
       owner: grafana
       secret:
         name: grafana-database-user
-    recovery:
-      source: &previousCluster grafana-1
   storage:
     size: 2Gi
     storageClass: local-path
