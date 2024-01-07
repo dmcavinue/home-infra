@@ -33,13 +33,13 @@ spec:
         chunk_cache:
           enabled: true
           host: memcached-loki-chunk.database.svc
-          service: memcached-client
+          service: memcache
           batch_size: 256
           parallelism: 10
         results_cache:
           enabled: true
           host: memcached-loki-results.database.svc
-          service: memcached-client
+          service: memcache
           default_validity: 12h
       structuredConfig:
         auth_enabled: false
