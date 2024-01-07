@@ -21,6 +21,11 @@ curl -fsSL "https://github.com/cilium/hubble/releases/download/${HUBBLE_VERSION}
     | tar xvz --overwrite --file - --directory /tmp
 mv /tmp/hubble /usr/local/bin/hubble
 
+export KUBESHARK_VERSION="52.0.0"
+curl -fsSL "https://github.com/kubeshark/kubeshark/releases/download/v${KUBESHARK_VERSION}/kubeshark_${KUBESHARK_VERSION}_linux_amd64.tar.gz" \
+    | tar xvz --overwrite --file - --directory /tmp
+mv /tmp/kubeshark /usr/local/bin/kubeshark
+
 export TETRA_VERSION="v1.0.0"
 curl -fsSL "https://github.com/cilium/tetragon/releases/download/${TETRA_VERSION}/tetra-linux-amd64.tar.gz" \
     | tar xvz --overwrite --file - --directory /tmp
