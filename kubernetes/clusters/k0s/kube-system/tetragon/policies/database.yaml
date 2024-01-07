@@ -16,9 +16,7 @@ spec:
       type: int64
     event: sys_exit
     selectors:
-    - matchActions:
-      - action: Sigkill
-      matchArgs:
+    - matchArgs:
       - index: 4
         operator: Equal
         values:
@@ -32,4 +30,6 @@ spec:
         - /opt/bitnami/redis/bin/redis-cli
         - /usr/bin/awk
         - /usr/bin/head
+      # matchActions:
+      # - action: Sigkill
     subsystem: raw_syscalls
