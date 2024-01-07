@@ -45,6 +45,8 @@ spec:
               labelSelector:
                 matchLabels:
                   app.kubernetes.io/name: *app
+        env:
+          VECTOR_LOG: debug
     service:
       main:
         type: LoadBalancer
