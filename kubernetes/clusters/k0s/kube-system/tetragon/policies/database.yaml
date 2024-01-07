@@ -30,6 +30,6 @@ spec:
         - /opt/bitnami/redis/bin/redis-cli
         - /usr/bin/awk
         - /usr/bin/head
-      # matchActions:
-      # - action: Sigkill
+      matchActions:
+        - action: NoPost # Sigkill
     subsystem: raw_syscalls
