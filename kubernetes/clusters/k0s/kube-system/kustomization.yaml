@@ -6,4 +6,4 @@ resources:
   # Flux-Kustomizations
   - ./cilium/ks.yaml
   - ./issuers/ks.yaml
-  #- ./tetragon/ks.yaml
+  - ./tetragon/ks.yaml
