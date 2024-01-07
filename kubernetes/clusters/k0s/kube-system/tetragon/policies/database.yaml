@@ -16,13 +16,7 @@ spec:
       type: int64
     event: sys_exit
     selectors:
-    - matchArgs:
-      - index: 4
-        operator: Equal
-        values:
-        - '59'
-        - '322'
-      matchBinaries:
+    - matchBinaries:
       - operator: NotIn
         values:
         - /opt/bitnami/redis-sentinel/bin/redis-cli
