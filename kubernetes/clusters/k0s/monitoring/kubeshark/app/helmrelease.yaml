@@ -35,7 +35,7 @@ spec:
         repo: https://helm.kubeshark.co
         name: kubeshark
         namespace: monitoring
-      persistentStorage: true
+      persistentStorage: false
       storageLimit: 2Gi
       storageClass: local-path
       dryRun: false
