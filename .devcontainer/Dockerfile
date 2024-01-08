@@ -1,5 +1,5 @@
 # dependencies
-FROM docker.io/cloudflare/cloudflared:2023.10.0 as cloudflared
+FROM docker.io/cloudflare/cloudflared:2024.1.0 as cloudflared
 FROM docker.io/fluxcd/flux-cli:v2.2.2 as flux
 FROM docker.io/alpine/helm:3.13.3 as helm
 FROM docker.io/kopia/kopia:20231231.0.140951 as kopia
