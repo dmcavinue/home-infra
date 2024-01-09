@@ -40,7 +40,7 @@ spec:
             - name: config
               globalMounts:
                 - path: /config
-              accessMode: ReadWriteMany
+              accessMode: ReadWriteOnce
               size: 5Gi
               storageClass: ceph-pool
         annotations:
