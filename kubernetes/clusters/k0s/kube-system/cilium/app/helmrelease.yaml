@@ -53,9 +53,9 @@ spec:
       config:
         enabled: true
         clusters:
-        - name: k1s
-          address: k1s.mesh.cilium.io
-          port: 2379
+        # - name: k1s
+        #   address: k1s.mesh.cilium.io
+        #   port: 2379
         - name: k2s
           address: k2s.mesh.cilium.io
           port: 2379
