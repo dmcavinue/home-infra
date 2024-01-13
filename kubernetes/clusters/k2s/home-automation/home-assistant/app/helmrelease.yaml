@@ -100,3 +100,6 @@ spec:
     serviceAccount:
       create: true
       name: home-assistant
+    persistence:
+      tmp:
+        type: emptyDir
