@@ -29,11 +29,18 @@ spec:
     - name: volsync
       namespace: volsync
   values:
-    defaultPodOptions:
-      nodeSelector:
-        feature.node.kubernetes.io/skyconnect: "true"
+    # defaultPodOptions:
+      # securityContext:
+      #   fsGroup: 0
+      #   runAsUser: 0
+      #   runAsGroup: 0
     controllers:
       main:
+        # securityContext:
+        #   privileged: true
+        #   fsGroup: 0
+        #   runAsUser: 0
+        #   runAsGroup: 0
         type: statefulset
         statefulset:
           volumeClaimTemplates:

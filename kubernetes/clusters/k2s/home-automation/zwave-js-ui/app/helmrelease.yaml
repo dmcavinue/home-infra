@@ -29,9 +29,11 @@ spec:
     - name: volsync
       namespace: volsync
   values:
-    defaultPodOptions:
-      nodeSelector:
-        feature.node.kubernetes.io/skyconnect: "true"
+    # defaultPodOptions:
+      # securityContext:
+      #   fsGroup: 0
+      #   runAsUser: 0
+      #   runAsGroup: 0
     controllers:
       main:
         type: statefulset
@@ -47,6 +49,11 @@ spec:
           reloader.stakater.com/auto: "true"
         containers:
           main:
+            # securityContext:
+            #   privileged: true
+            #   fsGroup: 0
+            #   runAsUser: 0
+            #   runAsGroup: 0
             image:
               repository: ghcr.io/zwave-js/zwave-js-ui
               tag: 9.6.2
