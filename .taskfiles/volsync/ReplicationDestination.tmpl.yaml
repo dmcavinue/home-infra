@@ -11,7 +11,8 @@ spec:
     repository: "${rsrc}-restic-secret"
     destinationPVC: "${claim}"
     copyMethod: Direct
-    storageClassName: ceph-pool
+    storageClassName: ceph-filesystem
+    #accessModes: ["ReadWriteMany"]
     # IMPORTANT NOTE:
     #   Set to the last X number of snapshots to restore from
     previous: ${previous}
