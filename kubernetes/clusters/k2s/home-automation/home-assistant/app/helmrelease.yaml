@@ -31,10 +31,6 @@ spec:
   values:
     controllers:
       main:
-        securityContext:
-          allowPrivilegeEscalation: false
-          readOnlyRootFilesystem: true
-          capabilities: { drop: ["ALL"] }
         type: statefulset
         statefulset:
           volumeClaimTemplates:
@@ -49,7 +45,9 @@ spec:
         containers:
           main:
             securityContext:
-              privileged: true
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
             image:
               repository: ghcr.io/home-assistant/home-assistant
               tag: 2024.1.3
