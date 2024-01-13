@@ -65,10 +65,10 @@ spec:
             envFrom:
               - secretRef:
                   name: home-assistant-secret
-            lifecycle:
-              postStart:
-                exec:
-                  command: ["/sbin/apk", "add", "openldap-clients"]
+            # lifecycle:
+            #   postStart:
+            #     exec:
+            #       command: ["/sbin/apk", "add", "openldap-clients"]
             probes:
               liveness:
                 enabled: false
@@ -102,19 +102,19 @@ spec:
         tls:
           - hosts:
               - *host
-    persistence:
-      auth:
-        name: home-assistant-auth
-        type: secret
-        globalMounts:
-          - path: /secrets/home-assistant.cfg
-            subPath: home-assistant.cfg
-            readOnly: true
-      auth-scripts:
-        name: home-assistant-scripts
-        type: configMap
-        defaultMode: 511
-        globalMounts:
-          - path: /ldap.sh
-            subPath: ldap.sh
-            readOnly: true
+    # persistence:
+    #   auth:
+    #     name: home-assistant-auth
+    #     type: secret
+    #     globalMounts:
+    #       - path: /secrets/home-assistant.cfg
+    #         subPath: home-assistant.cfg
+    #         readOnly: true
+    #   auth-scripts:
+    #     name: home-assistant-scripts
+    #     type: configMap
+    #     defaultMode: 511
+    #     globalMounts:
+    #       - path: /ldap.sh
+    #         subPath: ldap.sh
+    #         readOnly: true
