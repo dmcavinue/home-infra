@@ -6,6 +6,8 @@ x-task-vars: &task-vars
   controller: '{{.controller}}'
   namespace: '{{.namespace}}'
   claim: '{{.claim}}'
+  puid: '{{.puid}}'
+  pgid: '{{.pgid}}'
   ts: '{{.ts}}'
   kustomization: '{{.kustomization}}'
   previous: '{{.previous}}'
@@ -113,6 +115,10 @@ tasks:
             echo "statefulset.apps/$app"
           fi
       previous: "{{.previous | default 2}}"
+      puid:
+        sh: kubectl --context {{.cluster}} -n {{.ns}} get replicationsources/{{.app}} -o jsonpath="{.spec.restic.moverSecurityContext.runAsUser}"
+      pgid:
+        sh: kubectl --context {{.cluster}} -n {{.ns}} get replicationsources/{{.app}} -o jsonpath="{.spec.restic.moverSecurityContext.runAsGroup}"
     env: *task-vars
     preconditions:
       - sh: test -f {{.wipeJobTemplate}}
