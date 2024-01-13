@@ -29,18 +29,12 @@ spec:
     - name: volsync
       namespace: volsync
   values:
-    # defaultPodOptions:
-      # securityContext:
-      #   fsGroup: 0
-      #   runAsUser: 0
-      #   runAsGroup: 0
     controllers:
       main:
-        # securityContext:
-        #   privileged: true
-        #   fsGroup: 0
-        #   runAsUser: 0
-        #   runAsGroup: 0
+        securityContext:
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+          capabilities: { drop: ["ALL"] }
         type: statefulset
         statefulset:
           volumeClaimTemplates:
@@ -65,10 +59,6 @@ spec:
             envFrom:
               - secretRef:
                   name: home-assistant-secret
-            # lifecycle:
-            #   postStart:
-            #     exec:
-            #       command: ["/sbin/apk", "add", "openldap-clients"]
             probes:
               liveness:
                 enabled: false
@@ -102,19 +92,3 @@ spec:
         tls:
           - hosts:
               - *host
-    # persistence:
-    #   auth:
-    #     name: home-assistant-auth
-    #     type: secret
-    #     globalMounts:
-    #       - path: /secrets/home-assistant.cfg
-    #         subPath: home-assistant.cfg
-    #         readOnly: true
-    #   auth-scripts:
-    #     name: home-assistant-scripts
-    #     type: configMap
-    #     defaultMode: 511
-    #     globalMounts:
-    #       - path: /ldap.sh
-    #         subPath: ldap.sh
-    #         readOnly: true
