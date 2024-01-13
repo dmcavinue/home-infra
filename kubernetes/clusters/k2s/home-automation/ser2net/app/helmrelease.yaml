@@ -58,7 +58,7 @@ spec:
                 memory: 64Mi
             image:
               repository: dmcavinue/ser2net
-              tag: 0.0.1
+              tag: 0.0.2
               imagePullPolicy: IfNotPresent
     service:
       main:
