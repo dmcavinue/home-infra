@@ -42,14 +42,6 @@ spec:
               fsGroup: 0
               runAsUser: 0
               runAsGroup: 0
-              # capabilities:
-              #   drop:
-              #     - ALL
-              # runAsNonRoot: true
-              # readOnlyRootFilesystem: false
-              # allowPrivilegeEscalation: false
-              # seccompProfile:
-              #   type: RuntimeDefault
             resources:
               limits:
                 memory: 128Mi
@@ -65,10 +57,10 @@ spec:
         ports:
           http:
             port: 3333
-      # zigbee:
-      #   ports:
-      #     http:
-      #       port: 3334
+      zigbee:
+        ports:
+          http:
+            port: 3334
     ingress:
       main:
         enabled: false
@@ -86,12 +78,12 @@ spec:
         hostPathType: CharDevice
         globalMounts:
           - path: /dev/zwave
-      # zigbee:
-      #   type: hostPath
-      #   hostPath: /dev/serial/by-id/usb-Nabu_Casa_SkyConnect_v1.0_9ae749b85541ed11a39a83a7ccf2b06c-if00-port0
-      #   hostPathType: CharDevice
-      #   globalMounts:
-      #     - path: /dev/zigbee
+      zigbee:
+        type: hostPath
+        hostPath: /dev/serial/by-id/usb-Nabu_Casa_SkyConnect_v1.0_9ae749b85541ed11a39a83a7ccf2b06c-if00-port0
+        hostPathType: CharDevice
+        globalMounts:
+          - path: /dev/zigbee
     serviceAccount:
       create: true
       name: ser2net
