@@ -75,7 +75,7 @@ spec:
     persistence:
       ser2net-config:
         name: ser2net-config
-        type: configmap
+        type: configMap
         globalMounts:
           - path: /etc/ser2net.conf
             subPath: ser2net.conf
