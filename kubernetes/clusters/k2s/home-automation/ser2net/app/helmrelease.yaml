@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
-  name: zwave-js-usb
+  name: ser2net
   namespace: home-automation
 spec:
   interval: 30m
@@ -65,16 +65,33 @@ spec:
         ports:
           http:
             port: 3333
+      # zigbee:
+      #   ports:
+      #     http:
+      #       port: 3334
     ingress:
       main:
         enabled: false
     persistence:
-      usb:
+      ser2net-config:
+        name: ser2net-config
+        type: configmap
+        globalMounts:
+          - path: /etc/ser2net.conf
+            subPath: ser2net.conf
+            readOnly: true
+      zwave:
         type: hostPath
         hostPath: /dev/serial/by-id/usb-Silicon_Labs_CP2102N_USB_to_UART_Bridge_Controller_0030b5ff1aa4eb11a16526259da30875-if00-port0
         hostPathType: CharDevice
         globalMounts:
-          - path: /dev/ttyUSB0
+          - path: /dev/zwave
+      # zigbee:
+      #   type: hostPath
+      #   hostPath: /dev/serial/by-id/usb-Nabu_Casa_SkyConnect_v1.0_9ae749b85541ed11a39a83a7ccf2b06c-if00-port0
+      #   hostPathType: CharDevice
+      #   globalMounts:
+      #     - path: /dev/zigbee
     serviceAccount:
       create: true
-      name: zwave-js-usb
+      name: ser2net

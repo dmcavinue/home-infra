@@ -1,0 +1,10 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ser2net-config
+  namespace: home-automation
+data:
+  ser2net.conf: |    
+    BANNER:banner:\r\nser2net port \p device \d [\s] (Debian GNU/Linux)\r\n\r\n
+    3333:raw:600:/dev/zwave:115200 NONE 1STOPBIT 8DATABITS XONXOFF LOCAL -RTSCTS max-connections=3
