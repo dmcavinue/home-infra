@@ -37,7 +37,7 @@ spec:
           reloader.stakater.com/auto: "true"
         containers:
           main:
-            cmd: socat
+            command: ["socat"]
             args: ["/dev/zwave,b115200,rawer,echo=0", "tcp-listen:3333,reuseaddr,su=nobody"]
             securityContext:
               privileged: true
