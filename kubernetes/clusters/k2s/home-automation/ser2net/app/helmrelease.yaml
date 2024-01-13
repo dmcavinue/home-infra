@@ -37,6 +37,8 @@ spec:
           reloader.stakater.com/auto: "true"
         containers:
           main:
+            cmd: socat
+            args: [/dev/zwave,b115200,rawer,echo=0", "tcp-listen:3333,reuseaddr,su=nobody"]
             securityContext:
               privileged: true
               # fsGroup: 1001
@@ -58,7 +60,7 @@ spec:
                 memory: 64Mi
             image:
               repository: dmcavinue/ser2net
-              tag: 0.0.2
+              tag: 0.0.3
               imagePullPolicy: IfNotPresent
     service:
       main:
