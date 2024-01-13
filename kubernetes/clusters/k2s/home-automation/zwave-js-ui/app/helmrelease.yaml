@@ -32,7 +32,6 @@ spec:
     defaultPodOptions:
       nodeSelector:
         feature.node.kubernetes.io/skyconnect: "true"
-    
     controllers:
       main:
         type: statefulset
@@ -48,8 +47,6 @@ spec:
           reloader.stakater.com/auto: "true"
         containers:
           main:
-            securityContext:
-              privileged: true
             image:
               repository: ghcr.io/zwave-js/zwave-js-ui
               tag: 9.6.2
@@ -102,10 +99,3 @@ spec:
         tls:
           - hosts:
               - *host
-    persistence:
-      usb:
-        type: hostPath
-        hostPath: /dev/serial/by-id/usb-Silicon_Labs_CP2102N_USB_to_UART_Bridge_Controller_0030b5ff1aa4eb11a16526259da30875-if00-port0
-        hostPathType: CharDevice
-        globalMounts:
-          - path: /dev/ttyUSB0
