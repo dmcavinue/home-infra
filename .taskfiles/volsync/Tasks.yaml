@@ -116,9 +116,9 @@ tasks:
           fi
       previous: "{{.previous | default 2}}"
       puid:
-        sh: kubectl --context {{.cluster}} -n {{.ns}} get replicationsources/{{.app}} -o jsonpath="{.spec.restic.moverSecurityContext.runAsUser}"
+        sh: kubectl --context {{.ENVIRONMENT}} -n {{.namespace}} get replicationsources/{{.rsrc}} -o jsonpath="{.spec.restic.moverSecurityContext.runAsUser}"
       pgid:
-        sh: kubectl --context {{.cluster}} -n {{.ns}} get replicationsources/{{.app}} -o jsonpath="{.spec.restic.moverSecurityContext.runAsGroup}"
+        sh: kubectl --context {{.ENVIRONMENT}} -n {{.namespace}} get replicationsources/{{.rsrc}} -o jsonpath="{.spec.restic.moverSecurityContext.runAsGroup}"
     env: *task-vars
     preconditions:
       - sh: test -f {{.wipeJobTemplate}}
