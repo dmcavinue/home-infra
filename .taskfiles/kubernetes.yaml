@@ -4,14 +4,12 @@ version: "3"
 tasks:
 
   generate-synology-kubeconfig:
-    env:
-      KUBECONFIG: .kubeconfigs/k2s.yaml
     vars:
       NAME: synology-dns
       CA: 
-        sh: kubectl --context {{.ENVIRONMENT}} -n ingress get secret {{.NAME}} -o jsonpath='{.data.ca\.crt}'
+        sh: kubectl --context k2s -n ingress get secret {{.NAME}} -o jsonpath='{.data.ca\.crt}'
       TOKEN:
-        sh: kubectl --context {{.ENVIRONMENT}} -n ingress get secret {{.NAME}} -o jsonpath='{.data.token}' | base64 -d
+        sh: kubectl --context k2s -n ingress get secret {{.NAME}} -o jsonpath='{.data.token}' | base64 -d
     cmd: |
       echo "---
       apiVersion: v1
