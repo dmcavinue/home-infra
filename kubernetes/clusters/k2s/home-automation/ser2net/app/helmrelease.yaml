@@ -25,10 +25,10 @@ spec:
       retries: 3
   values:
     defaultPodOptions:
-      # securityContext:
-      #   fsGroup: 1001
-      #   runAsUser: 1001
-      #   runAsGroup: 1001
+      securityContext:
+        fsGroup: 0
+        runAsUser: 0
+        runAsGroup: 0
       nodeSelector:
         feature.node.kubernetes.io/skyconnect: "true"
     controllers:
@@ -41,9 +41,9 @@ spec:
             args: ["/dev/zwave,b115200,rawer,echo=0", "tcp-listen:3333,reuseaddr"]
             securityContext:
               privileged: true
-              # fsGroup: 1001
-              # runAsUser: 1001
-              # runAsGroup: 1001
+              fsGroup: 0
+              runAsUser: 0
+              runAsGroup: 0
               # capabilities:
               #   drop:
               #     - ALL
