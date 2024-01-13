@@ -123,8 +123,8 @@ tasks:
   restore-suspend-app:
     internal: true
     cmds:
-      - flux -n flux-system suspend kustomization {{.kustomization}}
-      - flux -n {{.namespace}} suspend helmrelease {{.rsrc}}
+      - flux --context {{.ENVIRONMENT}} -n flux-system suspend kustomization {{.kustomization}}
+      - flux --context {{.ENVIRONMENT}} -n {{.namespace}} suspend helmrelease {{.rsrc}}
       - kubectl --context {{.ENVIRONMENT}} -n {{.namespace}} scale {{.controller}} --replicas 0
       - kubectl --context {{.ENVIRONMENT}} -n {{.namespace}} wait pod --for delete --selector="app.kubernetes.io/name={{.rsrc}}" --timeout=2m
     env: *task-vars
