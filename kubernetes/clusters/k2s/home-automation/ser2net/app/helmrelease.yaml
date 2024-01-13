@@ -55,7 +55,7 @@ spec:
     service:
       main:
         ports:
-          zwave:
+          http:
             port: 3333
           zigbee:
             port: 3334
