@@ -8,8 +8,8 @@ metadata:
     app.kubernetes.io/name: home-assistant
 spec:
   accessModes:
-  - ReadWriteMany
+  - ReadWriteOnce
   resources:
     requests:
       storage: 5Gi
-  storageClassName: ceph-filesystem
+  storageClassName: ceph-pool
