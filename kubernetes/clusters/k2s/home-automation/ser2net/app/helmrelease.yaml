@@ -38,7 +38,7 @@ spec:
         containers:
           main:
             command: ["socat"]
-            args: ["/dev/zwave,b115200,rawer,echo=0", "tcp-listen:3333,reuseaddr,su=nobody"]
+            args: ["/dev/zwave,b115200,rawer,echo=0", "tcp-listen:3333,reuseaddr,su=nobody,end-close"]
             securityContext:
               privileged: true
               fsGroup: 0
