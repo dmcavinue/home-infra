@@ -7,4 +7,4 @@ metadata:
 data:
   ser2net.conf: |    
     BANNER:banner:\r\nser2net port \p device \d [\s] (Debian GNU/Linux)\r\n\r\n
-    3333:raw:0:/dev/zwave:115200 8DATABITS NONE 1STOPBIT 
+    3333:raw:0:/dev/zwave:115200 8DATABITS NONE 1STOPBIT
