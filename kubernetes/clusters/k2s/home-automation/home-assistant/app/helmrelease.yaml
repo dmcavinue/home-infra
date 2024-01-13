@@ -97,3 +97,6 @@ spec:
         tls:
           - hosts:
               - *host
+    serviceAccount:
+      create: true
+      name: home-assistant
