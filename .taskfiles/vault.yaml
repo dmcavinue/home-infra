@@ -326,6 +326,12 @@ tasks:
       - vault kv put -mount=secret monitoring/unpoller
           UP_UNIFI_DEFAULT_USER="{{.UP_UNIFI_DEFAULT_USER}}"
           UP_UNIFI_DEFAULT_PASS="{{.UP_UNIFI_DEFAULT_PASS}}"
+      # security/atuin
+      - vault kv put -mount=secret security/atuin
+          ATUIN_POSTGRES_SUPER_USER="{{.ATUIN_POSTGRES_SUPER_USER}}"
+          ATUIN_POSTGRES_SUPER_PASSWORD="{{.ATUIN_POSTGRES_SUPER_PASSWORD}}"
+          ATUIN_POSTGRES_USER="{{.ATUIN_POSTGRES_USER}}"
+          ATUIN_POSTGRES_PASSWORD="{{.ATUIN_POSTGRES_PASSWORD}}"
       # security/dex
       - vault kv put -mount=secret security/dex
           DEX_IMMICH_CLIENT_SECRET="$(vault read -field=password sys/policies/password/default/generate)"

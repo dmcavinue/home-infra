@@ -25,7 +25,7 @@ spec:
   values:
     controllers:
       main:
-        replicas: 2
+        replicas: 1
         strategy: RollingUpdate
         annotations:
           reloader.stakater.com/auto: "true"
@@ -42,6 +42,9 @@ spec:
               ATUIN_METRICS__HOST: 0.0.0.0
               ATUIN_METRICS__PORT: &metricsPort 8080
               ATUIN_TLS__ENABLE: "false"
+            envFrom:
+              - secretRef:
+                  name: atuin-secret
             args: ["server", "start"]
             securityContext:
               allowPrivilegeEscalation: false
