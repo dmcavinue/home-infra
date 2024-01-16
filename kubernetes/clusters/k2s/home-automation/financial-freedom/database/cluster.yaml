@@ -1,0 +1,33 @@
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: financial-freedom
+  namespace: home-automation
+  annotations:
+    kyverno.io/ignore: "true"
+spec:
+  instances: 1
+  imageName: ghcr.io/cloudnative-pg/postgresql:14.8-7
+  inheritedMetadata:
+    labels:
+      kube-image-keeper.enix.io/image-caching-policy: ignore
+  primaryUpdateStrategy: unsupervised
+  bootstrap:
+    initdb:
+      database: financial_freedom
+      owner: financial-freedom
+      secret:
+        name: financial-freedom-database-user
+  storage:
+    size: 5Gi
+    storageClass: local-path
+  enableSuperuserAccess: true
+  superuserSecret:
+    name: financial-freedom-database-superuser
+  postgresql:
+    parameters:
+      max_connections: "600"
+      shared_buffers: 512MB
+  monitoring:
+    enablePodMonitor: true

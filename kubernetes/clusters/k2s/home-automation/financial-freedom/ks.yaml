@@ -1,0 +1,36 @@
+# ---
+# apiVersion: kustomize.toolkit.fluxcd.io/v1
+# kind: Kustomization
+# metadata:
+#   name: financial-freedom
+#   namespace: flux-system
+# spec:
+#   dependsOn:
+#     - name: financial-freedom-database
+#   path: ./kubernetes/clusters/${ENVIRONMENT}/home-automation/financial-freedom/app
+#   prune: false
+#   sourceRef:
+#     kind: GitRepository
+#     name: home-kubernetes
+#   wait: false
+#   interval: 30m
+#   retryInterval: 1m
+#   timeout: 5m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: financial-freedom-database
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: shared-apps-cloudnative-pg
+  path: ./kubernetes/clusters/${ENVIRONMENT}/home-automation/financial-freedom/database
+  prune: false
+  sourceRef:
+    kind: GitRepository
+    name: home-kubernetes
+  wait: true
+  interval: 30m
+  retryInterval: 1m
+  timeout: 5m

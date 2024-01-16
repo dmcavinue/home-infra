@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
-  name: actual
+  name: financial-freedom
   namespace: home-automation
 spec:
   interval: 30m
@@ -33,15 +33,6 @@ spec:
         runAsGroup: 1001
     controllers:
       main:
-        type: statefulset
-        statefulset:
-          volumeClaimTemplates:
-            - name: config
-              globalMounts:
-                - path: /data
-              accessMode: ReadWriteOnce
-              size: 10Gi
-              storageClass: ceph-pool
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
@@ -65,13 +56,13 @@ spec:
                 cpu: 200m
                 memory: 256Mi
             image:
-              repository: dmcavinue/actual-server
-              tag: 24.1.0
+              repository: dmcavinue/financial-freedom
+              tag: 0.0.1
     service:
       main:
         ports:
           http:
-            port: &port 5006
+            port: &port 8080
     ingress:
       main:
         enabled: true
@@ -89,4 +80,4 @@ spec:
               - *host
     serviceAccount:
       create: true
-      name: actual
+      name: financial-freedom
