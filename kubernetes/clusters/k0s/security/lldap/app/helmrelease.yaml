@@ -67,7 +67,7 @@ spec:
                 memory: 500Mi
             image:
               repository: ghcr.io/lldap/lldap
-              tag: latest-alpine@sha256:fcefd69c140ec42216bd8b8ff8265e2f59e5a23e8691a37de648d3ba61851a7b
+              tag: latest-alpine@sha256:cadad17d2168cf971f13b3e77ded5ece8fa830160378dbb0879f4ade132bc1af
             env:
               TZ: America/New_York
               LLDAP_HTTP_PORT: &port 80
