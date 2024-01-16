@@ -9,7 +9,6 @@ resources:
   - ./ciliumnetworkpolicy.yaml
   # Flux-Kustomizations
   - ./esphome/ks.yaml
-  - ./financial-freedom/ks.yaml
   - ./home-assistant/ks.yaml
   - ./ser2net/ks.yaml
   - ./tidbyt-proxy/ks.yaml
