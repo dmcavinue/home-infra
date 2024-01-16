@@ -8,7 +8,6 @@ resources:
   - ./externalsecret.yaml
   - ./ciliumnetworkpolicy.yaml
   # Flux-Kustomizations
-  - ./actual/ks.yaml
   - ./esphome/ks.yaml
   - ./home-assistant/ks.yaml
   - ./ser2net/ks.yaml
