@@ -33,6 +33,9 @@ spec:
     master:
       persistence:
         enabled: false
+      serviceAccount:
+        create: true
+        name: "redis"
     replica:
       persistence:
         enabled: false
