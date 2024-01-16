@@ -58,6 +58,26 @@ spec:
             image:
               repository: dmcavinue/financial-freedom
               tag: 0.0.1
+            env:
+              APP_NAME: "Financial Freedom"
+              APP_ENV: production
+              APP_DEBUG: false
+              APP_URL: "https://finance.${DOMAIN}"
+              AUTORUN_ENABLED: true
+              AUTORUN_LARAVEL_EVENT_CACHE: false
+              AUTORUN_LARAVEL_ROUTE_CACHE: false
+              AUTORUN_LARAVEL_STORAGE_LINK: false
+              AUTORUN_LARAVEL_VIEW_CACHE: false
+              FINANCIAL_FREEDOM_ALLOW_REGISTRATION: true
+              LOG_CHANNEL: stack
+              BROADCAST_DRIVER: log
+              CACHE_DRIVER: file
+              QUEUE_CONNECTION: sync
+              SESSION_LIFETIME: 120
+              SESSION_DRIVER: cookie
+            envFrom:
+              - secretRef:
+                  name: financial-freedom-secret
     service:
       main:
         ports:
