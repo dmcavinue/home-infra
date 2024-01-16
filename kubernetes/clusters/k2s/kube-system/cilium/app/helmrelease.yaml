@@ -35,22 +35,19 @@ spec:
           enabled: true
           install:
             enabled: true
-            # agent:
-            #   enabled: true
-            #   podSecurityContext:
-            #     allowPrivilegeEscalation: false
-            #   securityContext:
-            #     capabilities:
-            #       drop: ["ALL"]
+            agent:
+              enabled: true
+              securityContext:
+                allowPrivilegeEscalation: false
+                readOnlyRootFilesystem: false
+                capabilities:
+                  drop: ["ALL"]
             server:
               enabled: true
               dataStorage:
                 size: 1Gi
                 accessMode: ReadWriteOnce
                 storageClass: local-path
-              podSecurityContext:
-                allowPrivilegeEscalation: false
-                runAsNonRoot: true
               securityContext:
                 allowPrivilegeEscalation: false
                 readOnlyRootFilesystem: true

@@ -35,12 +35,24 @@ spec:
           enabled: true
           install:
             enabled: true
+            agent:
+              enabled: true
+              securityContext:
+                allowPrivilegeEscalation: false
+                readOnlyRootFilesystem: false
+                capabilities:
+                  drop: ["ALL"]
             server:
               enabled: true
               dataStorage:
                 size: 1Gi
                 accessMode: ReadWriteOnce
                 storageClass: local-path
+              securityContext:
+                allowPrivilegeEscalation: false
+                readOnlyRootFilesystem: true
+                capabilities:
+                  drop: ["ALL"]
     bpf:
       masquerade: true
     bgp:
