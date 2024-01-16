@@ -67,10 +67,6 @@ spec:
             image:
               repository: dmcavinue/actual-server
               tag: 24.1.0
-            env:
-              ESPHOME_DASHBOARD_USE_PING: true
-              PLATFORMIO_CORE_DIR: /config/.plattformio
-              PLATFORMIO_GLOBALLIB_DIR: /config/.plattformioLibs
     service:
       main:
         ports:
