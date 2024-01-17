@@ -33,7 +33,7 @@ spec:
     tetragon:
       image:
         repository: quay.io/cilium/tetragon
-        tag: v1.0.1
+        tag: v1.0.2
       securityContext:
         privileged: true
       prometheus:
