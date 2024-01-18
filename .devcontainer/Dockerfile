@@ -3,7 +3,7 @@ FROM docker.io/cloudflare/cloudflared:2024.1.3 as cloudflared
 FROM docker.io/fluxcd/flux-cli:v2.2.2 as flux
 FROM docker.io/alpine/helm:3.13.3 as helm
 FROM docker.io/kopia/kopia:20231231.0.140951 as kopia
-FROM docker.io/bitnami/kubectl:1.29.0 as kubectl
+FROM docker.io/bitnami/kubectl:1.29.1 as kubectl
 FROM docker.io/hashicorp/vault:1.15.4 as vault
 FROM docker.io/mikefarah/yq:4.40.5 as yq
 
