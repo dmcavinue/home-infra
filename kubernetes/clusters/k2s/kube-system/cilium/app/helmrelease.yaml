@@ -244,31 +244,3 @@ spec:
       privileged: true
     routingMode: native
     tunnel: disabled
-  patches:
-    - patch: |-
-        apiVersion: apps/v1
-        kind: StatefulSet
-        metadata:
-          name: not-used
-        spec:
-          template:
-            spec:
-              containers:
-              - name: cilium-init
-                resources:
-                  limits:
-                    memory: 128Mi
-                  requests:
-                    cpu: 50m
-                    memory: 64Mi 
-              - name: spire-server
-                resources:
-                  limits:
-                    memory: 256Mi
-                  requests:
-                    cpu: 50m
-                    memory: 128Mi
-      target:
-        kind: StatefulSet
-        name: spire-server
-        namespace: cilium-spire
