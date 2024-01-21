@@ -63,9 +63,11 @@ spec:
               - secretRef:
                   name: *secret
             resources:
+              limits:
+                memory: 2500Mi
               requests:
-                cpu: 100m
-                memory: 250Mi
+                cpu: 300m
+                memory: 1500Mi
     service:
       main:
         ports:
