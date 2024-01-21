@@ -57,7 +57,6 @@ spec:
             configBlock: |-
               # cluster mesh
               192.168.8.241 k0s.mesh.cilium.io
-              192.168.8.17 k1s.mesh.cilium.io
               192.168.8.51 k2s.mesh.cilium.io
               # synology services              
               192.168.10.2 nas.feelingsmachine.com
@@ -83,8 +82,6 @@ spec:
               192.168.8.242 unifi.logfold.com
               192.168.8.242 vacuum.logfold.com
               192.168.8.243 lldap.logfold.com
-              # k1s services
-              192.168.8.18 oauth.k1s.logfold.com
               # k8s services
               192.168.8.49 code.nucstack.com
               192.168.8.49 esphome.nucstack.com

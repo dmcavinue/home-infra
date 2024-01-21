@@ -1,7 +1,0 @@
----
-cilium_id: 3
-cilium_ipam_cidr: 192.168.8.16/28
-cilium_mesh_lb_ip: 192.168.8.17
-domain: k1s.logfold.com
-github_username: dmcavinue
-timezone: America/New_York

@@ -13,12 +13,6 @@ This cluster is intended to manage services the main cluster is dependent on (va
 ENVIRONMENT="k0s" task ansible:bootstrap-parent
 ```
 
-**bootstrap development (k1s) cluster**
-This cluster is used for development of services/changes before being promoted to production
-```bash
-ENVIRONMENT="k1s" task ansible:bootstrap-child
-```
-
 **bootstrap production (k2s) cluster**
 This cluster is used for production services
 ```bash
