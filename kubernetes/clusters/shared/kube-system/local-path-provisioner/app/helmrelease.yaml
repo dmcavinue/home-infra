@@ -26,6 +26,12 @@ spec:
     keepHistory: false
   values:
     replicaCount: 1
+    resources:
+      limits:
+        memory: 128Mi
+      requests:
+        cpu: 100m
+        memory: 64Mi
     helperImage:
       repository: public.ecr.aws/docker/library/busybox
       tag: latest
