@@ -67,7 +67,7 @@ spec:
                       cpu: 2000m
                       memory: 2Gi
                     requests:
-                      cpu: 100m
+                      cpu: 300m
                       memory: 384Mi
       target:
         kind: Deployment
@@ -107,7 +107,7 @@ spec:
                       cpu: 2000m
                       memory: 2Gi
                     requests:
-                      cpu: 100m
+                      cpu: 500m
                       memory: 256Mi
       target:
         kind: Deployment
