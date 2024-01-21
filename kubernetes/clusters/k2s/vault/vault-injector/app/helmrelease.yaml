@@ -26,6 +26,13 @@ spec:
   uninstall:
     keepHistory: false
   values:
+    agent:
+      resources:
+        limits:
+          memory: 256Mi
+        requests:
+          cpu: 100m
+          memory: 128Mi
     injector:
       enabled: true
       externalVaultAddr: https://vault.logfold.com
