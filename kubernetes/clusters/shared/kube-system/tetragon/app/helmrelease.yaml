@@ -34,6 +34,12 @@ spec:
       image:
         repository: quay.io/cilium/tetragon
         tag: v1.0.2
+      resources:
+        limits:
+          memory: 768Mi
+        requests:
+          cpu: 100m
+          memory: 512Mi
       securityContext:
         privileged: true
       prometheus:
@@ -60,3 +66,9 @@ spec:
           override: ~
           repository: quay.io/cilium/hubble-export-stdout
           tag: v1.0.4
+        resources:
+          limits:
+            memory: 256Mi
+          requests:
+            cpu: 100m
+            memory: 128Mi
