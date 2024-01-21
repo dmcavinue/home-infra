@@ -32,7 +32,7 @@ spec:
     serviceAccount:
       create: true
       name: "external-secret"
-      automount: false
+      automountServiceAccountToken: false
     extraVolumeMounts:
     - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
       name: serviceaccount-token
@@ -98,7 +98,7 @@ spec:
           cpu: 10m
           memory: 32Mi
       serviceAccount:
-        automount: false
+        automountServiceAccountToken: false
       extraVolumeMounts:
       - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
         name: serviceaccount-token
