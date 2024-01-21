@@ -19,7 +19,8 @@ spec:
         apiVersion: apps/v1
         kind: StatefulSet
         metadata:
-          name: not-used
+          name: spire-server
+          namespace: cilium-spire
         spec:
           template:
             spec:
@@ -38,10 +39,6 @@ spec:
                   requests:
                     cpu: 50m
                     memory: 128Mi
-      target:
-        kind: StatefulSet
-        name: spire-server
-        namespace: cilium-spire
 # ---
 # apiVersion: kustomize.toolkit.fluxcd.io/v1
 # kind: Kustomization
