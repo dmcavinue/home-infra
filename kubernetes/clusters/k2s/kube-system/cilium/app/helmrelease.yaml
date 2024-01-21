@@ -79,8 +79,28 @@ spec:
               group: cert-manager.io
               kind: Issuer
               name: vault-issuer
+        etcd:
+          resources:
+            limits:
+              memory: 512Mi
+            requests:
+              cpu: 200m
+              memory: 256Mi
+          init:
+            resources:
+              limits:
+                memory: 512Mi
+              requests:
+                cpu: 200m
+                memory: 256Mi
         kvstoremesh:
           enabled: true
+          resources:
+            limits:
+              memory: 512Mi
+            requests:
+              cpu: 200m
+              memory: 256Mi
         service:
           type: LoadBalancer
           loadBalancerIP: "${CILIUM_MESH_LB_IP}"
@@ -185,7 +205,7 @@ spec:
         enabled: true
       resources:
         limits:
-          memory: 384Mi
+          memory: 512Mi
         requests:
           cpu: 50m
           memory: 256Mi
