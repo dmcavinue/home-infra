@@ -36,12 +36,24 @@ spec:
       serviceAccount:
         create: true
         name: "redis"
+      resources:
+        limits:
+          memory: 256Mi
+        requests:
+          cpu: 100m
+          memory: 128Mi
     replica:
       persistence:
         enabled: false
       serviceAccount:
         create: false
         name: "redis"
+      resources:
+        limits:
+          memory: 256Mi
+        requests:
+          cpu: 100m
+          memory: 128Mi
     sentinel:
       enabled: true
       masterSet: redis-master
@@ -50,6 +62,12 @@ spec:
         failureThreshold: 2
       persistence:
         enabled: false
+      resources:
+        limits:
+          memory: 256Mi
+        requests:
+          cpu: 100m
+          memory: 128Mi
     metrics:
       enabled: true
       serviceMonitor:
