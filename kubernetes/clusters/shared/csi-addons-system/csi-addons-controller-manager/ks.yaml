@@ -14,3 +14,18 @@ spec:
   interval: 30m
   retryInterval: 1m
   timeout: 5m
+  patches:
+    - patch: |-
+        apiVersion: apps/v1
+        kind: Deployment
+        metadata:
+          name: not-used
+        spec:
+          template:
+            spec:
+              containers:
+              - name: manager
+                image: quay.io/csiaddons/k8s-controller:v0.8.0
+      target:
+        kind: Deployment
+        labelSelector: "kustomize.toolkit.fluxcd.io/name=shared-apps-csi-addons-controller-manager"
