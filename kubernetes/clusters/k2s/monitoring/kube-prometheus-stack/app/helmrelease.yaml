@@ -159,6 +159,12 @@ spec:
       enabled: true
     prometheus-node-exporter:
       fullnameOverride: node-exporter
+      resources:
+        limits:
+          memory: 128Mi
+        requests:
+          cpu: 100m
+          memory: 64Mi
       prometheus:
         monitor:
           enabled: true
