@@ -15,3 +15,20 @@ patches:
     target:
       group: networking.k8s.io
       kind: NetworkPolicy
+  - patch: |
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        name: helm-controller
+      spec:
+        template:
+          spec:
+            containers:
+              - name: manager
+                resources:
+                  limits:
+                    cpu: '2'
+                    memory: 2Gi
+                  requests:
+                    cpu: 300m
+                    memory: 384Mi
