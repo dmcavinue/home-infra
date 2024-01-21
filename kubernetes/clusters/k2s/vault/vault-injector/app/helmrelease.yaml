@@ -34,5 +34,17 @@ spec:
       metrics:
         enabled: true
       authPath: "auth/kubernetes/${ENVIRONMENT}"
+      resources:
+        limits:
+          memory: 128Mi
+        requests:
+          cpu: 100m
+          memory: 64Mi
     csi:
       enabled: true
+      resources:
+        limits:
+          memory: 256Mi
+        requests:
+          cpu: 100m
+          memory: 128Mi
