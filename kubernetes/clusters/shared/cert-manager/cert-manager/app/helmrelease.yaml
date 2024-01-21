@@ -62,6 +62,12 @@ spec:
       servicemonitor:
         enabled: true
         prometheusInstance: monitoring
+    resources:
+      limits:
+        memory: 256Mi
+      requests:
+        cpu: 50m
+        memory: 128Mi
     webhook:
       automountServiceAccountToken: false
       serviceAccount:
@@ -89,6 +95,12 @@ spec:
       - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
         name: serviceaccount-token
         readOnly: true
+      resources:
+        limits:
+          memory: 128Mi
+        requests:
+          cpu: 50m
+          memory: 64Mi
     cainjector:
       automountServiceAccountToken: false
       serviceAccount:
@@ -116,6 +128,12 @@ spec:
       - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
         name: serviceaccount-token
         readOnly: true
+      resources:
+        limits:
+          memory: 384Mi
+        requests:
+          cpu: 50m
+          memory: 256Mi
       startupapicheck:
         automountServiceAccountToken: false
         serviceAccount:
