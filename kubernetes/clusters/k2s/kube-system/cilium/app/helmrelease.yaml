@@ -84,6 +84,13 @@ spec:
         service:
           type: LoadBalancer
           loadBalancerIP: "${CILIUM_MESH_LB_IP}"
+        resources:
+      resources:
+        limits:
+          memory: 384Mi
+        requests:
+          cpu: 50m
+          memory: 256Mi
     containerRuntime:
       integration: containerd
       socketPath: /var/run/k3s/containerd/containerd.sock
