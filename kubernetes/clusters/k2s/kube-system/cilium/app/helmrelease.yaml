@@ -29,13 +29,18 @@ spec:
     autoDirectNodeRoutes: false
     enable-ipv4-masquerade: true
     policyAuditMode: true
+    resources:
+      limits:
+        memory: 768Mi
+      requests:
+        cpu: 200m
+        memory: 512Mi
     initResources:
-      resources:
-        limits:
-          memory: 128Mi
-        requests:
-          cpu: 100m
-          memory: 64Mi
+      limits:
+        memory: 128Mi
+      requests:
+        cpu: 100m
+        memory: 64Mi
     authentication:
       mutual:
         spire:
