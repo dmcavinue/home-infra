@@ -163,6 +163,12 @@ spec:
         prometheus:
           serviceMonitor:
             enabled: true
+        resources:
+          limits:
+            memory: 128Mi
+          requests:
+            cpu: 100m
+            memory: 64Mi
       ui:
         enabled: false
         rollOutPods: true
