@@ -28,6 +28,13 @@ spec:
   uninstall:
     keepHistory: false
   values:
+    master:
+      resources:
+        limits:
+          memory: 256Mi
+        requests:
+          cpu: 100m
+          memory: 128Mi
     worker:
       config:
         core:
