@@ -112,6 +112,12 @@ spec:
           io.cilium/global-service: "true"
       prometheusSpec:
         replicas: 1
+        resources:
+          limits:
+            memory: 7Gi
+          requests:
+            cpu: 400m
+            memory: 4Gi
         replicaExternalLabelName: ""
         ruleSelectorNilUsesHelmValues: false
         serviceMonitorSelectorNilUsesHelmValues: false
