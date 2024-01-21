@@ -52,6 +52,10 @@ spec:
             image:
               repository: dmcavinue/excalidraw
               tag: 0.0.1
+            env:
+              #REACT_APP_LIBRARY_URL: https://libraries.excalidraw.com
+              REACT_APP_WS_SERVER_URL: "https://draw.nucstack.com/room"
+              REACT_APP_PORTAL_URL: ""
             probes:
               liveness: &probes
                 enabled: true
