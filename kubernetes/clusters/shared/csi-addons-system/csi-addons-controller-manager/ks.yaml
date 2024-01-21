@@ -28,4 +28,5 @@ spec:
                 image: quay.io/csiaddons/k8s-controller:v0.8.0
       target:
         kind: Deployment
-        labelSelector: "kustomize.toolkit.fluxcd.io/name=shared-apps-csi-addons-controller-manager"
+        name: csi-addons-controller-manager
+        namespace: csi-addons-system
