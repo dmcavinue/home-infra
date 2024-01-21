@@ -1,0 +1,22 @@
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: spire-server
+  namespace: cilium-spire
+  labels:
+    app.kubernetes.io/managed-by: Helm
+    helm.toolkit.fluxcd.io/name: cilium
+    helm.toolkit.fluxcd.io/namespace: kube-system
+  annotations:
+    meta.helm.sh/release-name: cilium
+    meta.helm.sh/release-namespace: kube-system
+rules:
+  - verbs:
+      - patch
+      - get
+      - list
+    apiGroups:
+      - ''
+    resources:
+      - configmaps
