@@ -31,5 +31,11 @@ spec:
     controller:
       serviceMonitor:
         create: true
+      resources:
+        limits:
+          memory: 128Mi
+        requests:
+          cpu: 100m
+          memory: 64Mi
     webhook:
       enabled: false
