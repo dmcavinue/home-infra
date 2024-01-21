@@ -1,0 +1,52 @@
+---
+groups:
+
+  - name: zwave-js-ui
+    rules:
+      - alert: ZwaveMQTTUnreachable
+        expr: |
+          sum(count_over_time({app="zwave-js-ui"} |~ "(?i)error while connecting mqtt"[2m])) > 0
+        for: 2m
+        labels:
+          severity: critical
+          category: logs
+        annotations:
+          app: "{{ $labels.app }}"
+          summary: "{{ $labels.app }} is unable to reach MQTT"
+
+  - name: home-assistant
+    rules:
+      - alert: HomeAssistantPostgresUnreachable
+        expr: |
+          sum by (app) (count_over_time({app="home-assistant"} |~ "(?i)error in database connectivity"[2m])) > 0
+        for: 2m
+        labels:
+          severity: critical
+          category: logs
+        annotations:
+          app: "{{ $labels.app }}"
+          summary: "{{ $labels.app }} is unable to connect to postgres"
+
+  - name: unifi-ssh-auth
+    rules:
+      - alert: UnifiSSHAuthEvent
+        expr: |
+          sum by (app) (count_over_time({app="unifi-auth"} |~ "(?i)session opened"[2m])) > 0
+        labels:
+          severity: info
+          category: logs
+        annotations:
+          app: "{{ $labels.app }}"
+          summary: "{{ $labels.app }} ssh session opened"
+
+  - name: unifi-protect-client
+    rules:
+      - alert: UnifiProtectClient
+        expr: |
+          sum by (app) (count_over_time({app="unifi-protect-clientnotify"} |~ "(?i)userName"[2m])) > 0
+        labels:
+          severity: info
+          category: logs
+        annotations:
+          app: "{{ $labels.app }}"
+          summary: "{{ $labels.app }} protect client connected"

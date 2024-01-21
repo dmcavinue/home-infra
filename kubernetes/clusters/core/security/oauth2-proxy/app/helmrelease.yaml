@@ -1,0 +1,65 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: oauth2-proxy
+  namespace: security
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: oauth2-proxy
+      version: 6.23.1
+      sourceRef:
+        kind: HelmRepository
+        name: oauth2-proxy
+        namespace: flux-system
+      interval: 10m
+  test:
+    enable: false
+  install:
+    remediation:
+      retries: 5
+  upgrade:
+    remediation:
+      retries: 3
+      remediateLastFailure: true
+    cleanupOnFail: true
+  rollback:
+    timeout: 10m
+    recreate: true
+    cleanupOnFail: true
+  values:
+    image:
+      repository: quay.io/oauth2-proxy/oauth2-proxy
+    livenessProbe:
+      enabled: false
+    readinessProbe:
+      enabled: false
+    config:
+      existingSecret: oauth2-proxy-secret
+      configFile: |-
+        provider = "oidc"
+        oidc_issuer_url = "https://dex.logfold.com"
+        auth_logging = true
+        cookie_samesite = "lax"
+        cookie_httponly = true
+        cookie_name = "_oauth"
+        cookie_domains = [ ".logfold.com" ]
+        cookie_refresh = "1h"
+        cookie_secure = true
+        email_domains = [ '*' ]
+        pass_access_token = true
+        pass_authorization_header = true
+        pass_basic_auth = false
+        request_logging = true
+        session_store_type = "cookie"
+        silence_ping_logging = true
+        set_authorization_header = true
+        set_xauthrequest = true
+        skip_jwt_bearer_tokens = true
+        skip_provider_button = true
+        ssl_insecure_skip_verify = false
+        standard_logging = true
+        upstreams = [ "static://200" ]
+        whitelist_domains = [ ".logfold.com" ]

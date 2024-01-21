@@ -1,0 +1,12 @@
+---
+kubernetes:
+  vars:
+    ansible_user: k8s
+    ansible_ssh_port: 22
+  children:
+    master:
+      hosts:
+        core-1:
+          ansible_host: 192.168.8.2
+          ceph_drives:
+            - /dev/disk/by-id/nvme-PM981_NVMe_Samsung_512GB_______S3ZHNA0KA01345

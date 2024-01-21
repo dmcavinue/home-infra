@@ -1,0 +1,30 @@
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: grafana
+  namespace: monitoring
+  annotations:
+    kyverno.io/ignore: "true"
+spec:
+  instances: 1
+  inheritedMetadata:
+    labels:
+      kube-image-keeper.enix.io/image-caching-policy: ignore
+  primaryUpdateStrategy: unsupervised
+  bootstrap:
+    initdb:
+      database: grafana
+      owner: grafana
+      secret:
+        name: grafana-database-user
+  storage:
+    size: 2Gi
+    storageClass: local-path
+  enableSuperuserAccess: true
+  superuserSecret:
+    name: grafana-database-superuser
+  postgresql:
+    parameters:
+      max_connections: "600"
+      shared_buffers: 512MB
