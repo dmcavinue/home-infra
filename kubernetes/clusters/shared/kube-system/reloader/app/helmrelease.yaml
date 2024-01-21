@@ -31,9 +31,9 @@ spec:
       podMonitor:
         enabled: false
         namespace: *namespace
-      resources:
-        limits:
-          memory: 256Mi
-        requests:
-          cpu: 100m
-          memory: 128Mi
+    resources:
+      limits:
+        memory: 256Mi
+      requests:
+        cpu: 100m
+        memory: 128Mi
