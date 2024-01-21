@@ -29,6 +29,13 @@ spec:
     autoDirectNodeRoutes: false
     enable-ipv4-masquerade: true
     policyAuditMode: true
+    initResources:
+      resources:
+        limits:
+          memory: 128Mi
+        requests:
+          cpu: 100m
+          memory: 64Mi
     authentication:
       mutual:
         spire:
@@ -53,6 +60,12 @@ spec:
                 readOnlyRootFilesystem: true
                 capabilities:
                   drop: ["ALL"]
+              resources:
+                limits:
+                  memory: 256Mi
+                requests:
+                  cpu: 100m
+                  memory: 128Mi
     bpf:
       masquerade: true
     bgp:
