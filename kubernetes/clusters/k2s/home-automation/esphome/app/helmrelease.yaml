@@ -76,6 +76,8 @@ spec:
               ESPHOME_DASHBOARD_USE_PING: true
               PLATFORMIO_CORE_DIR: /config/.plattformio
               PLATFORMIO_GLOBALLIB_DIR: /config/.plattformioLibs
+              PLATFORMIO_CACHE_DIR: /config/.cache
+              PLATFORMIO_BUILD_CACHE_DIR: /config/.build_cache
     service:
       main:
         ports:
