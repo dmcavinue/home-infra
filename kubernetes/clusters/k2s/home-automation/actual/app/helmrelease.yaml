@@ -28,7 +28,8 @@ spec:
   values:
     controllers:
       main:
-        deployment:
+        type: statefulset
+        statefulset:
           volumeClaimTemplates:
             - name: config
               globalMounts:
