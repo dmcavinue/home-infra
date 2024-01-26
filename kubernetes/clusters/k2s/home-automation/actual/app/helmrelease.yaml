@@ -26,15 +26,9 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    defaultPodOptions:
-      securityContext:
-        fsGroup: 1001
-        runAsUser: 1001
-        runAsGroup: 1001
     controllers:
       main:
-        type: statefulset
-        statefulset:
+        deployment:
           volumeClaimTemplates:
             - name: config
               globalMounts:
@@ -44,6 +38,13 @@ spec:
               storageClass: ceph-pool
         annotations:
           reloader.stakater.com/auto: "true"
+        pod:
+          enableServiceLinks: false
+          securityContext:
+            runAsUser: 1001
+            runAsGroup: 1001
+            fsGroup: 1001
+            fsGroupChangePolicy: "OnRootMismatch"
         containers:
           main:
             securityContext:
@@ -60,17 +61,13 @@ spec:
                 type: RuntimeDefault
             resources:
               limits:
-                memory: 800Mi
+                memory: 512M
               requests:
-                cpu: 200m
-                memory: 256Mi
+                cpu: 12m
+                memory: 128M
             image:
               repository: dmcavinue/actual-server
               tag: 24.1.0
-            env:
-              ESPHOME_DASHBOARD_USE_PING: true
-              PLATFORMIO_CORE_DIR: /config/.plattformio
-              PLATFORMIO_GLOBALLIB_DIR: /config/.plattformioLibs
     service:
       main:
         ports:
