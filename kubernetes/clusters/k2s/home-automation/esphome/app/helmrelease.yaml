@@ -31,11 +31,11 @@ spec:
     - name: volsync
       namespace: volsync
   values:
-    # defaultPodOptions:
-    #   securityContext:
-    #     fsGroup: 1001
-    #     runAsUser: 1001
-    #     runAsGroup: 1001
+    defaultPodOptions:
+      securityContext:
+        fsGroup: 1001
+        runAsUser: 1001
+        runAsGroup: 1001
     controllers:
       main:
         type: statefulset
@@ -51,18 +51,18 @@ spec:
           reloader.stakater.com/auto: "true"
         containers:
           main:
-            # securityContext:
-            #   fsGroup: 1001
-            #   runAsUser: 1001
-            #   runAsGroup: 1001
-            #   capabilities:
-            #     drop:
-            #       - ALL
-            #   runAsNonRoot: true
-            #   readOnlyRootFilesystem: true
-            #   allowPrivilegeEscalation: false
-            #   seccompProfile:
-            #     type: RuntimeDefault
+            securityContext:
+              fsGroup: 1001
+              runAsUser: 1001
+              runAsGroup: 1001
+              capabilities:
+                drop:
+                  - ALL
+              runAsNonRoot: true
+              readOnlyRootFilesystem: true
+              allowPrivilegeEscalation: false
+              seccompProfile:
+                type: RuntimeDefault
             resources:
               limits:
                 memory: 1500Mi
@@ -84,6 +84,11 @@ spec:
     ingress:
       main:
         enabled: false
+    persistence:
+      esphome-cache:
+        type: emptyDir
+        globalMounts:
+          - path: /.cache
     serviceAccount:
       create: true
       name: esphome
