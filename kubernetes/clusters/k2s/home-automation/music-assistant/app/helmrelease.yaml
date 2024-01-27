@@ -88,6 +88,8 @@ spec:
       name: music-assistant
     persistence:
       config:
+        enabled: false
+      data:
         enabled: true
         existingClaim: music-assistant
       tmp:
