@@ -88,3 +88,5 @@ spec:
       config:
         enabled: true
         existingClaim: music-assistant
+      tmp:
+        type: emptyDir
