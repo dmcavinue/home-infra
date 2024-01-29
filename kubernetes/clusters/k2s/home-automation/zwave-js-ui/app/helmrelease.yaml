@@ -56,7 +56,7 @@ spec:
             #   runAsGroup: 0
             image:
               repository: ghcr.io/zwave-js/zwave-js-ui
-              tag: 9.8.1
+              tag: 9.8.2
               imagePullPolicy: IfNotPresent
             env:
               TZ: America/New_York
