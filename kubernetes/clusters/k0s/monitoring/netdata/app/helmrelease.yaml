@@ -74,4 +74,6 @@ spec:
     k8sState:
       enabled: true
       persistence:
-        enabled: false
+        enabled: true
+        storageclass: "local-path"
+        volumesize: 1Gi
