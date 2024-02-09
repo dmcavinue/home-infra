@@ -26,9 +26,6 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    autoDirectNodeRoutes: false
-    enable-ipv4-masquerade: true
-    #policyAuditMode: true
     authentication:
       mutual:
         spire:
@@ -53,8 +50,16 @@ spec:
                 readOnlyRootFilesystem: true
                 capabilities:
                   drop: ["ALL"]
+    autoDirectNodeRoutes: false
+    bandwidthManager:
+      enabled: true
+      bbr: true
     bpf:
       masquerade: true
+    cgroup:
+      automount:
+        enabled: false
+      hostRoot: /sys/fs/cgroup
     bgp:
       enabled: false
     cluster:
@@ -84,6 +89,9 @@ spec:
     containerRuntime:
       integration: containerd
       socketPath: /var/run/k3s/containerd/containerd.sock
+    enable-ipv4-masquerade: true
+    #devices: eth0
+    enableRuntimeDeviceDetection: true
     endpointRoutes:
       enabled: true
     endpointStatus:
@@ -174,6 +182,7 @@ spec:
           enabled: true
       dashboards:
         enabled: true
+    #policyAuditMode: true
     prometheus:
       enabled: true
       serviceMonitor:
@@ -181,7 +190,23 @@ spec:
     dashboards:
       enabled: true
     rollOutCiliumPods: true
-    securityContext:
-      privileged: true
     routingMode: native
+    securityContext:
+      capabilities:
+        ciliumAgent:
+          - CHOWN
+          - KILL
+          - NET_ADMIN
+          - NET_RAW
+          - IPC_LOCK
+          - SYS_ADMIN
+          - SYS_RESOURCE
+          - DAC_OVERRIDE
+          - FOWNER
+          - SETGID
+          - SETUID
+        cleanCiliumState:
+          - NET_ADMIN
+          - SYS_ADMIN
+          - SYS_RESOURCE
     tunnel: disabled
