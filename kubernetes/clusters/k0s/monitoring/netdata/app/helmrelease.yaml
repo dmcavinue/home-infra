@@ -77,3 +77,64 @@ spec:
         enabled: true
         storageclass: "local-path"
         volumesize: 1Gi
+      configs:
+        netdata:
+          enabled: true
+          path: /etc/netdata/netdata.conf
+          data: |
+            [global]
+              hostname = ${ENVIRONMENT}
+            [db]
+              mode = ram
+            [health]
+              enabled = no
+            [ml]
+              enabled = no
+            [plugins]
+              timex = no
+              checks = no
+              idlejitter = no
+              tc = no
+              diskspace = no
+              proc = no
+              cgroups = no
+              enable running new plugins = no
+              slabinfo = no
+              perf = no
+              go.d = yes
+              ioping = no
+              ebpf = no
+              charts.d = no
+              apps = no
+              python.d = no
+              fping = no
+        stream:
+          enabled: true
+          path: /etc/netdata/stream.conf
+          data: |
+            [stream]
+              enabled = {{ ternary "yes" "no" .Values.parent.enabled }}
+              destination = netdata:{{ .Values.service.port }}
+              api key = 11111111-2222-3333-4444-555555555555
+              timeout seconds = 60
+              buffer size bytes = 1048576
+              reconnect delay seconds = 5
+              initial clock resync iterations = 60
+        exporting:
+          enabled: false
+          path: /etc/netdata/exporting.conf
+          data: ""
+        go.d:
+          enabled: true
+          path: /etc/netdata/go.d.conf
+          data: |
+            default_run: no
+            modules:
+              k8s_state: yes
+        go.d-k8s_state:
+          enabled: true
+          path: /etc/netdata/go.d/k8s_state.conf
+          data: |
+            jobs:
+              - name: k8s_state
+                update_every: 1
