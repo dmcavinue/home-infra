@@ -50,10 +50,28 @@ spec:
                 readOnlyRootFilesystem: true
                 capabilities:
                   drop: ["ALL"]
+              resources:
+                limits:
+                  memory: 256Mi
+                requests:
+                  cpu: 100m
+                  memory: 128Mi
     autoDirectNodeRoutes: false
     bandwidthManager:
       enabled: true
       bbr: true
+    resources:
+      limits:
+        memory: 768Mi
+      requests:
+        cpu: 200m
+        memory: 512Mi
+    initResources:
+      limits:
+        memory: 128Mi
+      requests:
+        cpu: 100m
+        memory: 64Mi
     bpf:
       masquerade: true
     cgroup:
@@ -81,11 +99,37 @@ spec:
               group: cert-manager.io
               kind: Issuer
               name: vault-issuer
+        etcd:
+          resources:
+            limits:
+              memory: 512Mi
+            requests:
+              cpu: 200m
+              memory: 256Mi
+          init:
+            resources:
+              limits:
+                memory: 512Mi
+              requests:
+                cpu: 200m
+                memory: 256Mi
         kvstoremesh:
           enabled: true
+          resources:
+            limits:
+              memory: 512Mi
+            requests:
+              cpu: 200m
+              memory: 256Mi
         service:
           type: LoadBalancer
           loadBalancerIP: "${CILIUM_MESH_LB_IP}"
+        resources:
+          limits:
+            memory: 384Mi
+          requests:
+            cpu: 50m
+            memory: 256Mi
     containerRuntime:
       integration: containerd
       socketPath: /var/run/k3s/containerd/containerd.sock
@@ -142,6 +186,12 @@ spec:
         prometheus:
           serviceMonitor:
             enabled: true
+        resources:
+          limits:
+            memory: 128Mi
+          requests:
+            cpu: 100m
+            memory: 64Mi
       ui:
         enabled: true
         rollOutPods: true
@@ -183,6 +233,12 @@ spec:
       dashboards:
         enabled: true
     #policyAuditMode: true
+      resources:
+        limits:
+          memory: 512Mi
+        requests:
+          cpu: 50m
+          memory: 256Mi
     prometheus:
       enabled: true
       serviceMonitor:
