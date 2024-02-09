@@ -71,5 +71,5 @@ spec:
               diskspace = no
     child:
       enabled: false
-    k8sState:
-      enabled: false
+    # k8sState:
+    #   enabled: false
