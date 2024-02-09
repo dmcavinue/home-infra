@@ -39,10 +39,10 @@ spec:
       TZ: America/New_York
     parent:
       enabled: true
-      # alarms:
-      #   storageclass: "ceph-block"
-      # database:
-      #   storageclass: "ceph-block"
+      alarms:
+        storageclass: "local-path"
+      database:
+        storageclass: "local-path"
     child:
       enabled: false
     k8sState:
