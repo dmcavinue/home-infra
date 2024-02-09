@@ -11,6 +11,7 @@ resources:
   - ./kube-prometheus-stack/ks.yaml
   #- ./kubeshark/ks.yaml
   - ./loki/ks.yaml
+  - ./netdata/ks.yaml
   - ./thanos/ks.yaml
   - ./unpoller/ks.yaml
   - ./vector/ks.yaml
