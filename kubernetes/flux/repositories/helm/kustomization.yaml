@@ -24,6 +24,7 @@ resources:
   - ./kyverno.yaml
   - ./metrics-server.yaml
   - ./minio.yaml
+  - ./netdata.yaml
   - ./node-feature-discovery.yaml
   - ./oauth2-proxy.yaml
   - ./piraeus.yaml
