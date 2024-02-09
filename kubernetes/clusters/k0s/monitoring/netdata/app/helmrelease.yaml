@@ -35,11 +35,11 @@ spec:
       tls:
         - hosts:
             - *host
-    env:
-      TZ: America/New_York
-      DO_NOT_TRACK: "1"
     parent:
       enabled: true
+      env:
+        TZ: America/New_York
+        DO_NOT_TRACK: "1"
       alarms:
         storageclass: "local-path"
         volumesize: 1Gi
