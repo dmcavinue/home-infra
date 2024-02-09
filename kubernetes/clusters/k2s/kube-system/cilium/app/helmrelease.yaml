@@ -232,13 +232,13 @@ spec:
           enabled: true
       dashboards:
         enabled: true
-    policyAuditMode: true
       resources:
         limits:
           memory: 512Mi
         requests:
           cpu: 50m
           memory: 256Mi
+    policyAuditMode: true
     prometheus:
       enabled: true
       serviceMonitor:
