@@ -37,12 +37,15 @@ spec:
             - *host
     env:
       TZ: America/New_York
+      DO_NOT_TRACK: "1"
     parent:
       enabled: true
       alarms:
         storageclass: "local-path"
+        volumesize: 1Gi
       database:
         storageclass: "local-path"
+        volumesize: 2Gi
     child:
       enabled: false
     k8sState:
