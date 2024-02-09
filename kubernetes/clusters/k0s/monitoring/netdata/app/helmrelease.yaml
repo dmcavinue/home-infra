@@ -52,7 +52,7 @@ spec:
           path: /etc/netdata/netdata.conf
           data: |
             [global]
-              hostname = ${DOMAIN}
+              hostname = ${ENVIRONMENT}
             [db]
               mode = dbengine
 
