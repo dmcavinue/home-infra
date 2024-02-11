@@ -21,7 +21,7 @@ spec:
     #   secret:
     #     name: immich-database-user
     recovery:
-      source: &previousCluster immich-2
+      source: &previousCluster immich-3
   storage:
     size: 5Gi
     storageClass: local-path
@@ -51,7 +51,7 @@ spec:
         maxParallel: 8
       destinationPath: s3://immich
       endpointURL: "https://minio.logfold.com"
-      serverName: &currentCluster immich-3
+      serverName: &currentCluster immich-4
       s3Credentials:
         accessKeyId:
           name: immich-database-superuser
