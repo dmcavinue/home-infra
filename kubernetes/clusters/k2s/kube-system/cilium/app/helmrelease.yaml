@@ -119,7 +119,7 @@ spec:
               memory: 256Mi
         service:
           type: LoadBalancer
-          loadBalancerIP: "${CILIUM_MESH_LB_IP}"
+          loadBalancerIP: "192.168.8.51"
         resources:
           limits:
             memory: 384Mi
