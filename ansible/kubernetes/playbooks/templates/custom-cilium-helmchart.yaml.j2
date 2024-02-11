@@ -1,5 +1,4 @@
 ---
-# https://docs.k3s.io/helm
 apiVersion: helm.cattle.io/v1
 kind: HelmChart
 metadata:
@@ -9,7 +8,7 @@ spec:
   repo: https://helm.cilium.io/
   chart: cilium
   # renovate: datasource=helm depName=cilium registryUrl=https://helm.cilium.io
-  version: "1.15.0"
+  version: 1.15.0
   targetNamespace: kube-system
   bootstrap: true
   valuesContent: |-
@@ -18,37 +17,21 @@ spec:
       masquerade: true
     bgp:
       enabled: false
+    cgroup:
+      automount:
+        enabled: false
+      hostRoot: /sys/fs/cgroup
     cluster:
-      name: {{ lookup('env', 'ENVIRONMENT') }}
       id: 1
+      name: {{ lookup('env', 'ENVIRONMENT') }}
     containerRuntime:
       integration: containerd
       socketPath: /var/run/k3s/containerd/containerd.sock
-    gatewayAPI:
-      enabled: false
+    enableRuntimeDeviceDetection: true
     endpointRoutes:
       enabled: true
     hubble:
-      enabled: true
-      metrics:
-        enableOpenMetrics: true
-        enabled:
-          - dns:query;ignoreAAAA
-          - drop
-          - tcp
-          - flow
-          - port-distribution
-          - icmp
-          - http
-        serviceMonitor:
-          enabled: true
-          interval: 30s
-      relay:
-        enabled: true
-        rollOutPods: true
-      ui:
-        enabled: true
-        rollOutPods: true
+      enabled: false
     ipam:
       mode: kubernetes
     ipv4NativeRoutingCIDR: "{{ k3s_server['cluster-cidr'] }}"
@@ -69,6 +52,22 @@ spec:
       replicas: 1
       rollOutPods: true
     rollOutCiliumPods: true
+    routingMode: native
     securityContext:
-      privileged: true
-    tunnel: disabled
+      capabilities:
+        ciliumAgent:
+          - CHOWN
+          - KILL
+          - NET_ADMIN
+          - NET_RAW
+          - IPC_LOCK
+          - SYS_ADMIN
+          - SYS_RESOURCE
+          - DAC_OVERRIDE
+          - FOWNER
+          - SETGID
+          - SETUID
+        cleanCiliumState:
+          - NET_ADMIN
+          - SYS_ADMIN
+          - SYS_RESOURCE
