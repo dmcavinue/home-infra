@@ -26,21 +26,36 @@ spec:
   uninstall:
     keepHistory: false
   values:
+    autoDirectNodeRoutes: false
+    enable-ipv4-masquerade: true
+    policyAuditMode: true
+    resources:
+      limits:
+        memory: 768Mi
+      requests:
+        cpu: 200m
+        memory: 512Mi
+    initResources:
+      limits:
+        memory: 128Mi
+      requests:
+        cpu: 100m
+        memory: 64Mi
     authentication:
       mutual:
         spire:
-          enabled: false
+          enabled: true
           install:
-            enabled: false
+            enabled: true
             agent:
-              enabled: false
+              enabled: true
               securityContext:
                 allowPrivilegeEscalation: false
                 readOnlyRootFilesystem: false
                 capabilities:
                   drop: ["ALL"]
             server:
-              enabled: false
+              enabled: true
               dataStorage:
                 size: 1Gi
                 accessMode: ReadWriteOnce
@@ -56,28 +71,8 @@ spec:
                 requests:
                   cpu: 100m
                   memory: 128Mi
-    autoDirectNodeRoutes: false
-    bandwidthManager:
-      enabled: true
-      bbr: true
-    resources:
-      limits:
-        memory: 768Mi
-      requests:
-        cpu: 200m
-        memory: 512Mi
-    initResources:
-      limits:
-        memory: 128Mi
-      requests:
-        cpu: 100m
-        memory: 64Mi
     bpf:
       masquerade: true
-    cgroup:
-      automount:
-        enabled: false
-      hostRoot: /sys/fs/cgroup
     bgp:
       enabled: false
     cluster:
@@ -91,6 +86,7 @@ spec:
         - name: k0s
           address: k0s.mesh.cilium.io
           port: 2379
+
       apiserver:
         tls:
           auto:
@@ -133,9 +129,6 @@ spec:
     containerRuntime:
       integration: containerd
       socketPath: /var/run/k3s/containerd/containerd.sock
-    enable-ipv4-masquerade: true
-    #devices: eth0
-    enableRuntimeDeviceDetection: true
     endpointRoutes:
       enabled: true
     endpointStatus:
@@ -238,7 +231,6 @@ spec:
         requests:
           cpu: 50m
           memory: 256Mi
-    policyAuditMode: true
     prometheus:
       enabled: true
       serviceMonitor:
@@ -246,23 +238,7 @@ spec:
     dashboards:
       enabled: true
     rollOutCiliumPods: true
-    routingMode: native
     securityContext:
-      capabilities:
-        ciliumAgent:
-          - CHOWN
-          - KILL
-          - NET_ADMIN
-          - NET_RAW
-          - IPC_LOCK
-          - SYS_ADMIN
-          - SYS_RESOURCE
-          - DAC_OVERRIDE
-          - FOWNER
-          - SETGID
-          - SETUID
-        cleanCiliumState:
-          - NET_ADMIN
-          - SYS_ADMIN
-          - SYS_RESOURCE
-    #tunnel: disabled
+      privileged: true
+    routingMode: native
+    tunnel: disabled
