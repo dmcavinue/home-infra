@@ -119,7 +119,7 @@ spec:
               memory: 256Mi
         service:
           type: LoadBalancer
-          loadBalancerIP: "192.168.8.51"
+          loadBalancerIP: "${CILIUM_MESH_LB_IP}"
         resources:
           limits:
             memory: 384Mi
@@ -135,7 +135,7 @@ spec:
       enabled: true
       status: "policy"
     gatewayAPI:
-      enabled: true
+      enabled: false
       secretsNamespace:        
         create: false        
         name: ingress
