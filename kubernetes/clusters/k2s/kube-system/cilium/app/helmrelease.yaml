@@ -29,18 +29,18 @@ spec:
     authentication:
       mutual:
         spire:
-          enabled: true
+          enabled: false
           install:
-            enabled: true
+            enabled: false
             agent:
-              enabled: true
+              enabled: false
               securityContext:
                 allowPrivilegeEscalation: false
                 readOnlyRootFilesystem: false
                 capabilities:
                   drop: ["ALL"]
             server:
-              enabled: true
+              enabled: false
               dataStorage:
                 size: 1Gi
                 accessMode: ReadWriteOnce
