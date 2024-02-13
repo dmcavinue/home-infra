@@ -58,7 +58,8 @@ spec:
             k8s.v1.cni.cncf.io/networks: |
               [{
                 "name":"iot-vlan",
-                "namespace": "kube-system"
+                "namespace": "kube-system",
+                "ips": ["19.168.4.242/24"]
               }]
           securityContext:
             runAsUser: 1001
