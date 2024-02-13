@@ -33,8 +33,8 @@ spec:
         containers:
           main:
             image:
-              repository: dmcavinue/music-assistant
-              tag: 0.0.1
+              repository: alpine
+              tag: 3
               imagePullPolicy: IfNotPresent
             probes:
               liveness:
@@ -43,10 +43,10 @@ spec:
                 enabled: false
               startup:
                 enabled: false
-            securityContext:
-              allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
-              capabilities: { drop: ["ALL"] }
+            # securityContext:
+            #   allowPrivilegeEscalation: false
+            #   readOnlyRootFilesystem: true
+            #   capabilities: { drop: ["ALL"] }
             resources:
               requests:
                 cpu: 300m
@@ -62,10 +62,11 @@ spec:
                 "ips": ["192.168.4.242/24"]
               }]
           securityContext:
-            runAsUser: 1001
-            runAsGroup: 1001
-            runAsNonRoot: true
-            fsGroup: 1001
+            privileged: true
+            runAsUser: 0
+            runAsGroup: 0
+            runAsNonRoot: false
+            fsGroup: 0
             fsGroupChangePolicy: OnRootMismatch
     service:
       main:
