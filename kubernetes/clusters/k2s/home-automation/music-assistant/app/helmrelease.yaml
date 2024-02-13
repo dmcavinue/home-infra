@@ -24,8 +24,8 @@ spec:
     remediation:
       retries: 3
   values:
-    defaultPodOptions:
-      hostNetwork: true
+    # defaultPodOptions:
+    #   hostNetwork: true
     controllers:
       main:
         annotations:
