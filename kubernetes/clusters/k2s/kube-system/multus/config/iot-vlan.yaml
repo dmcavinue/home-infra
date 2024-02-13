@@ -17,7 +17,7 @@ spec:
             "ips": true
           },
           "ipam": {
-            "type": "dhcp",
+            "type": "static",
             "routes": [
               { "dst": "192.168.4.0/24", "gw": "192.168.4.1" }
             ]
