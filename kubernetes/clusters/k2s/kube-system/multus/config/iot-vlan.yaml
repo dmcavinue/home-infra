@@ -10,12 +10,17 @@ spec:
       "name": "iot-vlan",
       "plugins": [
         {
-          "type": "vlan",
+          "type": "macvlan",
           "master": "enp6s19",
-          "mtu": 1500,
-          "vlanId": 40,
+          "mode": "bridge",
+          "capabilities": {
+            "ips": true
+          },
           "ipam": {
-            "type": "dhcp"
+            "type": "dhcp",
+            "routes": [
+              { "dst": "192.168.4.0/24", "gw": "192.168.4.1" }
+            ]
           }
         }
       ]
