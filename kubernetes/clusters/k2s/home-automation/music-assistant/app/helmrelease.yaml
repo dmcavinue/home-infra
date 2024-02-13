@@ -61,6 +61,7 @@ spec:
                 "namespace": "kube-system",
                 "ips": ["192.168.4.242/24"]
               }]
+          command: [cat]
           securityContext:
             privileged: true
             runAsUser: 0
