@@ -70,12 +70,13 @@ spec:
             fsGroupChangePolicy: OnRootMismatch
     service:
       main:
+        enabled: false
         ports:
           http:
             port: &port 8095
     ingress:
       main:
-        enabled: true
+        enabled: false
         className: nginx
         # annotations:
         #   nginx.ingress.kubernetes.io/auth-url: https://oauth.nucstack.com/oauth2/auth
