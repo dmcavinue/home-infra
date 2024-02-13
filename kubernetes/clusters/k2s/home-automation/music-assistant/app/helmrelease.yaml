@@ -54,6 +54,12 @@ spec:
               limits:
                 memory: 1500Mi
         pod:
+          annotations:
+            k8s.v1.cni.cncf.io/networks: |
+              [{
+                "name":"iot-vlan",
+                "namespace": "kube-system"
+              }]
           securityContext:
             runAsUser: 1001
             runAsGroup: 1001
