@@ -32,6 +32,7 @@ spec:
           reloader.stakater.com/auto: "true"
         containers:
           main:
+            command: ["sleep", "99999"]
             image:
               repository: alpine
               tag: 3
@@ -61,7 +62,6 @@ spec:
                 "namespace": "kube-system",
                 "ips": ["192.168.4.242/24"]
               }]
-          command: [sleep, 10000]
           securityContext:
             privileged: true
             runAsUser: 0
