@@ -32,10 +32,9 @@ spec:
           reloader.stakater.com/auto: "true"
         containers:
           main:
-            command: ["sleep", "99999"]
             image:
-              repository: alpine
-              tag: 3
+              repository: dmcavinue/music-assistant
+              tag: 0.0.1
               imagePullPolicy: IfNotPresent
             probes:
               liveness:
@@ -44,10 +43,10 @@ spec:
                 enabled: false
               startup:
                 enabled: false
-            # securityContext:
-            #   allowPrivilegeEscalation: false
-            #   readOnlyRootFilesystem: true
-            #   capabilities: { drop: ["ALL"] }
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
             resources:
               requests:
                 cpu: 300m
@@ -55,29 +54,20 @@ spec:
               limits:
                 memory: 1500Mi
         pod:
-          annotations:
-            k8s.v1.cni.cncf.io/networks: |
-              [{
-                "name":"multus-iot",
-                "namespace": "kube-system",
-                "ips": ["192.168.4.242/24"]
-              }]
           securityContext:
-            privileged: true
-            runAsUser: 0
-            runAsGroup: 0
-            runAsNonRoot: false
-            fsGroup: 0
+            runAsUser: 1001
+            runAsGroup: 1001
+            runAsNonRoot: true
+            fsGroup: 1001
             fsGroupChangePolicy: OnRootMismatch
     service:
       main:
-        enabled: false
         ports:
           http:
             port: &port 8095
     ingress:
       main:
-        enabled: false
+        enabled: true
         className: nginx
         # annotations:
         #   nginx.ingress.kubernetes.io/auth-url: https://oauth.nucstack.com/oauth2/auth
