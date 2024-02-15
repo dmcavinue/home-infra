@@ -8,20 +8,16 @@ spec:
     {
       "cniVersion": "0.3.1",
       "name": "multus-iot",
-      "loglevel": "debug",
       "plugins": [
         {
           "type": "macvlan",
-          "master": "enp6s19",
+          "master": "vlan40-iot",
           "mode": "bridge",
           "capabilities": {
             "ips": true
           },
           "ipam": {
-            "type": "static",
-            "routes": [
-              { "dst": "192.168.4.0/24", "gw": "192.168.4.1" }
-            ]
+            "type": "dhcp"
           }
         }
       ]
