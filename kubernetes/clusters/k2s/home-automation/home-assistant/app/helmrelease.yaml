@@ -62,6 +62,13 @@ spec:
               limits:
                 memory: 1500Mi
         pod:
+          annotations:
+            k8s.v1.cni.cncf.io/networks: |
+              [{
+                "name":"multus-iot",
+                "namespace": "kube-system",
+                "ips": ["192.168.4.240/24"]
+              }]
           securityContext:
             runAsUser: 568
             runAsGroup: 568
