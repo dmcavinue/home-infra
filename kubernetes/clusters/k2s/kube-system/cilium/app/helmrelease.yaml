@@ -27,6 +27,8 @@ spec:
     keepHistory: false
   values:
     autoDirectNodeRoutes: false
+    cni:
+      exclusive: false
     enable-ipv4-masquerade: true
     policyAuditMode: true
     resources:
