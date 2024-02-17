@@ -2740,7 +2740,7 @@ data:
             {
               "datasource": "${DS_PROMETHEUS}",
               "exemplar": true,
-              "expr": "max by (pod) (cnpg_pg_settings_setting{name=\"common_buffers\",namespace=~\"$namespace\",pod=~\"$instances\"}) * max by (pod) (cnpg_pg_settings_setting{name=\"block_size\",namespace=~\"$namespace\",pod=~\"$instances\"})",
+              "expr": "max by (pod) (cnpg_pg_settings_setting{name=\"shared_buffers\",namespace=~\"$namespace\",pod=~\"$instances\"}) * max by (pod) (cnpg_pg_settings_setting{name=\"block_size\",namespace=~\"$namespace\",pod=~\"$instances\"})",
               "instant": true,
               "interval": "",
               "legendFormat": "{{pod}}",

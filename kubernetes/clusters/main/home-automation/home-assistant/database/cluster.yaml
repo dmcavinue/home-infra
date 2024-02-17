@@ -37,7 +37,7 @@ spec:
   postgresql:
     parameters:
       max_connections: "600"
-      common_buffers: 512MB
+      shared_buffers: 512MB
   monitoring:
     enablePodMonitor: true
   backup:
