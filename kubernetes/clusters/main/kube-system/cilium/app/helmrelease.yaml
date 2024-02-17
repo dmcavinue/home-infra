@@ -154,7 +154,7 @@ spec:
       #   userspaceFallback: false
       #   persistentKeepalive: 0s
     hubble:
-      enabled: false
+      enabled: true
       tls:
         auto:
           method: certmanager
