@@ -81,7 +81,7 @@ spec:
       name: "${ENVIRONMENT}"
       id: "${CILIUM_ID}"
     clustermesh:
-      useAPIServer: true
+      useAPIServer: false
       config:
         enabled: true
         clusters:
