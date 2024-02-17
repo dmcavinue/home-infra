@@ -36,11 +36,11 @@ spec:
       superuser: false
       disablePassword: true
   postgresql:
-    common_preload_libraries:
+    shared_preload_libraries:
     - vectors.so
     parameters:
       max_connections: "600"
-      common_buffers: 512MB
+      shared_buffers: 512MB
   monitoring:
     enablePodMonitor: true
   backup:
