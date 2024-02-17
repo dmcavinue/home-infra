@@ -7,9 +7,9 @@ tasks:
     vars:
       NAME: synology-dns
       CA: 
-        sh: kubectl --context k2s -n ingress get secret {{.NAME}} -o jsonpath='{.data.ca\.crt}'
+        sh: kubectl --context main -n ingress get secret {{.NAME}} -o jsonpath='{.data.ca\.crt}'
       TOKEN:
-        sh: kubectl --context k2s -n ingress get secret {{.NAME}} -o jsonpath='{.data.token}' | base64 -d
+        sh: kubectl --context main -n ingress get secret {{.NAME}} -o jsonpath='{.data.token}' | base64 -d
     cmd: |
       echo "---
       apiVersion: v1

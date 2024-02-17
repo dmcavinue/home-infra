@@ -27,9 +27,9 @@
       when: "'master' in group_names"
       ansible.builtin.include_tasks: tasks/haproxy.yaml
 
-    - name: Ceph
-      when: "'workers' in group_names"
-      ansible.builtin.include_tasks: tasks/ceph.yaml
+    # - name: Ceph
+    #   when: "'workers' in group_names"
+    #   ansible.builtin.include_tasks: tasks/ceph.yaml
 
     - name: Install Kubernetes
       ansible.builtin.include_role:

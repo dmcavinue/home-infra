@@ -2,11 +2,11 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: shared-apps
+  name: common-apps
   namespace: flux-system
 spec:
   interval: 10m
-  path: "./kubernetes/clusters/shared"
+  path: "./kubernetes/clusters/common"
   prune: false
   sourceRef:
     kind: GitRepository

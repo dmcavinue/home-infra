@@ -6,7 +6,7 @@ vars:
   ANSIBLE_DIR: "{{.ROOT_DIR}}/ansible"
 
 env:
-  ENVIRONMENT: '{{default "k2s" .ENVIRONMENT}}'
+  ENVIRONMENT: '{{default "main" .ENVIRONMENT}}'
   KUBECONFIG:
     sh: "find .kubeconfigs -type f | tr '\n' ':'"
 

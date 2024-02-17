@@ -1,0 +1,134 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: coredns
+  namespace: kube-system
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: coredns
+      version: 1.29.0
+      sourceRef:
+        kind: HelmRepository
+        name: coredns
+        namespace: flux-system
+  maxHistory: 2
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    fullnameOverride: coredns
+    replicaCount: 3
+    k8sAppLabelOverride: kube-dns
+    service:
+      name: kube-dns
+      #clusterIP: 10.31.0.10
+    serviceAccount:
+      create: true
+    # podAnnotations:
+    #   policy.cilium.io/proxy-visibility: "<Egress/53/UDP/DNS>"
+    deployment:
+      annotations:
+        reloader.stakater.com/auto: "true"
+    autoscaler:
+      enabled: false
+    servers:
+      - zones:
+          - zone: .
+            scheme: dns://
+            use_tcp: true
+        port: 53
+        plugins:
+          #- name: log
+          - name: errors
+          - name: health
+            configBlock: |-
+              lameduck 5s
+          - name: hosts
+            configBlock: |-
+              # cluster mesh
+              192.168.8.241 k0s.mesh.cilium.io
+              192.168.8.51 main.mesh.cilium.io
+              # synology services              
+              192.168.10.2 nas.feelingsmachine.com
+              192.168.10.2 registry.feelingsmachine.com
+              # k0s services
+              192.168.8.242 alertmanager.logfold.com
+              192.168.8.242 dex.logfold.com
+              192.168.8.242 grafana.logfold.com
+              192.168.8.242 hubble.logfold.com
+              192.168.8.242 loki.logfold.com
+              192.168.8.242 minio-console.logfold.com
+              192.168.8.242 minio.logfold.com
+              192.168.8.242 oauth.logfold.com
+              192.168.8.242 prometheus.logfold.com
+              192.168.8.242 thanos-query-frontend.logfold.com/
+              192.168.8.242 vault.logfold.com
+              192.168.8.244 vector.logfold.com
+              # external services
+              192.168.8.242 adguard.logfold.com
+              192.168.8.242 drac.logfold.com
+              192.168.8.242 proxmox.logfold.com
+              192.168.8.242 restic.logfold.com
+              192.168.8.242 unifi.logfold.com
+              192.168.8.242 vacuum.logfold.com
+              192.168.8.243 lldap.logfold.com
+              # k8s services
+              192.168.8.49 code.nucstack.com
+              192.168.8.49 esphome.nucstack.com
+              192.168.8.49 grafana.nucstack.com
+              192.168.8.49 hass.nucstack.com
+              192.168.8.49 immich.nucstack.com
+              192.168.8.49 oauth.nucstack.com
+              192.168.8.49 rook.nucstack.com
+              192.168.8.49 zwavejs.nucstack.com
+              192.168.8.50 mqtt.nucstack.com
+              fallthrough
+          - name: ready
+          - name: kubernetes
+            parameters: cluster.local in-addr.arpa ip6.arpa
+            configBlock: |-
+              pods insecure
+              fallthrough in-addr.arpa ip6.arpa
+              ttl 30
+          - name: prometheus
+            parameters: 0.0.0.0:9153
+          - name: forward
+            parameters: . /etc/resolv.conf
+          - name: cache
+            parameters: 30
+          - name: loop
+          - name: reload
+          - name: loadbalance
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+            - matchExpressions:
+                - key: node-role.kubernetes.io/control-plane
+                  operator: Exists
+    tolerations:
+      - key: CriticalAddonsOnly
+        operator: Exists
+      - key: node-role.kubernetes.io/control-plane
+        operator: Exists
+        effect: NoSchedule
+      - key: node-role.kubernetes.io/master
+        operator: Exists
+        effect: NoSchedule
+    topologySpreadConstraints:
+      - maxSkew: 1
+        topologyKey: kubernetes.io/hostname
+        whenUnsatisfiable: DoNotSchedule
+        labelSelector:
+          matchLabels:
+            app.kubernetes.io/instance: coredns

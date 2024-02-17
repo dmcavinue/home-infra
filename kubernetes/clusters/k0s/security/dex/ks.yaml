@@ -2,11 +2,11 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: cluster-apps-dex
+  name: dex
   namespace: flux-system
 spec:
   dependsOn:
-    - name: cluster-apps-lldap
+    - name: lldap
   path: ./kubernetes/clusters/${ENVIRONMENT}/security/dex/app
   prune: false
   sourceRef:

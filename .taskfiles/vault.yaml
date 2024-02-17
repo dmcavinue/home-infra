@@ -150,7 +150,7 @@ tasks:
           capabilities = ["read"]
         }' | vault policy write admin -
       - echo -e "path \"pki/int_ca/sign/k0s\" { capabilities = [\"update\"] }\npath \"secret/data/cert-manager/*\" { capabilities = [\"read\", \"list\"] }" | vault policy write k0s -
-      - echo -e "path \"pki/int_ca/sign/k2s\" { capabilities = [\"update\"] }\npath \"secret/data/cert-manager/*\" { capabilities = [\"read\", \"list\"] }" | vault policy write k2s -
+      - echo -e "path \"pki/int_ca/sign/main\" { capabilities = [\"update\"] }\npath \"secret/data/cert-manager/*\" { capabilities = [\"read\", \"list\"] }" | vault policy write main -
       - echo -e "path \"pki/int_ca/sign/default\" { capabilities = [\"update\"] }\npath \"secret/data/cert-manager/*\" { capabilities = [\"read\", \"list\"] }" | vault policy write cert-manager -
       - echo -e "path \"secret/data/database/*\" { capabilities = [\"read\", \"list\"] } " | vault policy write database -
       - echo -e "path \"secret/data/flux-system/*\" { capabilities = [\"read\", \"list\"] }" | vault policy write flux-system -

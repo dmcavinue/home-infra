@@ -13,13 +13,13 @@ This cluster is intended to manage services the main cluster is dependent on (va
 ENVIRONMENT="k0s" task ansible:bootstrap-parent
 ```
 
-**bootstrap production (k2s) cluster**
+**bootstrap production (main) cluster**
 This cluster is used for production services
 ```bash
-ENVIRONMENT="k2s" task ansible:bootstrap-child
+ENVIRONMENT="main" task ansible:bootstrap-child
 
 # restoring pv data from backups 
-ENVIRONMENT="k2s" task vs:restore namespace=home-automation rsrc=esphome
-ENVIRONMENT="k2s" task vs:restore namespace=home-automation rsrc=zwavejs
-ENVIRONMENT="k2s" task vs:restore namespace=home-automation rsrc=home-assistant
+ENVIRONMENT="main" task vs:restore namespace=home-automation rsrc=esphome
+ENVIRONMENT="main" task vs:restore namespace=home-automation rsrc=zwavejs
+ENVIRONMENT="main" task vs:restore namespace=home-automation rsrc=home-assistant
 ```

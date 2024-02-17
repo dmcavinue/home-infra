@@ -1,0 +1,28 @@
+---
+kubernetes:
+  vars:
+    ansible_user: k8s
+    ansible_ssh_port: 22
+  children:
+    master:
+      hosts:
+        k8s-main-1:
+          ansible_host: 192.168.8.36
+        k8s-main-2:
+          ansible_host: 192.168.8.37
+        k8s-main-3:
+          ansible_host: 192.168.8.38
+    workers:
+      hosts:
+        k8s-main-4:
+          ansible_host: 192.168.8.39
+          ceph_drives:
+            - /dev/disk/by-id/scsi-0QEMU_QEMU_HARDDISK_drive-scsi1
+        k8s-main-5:
+          ansible_host: 192.168.8.40
+          ceph_drives:
+            - /dev/disk/by-id/scsi-0QEMU_QEMU_HARDDISK_drive-scsi1
+        k8s-main-6:
+          ansible_host: 192.168.8.41
+          ceph_drives:
+            - /dev/disk/by-id/scsi-0QEMU_QEMU_HARDDISK_drive-scsi1
