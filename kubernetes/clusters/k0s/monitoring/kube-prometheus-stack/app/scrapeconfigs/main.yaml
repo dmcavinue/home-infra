@@ -8,7 +8,7 @@ spec:
   honorLabels: false
   scrapeInterval: 30s
   staticConfigs:
-    - targets: ["prom-main-prometheus:9090"]
+    - targets: ["prometheus-prom-main:9090"]
   metricsPath: /federate
   params:
     "match[]":
