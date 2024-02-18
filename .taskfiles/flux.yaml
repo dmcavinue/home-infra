@@ -12,7 +12,7 @@ tasks:
     deps: [check]
     desc: Flux install
     cmds:
-      - kubectl --context {{.ENVIRONMENT}} apply --server-side --kustomize={{.ROOT_DIR}}/kubernetes/bootstrap || true
+      - kubectl --context {{.ENVIRONMENT}} apply --server-side --kustomize={{.ROOT_DIR}}/kubernetes/bootstrap/flux || true
       - kubectl --context {{.ENVIRONMENT}} apply --server-side --kustomize={{.ROOT_DIR}}/kubernetes/flux/config
 
   sync:
