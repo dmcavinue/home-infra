@@ -36,7 +36,7 @@ spec:
         tag: v1.0.2
       resources:
         limits:
-          memory: 768Mi
+          memory: 1Gi
         requests:
           cpu: 100m
           memory: 512Mi
