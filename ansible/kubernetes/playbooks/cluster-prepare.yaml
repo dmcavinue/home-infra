@@ -126,7 +126,7 @@
             dest: /etc/systemd/networkd.conf
             regexp: ManageForeignRoutes
             line: ManageForeignRoutes=no
-        - name: Network Configuration | Set NIC
+        - name: Network Configuration | Set multus interfaces
           ansible.builtin.copy:
             dest: "/etc/network/interfaces.d/{{ multus_interface }}"
             content: |
@@ -142,11 +142,11 @@
               auto vlan40-iot
               iface vlan40-iot inet manual
               bridge_ports {{ multus_interface }}.40
-                  
             owner: root
             group: root
             mode: "0644"
-
+          when:
+            - multus_interface is defined
     - name: System Configuration
       notify: Reboot
       block:
