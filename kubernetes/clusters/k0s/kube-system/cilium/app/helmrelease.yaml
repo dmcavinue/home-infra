@@ -26,6 +26,23 @@ spec:
   uninstall:
     keepHistory: false
   values:
+    autoDirectNodeRoutes: false
+    bandwidthManager:
+      enabled: true
+      bbr: true
+    policyAuditMode: true
+    resources:
+      limits:
+        memory: 768Mi
+      requests:
+        cpu: 200m
+        memory: 512Mi
+    initResources:
+      limits:
+        memory: 128Mi
+      requests:
+        cpu: 100m
+        memory: 64Mi
     authentication:
       mutual:
         spire:
@@ -56,22 +73,6 @@ spec:
                 requests:
                   cpu: 100m
                   memory: 128Mi
-    autoDirectNodeRoutes: false
-    bandwidthManager:
-      enabled: true
-      bbr: true
-    resources:
-      limits:
-        memory: 768Mi
-      requests:
-        cpu: 200m
-        memory: 512Mi
-    initResources:
-      limits:
-        memory: 128Mi
-      requests:
-        cpu: 100m
-        memory: 64Mi
     bpf:
       masquerade: true
     cgroup:
@@ -232,13 +233,13 @@ spec:
           enabled: true
       dashboards:
         enabled: true
-    #policyAuditMode: true
       resources:
         limits:
           memory: 512Mi
         requests:
           cpu: 50m
           memory: 256Mi
+    #policyAuditMode: true
     prometheus:
       enabled: true
       serviceMonitor:
@@ -246,7 +247,6 @@ spec:
     dashboards:
       enabled: true
     rollOutCiliumPods: true
-    routingMode: native
     securityContext:
       capabilities:
         ciliumAgent:
@@ -265,4 +265,5 @@ spec:
           - NET_ADMIN
           - SYS_ADMIN
           - SYS_RESOURCE
+    routingMode: native
     tunnel: disabled
