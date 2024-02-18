@@ -193,7 +193,7 @@ spec:
             cpu: 100m
             memory: 64Mi
       ui:
-        enabled: false
+        enabled: true
         rollOutPods: true
         ingress:
           enabled: true
