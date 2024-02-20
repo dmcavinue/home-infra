@@ -39,7 +39,7 @@ spec:
           memory: 1500Mi
         requests:
           cpu: 500m
-          memory: 512Mi
+          memory: 768Mi
       securityContext:
         privileged: true
       prometheus:
