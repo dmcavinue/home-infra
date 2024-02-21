@@ -57,6 +57,7 @@ spec:
               [{
                 "name":"multus-iot",
                 "namespace": "kube-system",
+                "mac": "be:f7:c1:a0:0a:fb",
                 "ips": ["192.168.4.242/24"]
               }]
           securityContext:
