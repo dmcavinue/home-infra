@@ -14,5 +14,6 @@ spec:
     "match[]":
       - '{job="kube-state-metrics"}'
       - '{job="node-exporter"}'
+      - '{job="kube-state-metrics"}'
       # - '{job="home-automation/home-assistant-database"}'
       # - '{job="media/immich-database"}'
