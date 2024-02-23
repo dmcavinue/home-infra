@@ -4,8 +4,6 @@ metadata:
   name: default
   namespace: home-automation
 spec:
-  authentication:
-    mode: required
   endpointSelector: {}
   ingress:
     - fromEndpoints:
@@ -16,6 +14,8 @@ spec:
             k8s:app.kubernetes.io/instance: nginx
             k8s:app.kubernetes.io/name: ingress-nginx
             k8s:io.kubernetes.pod.namespace: ingress
+      authentication:
+        mode: required
       toPorts:
         - ports:
             - port: "6052"
@@ -25,6 +25,8 @@ spec:
             k8s:app.kubernetes.io/instance: nginx
             k8s:app.kubernetes.io/name: ingress-nginx
             k8s:io.kubernetes.pod.namespace: ingress
+      authentication:
+        mode: required
       toPorts:
         - ports:
             - port: "8123"
@@ -33,6 +35,8 @@ spec:
             k8s:app.kubernetes.io/instance: home-assistant
             k8s:app.kubernetes.io/name: home-assistant
             k8s:io.kubernetes.pod.namespace: home-automation
+      authentication:
+        mode: required
       toPorts:
         - ports:
             - port: "5432"
@@ -41,6 +45,8 @@ spec:
             k8s:app.kubernetes.io/instance: victoria-metrics
             k8s:app.kubernetes.io/name: vmagent
             k8s:io.kubernetes.pod.namespace: monitoring
+      authentication:
+        mode: required
       toPorts:
         - ports:
             - port: "9187"
@@ -49,6 +55,8 @@ spec:
             k8s:app.kubernetes.io/instance: home-assistant
             k8s:app.kubernetes.io/name: home-assistant
             k8s:io.kubernetes.pod.namespace: home-automation
+      authentication:
+        mode: required
       toPorts:
         - ports:
             - port: "3000"
@@ -58,6 +66,8 @@ spec:
             k8s:app.kubernetes.io/instance: nginx
             k8s:app.kubernetes.io/name: ingress-nginx
             k8s:io.kubernetes.pod.namespace: ingress
+      authentication:
+        mode: required
       toPorts:
         - ports:
             - port: "8091"
@@ -67,6 +77,8 @@ spec:
         - matchLabels:
             io.kubernetes.pod.namespace: kube-system
             k8s-app: kube-dns
+      authentication:
+        mode: required
       toPorts:
         - ports:
             - port: "53"
@@ -140,6 +152,8 @@ spec:
             k8s:app.kubernetes.io/name: emqx
             k8s:app: emqx
             k8s:io.kubernetes.pod.namespace: database
+      authentication:
+        mode: required
       toPorts:
         - ports:
             - port: "1883"
@@ -147,6 +161,8 @@ spec:
         - matchLabels:
             k8s:cnpg.io/cluster: home-assistant
             k8s:io.kubernetes.pod.namespace: home-automation
+      authentication:
+        mode: required
       toPorts:
         - ports:
             - port: "5432"
@@ -155,6 +171,8 @@ spec:
             k8s:app.kubernetes.io/instance: esphome
             k8s:app.kubernetes.io/name: esphome
             k8s:io.kubernetes.pod.namespace: home-automation
+      authentication:
+        mode: required
       toPorts:
         - ports:
             - port: "6052"
