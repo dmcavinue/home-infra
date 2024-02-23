@@ -4,6 +4,8 @@ metadata:
   name: default
   namespace: home-automation
 spec:
+  authentication:
+    mode: required
   endpointSelector: {}
   ingress:
     - fromEndpoints:
