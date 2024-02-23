@@ -51,6 +51,8 @@ spec:
     ldap:
       enabled: true
       existingSecret: grafana
+    serviceAccount:
+      autoMount: true
     grafana.ini:
       analytics:
         check_for_updates: false
