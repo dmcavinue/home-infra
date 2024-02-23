@@ -10,6 +10,15 @@ spec:
         - {}
     - fromEndpoints:
         - matchLabels:
+            k8s:app.kubernetes.io/name: prometheus
+            k8s:io.kubernetes.pod.namespace: monitoring
+      authentication:
+        mode: required
+      toPorts:
+        - ports:
+            - port: "9187"
+    - fromEndpoints:
+        - matchLabels:
             k8s:app.kubernetes.io/component: controller
             k8s:app.kubernetes.io/instance: nginx
             k8s:app.kubernetes.io/name: ingress-nginx
@@ -96,6 +105,11 @@ spec:
       toPorts:
         - ports:
             - port: "443"
+    - toCIDRSet:
+        - cidr: 192.168.5.0/24
+      toPorts:
+        - ports:
+            - port: "8008"
     - toCIDRSet:
         - cidr: 192.168.1.1/32
       toPorts:
