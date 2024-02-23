@@ -24,6 +24,7 @@ RUN apk --update --no-cache add \
     bash \
     build-base \
     ca-certificates \
+    colordiff \
     curl \
     docker \
     gettext \

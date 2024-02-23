@@ -20,5 +20,8 @@
     //"source=/etc/timezone,target=/etc/timezone,type=bind",
     //"source=/etc/localtime,target=/etc/localtime,type=bind",
     "source=${localEnv:HOME}/.ssh,target=/home/rootless/.ssh,type=bind"
-  ]
+  ],
+  "containerEnv": {
+    "KUBECTL_EXTERNAL_DIFF": "dyff between --omit-header --set-exit-code"
+  }
 }

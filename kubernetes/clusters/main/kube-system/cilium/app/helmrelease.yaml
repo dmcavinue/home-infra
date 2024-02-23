@@ -94,7 +94,6 @@ spec:
         - name: k0s
           address: k0s.mesh.cilium.io
           port: 2379
-
       apiserver:
         tls:
           auto:
