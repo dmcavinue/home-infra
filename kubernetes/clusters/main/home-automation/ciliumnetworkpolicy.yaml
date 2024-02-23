@@ -111,6 +111,12 @@ spec:
         - ports:
             - port: "8008"
     - toCIDRSet:
+        - cidr: 224.0.0.251
+      toPorts:
+        - ports:
+            - port: "5353"
+              protocol: UDP
+    - toCIDRSet:
         - cidr: 192.168.1.1/32
       toPorts:
         - ports:
