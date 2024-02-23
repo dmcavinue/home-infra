@@ -51,16 +51,6 @@ spec:
             - port: "5432"
     - fromEndpoints:
         - matchLabels:
-            k8s:app.kubernetes.io/instance: victoria-metrics
-            k8s:app.kubernetes.io/name: vmagent
-            k8s:io.kubernetes.pod.namespace: monitoring
-      authentication:
-        mode: required
-      toPorts:
-        - ports:
-            - port: "9187"
-    - fromEndpoints:
-        - matchLabels:
             k8s:app.kubernetes.io/instance: home-assistant
             k8s:app.kubernetes.io/name: home-assistant
             k8s:io.kubernetes.pod.namespace: home-automation
