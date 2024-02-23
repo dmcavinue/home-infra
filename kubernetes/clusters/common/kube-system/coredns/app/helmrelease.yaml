@@ -60,7 +60,6 @@ spec:
               192.168.8.51 main.mesh.cilium.io
               # synology services              
               192.168.10.2 nas.feelingsmachine.com
-              192.168.10.2 registry.feelingsmachine.com
               # k0s services
               192.168.8.242 alertmanager.logfold.com
               192.168.8.242 dex.logfold.com
