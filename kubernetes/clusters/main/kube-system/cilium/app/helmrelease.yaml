@@ -32,7 +32,7 @@ spec:
       bbr: true
     cni:
       exclusive: false
-    policyAuditMode: true
+    #policyAuditMode: true
     resources:
       limits:
         memory: 768Mi
@@ -241,7 +241,6 @@ spec:
         requests:
           cpu: 50m
           memory: 256Mi
-    #policyAuditMode: true
     prometheus:
       enabled: true
       serviceMonitor:
