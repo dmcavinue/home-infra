@@ -17,22 +17,6 @@ spec:
             - port: "8443"
     - fromEndpoints:
         - matchLabels:
-            k8s:app.kubernetes.io/instance: victoria-metrics
-            k8s:app.kubernetes.io/name: vmagent
-            k8s:io.kubernetes.pod.namespace: monitoring
-      toPorts:
-        - ports:
-            - port: "443"
-    - fromEndpoints:
-        - matchLabels:
-            k8s:app.kubernetes.io/instance: victoria-metrics
-            k8s:app.kubernetes.io/name: vmagent
-            k8s:io.kubernetes.pod.namespace: monitoring
-      toPorts:
-        - ports:
-            - port: "10254"
-    - fromEndpoints:
-        - matchLabels:
             k8s:app.kubernetes.io/instance: external-secrets
             k8s:app.kubernetes.io/name: external-secrets
             k8s:io.kubernetes.pod.namespace: kube-system
@@ -48,6 +32,8 @@ spec:
       toPorts:
         - ports:
             - port: "443"
+            - port: "8123"
+            - port: "6052"
   egress:
     # dns
     - toEndpoints:
@@ -85,6 +71,14 @@ spec:
       toPorts:
         - ports:
             - port: "8091"
+    - toEndpoints:
+        - matchLabels:
+            k8s:app.kubernetes.io/instance: esphome
+            k8s:app.kubernetes.io/name: esphome
+            k8s:io.kubernetes.pod.namespace: home-automation
+      toPorts:
+        - ports:
+            - port: "6052"
     - toEndpoints:
         - matchLabels:
             k8s:app.kubernetes.io/component: controller
