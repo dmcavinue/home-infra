@@ -248,6 +248,7 @@ spec:
     dashboards:
       enabled: true
     rollOutCiliumPods: true
+    policyAuditMode: true
     securityContext:
       capabilities:
         ciliumAgent:
