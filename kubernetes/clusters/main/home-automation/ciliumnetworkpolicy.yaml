@@ -101,7 +101,7 @@ spec:
         - ports:
             - port: "8008"
     - toCIDRSet:
-        - cidr: 224.0.0.251
+        - cidr: 224.0.0.251/32
       toPorts:
         - ports:
             - port: "5353"
@@ -186,4 +186,3 @@ spec:
       toPorts:
         - ports:
             - port: "6052"
-            - protocol: ICMP
