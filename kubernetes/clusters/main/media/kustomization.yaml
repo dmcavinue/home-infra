@@ -9,5 +9,5 @@ resources:
   #- ./ciliumnetworkpolicy.yaml
   # Flux-Kustomizations
   - ./excalidraw/ks.yaml
-  #- ./immich/ks.yaml
+  - ./immich/ks.yaml
 
