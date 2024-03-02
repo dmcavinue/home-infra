@@ -6,7 +6,7 @@ resources:
   # Pre Flux-Kustomizations
   - ./namespace.yaml
   - ./externalsecret.yaml
-  - ./ciliumnetworkpolicy.yaml
+  # - ./ciliumnetworkpolicy.yaml
   # Flux-Kustomizations
   - ./certificates
   - ./synology
