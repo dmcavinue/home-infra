@@ -25,7 +25,7 @@ spec:
       retries: 3
   values:
     controllers:
-      atuin:
+      music-assistant:
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
@@ -67,7 +67,7 @@ spec:
             fsGroupChangePolicy: OnRootMismatch
     service:
       app:
-        controller: atuin
+        controller: music-assistant
         ports:
           http:
             port: &port 8095
