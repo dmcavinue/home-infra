@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 3.0.1
+      version: 3.0.2
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -25,15 +25,14 @@ spec:
       retries: 3
   values:
     controllers:
-      main:
+      atuin:
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
-          main:
+          app:
             image:
               repository: dmcavinue/music-assistant
               tag: 0.0.1
-              imagePullPolicy: IfNotPresent
             probes:
               liveness:
                 enabled: false
@@ -67,12 +66,13 @@ spec:
             fsGroup: 1001
             fsGroupChangePolicy: OnRootMismatch
     service:
-      main:
+      app:
+        controller: atuin
         ports:
           http:
             port: &port 8095
     ingress:
-      main:
+      app:
         enabled: true
         className: nginx
         # annotations:
@@ -93,8 +93,6 @@ spec:
       create: true
       name: music-assistant
     persistence:
-      config:
-        enabled: false
       data:
         enabled: true
         existingClaim: music-assistant
