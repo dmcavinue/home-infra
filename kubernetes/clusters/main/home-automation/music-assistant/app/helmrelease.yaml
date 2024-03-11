@@ -94,7 +94,6 @@ spec:
       name: music-assistant
     persistence:
       data:
-        enabled: true
         existingClaim: music-assistant
       tmp:
         type: emptyDir
