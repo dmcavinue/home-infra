@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.0.2
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -43,7 +43,7 @@ spec:
             matchLabels:
               app.kubernetes.io/name: *app
     controllers:
-      main:
+      immich-server:
         annotations:
           configmap.reloader.stakater.com/reload: &configMap immich-configmap
           secret.reloader.stakater.com/reload: &secret immich-secret
@@ -51,11 +51,10 @@ spec:
         strategy: RollingUpdate
         replicas: 2
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/immich-app/immich-server
               tag: v1.98.2
-              imagePullPolicy: IfNotPresent
             args: ["start-server.sh"]
             envFrom:
               - configMapRef:
@@ -69,12 +68,13 @@ spec:
                 cpu: 100m
                 memory: 256Mi
     service:
-      main:
+      app:
+        controller: immich-server
         ports:
           http:
             port: 3001
     ingress:
-      main:
+      app:
         enabled: true
         className: nginx
         annotations:
@@ -87,7 +87,7 @@ spec:
               - path: /
                 pathType: Prefix
                 service:
-                  name: main
+                  identifier: app
                   port: 3001
         tls:
           - hosts:

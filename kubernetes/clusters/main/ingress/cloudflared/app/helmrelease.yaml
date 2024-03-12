@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.0.2
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -29,13 +29,13 @@ spec:
       namespace: ingress
   values:
     controllers:
-      main:
+      cloudflared:
         annotations:
           reloader.stakater.com/auto: "true"
         type: deployment
         strategy: RollingUpdate
         containers:
-          main:
+          app:
             image:
               repository: docker.io/cloudflare/cloudflared
               tag: 2024.2.1
@@ -74,13 +74,14 @@ spec:
               limits:
                 memory: 256Mi
     service:
-      main:
+      app:
+        controller: cloudflared
         ports:
           http:
             port: 8080
     serviceMonitor:
-      main:
-        enabled: true
+      app:
+        serviceName: cloudflared
         endpoints:
           - port: http
             scheme: http
@@ -89,14 +90,12 @@ spec:
             scrapeTimeout: 30s
     persistence:
       config:
-        enabled: true
         type: configMap
         name: cloudflared-tunnel-configmap
         globalMounts:
           - path: /etc/cloudflared/config/config.yaml
             subPath: config.yaml
             readOnly: true
-
       creds:
         type: secret
         name: cloudflared-tunnel-secret

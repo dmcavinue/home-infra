@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.0.2
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -32,11 +32,11 @@ spec:
         runAsUser: 101
         runAsGroup: 101
     controllers:
-      main:
+      excalidraw:
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
-          main:
+          app:
             securityContext:
               fsGroup: 101
               runAsUser: 101
@@ -74,12 +74,13 @@ spec:
                 cpu: 200m
                 memory: 128Mi
     service:
-      main:
+      app:
+        controller: excalidraw
         ports:
           http:
             port: *port
     ingress:
-      main:
+      app:
         enabled: true
         className: nginx
         # annotations:
@@ -91,7 +92,7 @@ spec:
               - path: /
                 pathType: Prefix
                 service:
-                  name: main
+                  identifier: app
                   port: *port
         tls:
           - hosts:

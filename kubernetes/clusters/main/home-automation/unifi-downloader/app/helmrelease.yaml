@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.0.2
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -33,7 +33,7 @@ spec:
         runAsGroup: 1001
         fsGroupChangePolicy: "OnRootMismatch"
     controllers:
-      main:
+      unifi-downloader:
         type: statefulset
         statefulset:
           volumeClaimTemplates:
@@ -57,7 +57,7 @@ spec:
             seccompProfile:
               type: RuntimeDefault
         containers:
-          main:
+          app:
             resources:
               requests:
                 memory: "64Mi"
@@ -70,12 +70,6 @@ spec:
             envFrom:
               - secretRef:
                   name: unifi-downloader
-    service:
-      main:
-        enabled: false
-    ingress:
-      main:
-        enabled: false
     serviceAccount:
       create: true
       name: unifi-downloader

@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.0.2
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -32,9 +32,9 @@ spec:
         runAsUser: 1001
         runAsGroup: 1001
     controllers:
-      main:
+      tidbyt-proxy:
         containers:
-          main:
+          app:
             securityContext:
               fsGroup: 1001
               runAsUser: 1001
@@ -60,13 +60,11 @@ spec:
               - secretRef:
                   name: tidbyt-proxy
     service:
-      main:
+      app:
+        controller: tidbyt-proxy
         ports:
           http:
             port: 8080
-    ingress:
-      main:
-        enabled: false
     serviceAccount:
       create: true
       name: tidbyt-proxy
