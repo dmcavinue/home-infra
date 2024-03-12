@@ -68,11 +68,11 @@ spec:
             interval: 2m # Unifi API only polls at 2m intervals
             scrapeTimeout: 10s
   valuesFrom:
-    - targetPath: controllers.unpoller.containers.unpoller.env.UP_UNIFI_DEFAULT_USER
+    - targetPath: controllers.unpoller.containers.app.env.UP_UNIFI_DEFAULT_USER
       kind: Secret
       name: unpoller-secret
       valuesKey: UP_UNIFI_DEFAULT_USER
-    - targetPath: controllers.unpoller.containers.unpoller.env.UP_UNIFI_DEFAULT_PASS
+    - targetPath: controllers.unpoller.containers.app.env.UP_UNIFI_DEFAULT_PASS
       kind: Secret
       name: unpoller-secret
       valuesKey: UP_UNIFI_DEFAULT_PASS
