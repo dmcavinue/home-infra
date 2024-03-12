@@ -43,19 +43,19 @@ spec:
               accessMode: ReadWriteOnce
               size: 30Gi
               storageClass: ceph-pool
-        pod:
-          securityContext:
-            fsGroup: 1001
-            runAsUser: 1001
-            runAsGroup: 1001
-            capabilities:
-              drop:
-                - ALL
-            runAsNonRoot: true
-            readOnlyRootFilesystem: true
-            allowPrivilegeEscalation: false
-            seccompProfile:
-              type: RuntimeDefault
+        # pod:
+        #   securityContext:
+        #     fsGroup: 1001
+        #     runAsUser: 1001
+        #     runAsGroup: 1001
+        #     capabilities:
+        #       drop:
+        #         - ALL
+        #     runAsNonRoot: true
+        #     readOnlyRootFilesystem: true
+        #     allowPrivilegeEscalation: false
+        #     seccompProfile:
+        #       type: RuntimeDefault
         containers:
           app:
             resources:
