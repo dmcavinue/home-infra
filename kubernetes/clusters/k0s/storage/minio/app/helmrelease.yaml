@@ -79,8 +79,8 @@ spec:
           s3:
             port: 9000
     serviceMonitor:
-      main:
-        enabled: true
+      app:
+        serviceName: minio
         endpoints:
           - port: s3
             scheme: http
