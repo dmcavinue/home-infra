@@ -82,9 +82,6 @@ spec:
         ports:
           http:
             port: 6052
-    ingress:
-      app:
-        enabled: false
     persistence:
       esphome-cache:
         type: emptyDir
