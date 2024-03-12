@@ -94,9 +94,6 @@ spec:
             port: *ldapPort
           ldaps:
             port: *ldapsPort
-    ingress:
-      app:
-        enabled: false
     serviceAccount:
       create: true
       name: lldap
