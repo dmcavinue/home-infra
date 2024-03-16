@@ -2,19 +2,74 @@
 apiVersion: cilium.io/v2
 kind: CiliumClusterwideNetworkPolicy
 metadata:
-  name: allow-egress-lan
+  name: allow-egress-lan-cctv
 spec:
   endpointSelector:
     matchLabels:
-      egress.home.arpa/lan: "allow"
+      egress.home.arpa/lan-cctv: "allow"
+  egress:
+    - toCIDRSet:
+        - cidr: "192.168.13.0/24"
+---
+apiVersion: cilium.io/v2
+kind: CiliumClusterwideNetworkPolicy
+metadata:
+  name: allow-egress-lan-data
+spec:
+  endpointSelector:
+    matchLabels:
+      egress.home.arpa/lan-data: "allow"
+  egress:
+    - toCIDRSet:
+        - cidr: "192.168.10.0/24"
+---
+apiVersion: cilium.io/v2
+kind: CiliumClusterwideNetworkPolicy
+metadata:
+  name: allow-egress-lan-user
+spec:
+  endpointSelector:
+    matchLabels:
+      egress.home.arpa/lan-user: "allow"
+  egress:
+    - toCIDRSet:
+        - cidr: "192.168.5.0/24"
+---
+apiVersion: cilium.io/v2
+kind: CiliumClusterwideNetworkPolicy
+metadata:
+  name: allow-egress-lan-iot
+spec:
+  endpointSelector:
+    matchLabels:
+      egress.home.arpa/lan-iot: "allow"
+  egress:
+    - toCIDRSet:
+        - cidr: "192.168.4.0/24"
+---
+apiVersion: cilium.io/v2
+kind: CiliumClusterwideNetworkPolicy
+metadata:
+  name: allow-egress-lan-secure
+spec:
+  endpointSelector:
+    matchLabels:
+      egress.home.arpa/lan-secure: "allow"
   egress:
     - toCIDRSet:
         - cidr: "192.168.1.0/24"
-        - cidr: "192.168.4.0/24"
-        - cidr: "192.168.5.0/24"
         - cidr: "192.168.6.0/24"
+        - cidr: "192.168.9.0/24"
+---
+apiVersion: cilium.io/v2
+kind: CiliumClusterwideNetworkPolicy
+metadata:
+  name: allow-egress-lan-k8s
+spec:
+  endpointSelector:
+    matchLabels:
+      egress.home.arpa/lan-k8s: "allow"
+  egress:
+    - toCIDRSet:
         - cidr: "192.168.8.32/27"
         - cidr: "192.168.8.224/27"
-        - cidr: "192.168.9.0/24"
-        - cidr: "192.168.10.0/24"
-        - cidr: "192.168.13.0/24"
