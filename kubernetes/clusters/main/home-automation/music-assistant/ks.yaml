@@ -2,9 +2,13 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: music-assistant
+  name: &appname music-assistant
   namespace: flux-system
 spec:
+  targetNamespace: home-automation
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *appname
   path: ./kubernetes/clusters/${ENVIRONMENT}/home-automation/music-assistant/app
   prune: false
   sourceRef:

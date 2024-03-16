@@ -2,9 +2,13 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: unifi-downloader
+  name: &appname unifi-downloader
   namespace: flux-system
 spec:
+  targetNamespace: home-automation
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *appname
   path: ./kubernetes/clusters/${ENVIRONMENT}/home-automation/unifi-downloader/app
   prune: false
   sourceRef:
