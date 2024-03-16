@@ -67,6 +67,7 @@ spec:
             egress.home.arpa/lan-mgmt: "allow"
             egress.home.arpa/world: "allow"
             egress.home.arpa/unifi: "allow"
+            ingress.home.arpa/prometheus: "allow"
           annotations:
             k8s.v1.cni.cncf.io/networks: |
               [{
