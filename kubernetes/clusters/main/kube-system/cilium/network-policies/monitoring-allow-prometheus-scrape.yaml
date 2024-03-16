@@ -1,0 +1,14 @@
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: monitoring-allow-prometheus-scrape
+  namespace: monitoring
+spec:
+  endpointSelector:
+    matchLabels:
+      managed-by: prometheus-operator
+      name: prometheus
+  egress:
+    - toEndpoints:
+        - {}
