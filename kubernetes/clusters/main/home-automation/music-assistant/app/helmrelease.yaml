@@ -51,6 +51,9 @@ spec:
               limits:
                 memory: 1500Mi
         pod:
+          labels:
+            egress.home.arpa/lan-user: "allow"
+            egress.home.arpa/world: "allow"
           annotations:
             k8s.v1.cni.cncf.io/networks: |
               [{
