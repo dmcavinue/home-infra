@@ -197,18 +197,6 @@ spec:
             memory: 64Mi
       ui:
         enabled: false
-        rollOutPods: true
-        ingress:
-          enabled: true
-          hosts:
-            - &host "hubble.${DOMAIN}"
-          tls:
-            - hosts:
-                - *host
-          annotations:
-            kubernetes.io/ingress.class: nginx
-            nginx.ingress.kubernetes.io/auth-url: https://oauth.${DOMAIN}/oauth2/auth
-            nginx.ingress.kubernetes.io/auth-signin: https://oauth.${DOMAIN}/oauth2/start
     ipam:
       mode: kubernetes
     ipv4NativeRoutingCIDR: 10.0.0.0/8
