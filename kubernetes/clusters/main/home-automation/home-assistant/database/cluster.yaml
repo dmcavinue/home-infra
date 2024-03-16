@@ -12,6 +12,7 @@ spec:
   inheritedMetadata:
     labels:
       kube-image-keeper.enix.io/image-caching-policy: ignore
+      egress.home.arpa/minio: "allow"
   primaryUpdateStrategy: unsupervised
   bootstrap:
     # initdb:
