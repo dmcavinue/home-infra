@@ -212,7 +212,7 @@ spec:
     loadBalancer:
       algorithm: maglev
       serviceTopology: true
-      mode: dsr
+      #mode: dsr
     localRedirectPolicy: true
     operator:
       replicas: 1
