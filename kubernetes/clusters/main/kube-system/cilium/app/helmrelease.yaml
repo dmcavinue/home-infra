@@ -32,7 +32,6 @@ spec:
       bbr: true
     cni:
       exclusive: false
-    #policyAuditMode: true
     resources:
       limits:
         memory: 768Mi
