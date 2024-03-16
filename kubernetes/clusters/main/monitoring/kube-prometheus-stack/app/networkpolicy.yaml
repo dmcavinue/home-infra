@@ -11,7 +11,7 @@ spec:
   egress:
     - toEndpoints:
         - matchLabels:
-            prom.home.arpa/kps: allow
+            ingress.home.arpa/prometheus: allow
           matchExpressions:
             - key: io.kubernetes.pod.namespace
               operator: Exists
