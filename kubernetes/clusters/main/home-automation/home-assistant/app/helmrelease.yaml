@@ -62,12 +62,12 @@ spec:
                 memory: 2Gi
         pod:
           labels:
-            egress.home.arpa/lan-iot: "allow"
-            egress.home.arpa/lan-user: "allow"
-            egress.home.arpa/lan-mgmt: "allow"
-            egress.home.arpa/world: "allow"
-            egress.home.arpa/unifi: "allow"
-            ingress.home.arpa/prometheus: "allow"
+            egress.home.arpa/lan-iot: allow
+            egress.home.arpa/lan-user: allow
+            egress.home.arpa/lan-mgmt: allow
+            egress.home.arpa/world: allow
+            egress.home.arpa/unifi: allow
+            ingress.home.arpa/prometheus: allow
           annotations:
             k8s.v1.cni.cncf.io/networks: |
               [{
