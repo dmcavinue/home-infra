@@ -65,6 +65,7 @@ spec:
             egress.home.arpa/lan-iot: "allow"
             egress.home.arpa/lan-user: "allow"
             egress.home.arpa/lan-mgmt: "allow"
+            egress.home.arpa/world: "allow"
             egress.home.arpa/unifi: "allow"
           annotations:
             k8s.v1.cni.cncf.io/networks: |
