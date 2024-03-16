@@ -12,4 +12,3 @@ spec:
     - fromEndpoints:
         - matchLabels:
             prometheus: prom-main
-            k8s:io.kubernetes.pod.namespace: monitoring
