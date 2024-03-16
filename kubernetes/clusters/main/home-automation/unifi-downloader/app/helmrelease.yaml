@@ -43,7 +43,9 @@ spec:
               accessMode: ReadWriteOnce
               size: 30Gi
               storageClass: ceph-pool
-        # pod:
+        pod:
+          labels:
+            egress.home.arpa/lan-mgmt: "allow"
         #   securityContext:
         #     fsGroup: 1001
         #     runAsUser: 1001
