@@ -10,6 +10,7 @@ resources:
   - ./allow-egress-lan.yaml
   - ./allow-egress-minio.yaml
   - ./allow-egress-restic.yaml
+  - ./allow-egress-unifi.yaml
   - ./allow-egress-vault.yaml
   - ./allow-egress-world.yaml
   - ./allow-ingress-internet.yaml

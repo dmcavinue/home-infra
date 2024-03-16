@@ -33,6 +33,12 @@ spec:
       home-assistant:
         annotations:
           reloader.stakater.com/auto: "true"
+        pod:
+          labels:
+            egress.home.arpa/lan-iot: "allow"
+            egress.home.arpa/lan-user: "allow"
+            egress.home.arpa/lan-mgmt: "allow"
+            egress.home.arpa/unifi: "allow"
         containers:
           app:
             image:
