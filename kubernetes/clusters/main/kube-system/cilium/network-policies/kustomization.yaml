@@ -18,4 +18,3 @@ resources:
   - ./allow-ingress-lan.yaml
   - ./allow-ingress-world.yaml
   - ./kube-system-allow-all.yaml
-  - ./monitoring-allow-prometheus-scrape.yaml
