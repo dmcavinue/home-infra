@@ -11,5 +11,5 @@ spec:
   ingress:
     - fromEndpoints:
         - matchLabels:
-            prometheus: kube-prometheus-stack
+            prometheus: prom-main
             k8s:io.kubernetes.pod.namespace: monitoring
