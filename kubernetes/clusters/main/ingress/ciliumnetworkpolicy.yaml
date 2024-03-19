@@ -10,3 +10,16 @@ spec:
     - {}
   egress:
     - {}
+# todo: move to common
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: default-deny
+  namespace: cert-manager
+spec:
+  endpointSelector: {}
+  ingress:
+    - {}
+  egress:
+    - {}
