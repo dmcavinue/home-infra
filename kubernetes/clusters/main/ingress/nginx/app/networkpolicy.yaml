@@ -1,0 +1,44 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/cilium.io/ciliumnetworkpolicy_v2.json
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: ingress-nginx
+spec:
+  endpointSelector:
+    matchLabels:
+      name: ingress-nginx
+      component: controller
+  egress:
+    # esphome
+    - toEndpoints:
+        - matchLabels:
+            app.kubernetes.io/name: esphome
+      toPorts:
+        - ports:
+            - port: "6052"
+              protocol: TCP
+    # home-assistant
+    - toEndpoints:
+        - matchLabels:
+            app.kubernetes.io/name: home-assistant
+      toPorts:
+        - ports:
+            - port: "8123"
+              protocol: TCP
+    # music-assistant
+    - toEndpoints:
+        - matchLabels:
+            app.kubernetes.io/name: music-assistant
+      toPorts:
+        - ports:
+            - port: "8095"
+              protocol: TCP
+    # zwave-js-ui
+    - toEndpoints:
+        - matchLabels:
+            app.kubernetes.io/name: zwave-js-ui
+      toPorts:
+        - ports:
+            - port: "3000"
+              protocol: TCP
