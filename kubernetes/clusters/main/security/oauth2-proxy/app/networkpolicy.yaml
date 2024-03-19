@@ -1,0 +1,20 @@
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: oauth2-proxy
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/name: oauth2-proxy
+      app.kubernetes.io/component: authentication-proxy
+  ingress:
+    # nginx
+    - fromEndpoints:
+        - matchLabels:
+            app.kubernetes.io/name: ingress-nginx
+            app.kubernetes.io/component: controller
+      toPorts:
+        - ports:
+            - port: "4180"
+              protocol: TCP
