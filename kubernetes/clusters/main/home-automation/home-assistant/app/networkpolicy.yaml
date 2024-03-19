@@ -9,15 +9,6 @@ spec:
     matchLabels:
       app.kubernetes.io/name: home-assistant
   egress:
-    # nginx
-    - toEndpoints:
-        - matchLabels:
-            app.kubernetes.io/name: ingress-nginx
-            app.kubernetes.io/component: controller
-      toPorts:
-        - ports:
-            - port: "8123"
-              protocol: "TCP"
     # emqx
     - toEndpoints:
         - matchLabels:
