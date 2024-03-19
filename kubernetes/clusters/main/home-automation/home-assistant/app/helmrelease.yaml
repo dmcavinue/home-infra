@@ -68,6 +68,7 @@ spec:
             egress.home.arpa/world: allow
             egress.home.arpa/unifi: allow
             ingress.home.arpa/prometheus: allow
+            ingress.home.arpa/nginx: allow
           annotations:
             k8s.v1.cni.cncf.io/networks: |
               [{
