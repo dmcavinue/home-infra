@@ -28,6 +28,8 @@ spec:
   values:
     controller:
       replicaCount: 2
+      podLabels:
+        ingress.home.arpa/world: allow
       service:
         annotations:
           io.cilium/lb-ipam-ips: "192.168.8.49"
