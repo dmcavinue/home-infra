@@ -27,6 +27,9 @@ spec:
     keepHistory: false
   values:
     installCRDs: true
+    podLabels:
+      ingress.home.arpa/prometheus: allow
+      egress.home.arpa/apiserver: allow
     automountServiceAccountToken: false
     serviceAccount:
       automountServiceAccountToken: false
