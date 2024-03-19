@@ -76,6 +76,10 @@ spec:
               ESPHOME_DASHBOARD_USE_PING: true
               PLATFORMIO_CORE_DIR: /config/.plattformio
               PLATFORMIO_GLOBALLIB_DIR: /config/.plattformioLibs
+        pod:
+          labels:
+            egress.home.arpa/lan-iot: allow
+            ingress.home.arpa/nginx: allow
     service:
       app:
         controller: esphome
