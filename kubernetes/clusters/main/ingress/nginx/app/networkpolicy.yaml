@@ -7,8 +7,8 @@ metadata:
 spec:
   endpointSelector:
     matchLabels:
-      name: ingress-nginx
-      component: controller
+      app.kubernetes.io/name: ingress-nginx
+      app.kubernetes.io/component: controller
   egress:
     # esphome
     - toEndpoints:
