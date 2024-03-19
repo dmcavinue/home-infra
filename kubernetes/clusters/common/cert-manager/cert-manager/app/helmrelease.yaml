@@ -30,6 +30,7 @@ spec:
     podLabels:
       ingress.home.arpa/prometheus: allow
       egress.home.arpa/apiserver: allow
+      egress.home.arpa/vault: allow
     automountServiceAccountToken: false
     serviceAccount:
       automountServiceAccountToken: false
