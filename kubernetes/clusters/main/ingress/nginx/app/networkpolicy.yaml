@@ -29,7 +29,7 @@ spec:
     - toEndpoints:
         - matchLabels:
             app.kubernetes.io/name: home-assistant
-            io.kubernetes.pod.namespace: home-assistant
+            io.kubernetes.pod.namespace: home-automation
       toPorts:
         - ports:
             - port: "8123"
