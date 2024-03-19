@@ -25,6 +25,15 @@ spec:
       app.kubernetes.io/name: ingress-nginx
       app.kubernetes.io/component: controller
   egress:
+    # esphome
+    - toEndpoints:
+        - matchLabels:
+            app.kubernetes.io/name: esphome
+            io.kubernetes.pod.namespace: home-automation
+      toPorts:
+        - ports:
+            - port: "6052"
+              protocol: TCP
     # home-assistant
     - toEndpoints:
         - matchLabels:
@@ -33,4 +42,22 @@ spec:
       toPorts:
         - ports:
             - port: "8123"
+              protocol: TCP
+    # music-assistant
+    - toEndpoints:
+        - matchLabels:
+            app.kubernetes.io/name: music-assistant
+            io.kubernetes.pod.namespace: home-automation
+      toPorts:
+        - ports:
+            - port: "8095"
+              protocol: TCP
+    # zwave-js-ui
+    - toEndpoints:
+        - matchLabels:
+            app.kubernetes.io/name: zwave-js-ui
+            io.kubernetes.pod.namespace: home-automation
+      toPorts:
+        - ports:
+            - port: "8091"
               protocol: TCP
