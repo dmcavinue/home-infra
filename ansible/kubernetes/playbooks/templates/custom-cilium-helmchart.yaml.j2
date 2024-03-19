@@ -15,11 +15,15 @@ spec:
     autoDirectNodeRoutes: true
     bpf:
       masquerade: true
+    bgp:
+      enabled: false
     cgroup:
       automount:
         enabled: false
       hostRoot: /sys/fs/cgroup
     cluster:
+      id: 1
+      name: {{ lookup('env', 'ENVIRONMENT') }}
     containerRuntime:
       integration: containerd
       socketPath: /var/run/k3s/containerd/containerd.sock
@@ -31,9 +35,15 @@ spec:
     ipam:
       mode: kubernetes
     ipv4NativeRoutingCIDR: "{{ k3s_server['cluster-cidr'] }}"
+    k8sServiceHost: "{{ k3s_registration_address }}"
+    k8sServicePort: 443
+    kubeProxyReplacement: strict
     kubeProxyReplacementHealthzBindAddr: 0.0.0.0:10256
     l2announcements:
       enabled: true
+      leaseDuration: 120s
+      leaseRenewDeadline: 60s
+      leaseRetryPeriod: 1s
     loadBalancer:
       algorithm: maglev
       mode: dsr
