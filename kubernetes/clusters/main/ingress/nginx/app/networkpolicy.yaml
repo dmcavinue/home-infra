@@ -14,3 +14,23 @@ spec:
             app.kubernetes.io/name: ingress-nginx
             app.kubernetes.io/component: controller
             io.kubernetes.pod.namespace: ingress
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: nginx
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/name: ingress-nginx
+      app.kubernetes.io/component: controller
+  egress:
+    # home-assistant
+    - toEndpoints:
+        - matchLabels:
+            app.kubernetes.io/name: home-assistant
+            io.kubernetes.pod.namespace: home-assistant
+      toPorts:
+        - ports:
+            - port: "8123"
+              protocol: TCP
