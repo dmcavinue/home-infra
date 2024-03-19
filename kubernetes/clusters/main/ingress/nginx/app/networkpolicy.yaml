@@ -35,6 +35,15 @@ spec:
             - port: "443"
               protocol: TCP
   egress:
+    # oauth2-proxy
+    - toEndpoints:
+        - matchLabels:
+            app.kubernetes.io/name: oauth2-proxy
+            app.kubernetes.io/component: authentication-proxy
+      toPorts:
+        - ports:
+            - port: "4180"
+              protocol: TCP
     # nginx
     - toEndpoints:
         - matchLabels:
