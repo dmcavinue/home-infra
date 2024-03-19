@@ -49,3 +49,13 @@ spec:
         - ports:
             - port: "3000"
               protocol: TCP
+  ingress:
+    # nginx
+    - fromEndpoints:
+        - matchLabels:
+            app.kubernetes.io/name: ingress-nginx
+            app.kubernetes.io/component: controller
+      toPorts:
+        - ports:
+            - port: "8123"
+              protocol: TCP
