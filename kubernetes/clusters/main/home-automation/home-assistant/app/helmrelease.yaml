@@ -106,7 +106,7 @@ spec:
               - *host
     serviceAccount:
       create: true
-      name: home-assistant
+      name: hass
     persistence:
       config:
         existingClaim: home-assistant
