@@ -5,8 +5,8 @@ kind: Kustomization
 resources:
   # Pre Flux-Kustomizations
   - ./namespace.yaml
-  - ./externalsecret.yaml
   - ./ciliumnetworkpolicy.yaml
+  - ./externalsecret.yaml
   # Flux-Kustomizations
   - ./excalidraw/ks.yaml
   #- ./immich/ks.yaml
