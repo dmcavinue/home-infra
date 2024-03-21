@@ -34,3 +34,14 @@ spec:
         - ports:
             - port: "9000"
               protocol: TCP
+            - port: "9001"
+              protocol: TCP
+    # vault
+    - toEndpoints:
+        - matchLabels:
+            app.kubernetes.io/name: vault
+            app.kubernetes.io/component: server
+      toPorts:
+        - ports:
+            - port: "8200"
+              protocol: TCP
