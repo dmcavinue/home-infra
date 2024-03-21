@@ -2,7 +2,7 @@
 apiVersion: cilium.io/v2
 kind: CiliumNetworkPolicy
 metadata:
-  name: default-deny
+  name: default-deny-outside-namespace
   namespace: &namespace ingress
 spec:
   endpointSelector: {}
@@ -19,7 +19,7 @@ spec:
 apiVersion: cilium.io/v2
 kind: CiliumNetworkPolicy
 metadata:
-  name: default-deny
+  name: default-deny-outside-namespace
   namespace: &namespace cert-manager
 spec:
   endpointSelector: {}

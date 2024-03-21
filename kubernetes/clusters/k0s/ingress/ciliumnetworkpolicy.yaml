@@ -3,7 +3,7 @@ apiVersion: cilium.io/v2
 kind: CiliumNetworkPolicy
 metadata:
   name: default-deny-outside-namespace
-  namespace: &namespace rook-ceph
+  namespace: &namespace ingress
 spec:
   endpointSelector: {}
   egress:

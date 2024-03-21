@@ -24,16 +24,6 @@ spec:
     matchLabels:
       app.kubernetes.io/name: ingress-nginx
       app.kubernetes.io/component: controller
-  ingress:
-    # nginx
-    - fromEndpoints:
-        - matchLabels:
-            app.kubernetes.io/name: ingress-nginx
-            app.kubernetes.io/component: controller
-      toPorts:
-        - ports:
-            - port: "443"
-              protocol: TCP
   egress:
     # oauth2-proxy
     - toEndpoints:
@@ -43,15 +33,6 @@ spec:
       toPorts:
         - ports:
             - port: "4180"
-              protocol: TCP
-    # nginx
-    - toEndpoints:
-        - matchLabels:
-            app.kubernetes.io/name: ingress-nginx
-            app.kubernetes.io/component: controller
-      toPorts:
-        - ports:
-            - port: "443"
               protocol: TCP
     # esphome
     - toEndpoints:
