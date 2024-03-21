@@ -3,23 +3,31 @@ apiVersion: cilium.io/v2
 kind: CiliumNetworkPolicy
 metadata:
   name: default-deny
-  namespace: ingress
+  namespace: &namespace ingress
 spec:
   endpointSelector: {}
-  ingress:
-    - {}
   egress:
-    - {}
+  - toEndpoints:
+    - matchLabels:
+        "k8s:io.kubernetes.pod.namespace": *namespace
+  ingress:
+  - fromEndpoints:
+    - matchLabels:
+        "k8s:io.kubernetes.pod.namespace": *namespace
 # todo: move to common
 ---
 apiVersion: cilium.io/v2
 kind: CiliumNetworkPolicy
 metadata:
   name: default-deny
-  namespace: cert-manager
+  namespace: &namespace cert-manager
 spec:
   endpointSelector: {}
-  ingress:
-    - {}
   egress:
-    - {}
+  - toEndpoints:
+    - matchLabels:
+        "k8s:io.kubernetes.pod.namespace": *namespace
+  ingress:
+  - fromEndpoints:
+    - matchLabels:
+        "k8s:io.kubernetes.pod.namespace": *namespace

@@ -3,10 +3,14 @@ apiVersion: cilium.io/v2
 kind: CiliumNetworkPolicy
 metadata:
   name: default-deny
-  namespace: home-automation
+  namespace: &namespace home-automation
 spec:
   endpointSelector: {}
-  ingress:
-    - {}
   egress:
-    - {}
+  - toEndpoints:
+    - matchLabels:
+        "k8s:io.kubernetes.pod.namespace": *namespace
+  ingress:
+  - fromEndpoints:
+    - matchLabels:
+        "k8s:io.kubernetes.pod.namespace": *namespace
