@@ -1,0 +1,36 @@
+---
+apiVersion: cilium.io/v2
+kind: CiliumClusterwideNetworkPolicy
+metadata:
+  name: allow-ingress-nginx
+spec:
+  description: "Allow pods that require ingress to allow traffic from ingress-nginx, no port restrictions"
+  endpointSelector:
+    matchLabels:
+      ingress.home.arpa/nginx: allow
+  ingress:
+    - fromEndpoints:
+        - matchLabels:
+            app.kubernetes.io/name: ingress-nginx
+            app.kubernetes.io/component: controller
+            io.kubernetes.pod.namespace: ingress
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: ingress-nginx
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/name: ingress-nginx
+      app.kubernetes.io/component: controller
+  egress:
+    # minio
+    - toEndpoints:
+        - matchLabels:
+            app.kubernetes.io/name: minio
+            app.kubernetes.io/component: minio
+      toPorts:
+        - ports:
+            - port: "9000"
+              protocol: TCP
