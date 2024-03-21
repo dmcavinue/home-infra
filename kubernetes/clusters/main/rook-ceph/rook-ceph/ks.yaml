@@ -2,9 +2,13 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: rook-ceph
+  name: &appname rook-ceph
   namespace: flux-system
 spec:
+  targetNamespace: rook-ceph
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *appname
   path: ./kubernetes/clusters/${ENVIRONMENT}/rook-ceph/rook-ceph/app
   prune: false
   sourceRef:
@@ -18,11 +22,15 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: rook-ceph-cluster
+  name: &appname rook-ceph-cluster
   namespace: flux-system
 spec:
   dependsOn:
     - name: rook-ceph
+  targetNamespace: rook-ceph
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *appname
   path: ./kubernetes/clusters/${ENVIRONMENT}/rook-ceph/rook-ceph/cluster
   prune: false
   sourceRef:

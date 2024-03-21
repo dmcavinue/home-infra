@@ -25,12 +25,15 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: home-automation-home-assistant-database
+  name: &appname home-automation-home-assistant-database
   namespace: flux-system
 spec:
   dependsOn:
     - name: cloudnative-pg
   targetNamespace: home-automation
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *appname
   path: ./kubernetes/clusters/${ENVIRONMENT}/home-automation/home-assistant/database
   prune: false
   sourceRef:

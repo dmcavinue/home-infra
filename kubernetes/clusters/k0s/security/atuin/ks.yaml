@@ -2,7 +2,7 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app atuin
+  name: &appname atuin
   namespace: flux-system
 spec:
   dependsOn:
@@ -10,7 +10,7 @@ spec:
   targetNamespace: security
   commonMetadata:
     labels:
-      app.kubernetes.io/name: *app
+      app.kubernetes.io/name: *appname
   path: ./kubernetes/clusters/${ENVIRONMENT}/security/atuin/app
   prune: true
   sourceRef:
@@ -22,18 +22,18 @@ spec:
   timeout: 5m
   postBuild:
     substitute:
-      APP: *app
+      APP: *appname
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app atuin-database
+  name: &appname atuin-database
   namespace: flux-system
 spec:
   targetNamespace: security
   commonMetadata:
     labels:
-      app.kubernetes.io/name: *app
+      app.kubernetes.io/name: *appname
   path: ./kubernetes/clusters/${ENVIRONMENT}/security/atuin/database
   prune: true
   sourceRef:
@@ -45,4 +45,4 @@ spec:
   timeout: 5m
   postBuild:
     substitute:
-      APP: *app
+      APP: *appname

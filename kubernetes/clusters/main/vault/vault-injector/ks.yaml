@@ -2,9 +2,13 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: vault-injector
+  name: &appname vault-injector
   namespace: flux-system
 spec:
+  targetNamespace: vault
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *appname
   path: ./kubernetes/clusters/${ENVIRONMENT}/vault/vault-injector/app
   prune: false
   sourceRef:
