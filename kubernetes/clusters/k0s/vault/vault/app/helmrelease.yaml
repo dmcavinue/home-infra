@@ -49,10 +49,9 @@ spec:
           storage "file" {
             path = "/vault/data"
           }
-      pod:
-        extraLabels:
-          ingress.home.arpa/nginx: allow
-          ingress.home.arpa/prometheus: allow
+      extraLabels:
+        ingress.home.arpa/nginx: allow
+        ingress.home.arpa/prometheus: allow
       service:
         annotations:
           io.cilium/global-service: "true"
