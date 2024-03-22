@@ -22,7 +22,7 @@ spec:
     - fromEndpoints:
         - matchLabels:
             app.kubernetes.io/name: thanos
-            app.kubernetes.io/namespace: monitoring
+            namespace: monitoring
       toPorts:
         - ports:
             - port: "9000"
