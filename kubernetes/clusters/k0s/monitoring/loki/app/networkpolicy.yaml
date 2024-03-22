@@ -14,7 +14,7 @@ spec:
     - toEndpoints:
         - matchLabels:
             app.kubernetes.io/name: memcached
-            app.kubernetes.io/instance: memcached
+            app.kubernetes.io/instance: memcached-loki-chunk
       toPorts:
         - ports:
             - port: "11211"
