@@ -14,6 +14,7 @@ spec:
     - toEndpoints:
         - matchLabels:
             app.kubernetes.io/name: memcached
+            app.kubernetes.io/instance: memcached
       toPorts:
         - ports:
             - port: "11211"
@@ -22,6 +23,7 @@ spec:
     - toEndpoints:
         - matchLabels:
             app.kubernetes.io/name: minio
+            app.kubernetes.io/instance: minio
       toPorts:
         - ports:
             - port: "9000"
