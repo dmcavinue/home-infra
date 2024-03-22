@@ -44,3 +44,38 @@ spec:
         - ports:
             - port: "8200"
               protocol: TCP
+    # adguard
+    - toCIDRSet:
+        - cidr: "${INGRESS_ADGUARD_IP}/32"
+      toPorts:
+        - ports:
+            - port: "3000"
+              protocol: TCP
+    # drac
+    - toCIDRSet:
+        - cidr: "${INGRESS_DRAC_IP}/32"
+      toPorts:
+        - ports:
+            - port: "443"
+              protocol: TCP
+    # proxmox
+    - toCIDRSet:
+        - cidr: "${INGRESS_PROXMOX_IP}/32"
+      toPorts:
+        - ports:
+            - port: "8002"
+              protocol: TCP
+    # unifi
+    - toCIDRSet:
+        - cidr: "${INGRESS_UNIFI_IP}/32"
+      toPorts:
+        - ports:
+            - port: "443"
+              protocol: TCP
+    # vacuum
+    - toCIDRSet:
+        - cidr: "${INGRESS_VACUUM_IP}/32"
+      toPorts:
+        - ports:
+            - port: "80"
+              protocol: TCP
