@@ -56,6 +56,9 @@ spec:
               limits:
                 memory: 256Mi
         pod:
+          labels:
+            ingress.home.arpa/prometheus: allow
+            ingress.home.arpa/nginx: allow
           securityContext:
             runAsUser: 568
             runAsGroup: 568
