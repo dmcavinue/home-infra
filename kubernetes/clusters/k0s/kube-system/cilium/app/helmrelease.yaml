@@ -181,12 +181,12 @@ spec:
           - httpV2
           - policy
           #- httpV2:exemplars=true;labelsContext=source_ip
-          # - source_namespace
-          # - source_workload
-          # - destination_ip
-          # - destination_namespace
-          # - destination_workload
-          # - traffic_direction
+          - source_namespace
+          - source_workload
+          - destination_ip
+          - destination_namespace
+          - destination_workload
+          - traffic_direction
         serviceMonitor:
           enabled: true
         dashboards:
