@@ -71,6 +71,7 @@ spec:
           labels:
             ingress.home.arpa/prometheus: allow
             ingress.home.arpa/nginx: allow
+            egress.home.arpa/world: allow
     service:
       app:
         controller: restic
