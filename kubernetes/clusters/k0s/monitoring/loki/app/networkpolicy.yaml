@@ -7,7 +7,8 @@ metadata:
 spec:
   endpointSelector:
     matchLabels:
-      name: loki
+      app.kubernetes.io/name: loki
+      app.kubernetes.io/instance: loki
   egress:
     # memcached
     - toEndpoints:
