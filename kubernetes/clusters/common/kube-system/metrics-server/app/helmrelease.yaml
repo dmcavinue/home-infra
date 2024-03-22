@@ -31,6 +31,8 @@ spec:
       - --kubelet-preferred-address-types=InternalIP,ExternalIP,Hostname
       - --kubelet-use-node-status-port
       - --metric-resolution=15s
+    podLabels:
+      ingress.home.arpa/prometheus: allow
     metrics:
       enabled: true
     serviceMonitor:
