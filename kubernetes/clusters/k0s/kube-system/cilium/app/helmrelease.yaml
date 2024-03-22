@@ -170,7 +170,7 @@ spec:
             kind: Issuer
             name: vault-issuer
       metrics:
-        enableOpenMetrics: true
+        #enableOpenMetrics: true
         enabled:
           - dns
           - drop
