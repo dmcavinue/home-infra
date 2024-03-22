@@ -1,0 +1,28 @@
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: vault
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/name: vault
+      app.kubernetes.io/component: server
+  egress:
+    # lldap
+    - toEndpoints:
+        - matchLabels:
+            app.kubernetes.io/name: lldap
+            app.kubernetes.io/component: lldap
+      toPorts:
+        - ports:
+            - port: "636"
+              protocol: TCP
+    # kubernetes
+    - toCIDRSet:
+        - cidr: "192.168.8.34/32"
+        - cidr: "192.168.8.227/32"
+      toPorts:
+        - ports:
+            - port: "443"
+              protocol: TCP
