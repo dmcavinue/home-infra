@@ -12,8 +12,8 @@ spec:
     # loki
     - fromEndpoints:
         - matchLabels:
-            app.kubernetes.io/name: loki
-            app.kubernetes.io/part-of: memberlist
+            k8s:app.kubernetes.io/name: loki
+            k8s:part-of: memberlist
       toPorts:
         - ports:
             - port: "9000"
@@ -21,8 +21,7 @@ spec:
     # thanos
     - fromEndpoints:
         - matchLabels:
-            app.kubernetes.io/name: thanos
-            app.kubernetes.io/namespace: monitoring
+            k8s:app.kubernetes.io/name: thanos
       toPorts:
         - ports:
             - port: "9000"
