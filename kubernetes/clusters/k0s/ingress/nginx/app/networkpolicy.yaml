@@ -25,6 +25,14 @@ spec:
       app.kubernetes.io/name: ingress-nginx
       app.kubernetes.io/component: controller
   egress:
+    # hubble
+    - toEndpoints:
+        - matchLabels:
+            app.kubernetes.io/name: hubble-ui
+      toPorts:
+        - ports:
+            - port: "8081"
+              protocol: TCP
     # minio
     - toEndpoints:
         - matchLabels:
@@ -40,6 +48,7 @@ spec:
     - toEndpoints:
         - matchLabels:
             app.kubernetes.io/name: vault
+            app.kubernetes.io/component: server
       toPorts:
         - ports:
             - port: "8200"
