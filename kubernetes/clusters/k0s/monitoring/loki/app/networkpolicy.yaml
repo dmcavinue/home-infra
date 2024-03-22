@@ -17,3 +17,11 @@ spec:
         - ports:
             - port: "11211"
               protocol: TCP
+    # minio
+    - toEndpoints:
+        - matchLabels:
+            app.kubernetes.io/name: minio
+      toPorts:
+        - ports:
+            - port: "9000"
+              protocol: TCP
