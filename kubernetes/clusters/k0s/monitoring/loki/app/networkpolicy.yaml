@@ -1,0 +1,21 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/cilium.io/ciliumnetworkpolicy_v2.json
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: loki
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/name: loki
+      app.kubernetes.io/component: write
+  egress:
+    # memcached
+    - toEndpoints:
+        - matchLabels:
+            app.kubernetes.io/name: memcached
+            app.kubernetes.io/instance: memcached-loki-chunk
+      toPorts:
+        - ports:
+            - port: "11211"
+              protocol: TCP
