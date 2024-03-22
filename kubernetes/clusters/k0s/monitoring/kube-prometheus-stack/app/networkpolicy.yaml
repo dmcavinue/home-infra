@@ -7,7 +7,7 @@ spec:
   description: Allow Prometheus scraping
   endpointSelector:
     matchLabels:
-      prometheus: prom-k0s
+      prometheus: kube-prometheus-stack
   egress:
     - toEndpoints:
         - matchLabels:
@@ -28,4 +28,4 @@ spec:
   ingress:
     - fromEndpoints:
         - matchLabels:
-            prometheus: prom-k0s
+            prometheus: kube-prometheus-stack
