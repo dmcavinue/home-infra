@@ -25,6 +25,14 @@ spec:
       app.kubernetes.io/name: ingress-nginx
       app.kubernetes.io/component: controller
   egress:
+    # grafana
+    - toEndpoints:
+        - matchLabels:
+            app.kubernetes.io/name: grafana
+      toPorts:
+        - ports:
+            - port: "3000"
+              protocol: TCP
     # hubble
     - toEndpoints:
         - matchLabels:
