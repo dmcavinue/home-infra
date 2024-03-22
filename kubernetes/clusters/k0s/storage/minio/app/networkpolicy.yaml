@@ -13,7 +13,7 @@ spec:
     - fromEndpoints:
         - matchLabels:
             app.kubernetes.io/name: loki
-            app.kubernetes.io/namespace: monitoring
+            app.kubernetes.io/part-of: memberlist
       toPorts:
         - ports:
             - port: "9000"
