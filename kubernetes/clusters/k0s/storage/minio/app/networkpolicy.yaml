@@ -13,6 +13,7 @@ spec:
     - fromEndpoints:
         - matchLabels:
             app.kubernetes.io/name: loki
+            app.kubernetes.io/instance: loki
       toPorts:
         - ports:
             - port: "9000"
@@ -21,6 +22,7 @@ spec:
     - fromEndpoints:
         - matchLabels:
             app.kubernetes.io/name: thanos
+            app.kubernetes.io/instance: thanos
       toPorts:
         - ports:
             - port: "9000"
