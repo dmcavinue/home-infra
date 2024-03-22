@@ -9,31 +9,19 @@ spec:
     matchLabels:
       app.kubernetes.io/name: minio
   ingress:
-    # loki-backend
+    # loki
     - fromEndpoints:
         - matchLabels:
             app.kubernetes.io/name: loki
-            app.kubernetes.io/component: backend
       toPorts:
         - ports:
             - port: "9000"
               protocol: TCP
-    # loki-read
+    # thanos
     - fromEndpoints:
         - matchLabels:
-            app.kubernetes.io/name: loki
-            app.kubernetes.io/component: read
+            app.kubernetes.io/name: thanos
       toPorts:
         - ports:
             - port: "9000"
               protocol: TCP
-    # loki-write
-    - fromEndpoints:
-        - matchLabels:
-            app.kubernetes.io/name: loki
-            app.kubernetes.io/component: write
-      toPorts:
-        - ports:
-            - port: "9000"
-              protocol: TCP
-
