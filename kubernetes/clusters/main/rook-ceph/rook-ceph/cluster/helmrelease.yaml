@@ -40,14 +40,19 @@ spec:
           - hosts:
               - *host
     toolbox:
-      enabled: false
+      enabled: true
     configOverride: |
       [global]
       bdev_enable_discard = true
       bdev_async_discard = true
+      osd_class_update_on_start = false
     cephClusterSpec:
       network:
         provider: host
+        connections:
+          compression:
+            enabled: true
+          requireMsgr2: true
       crashCollector:
         disable: false
       dashboard:
@@ -101,14 +106,14 @@ spec:
             cpu: 4000m
             memory: 8Gi
     cephBlockPools:
-      - name: ceph-blockpool
+      - name: ceph-pool
         spec:
           failureDomain: host
           replicated:
             size: 3
         storageClass:
           enabled: true
-          name: ceph-block
+          name: ceph-pool
           isDefault: false
           reclaimPolicy: Delete
           allowVolumeExpansion: true
