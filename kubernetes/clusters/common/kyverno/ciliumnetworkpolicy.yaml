@@ -3,7 +3,7 @@ apiVersion: cilium.io/v2
 kind: CiliumNetworkPolicy
 metadata:
   name: default-deny-outside-namespace
-  namespace: &namespace home-automation
+  namespace: &namespace kyverno
 spec:
   endpointSelector: {}
   egress:

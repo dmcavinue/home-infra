@@ -13,6 +13,8 @@ spec:
     - toEndpoints:
         - matchLabels:
             app.kubernetes.io/name: emqx
+      authentication:
+        mode: required
       toPorts:
         - ports:
             - port: "1883"
