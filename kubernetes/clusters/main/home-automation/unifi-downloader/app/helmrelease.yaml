@@ -42,7 +42,7 @@ spec:
                 - path: /download
               accessMode: ReadWriteOnce
               size: 30Gi
-              storageClass: ceph-pool
+              storageClass: ceph-block
         pod:
           labels:
             egress.home.arpa/lan-mgmt: "allow"
