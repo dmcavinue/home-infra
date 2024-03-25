@@ -44,36 +44,36 @@ spec:
       requests:
         cpu: 100m
         memory: 64Mi
-    authentication:
-      mutual:
-        spire:
-          enabled: true
-          install:
-            enabled: true
-            agent:
-              enabled: true
-              securityContext:
-                allowPrivilegeEscalation: false
-                readOnlyRootFilesystem: false
-                capabilities:
-                  drop: ["ALL"]
-            server:
-              enabled: true
-              dataStorage:
-                size: 1Gi
-                accessMode: ReadWriteOnce
-                storageClass: local-path
-              securityContext:
-                allowPrivilegeEscalation: false
-                readOnlyRootFilesystem: true
-                capabilities:
-                  drop: ["ALL"]
-              resources:
-                limits:
-                  memory: 256Mi
-                requests:
-                  cpu: 100m
-                  memory: 128Mi
+    # authentication:
+    #   mutual:
+    #     spire:
+    #       enabled: true
+    #       install:
+    #         enabled: true
+    #         agent:
+    #           enabled: true
+    #           securityContext:
+    #             allowPrivilegeEscalation: false
+    #             readOnlyRootFilesystem: false
+    #             capabilities:
+    #               drop: ["ALL"]
+    #         server:
+    #           enabled: true
+    #           dataStorage:
+    #             size: 1Gi
+    #             accessMode: ReadWriteOnce
+    #             storageClass: local-path
+    #           securityContext:
+    #             allowPrivilegeEscalation: false
+    #             readOnlyRootFilesystem: true
+    #             capabilities:
+    #               drop: ["ALL"]
+    #           resources:
+    #             limits:
+    #               memory: 256Mi
+    #             requests:
+    #               cpu: 100m
+    #               memory: 128Mi
     bpf:
       masquerade: true
     cgroup:
