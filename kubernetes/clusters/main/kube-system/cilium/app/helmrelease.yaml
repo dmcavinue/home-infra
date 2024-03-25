@@ -26,7 +26,7 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    autoDirectNodeRoutes: false
+    autoDirectNodeRoutes: true
     bandwidthManager:
       enabled: true
       bbr: true
@@ -210,8 +210,8 @@ spec:
       leaseRetryPeriod: 1s
     loadBalancer:
       algorithm: maglev
-      serviceTopology: true
-      #mode: dsr
+      #serviceTopology: true
+      mode: dsr
     localRedirectPolicy: true
     operator:
       replicas: 1
@@ -255,4 +255,4 @@ spec:
           - SYS_ADMIN
           - SYS_RESOURCE
     routingMode: native
-    tunnel: disabled
+    #tunnel: disabled
