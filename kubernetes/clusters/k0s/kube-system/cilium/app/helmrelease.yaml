@@ -26,7 +26,7 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    autoDirectNodeRoutes: false
+    autoDirectNodeRoutes: true
     bandwidthManager:
       enabled: true
       bbr: true
@@ -170,16 +170,14 @@ spec:
             kind: Issuer
             name: vault-issuer
       metrics:
-        enableOpenMetrics: true
         enabled:
-          - dns:query;ignoreAAAA
+          - dns:query
           - drop
           - tcp
           - flow
-          - icmp
           - port-distribution
-          - httpV2
-          - policy
+          - icmp
+          - http
         serviceMonitor:
           enabled: true
         dashboards:
@@ -224,8 +222,8 @@ spec:
       leaseRetryPeriod: 1s
     loadBalancer:
       algorithm: maglev
-      serviceTopology: true
-      #mode: dsr
+      #serviceTopology: true
+      mode: dsr
     localRedirectPolicy: true
     operator:
       replicas: 1
@@ -269,4 +267,4 @@ spec:
           - SYS_ADMIN
           - SYS_RESOURCE
     routingMode: native
-    tunnel: disabled
+    #tunnel: disabled
