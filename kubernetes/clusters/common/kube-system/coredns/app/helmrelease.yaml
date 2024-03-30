@@ -70,7 +70,7 @@ spec:
               192.168.8.242 minio.logfold.com
               192.168.8.242 oauth.logfold.com
               192.168.8.242 prometheus.logfold.com
-              192.168.8.242 thanos-query-frontend.logfold.com/
+              192.168.8.242 thanos-query-frontend.logfold.com
               192.168.8.242 vault.logfold.com
               192.168.8.244 vector.logfold.com
               # external services
