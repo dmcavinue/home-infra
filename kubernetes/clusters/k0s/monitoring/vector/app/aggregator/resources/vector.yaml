@@ -132,7 +132,7 @@ sinks:
     remove_label_fields: false
     remove_timestamp: true
     labels:
-      app: 'mikrotik-switch'
+      hostname: '{{ host }}'
 
   auth:
     inputs: ["unifi_route.auth"]
