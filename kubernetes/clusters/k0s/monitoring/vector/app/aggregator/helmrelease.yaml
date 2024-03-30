@@ -63,6 +63,8 @@ spec:
             port: 6010
           unifi:
             port: 6020
+          mikrotik:
+            port: 6030
     persistence:
       config:
         type: configMap
