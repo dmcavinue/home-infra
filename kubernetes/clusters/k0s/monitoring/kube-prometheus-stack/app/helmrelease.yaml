@@ -258,7 +258,7 @@ spec:
               - imageupdateautomations
             verbs: [ "list", "watch" ]
       customResourceState:
-        enabled: true
+        enabled: false
         config:
           spec:
             resources:
