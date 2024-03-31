@@ -3,7 +3,6 @@ apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
   name: memcached-loki-results
-  namespace: database
 spec:
   interval: 30m
   timeout: 15m
@@ -33,13 +32,13 @@ spec:
       existingPasswordSecret: memcached-loki-results
     args:
       - /run.sh
-      - -m 1024
+      - -m 4096
       - -I 5m
     replicaCount: 1
     persistence:
       enabled: true
       storageClass: local-path
-      size: 10Gi
+      size: 20Gi
     resources:
       limits: {}
       requests:
