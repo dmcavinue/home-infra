@@ -84,11 +84,11 @@ transforms:
 #
 
 sinks:
-    prom-exporter:
-      type: prometheus_exporter
-      inputs:
-        - vector_metrics
-      address: 0.0.0.0:9598
+  prom-exporter:
+    type: prometheus_exporter
+    inputs:
+      - vector_metrics
+    address: 0.0.0.0:9598
 
   journald:
     inputs: ["journald_source"]
