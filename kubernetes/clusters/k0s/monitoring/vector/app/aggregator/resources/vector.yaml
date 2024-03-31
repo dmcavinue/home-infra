@@ -209,3 +209,14 @@ sinks:
     remove_timestamp: true
     labels:
       app: 'unifi-coredns'
+      name: '{{ message.name }}'
+      level: '{{ message.level }}'
+      class: '{{ message.class }}'
+      duration: '{{ message.duration }}'
+      proto: '{{ message.proto }}'
+      rcode: '{{ message.rcode }}'
+      rflags: '{{ message.rflags }}'
+      rsize: '{{ message.rsize }}'
+      size: '{{ message.size }}'
+      type: '{{ message.type }}'
+      server_addr: '{{ message.server_addr }}'
