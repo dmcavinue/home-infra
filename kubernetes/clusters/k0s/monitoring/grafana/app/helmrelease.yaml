@@ -204,6 +204,10 @@ spec:
         external-secrets:
           url: https://raw.githubusercontent.com/external-secrets/external-secrets/main/docs/snippets/dashboard.json
           datasource: Prometheus
+        vector:
+          gnetId: 19649
+          revision: 1
+          datasource: Prometheus
       ceph:
         ceph-cluster:
           # renovate: depName="Ceph Cluster"
