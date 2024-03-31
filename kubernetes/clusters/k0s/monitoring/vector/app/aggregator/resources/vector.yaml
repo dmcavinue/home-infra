@@ -86,24 +86,6 @@ transforms:
       coredns: |
         ._COMM == "coredns"
 
-  coredns_requests_remap:
-    type: remap
-    inputs: ["journald_route.coredns"]
-    source: >
-      # parse the log event.
-      ts = .timestamp
-      log,err = parse_regex(.message,r'\[(?P<level>[^]]+)]\s(?P<server_addr>[^:]+):(?P<server_port>\S+)\s+-\s+(?P<id>\S+)\s+"(?P<type>\S+)\s+(?P<class>\S+)\s+(?P<name>\S+)\s+(?P<proto>\S+)\s+(?P<size>\S+)\s+(?P<do>\S+)\s+(?P<bufsize>[^"]+)"\s+(?P<rcode>\S+)\s+(?P<rflags>\S+)\s+(?P<rsize>\S+)\s+(?P<duration>[\d\.]+).*')
-      if err !=null {
-          # capture the error log. If the error log also fails to get parsed, the log event is dropped.
-        log = parse_regex!(.message,r'\[(?P<level>ERROR)]\s+(?P<component>plugin/errors):\s+(?P<code>\S)+\s+(?P<name>\S+)\s+(?P<type>[^:]*):\s+(?P<error_msg>.*)')
-      }
-      . = log
-      # add timestamp
-      .timestamp = ts
-      # remove fields we dont care about
-      del(.do)
-    drop_on_error: true
-
 #
 # Sinks
 #
@@ -203,7 +185,7 @@ sinks:
       app: 'unifi-protect-clientnotify'
 
   coredns_requests:
-    inputs: ["coredns_requests_remap"]
+    inputs: ["journald_route.coredns"]
     type: loki
     endpoint: http://loki-gateway.monitoring.svc.cluster.local
     encoding: { codec: json }
