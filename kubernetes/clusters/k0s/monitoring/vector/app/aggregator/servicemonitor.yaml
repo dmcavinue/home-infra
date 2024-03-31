@@ -2,7 +2,9 @@
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
-  name: &appname vector-aggregator
+  labels:
+    app.kubernetes.io/name: &appname vector-aggregator
+  name: *appname
 spec:
   endpoints:
     - interval: 2m
