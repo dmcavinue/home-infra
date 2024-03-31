@@ -74,7 +74,6 @@ spec:
               192.168.8.242 vault.logfold.com
               192.168.8.244 vector.logfold.com
               # external services
-              192.168.8.242 adguard.logfold.com
               192.168.8.242 drac.logfold.com
               192.168.8.242 proxmox.logfold.com
               192.168.8.242 restic.logfold.com
