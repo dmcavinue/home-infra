@@ -1,11 +1,15 @@
 ---
 apiVersion: monitoring.coreos.com/v1
-kind: PodMonitor
+kind: ServiceMonitor
 metadata:
   name: &appname vector-aggregator
 spec:
+  endpoints:
+    - interval: 2m
+      path: /metrics
+      port: metrics
+      scheme: metrics
+      scrapeTimeout: 10s
   selector:
     matchLabels:
       app.kubernetes.io/name: *appname
-  podMetricsEndpoints:
-    - port: metrics
