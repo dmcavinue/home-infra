@@ -206,7 +206,7 @@ sinks:
     encoding: { codec: json }
     out_of_order_action: accept
     remove_label_fields: false
-    remove_timestamp: true
+    remove_timestamp: false
     labels:
       app: 'unifi-coredns'
       name: '{{ .name }}'
