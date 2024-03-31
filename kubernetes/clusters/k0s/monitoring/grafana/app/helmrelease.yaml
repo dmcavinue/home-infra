@@ -207,7 +207,9 @@ spec:
         vector:
           gnetId: 19649
           revision: 1
-          datasource: Prometheus
+          datasource:
+            - { name: DS_LOKI, value: Loki }
+            - { name: DS_MIMIR, value: Prometheus }
       ceph:
         ceph-cluster:
           # renovate: depName="Ceph Cluster"
