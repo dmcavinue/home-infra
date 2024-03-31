@@ -104,6 +104,7 @@ transforms:
       if parse_err != null {
           abort
       }
+      . = log
       # add timestamp
       .timestamp = ts
       # cleanup unused fields
