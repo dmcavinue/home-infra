@@ -79,6 +79,13 @@ transforms:
           abort
       }
 
+  journald_route:
+    type: route
+    inputs: ["journald_source"]
+    route:
+      coredns: |
+        ._COMM == "coredns"
+
 #
 # Sinks
 #
@@ -176,3 +183,14 @@ sinks:
     remove_timestamp: true
     labels:
       app: 'unifi-protect-clientnotify'
+
+  coredns_requests:
+    inputs: ["journald_route.coredns"]
+    type: loki
+    endpoint: http://loki-gateway.monitoring.svc.cluster.local
+    encoding: { codec: json }
+    out_of_order_action: accept
+    remove_label_fields: false
+    remove_timestamp: true
+    labels:
+      app: 'unifi-coredns'
