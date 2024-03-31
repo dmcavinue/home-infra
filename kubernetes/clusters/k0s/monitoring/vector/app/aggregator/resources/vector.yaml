@@ -95,15 +95,6 @@ transforms:
       if parse_err != null {
           abort
       }
-      # Extract separate fields from message
-      log.fields, split_err = strip_whitespace(log.fields)
-      if split_err != null {
-          abort
-      }
-      .message, parse_err = parse_key_value(log.fields, whitespace: "strict")
-      if parse_err != null {
-          abort
-      }
       . = log
       # add timestamp
       .timestamp = ts
