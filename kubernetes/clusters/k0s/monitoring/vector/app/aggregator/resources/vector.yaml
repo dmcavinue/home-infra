@@ -209,3 +209,9 @@ sinks:
     remove_timestamp: false
     labels:
       app: 'unifi-coredns'
+      name: '{{ .name }}'
+      level: '{{ .level }}'
+      class: '{{ .class }}'
+      proto: '{{ .proto }}'
+      type: '{{ .type }}'
+      server_addr: '{{ .server_addr }}'
