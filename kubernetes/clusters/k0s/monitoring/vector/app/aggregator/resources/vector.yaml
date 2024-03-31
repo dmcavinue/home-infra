@@ -86,6 +86,29 @@ transforms:
       coredns: |
         ._COMM == "coredns"
 
+  coredns_remap:
+    type: remap
+    inputs: ["unifi_route.coredns"]
+    source: |
+      ts = .timestamp
+      log,parse_err = parse_regex(.message,r'\[(?P<level>[^]]+)]\s(?P<server_addr>[^:]+):(?P<server_port>\S+)\s+-\s+(?P<id>\S+)\s+"(?P<type>\S+)\s+(?P<class>\S+)\s+(?P<name>\S+)\s+(?P<proto>\S+)\s+(?P<size>\S+)\s+(?P<do>\S+)\s+(?P<bufsize>[^"]+)"\s+(?P<rcode>\S+)\s+(?P<rflags>\S+)\s+(?P<rsize>\S+)\s+(?P<duration>[\d\.]+).*')
+      if parse_err != null {
+          abort
+      }
+      # Extract separate fields from message
+      log.fields, split_err = strip_whitespace(log.fields)
+      if split_err != null {
+          abort
+      }
+      .message, parse_err = parse_key_value(log.fields, whitespace: "strict")
+      if parse_err != null {
+          abort
+      }
+      # add timestamp
+      .timestamp = ts
+      # cleanup unused fields
+      del(.do)
+
 #
 # Sinks
 #
@@ -185,7 +208,7 @@ sinks:
       app: 'unifi-protect-clientnotify'
 
   coredns_requests:
-    inputs: ["journald_route.coredns"]
+    inputs: ["coredns_remap"]
     type: loki
     endpoint: http://loki-gateway.monitoring.svc.cluster.local
     encoding: { codec: json }
