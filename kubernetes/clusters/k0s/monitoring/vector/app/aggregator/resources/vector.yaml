@@ -9,6 +9,10 @@ api:
 #
 
 sources:
+  vector_metrics:
+    type: internal_metrics
+    scrape_interval_secs: 10
+
   journald_source:
     type: vector
     version: "2"
@@ -80,6 +84,12 @@ transforms:
 #
 
 sinks:
+    prom-exporter:
+      type: prometheus_exporter
+      inputs:
+        - vector_metrics
+      address: 0.0.0.0:9598
+
   journald:
     inputs: ["journald_source"]
     type: loki
