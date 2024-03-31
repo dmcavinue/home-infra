@@ -219,4 +219,4 @@ sinks:
       rsize: '{{ message.rsize }}'
       size: '{{ message.size }}'
       type: '{{ message.type }}'
-      server_addr: '{{ message.server_addr }}'
+      source_ip: '{{ message.server_addr }}'
