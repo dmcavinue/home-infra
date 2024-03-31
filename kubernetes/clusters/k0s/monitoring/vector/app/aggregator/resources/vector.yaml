@@ -210,13 +210,5 @@ sinks:
     labels:
       app: 'unifi-coredns'
       name: '{{ .name }}'
-      level: '{{ .level }}'
-      class: '{{ .class }}'
-      duration: '{{ .duration }}'
-      proto: '{{ .proto }}'
-      rcode: '{{ .rcode }}'
-      rflags: '{{ .rflags }}'
-      rsize: '{{ .rsize }}'
-      size: '{{ .size }}'
       type: '{{ .type }}'
       server_addr: '{{ .server_addr }}'
