@@ -86,7 +86,7 @@ transforms:
       coredns: |
         ._COMM == "coredns"
       hubble: |
-        .file == "/var/run/cilium/hubble/events.log"
+        .file == "/var/log/hubble-exporter.log"
 
   coredns_remap:
     type: remap

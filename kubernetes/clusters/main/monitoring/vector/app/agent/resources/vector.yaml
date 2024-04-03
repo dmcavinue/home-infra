@@ -5,7 +5,7 @@ sources:
   hubble_source:
     type: file
     include:
-      - /var/run/cilium/hubble/events.log
+      - /var/log/hubble-exporter.log
     file_key: file
 
   journald_source:

@@ -166,6 +166,7 @@ spec:
         enabled: true
         static:
           enabled: true
+          filePath: /var/log/hubble-exporter.log
       tls:
         auto:
           method: certmanager
