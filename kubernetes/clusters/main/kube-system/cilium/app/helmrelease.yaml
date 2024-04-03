@@ -26,7 +26,7 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    autoDirectNodeRoutes: false
+    #autoDirectNodeRoutes: true
     bandwidthManager:
       enabled: true
       bbr: true
@@ -216,7 +216,7 @@ spec:
     loadBalancer:
       algorithm: maglev
       #serviceTopology: true
-      mode: dsr
+      mode: snat
     localRedirectPolicy: true
     operator:
       replicas: 1
@@ -259,5 +259,6 @@ spec:
           - NET_ADMIN
           - SYS_ADMIN
           - SYS_RESOURCE
-    routingMode: native
-    #tunnel: disabled
+    routingMode: tunnel
+    tunnelProtocol: vxlan
+    tunnelPort: 8472
