@@ -162,11 +162,11 @@ spec:
       #   persistentKeepalive: 0s
     hubble:
       enabled: true
-      export:
-        enabled: true
-        static:
-          enabled: true
-          filePath: /var/log/hubble-exporter.log
+      # export:
+      #   enabled: true
+      #   static:
+      #     enabled: true
+      #     filePath: /var/log/hubble-exporter.log
       tls:
         auto:
           method: certmanager

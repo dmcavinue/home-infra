@@ -85,8 +85,8 @@ transforms:
     route:
       coredns: |
         ._COMM == "coredns"
-      hubble: |
-        .file == "/var/log/hubble-exporter.log"
+      # hubble: |
+      #   .file == "/var/log/hubble-exporter.log"
 
   coredns_remap:
     type: remap
@@ -218,13 +218,13 @@ sinks:
       type: '{{ .type }}'
       server_addr: '{{ .server_addr }}'
 
-  hubble_events:
-    inputs: ["journald_route.hubble"]
-    type: loki
-    endpoint: http://loki-gateway.monitoring.svc.cluster.local
-    encoding: { codec: json }
-    out_of_order_action: accept
-    remove_label_fields: false
-    remove_timestamp: false
-    labels:
-      app: 'hubble-events'
+  # hubble_events:
+  #   inputs: ["journald_route.hubble"]
+  #   type: loki
+  #   endpoint: http://loki-gateway.monitoring.svc.cluster.local
+  #   encoding: { codec: json }
+  #   out_of_order_action: accept
+  #   remove_label_fields: false
+  #   remove_timestamp: false
+  #   labels:
+  #     app: 'hubble-events'
