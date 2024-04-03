@@ -162,6 +162,10 @@ spec:
       #   persistentKeepalive: 0s
     hubble:
       enabled: true
+      export:
+        enabled: true
+        static:
+          enabled: true
       tls:
         auto:
           method: certmanager
