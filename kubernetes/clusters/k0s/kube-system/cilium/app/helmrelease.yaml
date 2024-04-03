@@ -271,5 +271,6 @@ spec:
           - NET_ADMIN
           - SYS_ADMIN
           - SYS_RESOURCE
-    routingMode: native
-    tunnel: disabled
+    routingMode: tunnel
+    tunnelProtocol: vxlan
+    tunnelPort: 8472
