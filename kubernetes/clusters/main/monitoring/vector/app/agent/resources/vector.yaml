@@ -6,6 +6,7 @@ sources:
     type: file
     include:
       - /var/run/cilium/hubble/events.log
+    file_key: file
 
   journald_source:
     type: journald
