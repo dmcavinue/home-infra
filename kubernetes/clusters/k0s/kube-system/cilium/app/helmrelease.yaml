@@ -272,4 +272,4 @@ spec:
           - SYS_ADMIN
           - SYS_RESOURCE
     routingMode: native
-    tunnel: disabled
+    tunnel: enabled
