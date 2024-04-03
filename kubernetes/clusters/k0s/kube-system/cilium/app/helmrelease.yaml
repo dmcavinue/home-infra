@@ -228,7 +228,7 @@ spec:
     loadBalancer:
       algorithm: maglev
       #serviceTopology: true
-      mode: dsr
+      mode: snat
     localRedirectPolicy: true
     operator:
       replicas: 1
