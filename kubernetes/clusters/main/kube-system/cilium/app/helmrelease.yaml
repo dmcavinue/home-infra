@@ -215,7 +215,7 @@ spec:
       leaseRetryPeriod: 1s
     loadBalancer:
       algorithm: maglev
-      #serviceTopology: true
+      serviceTopology: true
       mode: snat
     localRedirectPolicy: true
     operator:
