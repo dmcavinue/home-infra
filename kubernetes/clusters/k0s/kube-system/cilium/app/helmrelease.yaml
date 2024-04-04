@@ -226,8 +226,6 @@ spec:
       leaseRenewDeadline: 60s
       leaseRetryPeriod: 1s
     loadBalancer:
-      l7:
-        backend: envoy
       algorithm: maglev
       serviceTopology: true
       mode: snat
