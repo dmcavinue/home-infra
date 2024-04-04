@@ -12,7 +12,6 @@ spec:
   targetNamespace: kube-system
   bootstrap: true
   valuesContent: |-
-    autoDirectNodeRoutes: false
     bpf:
       masquerade: true
     bgp:
@@ -46,13 +45,13 @@ spec:
       leaseRetryPeriod: 1s
     loadBalancer:
       algorithm: maglev
-      mode: dsr
+      serviceTopology: true
+      mode: snat
     localRedirectPolicy: true
     operator:
       replicas: 1
       rollOutPods: true
     rollOutCiliumPods: true
-    routingMode: native
     policyAuditMode: true
     securityContext:
       capabilities:
@@ -72,3 +71,6 @@ spec:
           - NET_ADMIN
           - SYS_ADMIN
           - SYS_RESOURCE
+    routingMode: tunnel
+    tunnelProtocol: vxlan
+    tunnelPort: 8472
