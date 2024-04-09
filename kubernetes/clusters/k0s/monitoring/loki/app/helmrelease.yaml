@@ -116,7 +116,7 @@ spec:
         analytics:
           reporting_enabled: false
     gateway:
-      replicas: 3
+      replicas: 1
       image:
         registry: ghcr.io
       ingress:
@@ -134,7 +134,7 @@ spec:
         podAntiAffinity:
           requiredDuringSchedulingIgnoredDuringExecution: []
     read:
-      replicas: 2
+      replicas: 1
       persistence:
         storageClass: local-path
       extraVolumeMounts:
@@ -146,14 +146,14 @@ spec:
       affinity:
         podAntiAffinity: {}
     write:
-      replicas: 2
+      replicas: 1
       persistence:
         storageClass: local-path
       affinity:
         podAntiAffinity:
           requiredDuringSchedulingIgnoredDuringExecution: []
     backend:
-      replicas: 2
+      replicas: 1
       persistence:
         storageClass: local-path
       extraVolumeMounts:
