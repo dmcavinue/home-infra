@@ -120,7 +120,7 @@ spec:
         analytics:
           reporting_enabled: false
     gateway:
-      replicas: 1
+      replicas: 3
       image:
         registry: ghcr.io
       ingress:
@@ -134,11 +134,9 @@ spec:
         tls:
           - hosts:
               - *host
-      affinity:
-        podAntiAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution: []
+      affinity: {}
     read:
-      replicas: 1
+      replicas: 2
       persistence:
         storageClass: local-path
       extraVolumeMounts:
@@ -147,17 +145,14 @@ spec:
       extraVolumes:
         - name: rules
           emptyDir: {}
-      affinity:
-        podAntiAffinity: {}
+      affinity: {}
     write:
-      replicas: 1
+      replicas: 2
       persistence:
         storageClass: local-path
-      affinity:
-        podAntiAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution: []
+      affinity: {}
     backend:
-      replicas: 1
+      replicas: 2
       persistence:
         storageClass: local-path
       extraVolumeMounts:
@@ -171,14 +166,10 @@ spec:
             name: loki-alerting-rules
         - name: scratch
           emptyDir: {}
-      affinity:
-        podAntiAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution: []
+      affinity: {}
     sidecar:
       image:
         repository: ghcr.io/kiwigrid/k8s-sidecar
-    test:
-      enabled: false
   valuesFrom:
     - targetPath: loki.structuredConfig.common.storage.s3.access_key_id
       kind: Secret
