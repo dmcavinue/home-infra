@@ -28,6 +28,8 @@ spec:
     - name: local-path-provisioner
       namespace: kube-system
   values:
+    test:
+      enabled: false
     loki:
       memcached:
         chunk_cache:
