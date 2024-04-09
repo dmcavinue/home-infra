@@ -28,10 +28,6 @@ spec:
     - name: local-path-provisioner
       namespace: kube-system
   values:
-    test:
-      enabled: false
-    lokiCanary:
-      enabled: false
     loki:
       memcached:
         chunk_cache:
@@ -167,9 +163,25 @@ spec:
         - name: scratch
           emptyDir: {}
       affinity: {}
+    monitoring:
+      dashboards:
+        annotations:
+          grafana_folder: Loki
+      serviceMonitor:
+        enabled: true
+        metricsInstance:
+          enabled: false
+      selfMonitoring:
+        enabled: false
+        grafanaAgent:
+          installOperator: false
+      lokiCanary:
+        enabled: false
     sidecar:
       image:
         repository: ghcr.io/kiwigrid/k8s-sidecar
+    test:
+      enabled: false
   valuesFrom:
     - targetPath: loki.structuredConfig.common.storage.s3.access_key_id
       kind: Secret
