@@ -131,7 +131,8 @@ spec:
           - hosts:
               - *host
       affinity:
-        podAntiAffinity: {}
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution: []
     read:
       replicas: 2
       persistence:
@@ -149,7 +150,8 @@ spec:
       persistence:
         storageClass: local-path
       affinity:
-        podAntiAffinity: {}
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution: []
     backend:
       replicas: 2
       persistence:
@@ -166,7 +168,8 @@ spec:
         - name: scratch
           emptyDir: {}
       affinity:
-        podAntiAffinity: {}
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution: []
     sidecar:
       image:
         repository: ghcr.io/kiwigrid/k8s-sidecar
