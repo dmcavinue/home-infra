@@ -30,6 +30,8 @@ spec:
   values:
     test:
       enabled: false
+    lokiCanary:
+      enabled: false
     loki:
       memcached:
         chunk_cache:
