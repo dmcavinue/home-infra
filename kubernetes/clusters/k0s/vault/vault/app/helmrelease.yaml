@@ -59,6 +59,7 @@ spec:
       metrics:
         enabled: true
       authPath: "auth/kubernetes/${ENVIRONMENT}"
+      affinity: ""
     csi:
       enabled: true
       debug: true
