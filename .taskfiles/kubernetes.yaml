@@ -77,10 +77,10 @@ tasks:
 
   install-crds:
     desc: Add required initial CRDs
-    cmds:
-      - "kubectl --context {{.ENVIRONMENT}} apply -f https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.71.2/example/prometheus-operator-crd/monitoring.coreos.com_podmonitors.yaml"
-      - "kubectl --context {{.ENVIRONMENT}} apply -f https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.71.2/example/prometheus-operator-crd/monitoring.coreos.com_prometheusrules.yaml"
-      - "kubectl --context {{.ENVIRONMENT}} apply -f https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.71.2/example/prometheus-operator-crd/monitoring.coreos.com_servicemonitors.yaml"
+    cmds:  
+      - "kubectl --context {{.ENVIRONMENT}} apply -f https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.73.0/example/prometheus-operator-crd/monitoring.coreos.com_podmonitors.yaml"
+      - "kubectl --context {{.ENVIRONMENT}} apply -f https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.73.0/example/prometheus-operator-crd/monitoring.coreos.com_prometheusrules.yaml"
+      - "kubectl --context {{.ENVIRONMENT}} apply -f https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.73.0/example/prometheus-operator-crd/monitoring.coreos.com_servicemonitors.yaml"
       - "kubectl --context {{.ENVIRONMENT}} apply -f https://raw.githubusercontent.com/kubernetes-sigs/gateway-api/v1.0.0/config/crd/experimental/gateway.networking.k8s.io_gatewayclasses.yaml"
       - "kubectl --context {{.ENVIRONMENT}} apply -f https://raw.githubusercontent.com/kubernetes-sigs/gateway-api/v1.0.0/config/crd/experimental/gateway.networking.k8s.io_gateways.yaml"
       - "kubectl --context {{.ENVIRONMENT}} apply -f https://raw.githubusercontent.com/kubernetes-sigs/gateway-api/v1.0.0/config/crd/experimental/gateway.networking.k8s.io_httproutes.yaml"
