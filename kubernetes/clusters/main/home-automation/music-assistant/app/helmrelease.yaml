@@ -99,5 +99,7 @@ spec:
     persistence:
       data:
         existingClaim: music-assistant
+        globalMounts:
+          - path: /data
       tmp:
         type: emptyDir
