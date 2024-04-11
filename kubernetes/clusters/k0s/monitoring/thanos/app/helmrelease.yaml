@@ -79,6 +79,7 @@ spec:
       retentionResolutionRaw: 30d
       retentionResolution5m: 60d
       retentionResolution1h: 90d
+      resourcesPreset: "small"
       persistence:
         enabled: true
         storageClass: local-path
