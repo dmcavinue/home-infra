@@ -94,7 +94,7 @@ spec:
         analytics:
           reporting_enabled: false
     backend:
-      replicas: 1
+      replicas: 2
       persistence:
         size: 20Gi
         storageClass: local-path
