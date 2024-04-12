@@ -94,13 +94,13 @@ spec:
         analytics:
           reporting_enabled: false
     backend:
-      replicas: 2
+      replicas: 1
       persistence:
         size: 20Gi
         storageClass: local-path
       affinity: null
     gateway:
-      replicas: 3
+      replicas: 1
       image:
         registry: ghcr.io
       ingress:
@@ -118,7 +118,7 @@ spec:
       replicas: 2
       affinity: null
     write:
-      replicas: 2
+      replicas: 1
       persistence:
         size: 20Gi
         storageClass: local-path
