@@ -100,7 +100,8 @@ spec:
         size: 20Gi
         storageClass: local-path
       affinity:
-        podAntiAffinity: {}
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution: []
     gateway:
       replicas: 3
       image:
@@ -116,18 +117,21 @@ spec:
         tls:
           - hosts: [*host]
       affinity:
-        podAntiAffinity: {}
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution: []
     read:
       replicas: 2
       affinity:
-        podAntiAffinity: {}
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution: []
     write:
       replicas: 2
       persistence:
         size: 20Gi
         storageClass: local-path
       affinity:
-        podAntiAffinity: {}
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution: []
     sidecar:
       image:
         repository: ghcr.io/kiwigrid/k8s-sidecar
