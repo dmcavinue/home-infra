@@ -14,16 +14,16 @@ spec:
         kind: HelmRepository
         name: grafana
         namespace: flux-system
-  # install:
-  #   crds: Skip
-  #   remediation:
-  #     retries: 3
-  # upgrade:
-  #   cleanupOnFail: true
-  #   crds: Skip
-  #   remediation:
-  #     strategy: rollback
-  #     retries: 3
+  install:
+    crds: Skip
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    crds: Skip
+    remediation:
+      strategy: rollback
+      retries: 3
   dependsOn:
     - name: local-path-provisioner
       namespace: kube-system
@@ -46,8 +46,7 @@ spec:
         s3:
           s3ForcePathStyle: true
           insecure: true
-          bucketNames:
-            chunks: loki
+          bucketNames: [loki]
           endpoint: minio.storage:9000
       schemaConfig:
         configs:
