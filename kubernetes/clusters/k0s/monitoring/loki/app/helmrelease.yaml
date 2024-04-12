@@ -98,20 +98,9 @@ spec:
       persistence:
         size: 20Gi
         storageClass: local-path
-      affinity:
-        podAntiAffinity:
-          preferredDuringSchedulingIgnoredDuringExecution:
-          - weight: 100
-            podAffinityTerm:
-              labelSelector:
-                matchExpressions:
-                - key: component
-                  operator: In
-                  values:
-                  - backend
-              topologyKey: "kubernetes.io/hostname"
+      affinity: null
     gateway:
-      replicas: 1
+      replicas: 3
       image:
         registry: ghcr.io
       ingress:
@@ -124,16 +113,16 @@ spec:
                 pathType: Prefix
         tls:
           - hosts: [*host]
-      affinity: {}
+      affinity: null
     read:
-      replicas: 1
-      affinity: {}
+      replicas: 2
+      affinity: null
     write:
-      replicas: 1
+      replicas: 2
       persistence:
         size: 20Gi
         storageClass: local-path
-      affinity: {}
+      affinity: null
     sidecar:
       image:
         repository: ghcr.io/kiwigrid/k8s-sidecar
