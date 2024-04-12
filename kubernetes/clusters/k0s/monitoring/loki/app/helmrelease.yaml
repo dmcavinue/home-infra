@@ -42,11 +42,13 @@ spec:
       ingester:
         chunk_encoding: snappy
       storage:
+        bucketNames:
+          chunks: loki
         type: s3
         s3:
           s3ForcePathStyle: true
           insecure: true
-          bucketNames: [loki]
+          
           endpoint: minio.storage:9000
       schemaConfig:
         configs:
