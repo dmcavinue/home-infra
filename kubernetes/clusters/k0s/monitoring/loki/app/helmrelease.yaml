@@ -113,22 +113,16 @@ spec:
                 pathType: Prefix
         tls:
           - hosts: [*host]
-      affinity:
-        podAntiAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution: []
+      affinity: null
     read:
       replicas: 2
-      affinity:
-        podAntiAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution: []
+      affinity: null
     write:
       replicas: 2
       persistence:
         size: 20Gi
         storageClass: local-path
-      affinity:
-        podAntiAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution: []
+      affinity: null
     sidecar:
       image:
         repository: ghcr.io/kiwigrid/k8s-sidecar
