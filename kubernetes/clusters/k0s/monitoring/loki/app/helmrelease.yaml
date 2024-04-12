@@ -98,7 +98,18 @@ spec:
       persistence:
         size: 20Gi
         storageClass: local-path
-      affinity: {}
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: component
+                  operator: In
+                  values:
+                  - backend
+              topologyKey: "kubernetes.io/hostname"
     gateway:
       replicas: 1
       image:
