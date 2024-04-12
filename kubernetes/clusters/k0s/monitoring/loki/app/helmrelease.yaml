@@ -115,7 +115,7 @@ spec:
           - hosts: [*host]
       affinity: {}
     read:
-      replicas: 2
+      replicas: 1
       affinity: {}
     write:
       replicas: 1
