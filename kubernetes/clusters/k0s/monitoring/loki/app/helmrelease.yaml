@@ -99,7 +99,8 @@ spec:
       persistence:
         size: 20Gi
         storageClass: local-path
-      affinity: {}
+      affinity:
+        podAntiAffinity: {}
     gateway:
       replicas: 3
       image:
@@ -114,16 +115,19 @@ spec:
                 pathType: Prefix
         tls:
           - hosts: [*host]
-      affinity: {}
+      affinity:
+        podAntiAffinity: {}
     read:
       replicas: 2
-      affinity: {}
+      affinity:
+        podAntiAffinity: {}
     write:
       replicas: 2
       persistence:
         size: 20Gi
         storageClass: local-path
-      affinity: {}
+      affinity:
+        podAntiAffinity: {}
     sidecar:
       image:
         repository: ghcr.io/kiwigrid/k8s-sidecar
