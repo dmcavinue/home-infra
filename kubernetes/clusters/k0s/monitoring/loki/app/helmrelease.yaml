@@ -98,7 +98,9 @@ spec:
       persistence:
         size: 20Gi
         storageClass: local-path
-      affinity: null
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution: null
     gateway:
       replicas: 3
       image:
