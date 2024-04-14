@@ -139,7 +139,7 @@ spec:
             sourceLabels: ["__name__"]
             regex: "(apiserver_audit|apiserver_client|apiserver_delegated|apiserver_envelope|apiserver_storage|apiserver_webhooks|attachdetach_controller|authenticated_user|authentication|cronjob_controller|disabled_metric|endpoint_slice|ephemeral_volume|garbagecollector_controller|get_token|go|hidden_metric|job_controller|kubernetes_build|kubernetes_feature|leader_election|node_collector|node_ipam|process_cpu|process_max|process_open|process_resident|process_start|process_virtual|pv_collector|registered_metric|replicaset_controller|rest_client|retroactive_storageclass|root_ca|running_managed|scrape_duration|scrape_samples|scrape_series|service_controller|storage_count|storage_operation|ttl_after|volume_operation|workqueue)_(.+)"
     kubeEtcd:
-      enabled: false
+      enabled: true
       endpoints: *cp
     kubeScheduler:
       enabled: true
@@ -170,10 +170,12 @@ spec:
         replicas: 1
         podMetadata:
           annotations:
+            secret.reloader.stakater.com/reload: &secret thanos-objstore-config
             vault.hashicorp.com/agent-inject: 'true'
             vault.hashicorp.com/agent-inject-token: 'true'
             vault.hashicorp.com/role: monitoring
-        replicaExternalLabelName: ""
+        replicaExternalLabelName: __replica__
+        scrapeInterval: 1m
         ruleSelectorNilUsesHelmValues: false
         serviceMonitorSelectorNilUsesHelmValues: false
         podMonitorSelectorNilUsesHelmValues: false
@@ -182,19 +184,29 @@ spec:
         enableAdminAPI: true
         walCompression: true
         enableFeatures:
-          - auto-gomaxprocs
+          - auto-gomemlimit
           - memory-snapshot-on-shutdown
           - new-service-discovery-manager
+        image:
+          registry: quay.io
+          repository: prometheus/prometheus
+          tag: v2.51.0-dedupelabels
         thanos:
-          image: quay.io/thanos/thanos:v0.34.1
+          image: quay.io/thanos/thanos:${THANOS_VERSION}
+          version: "${THANOS_VERSION#v}"
           objectStorageConfig:
             existingSecret:
-              name: thanos-objstore-secret
-              key: objstore.yml
+              name: *secret
+              key: config
         retention: 2d
         retentionSize: 15GB
         # externalLabels:
         #   cluster: "${ENVIRONMENT}"
+        resources:
+          requests:
+            cpu: 100m
+          limits:
+            memory: 1500Mi
         storageSpec:
           volumeClaimTemplate:
             spec:
@@ -223,8 +235,7 @@ spec:
             - action: replace
               regex: (.*)
               replacement: $1
-              sourceLabels:
-                - __meta_kubernetes_pod_node_name
+              sourceLabels: ["__meta_kubernetes_pod_node_name"]
               targetLabel: kubernetes_node
     kubeStateMetrics:
       enabled: true
@@ -509,8 +520,7 @@ spec:
             - action: replace
               regex: (.*)
               replacement: $1
-              sourceLabels:
-                - __meta_kubernetes_pod_node_name
+              sourceLabels: ["__meta_kubernetes_pod_node_name"]
               targetLabel: kubernetes_node
     grafana:
       enabled: false
