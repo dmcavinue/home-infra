@@ -8,4 +8,4 @@ resources:
   - ./ciliumnetworkpolicy.yaml
   - ./externalsecret.yaml
   # Flux-Kustomizations
-  - ./redis/ks.yaml
+  - ./dragonfly/ks.yaml=
