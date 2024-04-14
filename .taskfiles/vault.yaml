@@ -335,6 +335,14 @@ tasks:
       - vault kv put -mount=secret security/dex
           DEX_IMMICH_CLIENT_SECRET="$(vault read -field=password sys/policies/password/default/generate)"
           DEX_GITOPS_CLIENT_SECRET="$(vault read -field=password sys/policies/password/default/generate)"
+      # security/glauth
+      - vault kv put -mount=secret security/glauth
+          GLAUTH_LDAP_BASE_DN="{{.GLAUTH_LDAP_BASE_DN}}"
+          GLAUTH_USER_SEARCH_NAME="{{.GLAUTH_USER_SEARCH_NAME}}"
+          GLAUTH_USER_SEARCH_PASSWORD_BCRYPT="{{.GLAUTH_USER_SEARCH_PASSWORD_BCRYPT}}"
+          GLAUTH_USER_DAN_NAME="{{.GLAUTH_USER_DAN_NAME}}"
+          GLAUTH_USER_DAN_EMAIL="{{.GLAUTH_USER_DAN_EMAIL}}"
+          GLAUTH_USER_DAN_PASSWORD_BCRYPT="{{.GLAUTH_USER_DAN_PASSWORD_BCRYPT}}"
       # security/lldap
       - vault kv put -mount=secret security/lldap
           LLDAP_POSTGRES_SUPER_USER="{{.LLDAP_POSTGRES_SUPER_USER}}"
