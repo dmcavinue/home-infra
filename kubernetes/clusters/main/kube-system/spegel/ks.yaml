@@ -9,7 +9,7 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *appname
-  path: ./kubernetes/clusters/common/kube-system/spegel/app
+  path: ./kubernetes/clusters/${ENVIRONMENT}/kube-system/spegel/app
   prune: true
   sourceRef:
     kind: GitRepository
