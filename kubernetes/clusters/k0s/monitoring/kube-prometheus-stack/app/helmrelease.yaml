@@ -200,8 +200,8 @@ spec:
               key: config
         retention: 2d
         retentionSize: 15GB
-        # externalLabels:
-        #   cluster: "${ENVIRONMENT}"
+        externalLabels:
+          cluster: "${ENVIRONMENT}"
         resources:
           requests:
             cpu: 100m
@@ -228,6 +228,12 @@ spec:
       enabled: true
     prometheus-node-exporter:
       fullnameOverride: node-exporter
+      resources:
+        limits:
+          memory: 128Mi
+        requests:
+          cpu: 100m
+          memory: 64Mi
       prometheus:
         monitor:
           enabled: true
@@ -269,7 +275,7 @@ spec:
               - imageupdateautomations
             verbs: [ "list", "watch" ]
       customResourceState:
-        enabled: false
+        enabled: true
         config:
           spec:
             resources:
@@ -513,6 +519,12 @@ spec:
                       ready: [ status, conditions, "[type=Ready]", status ]
                       suspended: [ spec, suspend ]
                       source_name: [ spec, sourceRef, name ]
+      resources:
+        limits:
+          memory: 256Mi
+        requests:
+          cpu: 100m
+          memory: 128Mi
       prometheus:
         monitor:
           enabled: true
