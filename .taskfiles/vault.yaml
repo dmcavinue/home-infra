@@ -361,7 +361,7 @@ tasks:
       # security/oauth2-proxy
       - vault kv put -mount=secret security/oauth2-proxy
           OAUTH2_CLIENT_SECRET="$(vault read -field=password sys/policies/password/default/generate)"
-          OAUTH2_COOKIE_SECRET="$(vault read -field=password sys/policies/password/default/generate)"
+          OAUTH2_COOKIE_SECRET="{{.OAUTH2_COOKIE_SECRET}}"
       # storage/minio
       - vault kv put -mount=secret storage/minio
           MINIO_ROOT_USER="minio"
