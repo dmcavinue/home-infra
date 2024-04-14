@@ -21,9 +21,12 @@ spec:
     remediation:
       strategy: rollback
       retries: 3
-  valuesFrom:
-    - kind: ConfigMap
-      name: spegel-helm-values
   values:
     serviceMonitor:
       enabled: true
+    spegel:
+      containerdSock: /var/run/k3s/containerd/containerd.sock
+      containerdRegistryConfigPath: /var/lib/rancher/k3s/agent/etc/containerd/certs.d
+    service:
+      registry:
+        hostPort: 29999
