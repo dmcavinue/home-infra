@@ -28,11 +28,11 @@ spec:
     - name: local-path-provisioner
       namespace: kube-system
   valuesFrom:
-    - targetPath: objstoreConfig.config.access_key
+    - targetPath: objstoreConfig.value.config.access_key
       kind: Secret
       name: thanos
       valuesKey: MINIO_ACCESS_KEY
-    - targetPath: objstoreConfig.config.secret_key
+    - targetPath: objstoreConfig.value.config.secret_key
       kind: Secret
       name: thanos
       valuesKey: MINIO_SECRET
