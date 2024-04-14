@@ -6,3 +6,9 @@ resources:
   - ./networkpolicy.yaml
   - ./externalsecret.yaml
   - ./helmrelease.yaml
+configMapGenerator:
+  - name: thanos-cache-configmap
+    files:
+      - cache.yaml=./resources/cache.yaml
+generatorOptions:
+  disableNameSuffixHash: true
