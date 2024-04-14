@@ -289,6 +289,8 @@ tasks:
           HASS_LOCATION_LAT="{{.HASS_LOCATION_LAT}}"
           HASS_LOCATION_LONG="{{.HASS_LOCATION_LONG}}"
           HASS_DRAC_IP="{{.HASS_DRAC_IP}}"
+          MINIO_ACCESS_KEY="{{.HASS_MINIO_ACCESS_KEY}}"
+          MINIO_SECRET="{{.HASS_MINIO_SECRET}}"
       # home-automation/tidbyt-proxy
       - vault kv put -mount=secret home-automation/tidbyt-proxy
           TIDBYT_API_KEY="{{.TIDBYT_API_KEY}}"
