@@ -10,10 +10,14 @@ spec:
   - toEndpoints:
     - matchLabels:
         "k8s:io.kubernetes.pod.namespace": *namespace
+    authentication:
+      mode: required
   ingress:
   - fromEndpoints:
     - matchLabels:
         "k8s:io.kubernetes.pod.namespace": *namespace
+    authentication:
+      mode: required
 # todo: move to common
 ---
 apiVersion: cilium.io/v2
@@ -27,7 +31,11 @@ spec:
   - toEndpoints:
     - matchLabels:
         "k8s:io.kubernetes.pod.namespace": *namespace
+    authentication:
+      mode: required
   ingress:
   - fromEndpoints:
     - matchLabels:
         "k8s:io.kubernetes.pod.namespace": *namespace
+    authentication:
+      mode: required

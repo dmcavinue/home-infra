@@ -16,5 +16,7 @@ resources:
   - ./allow-egress-world.yaml
   - ./allow-ingress-internet.yaml
   - ./allow-ingress-lan.yaml
+  - ./allow-ingress-nginx.yaml
+  - ./allow-ingress-prometheus.yaml
   - ./allow-ingress-world.yaml
   - ./kube-system-allow-all.yaml
