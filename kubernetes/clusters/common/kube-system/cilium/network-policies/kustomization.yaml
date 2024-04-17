@@ -9,6 +9,7 @@ resources:
   - ./allow-egress-kubedns.yaml
   - ./allow-egress-lan.yaml
   - ./allow-egress-minio.yaml
+  - ./allow-egress-mqtt.yaml
   - ./allow-egress-restic.yaml
   - ./allow-egress-unifi.yaml
   - ./allow-egress-vault.yaml
