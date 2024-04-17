@@ -1,6 +1,6 @@
 ---
 apiVersion: cilium.io/v2
-kind: CiliumClusterwideNetworkPolicy
+kind: CiliumNetworkPolicy
 metadata:
   name: default-deny-outside-namespace
   namespace: &namespace home-automation
