@@ -182,10 +182,15 @@ spec:
           - port-distribution
           - icmp
           - http
+          - http
+          - "httpV2:sourceContext=workload-name|pod-name|reserved-identity;destinationContext=workload-name|pod-name|reserved-identity;labelsContext=source_namespace,destination_namespace,traffic_direction"
+          - "kafka:sourceContext=workload-name|pod-name|reserved-identity;destinationContext=workload-name|pod-name|reserved-identity;labelsContext=source_namespace,destination_namespace,traffic_direction"
+        enableOpenMetrics: true
         serviceMonitor:
           enabled: true
         dashboards:
           enabled: true
+          namespace: monitoring
       relay:
         enabled: true
         rollOutPods: true
