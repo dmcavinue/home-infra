@@ -347,17 +347,6 @@ tasks:
           GLAUTH_USER_DAN_EMAIL="{{.GLAUTH_USER_DAN_EMAIL}}"
           GLAUTH_USER_DAN_PASSWORD_BCRYPT="{{.GLAUTH_USER_DAN_PASSWORD_BCRYPT}}"
           GLAUTH_USER_DAN_PASSWORD="{{.GLAUTH_USER_DAN_PASSWORD}}"
-      # security/lldap
-      - vault kv put -mount=secret security/lldap
-          LLDAP_POSTGRES_SUPER_USER="{{.LLDAP_POSTGRES_SUPER_USER}}"
-          LLDAP_POSTGRES_SUPER_PASSWORD="{{.LLDAP_POSTGRES_SUPER_PASSWORD}}"
-          LLDAP_POSTGRES_USER="{{.LLDAP_POSTGRES_USER}}"
-          LLDAP_POSTGRES_PASSWORD="{{.LLDAP_POSTGRES_PASSWORD}}"
-          LLDAP_JWT_SECRET="$(vault read -field=password sys/policies/password/default/generate)"
-          LLDAP_LDAP_USER_EMAIL="{{.LLDAP_LDAP_USER_EMAIL}}"
-          LLDAP_LDAP_USER_PASS="{{.LLDAP_LDAP_USER_PASS}}"
-          LLDAP_SERVER_KEY_SEED="{{.LLDAP_SERVER_KEY_SEED}}"
-          LLDAP_LDAP_BASE_DN="{{.LLDAP_LDAP_BASE_DN}}"
       # security/oauth2-proxy
       - vault kv put -mount=secret security/oauth2-proxy
           OAUTH2_CLIENT_SECRET="$(vault read -field=password sys/policies/password/default/generate)"
