@@ -32,7 +32,7 @@ spec:
       existingPasswordSecret: memcached-loki-chunk
     args:
       - /run.sh
-      - -m 4096
+      - -m 2048
       - -I 2m
     replicaCount: 1
     persistence:
