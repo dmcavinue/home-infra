@@ -67,7 +67,7 @@ spec:
           - linux
       auth:
         enabled: true
-        approveddomains:
+        approvedDomains:
         - mcavinue.io
         approvedEmails: []
         approvedTenants: []
