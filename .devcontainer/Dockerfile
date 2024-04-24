@@ -4,7 +4,7 @@ FROM docker.io/fluxcd/flux-cli:v2.2.3 as flux
 FROM docker.io/alpine/helm:3.14.4 as helm
 FROM docker.io/kopia/kopia:20240422.0.183723 as kopia
 FROM docker.io/bitnami/kubectl:1.29.4 as kubectl
-FROM docker.io/hashicorp/vault:1.16.1 as vault
+FROM docker.io/hashicorp/vault:1.16.2 as vault
 FROM docker.io/mikefarah/yq:4.43.1 as yq
 
 # base image
