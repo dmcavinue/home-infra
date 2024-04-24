@@ -66,9 +66,10 @@ spec:
           values:
           - linux
       auth:
-        enabled: false
+        enabled: true
+        approveddomains:
+        - mcavinue.io
         approvedEmails: []
-        approvedDomains: []
         approvedTenants: []
       ingress:
         enabled: true
