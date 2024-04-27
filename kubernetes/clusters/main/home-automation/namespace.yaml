@@ -7,3 +7,4 @@ metadata:
     volsync.backube/privileged-movers: "true"
   labels:
     kustomize.toolkit.fluxcd.io/prune: disabled
+    app.kubernetes.io/managed-by: Helm
