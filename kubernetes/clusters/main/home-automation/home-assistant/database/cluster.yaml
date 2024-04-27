@@ -24,7 +24,7 @@ spec:
     recovery:
       source: &previousCluster home-assistant-17
   storage:
-    size: 5Gi
+    size: 20Gi
     storageClass: local-path
   enableSuperuserAccess: true
   managed:
