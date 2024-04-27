@@ -6,7 +6,7 @@ metadata:
   name: main
 spec:
   honorLabels: false
-  scrapeInterval: 30s
+  scrapeInterval: 60s
   staticConfigs:
     - targets: ["prom-main-prometheus:9090"]
   metricsPath: /federate
