@@ -55,7 +55,7 @@ spec:
     limits:
       memory: 4Gi
   monitoring:
-    enablePodMonitor: true
+    enablePodMonitor: false
     podMonitorMetricRelabelings:
       - { sourceLabels: ["cluster"], targetLabel: cnpg_cluster, action: replace }
       - { regex: cluster, action: labeldrop }
