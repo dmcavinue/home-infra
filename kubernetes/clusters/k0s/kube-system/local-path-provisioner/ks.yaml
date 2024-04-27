@@ -11,7 +11,7 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *appname
-  path: ./kubernetes/clusters/common/kube-system/local-path-provisioner/app
+  path: ./kubernetes/clusters/${ENVIRONMENT}/kube-system/local-path-provisioner/app
   prune: false
   sourceRef:
     kind: GitRepository
