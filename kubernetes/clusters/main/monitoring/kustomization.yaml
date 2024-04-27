@@ -8,5 +8,5 @@ resources:
   - ./ciliumnetworkpolicy.yaml
   - ./externalsecret.yaml
   # Flux-Kustomizations
-  #- ./kube-prometheus-stack/ks.yaml
+  - ./kube-prometheus-stack/ks.yaml
   - ./vector/ks.yaml
