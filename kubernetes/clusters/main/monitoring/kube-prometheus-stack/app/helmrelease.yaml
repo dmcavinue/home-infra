@@ -154,13 +154,13 @@ spec:
           requests:
             cpu: 400m
             memory: 4Gi
-        # storageSpec:
-        #   volumeClaimTemplate:
-        #     spec:
-        #       storageClassName: openebs-hostpath
-        #       resources:
-        #         requests:
-        #           storage: 20Gi
+        storageSpec:
+          volumeClaimTemplate:
+            spec:
+              storageClassName: openebs-hostpath
+              resources:
+                requests:
+                  storage: 20Gi
     nodeExporter:
       enabled: true
     prometheus-node-exporter:
