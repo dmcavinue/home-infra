@@ -29,7 +29,7 @@ spec:
     replicas: 1
     podLabels:
       egress.home.arpa/world: allow
-      ingress.home.arpa/prometheus: allow
+      prom.home.arpa/prometheus: allow
       ingress.home.arpa/nginx: allow
     env:
       GF_DATABASE_SSL_MODE: disable

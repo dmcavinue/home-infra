@@ -28,7 +28,7 @@ spec:
   values:
     installCRDs: true
     podLabels:
-      ingress.home.arpa/prometheus: allow
+      prom.home.arpa/prometheus: allow
       egress.home.arpa/apiserver: allow
       egress.home.arpa/vault: allow
     automountServiceAccountToken: false

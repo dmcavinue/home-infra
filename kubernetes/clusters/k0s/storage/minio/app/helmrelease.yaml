@@ -72,7 +72,7 @@ spec:
               supplementalGroups: [100]
         pod:
           labels:
-            ingress.home.arpa/prometheus: allow
+            prom.home.arpa/prometheus: allow
             ingress.home.arpa/nginx: allow
     service:
       app:

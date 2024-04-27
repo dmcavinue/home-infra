@@ -51,7 +51,7 @@ spec:
           }
       extraLabels:
         ingress.home.arpa/nginx: allow
-        ingress.home.arpa/prometheus: allow
+        prom.home.arpa/prometheus: allow
       service:
         annotations:
           io.cilium/global-service: "true"

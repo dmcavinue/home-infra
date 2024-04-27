@@ -13,7 +13,7 @@ spec:
     labels:
       kube-image-keeper.enix.io/image-caching-policy: ignore
       egress.home.arpa/minio: allow
-      ingress.home.arpa/prometheus: allow
+      prom.home.arpa/prometheus: allow
   primaryUpdateStrategy: unsupervised
   bootstrap:
     initdb:
