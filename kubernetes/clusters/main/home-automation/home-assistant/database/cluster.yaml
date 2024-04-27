@@ -30,7 +30,7 @@ spec:
       resources:
         requests:
           storage: 20Gi
-      storageClassName: local-path
+      storageClassName: openebs-hostpath
       volumeMode: Filesystem
   enableSuperuserAccess: true
   managed:

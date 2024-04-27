@@ -61,7 +61,7 @@ spec:
               dataStorage:
                 size: 1Gi
                 accessMode: ReadWriteOnce
-                storageClass: local-path
+                storageClass: openebs-hostpath
               securityContext:
                 allowPrivilegeEscalation: false
                 readOnlyRootFilesystem: true

@@ -50,7 +50,7 @@ spec:
       enabled: false
     persistence:
       enabled: false
-      storageClassName: local-path
+      storageClassName: openebs-hostpath
       size: 250Mi
     affinity:
       podAntiAffinity:
