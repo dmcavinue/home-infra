@@ -166,6 +166,13 @@
             fstype: swap
             state: absent
           loop: ["none", "swap"]
+        - name: OpenEBS | Create local directory
+          ansible.builtin.file:
+            path: /var/openebs/local
+            state: directory
+            owner: root
+            group: root
+            recurse: true
         - name: System Configuration | Kernel modules (1)
           community.general.modprobe:
             name: "{{ item }}"
