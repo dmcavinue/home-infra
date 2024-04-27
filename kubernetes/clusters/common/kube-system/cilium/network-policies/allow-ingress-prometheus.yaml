@@ -12,9 +12,6 @@ spec:
     - fromEndpoints:
         - matchLabels:
             prometheus: kube-prometheus-stack
-      authentication:
-        mode: required
-    - fromEndpoints:
         - matchLabels:
             prometheus: prom-main
       authentication:
