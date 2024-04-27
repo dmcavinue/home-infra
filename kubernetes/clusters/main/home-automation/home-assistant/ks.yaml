@@ -6,7 +6,7 @@ metadata:
   namespace: flux-system
 spec:
   dependsOn:
-    - name: home-automation-home-assistant-database
+    - name: home-assistant-database
     - name: ser2net
   targetNamespace: home-automation
   commonMetadata:
@@ -25,7 +25,7 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &appname home-automation-home-assistant-database
+  name: &appname home-assistant-database
   namespace: flux-system
 spec:
   dependsOn:
