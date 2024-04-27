@@ -12,6 +12,8 @@ spec:
         - matchLabels:
             k8s:io.kubernetes.pod.namespace: kube-system
             k8s:k8s-app: kube-dns
+      authentication:
+        mode: required
       toPorts:
         - ports:
             - port: "53"
