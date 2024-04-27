@@ -4,5 +4,6 @@ kind: Kustomization
 resources:
   # Pre Flux-Kustomizations
   - ./namespace.yaml
+  - ./ciliumnetworkpolicy.yaml
   # Flux-Kustomizations
   - ./openebs/ks.yaml
