@@ -24,8 +24,14 @@ spec:
     recovery:
       source: &previousCluster home-assistant-17
   storage:
-    size: 20Gi
-    storageClass: local-path
+    pvcTemplate:
+      accessModes:
+        - ReadWriteOnce
+      resources:
+        requests:
+          storage: 20Gi
+      storageClassName: local-path
+      volumeMode: Filesystem
   enableSuperuserAccess: true
   managed:
     roles:
