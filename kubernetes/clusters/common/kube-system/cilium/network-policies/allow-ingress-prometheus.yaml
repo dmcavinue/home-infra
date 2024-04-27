@@ -12,3 +12,6 @@ spec:
     - fromEndpoints:
         - matchLabels:
             prometheus: kube-prometheus-stack
+    - fromEndpoints:
+        - matchLabels:
+            prometheus: prom-main
