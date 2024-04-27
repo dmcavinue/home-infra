@@ -23,15 +23,15 @@ spec:
     #     name: home-assistant-database-user
     recovery:
       source: &previousCluster home-assistant-17
-  storage:
-    pvcTemplate:
-      accessModes:
-        - ReadWriteOnce
-      resources:
-        requests:
-          storage: 20Gi
-      storageClassName: local-path
-      volumeMode: Filesystem
+  # storage:
+  #   pvcTemplate:
+  #     accessModes:
+  #       - ReadWriteOnce
+  #     resources:
+  #       requests:
+  #         storage: 20Gi
+  #     storageClassName: local-path
+  #     volumeMode: Filesystem
   enableSuperuserAccess: true
   managed:
     roles:
