@@ -27,6 +27,7 @@ resources:
   - ./minio.yaml
   - ./node-feature-discovery.yaml
   - ./oauth2-proxy.yaml
+  - ./openebs.yaml
   - ./piraeus.yaml
   - ./prometheus-community.yaml
   - ./rook-ceph.yaml
