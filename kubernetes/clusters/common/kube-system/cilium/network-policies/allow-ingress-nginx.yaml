@@ -11,8 +11,8 @@ spec:
   ingress:
     - fromEndpoints:
         - matchLabels:
-            app.kubernetes.io/name: ingress-nginx
-            app.kubernetes.io/component: controller
+            name: ingress-nginx
+            component: controller
             namespace: ingress
       authentication:
         mode: required
