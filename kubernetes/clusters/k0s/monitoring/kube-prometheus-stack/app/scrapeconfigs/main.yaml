@@ -12,7 +12,21 @@ spec:
   metricsPath: /federate
   params:
     "match[]":
+      - '{job="home-automation/home-assistant"}'
+      - '{job="cert-manager"}'
+      - '{job="cilium-agent"}'
+      - '{job="cilium-operator"}'
+      - '{job="csi-rbdplugin-metrics"}'
+      - '{job="database/cloudnative-pg-controller"}'
+      - '{job="database/flux-system/flux-system"}'
+      - '{job="hubble-metrics"}'
       - '{job="kube-state-metrics"}'
+      - '{job="metrics-server"}'
+      - '{job="nginx-ingress-controller-metrics"}'
       - '{job="node-exporter"}'
-      # - '{job="home-automation/home-assistant-database"}'
-      # - '{job="media/immich-database"}'
+      - '{job="rook-ceph-exporter"}'
+      - '{job="rook-ceph-mgr"}'
+      - '{job="snapshot-controller"}'
+      - '{job="spegel"}'
+      - '{job="tetragon"}'
+      - '{job="volsync-metrics"}'
