@@ -2,7 +2,7 @@
 apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
-  name: hass
+  name: home-assistant
   namespace: home-automation
   annotations:
     kyverno.io/ignore: "true"
