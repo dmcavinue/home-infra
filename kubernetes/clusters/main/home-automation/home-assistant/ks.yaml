@@ -6,7 +6,7 @@ metadata:
   namespace: flux-system
 spec:
   dependsOn:
-    #- name: home-assistant-database
+    - name: home-assistant-database
     - name: ser2net
   targetNamespace: home-automation
   commonMetadata:
@@ -21,25 +21,25 @@ spec:
   interval: 30m
   retryInterval: 1m
   timeout: 5m
-# ---
-# apiVersion: kustomize.toolkit.fluxcd.io/v1
-# kind: Kustomization
-# metadata:
-#   name: &appname home-assistant-database
-#   namespace: flux-system
-# spec:
-#   dependsOn:
-#     - name: cloudnative-pg
-#   targetNamespace: home-automation
-#   commonMetadata:
-#     labels:
-#       app.kubernetes.io/name: *appname
-#   path: ./kubernetes/clusters/${ENVIRONMENT}/home-automation/home-assistant/database
-#   prune: false
-#   sourceRef:
-#     kind: GitRepository
-#     name: home-kubernetes
-#   wait: true
-#   interval: 30m
-#   retryInterval: 1m
-#   timeout: 5m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: &appname home-assistant-database
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: cloudnative-pg
+  targetNamespace: home-automation
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *appname
+  path: ./kubernetes/clusters/${ENVIRONMENT}/home-automation/home-assistant/database
+  prune: false
+  sourceRef:
+    kind: GitRepository
+    name: home-kubernetes
+  wait: true
+  interval: 30m
+  retryInterval: 1m
+  timeout: 5m
