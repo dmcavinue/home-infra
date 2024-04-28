@@ -52,7 +52,7 @@ transforms:
     inputs: ["kubernetes_source"]
     route:
       flow: |
-        .container_name == "hubble-exporter" && match!(.message, r'\{\\"flow.*')
+        .container_name == "hubble-exporter" && match!(.message, r'\{\"flow.*')
 
   hubble_exporter_remap:
     type: remap
@@ -244,8 +244,8 @@ sinks:
     labels:
       app: 'hubble-exporter'
       type: 'flow'
-      #verdict: '{{ .verdict }}'
-      #direction: '{{ .traffic_direction }}'
-      #ip_source: '{{ IP.source}}'
-      #ip_destination: '{{ IP.destination}}'
-      #ip_version: '{{ IP.ipVersion}}'
+      verdict: '{{ .verdict }}'
+      direction: '{{ .traffic_direction }}'
+      ip_source: '{{ IP.source}}'
+      ip_destination: '{{ IP.destination}}'
+      ip_version: '{{ IP.ipVersion}}'
