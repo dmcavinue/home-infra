@@ -26,7 +26,6 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    #autoDirectNodeRoutes: true
     bandwidthManager:
       enabled: true
       bbr: true
@@ -145,8 +144,8 @@ spec:
       status: "policy"
     gatewayAPI:
       enabled: false
-      secretsNamespace:        
-        create: false        
+      secretsNamespace:
+        create: false
         name: ingress
         sync: false
     encryption:
@@ -160,13 +159,37 @@ spec:
       # wireguard:
       #   userspaceFallback: false
       #   persistentKeepalive: 0s
+    extraVolumes:
+    - name: hubble-exporter
+      emptyDir: {}
+    extraVolumeMounts:
+    - name: hubble-exporter
+      mountPath: /var/log/hubble-flows
+    extraContainers:
+    - name: hubble-exporter
+      image: alpine:3
+      imagePullPolicy: IfNotPresent
+      command: [ "/bin/sh", "-c", "--" ]
+      args:
+      - "while [ ! -f /var/log/hubble-flows/flow.log ]; do sleep 5; done; tail -f /var/log/hubble-flows/flow.log"
+      resources:
+        limits:
+          memory: 128Mi
+        requests:
+          cpu: 100m
+          memory: 64Mi
+      volumeMounts:
+      - name: hubble-exporter
+        mountPath: /var/log/hubble-flows
     hubble:
       enabled: true
       export:
         enabled: true
+        fileMaxSizeMb: 10
+        fileMaxBackups: 1
         static:
           enabled: true
-          filePath: /var/log/hubble-exporter.log
+          filePath: /var/log/hubble-flows/flow.log
       tls:
         auto:
           method: certmanager
