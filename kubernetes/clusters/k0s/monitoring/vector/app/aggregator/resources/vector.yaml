@@ -59,7 +59,9 @@ transforms:
     inputs: ["hubble_exporter_route.flow"]
     source: |
       message = parse_json!(.message)
-      . = message
+      if message.flow != null {
+        . = message.flow
+      }
 
   unifi_route:
     type: route
