@@ -65,7 +65,7 @@ transforms:
       .message = message.flow
       .direction = message.flow.direction
       .verdict = message.flow.verdict
-      .source  = "{{ message.flow.source.namespace }}\{{ message.flow.source.pod_name }}" || message.flow.IP.source
+      .source  = "(message.flow.source.namespace)\(message.flow.source.pod_name)" || message.flow.IP.source
       .destination  = "{{ message.flow.destination.namespace }}\{{ message.flow.destination.pod_name }}" || message.flow.IP.destination
 
   unifi_route:
