@@ -60,8 +60,9 @@ transforms:
     source: |
       message = parse_json!(.message)
       if message.flow != null {
-        . = message.flow
+        abort
       }
+      . = message.flow
 
   unifi_route:
     type: route
