@@ -52,14 +52,14 @@ transforms:
     inputs: ["kubernetes_source"]
     route:
       flow: |
-        .container_name == "hubble-exporter" && match!(.message, r'^flow.*')
+        .container_name == "hubble-exporter"
 
   hubble_exporter_remap:
     type: remap
     inputs: ["hubble_exporter_route.flow"]
     source: |
       message = parse_json!(.message)
-      . = message.flow
+      . = message
 
   unifi_route:
     type: route
