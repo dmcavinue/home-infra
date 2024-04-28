@@ -62,6 +62,7 @@ spec:
             metadata:
               labels:
                 egress.home.arpa/world: allow
+                prom.home.arpa/prometheus: allow
             spec:
               containers:
                 - name: manager
@@ -81,6 +82,7 @@ spec:
             metadata:
               labels:
                 egress.home.arpa/world: allow
+                prom.home.arpa/prometheus: allow
             spec:
               containers:
                 - name: manager
@@ -100,6 +102,7 @@ spec:
             metadata:
               labels:
                 egress.home.arpa/world: allow
+                prom.home.arpa/prometheus: allow
             spec:
               containers:
                 - name: manager
@@ -119,6 +122,7 @@ spec:
             metadata:
               labels:
                 egress.home.arpa/world: allow
+                prom.home.arpa/prometheus: allow
       target:
         kind: Deployment
         name: notification-controller
