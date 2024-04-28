@@ -2,12 +2,6 @@
 data_dir: /vector-data-dir
 
 sources:
-  # hubble_source:
-  #   type: file
-  #   include:
-  #     - /var/log/hubble-exporter.log
-  #   file_key: file
-
   journald_source:
     type: journald
     journal_directory: /var/log/journal
@@ -27,13 +21,6 @@ sources:
       node_labels: ""
 
 sinks:
-  # hubble:
-  #   type: vector
-  #   compression: true
-  #   version: "2"
-  #   address: vector-aggregator.monitoring.svc.cluster.local:6000
-  #   inputs: ["hubble_source"]
-
   journald:
     type: vector
     compression: true

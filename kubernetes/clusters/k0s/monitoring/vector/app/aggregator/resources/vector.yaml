@@ -47,6 +47,19 @@ transforms:
       # Drop pod_labels
       del(.pod_labels)
 
+  hubble_exporter_route:
+    type: route
+    inputs: ["kubernetes_source"]
+    route:
+      flow: |
+        .kubernetes.pod_name =~ "^cilium-agent-.+" && .kubernetes.container_name == "hubble-exporter"
+
+  hubble_exporter_remap:
+    type: remap
+    inputs: ["hubble_exporter_route.flow"]
+    source: |
+      .message.flow
+
   unifi_route:
     type: route
     inputs: ["unifi_source"]
@@ -85,8 +98,6 @@ transforms:
     route:
       coredns: |
         ._COMM == "coredns"
-      # hubble: |
-      #   .file == "/var/log/hubble-exporter.log"
 
   coredns_remap:
     type: remap
@@ -218,13 +229,19 @@ sinks:
       type: '{{ .type }}'
       server_addr: '{{ .server_addr }}'
 
-  # hubble_events:
-  #   inputs: ["journald_route.hubble"]
-  #   type: loki
-  #   endpoint: http://loki-gateway.monitoring.svc.cluster.local
-  #   encoding: { codec: json }
-  #   out_of_order_action: accept
-  #   remove_label_fields: false
-  #   remove_timestamp: false
-  #   labels:
-  #     app: 'hubble-events'
+  hubble_exporter_flow_events:
+    inputs: ["hubble_exporter_remap"]
+    type: loki
+    endpoint: http://loki-gateway.monitoring.svc.cluster.local
+    encoding: { codec: json }
+    out_of_order_action: accept
+    remove_label_fields: false
+    remove_timestamp: false
+    labels:
+      app: 'hubble-exporter'
+      type: 'flow'
+      verdict: '{{ .verdict }}'
+      direction: '{{ .traffic_direction }}'
+      ip_source: '{{ IP.source}}'
+      ip_destination: '{{ IP.destination}}'
+      ip_version: '{{ IP.ipVersion}}'
