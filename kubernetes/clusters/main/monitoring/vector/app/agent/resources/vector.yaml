@@ -16,7 +16,7 @@ sources:
       pod_name: pod_name
       pod_annotations: ""
     include_paths_glob_patterns:
-      - "/var/log/hubble-flows/**"
+      - "**hubble-flows**"
     namespace_annotation_fields:
       namespace_labels: ""
     node_annotation_fields:
