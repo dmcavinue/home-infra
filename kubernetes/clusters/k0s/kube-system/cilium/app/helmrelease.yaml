@@ -185,8 +185,8 @@ spec:
       enabled: true
       export:
         enabled: true
-        fileMaxSizeMb: 10
-        fileMaxBackups: 0
+        fileMaxSizeMb: 1
+        fileMaxBackups: 1
         static:
           enabled: true
           filePath: /var/log/hubble-flows/flow.log
