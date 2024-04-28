@@ -170,7 +170,8 @@ spec:
       image: alpine:3
       imagePullPolicy: IfNotPresent
       command:
-      - cat
+      - tail
+      - -f
       args:
       - &hubbleLogPath /var/log/hubble-flows/hubble.log
       resources:
@@ -183,6 +184,8 @@ spec:
       enabled: true
       export:
         enabled: true
+        fileMaxSizeMb: 10
+        fileMaxBackups: 1
         static:
           enabled: true
           filePath: *hubbleLogPath
