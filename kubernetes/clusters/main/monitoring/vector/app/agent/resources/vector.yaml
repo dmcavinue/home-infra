@@ -2,12 +2,6 @@
 data_dir: /vector-data-dir
 
 sources:
-  # hubble_source:
-  #   type: file
-  #   include:
-  #     - /var/log/hubble-exporter.log
-  #   file_key: file
-
   journald_source:
     type: journald
     journal_directory: /var/log/journal
@@ -21,6 +15,8 @@ sources:
       pod_labels: pod_labels
       pod_name: pod_name
       pod_annotations: ""
+    include_paths_glob_patterns:
+      - "/var/log/hubble-exporter.log"
     namespace_annotation_fields:
       namespace_labels: ""
     node_annotation_fields:
