@@ -246,3 +246,5 @@ sinks:
       type: 'flow'
       verdict: '{{ .verdict }}'
       direction: '{{ .traffic_direction }}'
+      source: '{{ .IP.source || .source.pod_name }}'
+      destination: '{{ .IP.destination || .source.pod_name }}'
