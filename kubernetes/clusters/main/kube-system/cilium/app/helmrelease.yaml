@@ -159,13 +159,33 @@ spec:
       # wireguard:
       #   userspaceFallback: false
       #   persistentKeepalive: 0s
+    extraVolumes:
+    - name: hubble-exporter
+      emptyDir: {}
+    extraVolumeMounts:
+    - name: hubble-exporter
+      mountPath: /var/log/hubble-flows
+    extraContainers:
+    - name: hubble-exporter
+      image: alpine:3
+      imagePullPolicy: IfNotPresent
+      command:
+      - cat
+      args:
+      - &hubbleLogPath /var/log/hubble-flows/hubble.log
+      resources:
+        limits:
+          memory: 128Mi
+        requests:
+          cpu: 100m
+          memory: 64Mi
     hubble:
       enabled: true
       export:
         enabled: true
         static:
           enabled: true
-          filePath: /var/log/hubble-flows/hubble.log
+          filePath: *hubbleLogPath
       tls:
         auto:
           method: certmanager
