@@ -63,17 +63,21 @@ transforms:
         abort
       }
       del(.)
-      .message = message.flow
+      #.message = message.flow
       .direction = message.flow.direction
+      .type = message.flow.Type
+      .summary = message.flow.Summary
       .verdict = message.flow.verdict
       .source_namespace = message.flow.source.namespace
       .source_pod = message.flow.source.pod_name
       .source_ip = message.flow.IP.source
       .source_labels = message.flow.source.labels
+      .source_port = message.flow.l4.TCP.source_port || message.flow.l4.UDP.source_port
       .destination_namespace = message.flow.destination.namespace
       .destination_pod = message.flow.destination.pod_name
       .destination_ip = message.flow.IP.destination
       .destination_labels = message.flow.destination.labels
+      .destination_port = message.flow.l4.TCP.destination_port || message.flow.l4.UDP.destination_port
 
   unifi_route:
     type: route
