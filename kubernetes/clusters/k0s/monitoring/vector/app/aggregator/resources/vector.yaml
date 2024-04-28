@@ -63,18 +63,6 @@ transforms:
         abort
       }
       . = message.flow
-      if message.flow.source == null {
-        abort
-      }
-      .source_labels == message.flow.source.labels
-      .source_namespace == message.flow.source.namespace
-      .source_pod_name == message.flow.source.pod_name
-      if message.flow.destination == null {
-        abort
-      }
-      .destination_labels == message.flow.destination.labels
-      .destination_namespace == message.flow.destination.namespace
-      .destination_pod_name == message.flow.destination.pod_name
 
   unifi_route:
     type: route
@@ -258,12 +246,3 @@ sinks:
       type: 'flow'
       verdict: '{{ .verdict }}'
       direction: '{{ .traffic_direction }}'
-      # ip_source: '{{ .IP.source}}'
-      # ip_destination: '{{ .IP.destination}}'
-      # ip_version: '{{ .IP.ipVersion}}'
-      destination_labels: '{{ .destination.labels}}'
-      destination_namespace: '{{ .destination.namespace}}'
-      destination_pod_name: '{{ .destination.pod_name}}'
-      source_labels: '{{ .source.labels}}'
-      source_namespace: '{{ .source.namespace}}'
-      source_pod_name: '{{ .source.pod_name}}'
