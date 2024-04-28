@@ -62,7 +62,11 @@ transforms:
       if message == null {
         abort
       }
-      . = message.flow
+      .message = message.flow
+      .direction = message.flow.direction
+      .verdict = message.flow.verdict
+      .source  = "{{ message.flow.source.namespace }}\{{ message.flow.source.pod_name }}" || message.flow.IP.source
+      .destination  = "{{ message.flow.destination.namespace }}\{{ message.flow.destination.pod_name }}" || message.flow.IP.destination
 
   unifi_route:
     type: route
@@ -246,5 +250,5 @@ sinks:
       type: 'flow'
       verdict: '{{ .verdict }}'
       direction: '{{ .traffic_direction }}'
-      source: '{{ .IP.source || .source.pod_name }}'
-      destination: '{{ .IP.destination || .source.pod_name }}'
+      source: '{{ .source }}'
+      destination: '{{ .destination }}'
