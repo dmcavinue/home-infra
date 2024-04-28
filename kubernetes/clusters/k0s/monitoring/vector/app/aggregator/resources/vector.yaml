@@ -249,6 +249,6 @@ sinks:
       app: 'hubble-exporter'
       type: 'flow'
       verdict: '{{ .verdict }}'
-      direction: '{{ .traffic_direction }}'
+      direction: '{{ .direction }}'
       source: '{{ .source }}'
       destination: '{{ .destination }}'
