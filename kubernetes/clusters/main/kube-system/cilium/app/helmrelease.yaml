@@ -186,7 +186,7 @@ spec:
         fileMaxBackups: 1
         static:
           enabled: true
-          filePath: /tmp/hubble-flows/events.log
+          filePath: /tmp/hubble-events.log
       tls:
         auto:
           method: certmanager
