@@ -23,13 +23,6 @@ sources:
       node_labels: ""
 
 sinks:
-  # hubble:
-  #   type: vector
-  #   compression: true
-  #   version: "2"
-  #   address: vector-aggregator.monitoring.svc.cluster.local:6000
-  #   inputs: ["hubble_source"]
-
   journald:
     type: vector
     compression: true
