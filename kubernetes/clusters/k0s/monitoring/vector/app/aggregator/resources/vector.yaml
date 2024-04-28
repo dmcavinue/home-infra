@@ -241,7 +241,7 @@ sinks:
       app: 'hubble-exporter'
       type: 'flow'
       verdict: '{{ .verdict }}'
-      direction: '{{ .traffic_direction }}'
+      #direction: '{{ .traffic_direction }}'
       ip_source: '{{ IP.source}}'
       ip_destination: '{{ IP.destination}}'
       ip_version: '{{ IP.ipVersion}}'
