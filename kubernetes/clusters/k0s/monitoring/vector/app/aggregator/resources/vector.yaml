@@ -63,7 +63,7 @@ transforms:
         abort
       }
       del(.)
-      .message = message.flow
+      #.message = message.flow
       .direction = message.flow.direction
       .verdict = message.flow.verdict
       .source_namespace = message.flow.source.namespace
