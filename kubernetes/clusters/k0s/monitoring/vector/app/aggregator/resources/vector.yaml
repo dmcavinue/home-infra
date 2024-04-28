@@ -255,7 +255,7 @@ sinks:
     labels:
       app: 'hubble-exporter'
       verdict: '{{ .verdict }}'
-      direction: '{{ .direction }}'
+      direction: '{{ .traffic_direction }}'
       # source_namespace: '{{ .source_namespace }}'
       # source_pod: '{{ .source_pod }}'
       # source_ip: '{{ .source_ip }}'
