@@ -52,7 +52,7 @@ transforms:
     inputs: ["kubernetes_source"]
     route:
       flow: |
-        .kubernetes.pod_name =~ "^cilium-agent-.+" && .kubernetes.container_name == "hubble-exporter"
+        match!(.kubernetes.pod_name, r'^cilium-agent-.+')  && .kubernetes.container_name == "hubble-exporter"
 
   hubble_exporter_remap:
     type: remap
