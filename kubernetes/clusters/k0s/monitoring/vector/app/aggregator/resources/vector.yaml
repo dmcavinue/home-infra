@@ -58,7 +58,8 @@ transforms:
     type: remap
     inputs: ["hubble_exporter_route.flow"]
     source: |
-      . = parse_json!(.message.flow)
+      message = parse_json!(.message)
+      . = message.flow
 
   unifi_route:
     type: route
