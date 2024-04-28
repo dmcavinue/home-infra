@@ -69,9 +69,11 @@ transforms:
       .source_namespace = message.flow.source.namespace
       .source_pod = message.flow.source.pod_name
       .source_ip = message.flow.IP.source
+      .source_labels = message.flow.source.labels
       .destination_namespace = message.flow.destination.namespace
       .destination_pod = message.flow.destination.pod_name
       .destination_ip = message.flow.IP.destination
+      .destination_labels = message.flow.destination.labels
 
   unifi_route:
     type: route
