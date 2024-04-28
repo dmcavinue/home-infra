@@ -62,6 +62,7 @@ transforms:
       if message == null {
         abort
       }
+      del(.)
       .message = message.flow
       .direction = message.flow.direction
       .verdict = message.flow.verdict
