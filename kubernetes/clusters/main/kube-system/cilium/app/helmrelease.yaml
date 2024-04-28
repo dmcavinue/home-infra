@@ -164,7 +164,7 @@ spec:
       emptyDir: {}
     extraVolumeMounts:
     - name: hubble-exporter
-      mountPath: /var/log/hubble-flows
+      mountPath: &hubbleLogPath /var/log/hubble-flows
     extraContainers:
     - name: hubble-exporter
       image: alpine:3
