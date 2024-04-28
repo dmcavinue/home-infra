@@ -169,7 +169,8 @@ spec:
     - name: hubble-exporter
       image: alpine:3
       imagePullPolicy: IfNotPresent
-      command:
+      command: [ "/bin/bash", "-c", "--" ]
+      args:
       - "while [ ! -f /var/log/hubble-flows/flow.log ]; do sleep 5; done; tail -f /var/log/hubble-flows/flow.log"
       resources:
         limits:
