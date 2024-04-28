@@ -190,13 +190,13 @@ spec:
         static:
           enabled: true
           filePath: /var/log/hubble-flows/flow.log
-          fieldMask:
-          - time
-          - verdict
-          - source
-          - destination
-          - traffic_direction
-          - IP
+          # fieldMask:
+          # - time
+          # - verdict
+          # - source
+          # - destination
+          # - traffic_direction
+          # - IP
           denyList:
           - '{"verdict":["FORWARDED","TRACED","TRANSLATED"]}'
       tls:
