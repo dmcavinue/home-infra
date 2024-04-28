@@ -164,7 +164,7 @@ spec:
       emptyDir: {}
     extraVolumeMounts:
     - name: hubble-exporter
-      mountPath: &hubbleLogPath /var/log/hubble-flows
+      mountPath: /var/log/hubble-flows
     extraContainers:
     - name: hubble-exporter
       image: alpine:3
@@ -186,7 +186,7 @@ spec:
         fileMaxBackups: 1
         static:
           enabled: true
-          filePath: *hubbleLogPath
+          filePath: /var/log/hubble-flows
       tls:
         auto:
           method: certmanager
