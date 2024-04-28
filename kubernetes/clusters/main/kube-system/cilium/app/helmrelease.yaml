@@ -170,7 +170,8 @@ spec:
       image: alpine:3
       imagePullPolicy: IfNotPresent
       command:
-      - "cat"
+      - "sleep"
+      - "3600"
       resources:
         limits:
           memory: 128Mi
