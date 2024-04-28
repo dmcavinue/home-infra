@@ -240,7 +240,7 @@ sinks:
     labels:
       app: 'hubble-exporter'
       type: 'flow'
-      verdict: '{{ .verdict }}'
+      #verdict: '{{ .verdict }}'
       #direction: '{{ .traffic_direction }}'
       #ip_source: '{{ IP.source}}'
       #ip_destination: '{{ IP.destination}}'
