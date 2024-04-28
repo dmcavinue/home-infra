@@ -192,11 +192,18 @@ spec:
           filePath: /var/log/hubble-flows/flow.log
           fieldMask:
           - time
+          - Type
+          - Summary
           - verdict
-          - source
-          - destination
+          - source.labels
+          - source.namespace
+          - source.pod_name
+          - destination.labels
+          - destination.namespace
+          - destination.pod_name
           - traffic_direction
-          - IP
+          - IP.source
+          - IP.destination
           - l4
           denyList:
           - '{"verdict":["FORWARDED","TRACED","TRANSLATED"]}'
