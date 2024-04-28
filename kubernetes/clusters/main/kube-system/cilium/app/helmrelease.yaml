@@ -171,7 +171,7 @@ spec:
       imagePullPolicy: IfNotPresent
       command: [ "/bin/sh", "-c", "--" ]
       args:
-      - "while [ ! -f /var/log/hubble-flows/flow.log ]; do sleep 5; done; tail -f /var/log/hubble-flows/flow.log"
+      - "while [ ! -f /var/log/hubble-flows/flow.log ]; do sleep 5; done; tail -n 1 -f /var/log/hubble-flows/flow.log"
       resources:
         limits:
           memory: 128Mi
@@ -186,7 +186,7 @@ spec:
       export:
         enabled: true
         fileMaxSizeMb: 10
-        fileMaxBackups: 1
+        fileMaxBackups: 0
         static:
           enabled: true
           filePath: /var/log/hubble-flows/flow.log
