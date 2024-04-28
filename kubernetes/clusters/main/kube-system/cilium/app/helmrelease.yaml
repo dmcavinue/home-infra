@@ -169,7 +169,7 @@ spec:
     - name: hubble-exporter
       image: alpine:3
       imagePullPolicy: IfNotPresent
-      command: ["while [! -f '/var/log/hubble-flows/hubble.log' ];do;done && tail -f '/var/log/hubble-flows/hubble.log'"]
+      command: ["watch -n0,1 'ls -lt /var/log/hubble-flows/|tail -f'"]
       resources:
         limits:
           memory: 128Mi
