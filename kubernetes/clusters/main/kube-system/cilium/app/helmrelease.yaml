@@ -170,12 +170,11 @@ spec:
       image: alpine:3
       imagePullPolicy: IfNotPresent
       command:
-      - "sleep"
-      - "3600"
+      - "while [ ! -f /var/log/hubble-flows/flow.log ]; do sleep 5; done; tail -f /var/log/hubble-flows/flow.log"
       resources:
         limits:
           memory: 128Mi
-        requests:
+        requests:wheil 
           cpu: 100m
           memory: 64Mi
       volumeMounts:
