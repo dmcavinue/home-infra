@@ -144,8 +144,8 @@ spec:
       status: "policy"
     gatewayAPI:
       enabled: false
-      secretsNamespace:        
-        create: false        
+      secretsNamespace:
+        create: false
         name: ingress
         sync: false
     encryption:
@@ -169,11 +169,7 @@ spec:
     - name: hubble-exporter
       image: alpine:3
       imagePullPolicy: IfNotPresent
-      command:
-      - tail
-      - -f
-      args:
-      - &hubbleLogPath /var/log/hubble-flows/hubble.log
+      command: ["while [! -f '/var/log/hubble-flows/hubble.log' ];do;tail -f '/var/log/hubble-flows/hubble.log';done"]
       resources:
         limits:
           memory: 128Mi
