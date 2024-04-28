@@ -59,7 +59,7 @@ transforms:
     inputs: ["hubble_exporter_route.flow"]
     source: |
       message = parse_json!(.message)
-      if message.flow != null {
+      if message.flow == null {
         abort
       }
       . = message.flow
