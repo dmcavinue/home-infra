@@ -33,7 +33,7 @@ spec:
     args:
       - /run.sh
       - -m 2048
-      - -I 2m
+      - -I 4m
     replicaCount: 1
     persistence:
       enabled: true
