@@ -9,7 +9,7 @@ spec:
     matchLabels:
       prom.home.arpa/prometheus: allow
   ingress:
-    - fromEndpoints:
+    - toEndpoints:
         - matchLabels:
             prometheus: kube-prometheus-stack
             io.kubernetes.pod.namespace: monitoring
