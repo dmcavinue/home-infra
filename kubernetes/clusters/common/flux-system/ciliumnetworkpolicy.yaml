@@ -3,8 +3,28 @@ apiVersion: cilium.io/v2
 kind: CiliumNetworkPolicy
 metadata:
   name: default-deny
-  namespace: &namespace flux-system
+  namespace: flux-system
 spec:
   endpointSelector: {}
   egress: []
   ingress: []
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: allow-all-within-namespace
+  namespace: &namespace flux-system
+spec:
+  endpointSelector: {}
+  egress:
+  - toEndpoints:
+    - matchLabels:
+        "k8s:io.kubernetes.pod.namespace": *namespace
+    authentication:
+      mode: required
+  ingress:
+  - fromEndpoints:
+    - matchLabels:
+        "k8s:io.kubernetes.pod.namespace": *namespace
+    authentication:
+      mode: required
