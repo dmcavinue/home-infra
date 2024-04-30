@@ -12,9 +12,7 @@ spec:
     - fromEndpoints:
         - matchLabels:
             prometheus: kube-prometheus-stack
-            io.kubernetes.pod.namespace: monitoring
         - matchLabels:
             prometheus: prom-main
-            io.kubernetes.pod.namespace: monitoring
       authentication:
         mode: required
