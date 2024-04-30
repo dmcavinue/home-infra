@@ -2,7 +2,17 @@
 apiVersion: cilium.io/v2
 kind: CiliumNetworkPolicy
 metadata:
-  name: default-deny-outside-namespace
+  name: default-deny
+  namespace: ingress
+spec:
+  endpointSelector: {}
+  egress: []
+  ingress: []
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: allow-all-within-namespace
   namespace: &namespace ingress
 spec:
   endpointSelector: {}
@@ -23,7 +33,17 @@ spec:
 apiVersion: cilium.io/v2
 kind: CiliumNetworkPolicy
 metadata:
-  name: default-deny-outside-namespace
+  name: default-deny
+  namespace: cert-manager
+spec:
+  endpointSelector: {}
+  egress: []
+  ingress: []
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: allow-all-within-namespace
   namespace: &namespace cert-manager
 spec:
   endpointSelector: {}
