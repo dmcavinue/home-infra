@@ -6,8 +6,10 @@ metadata:
   namespace: vault
 spec:
   endpointSelector: {}
-  egress: []
-  ingress: []
+  egress:
+    - {}
+  ingress:
+    - {}
 ---
 apiVersion: cilium.io/v2
 kind: CiliumNetworkPolicy

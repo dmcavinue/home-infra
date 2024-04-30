@@ -6,8 +6,10 @@ metadata:
   namespace: ingress
 spec:
   endpointSelector: {}
-  egress: []
-  ingress: []
+  egress:
+    - {}
+  ingress:
+    - {}
 ---
 apiVersion: cilium.io/v2
 kind: CiliumNetworkPolicy
@@ -37,8 +39,10 @@ metadata:
   namespace: cert-manager
 spec:
   endpointSelector: {}
-  egress: []
-  ingress: []
+  egress:
+    - {}
+  ingress:
+    - {}
 ---
 apiVersion: cilium.io/v2
 kind: CiliumNetworkPolicy
