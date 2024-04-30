@@ -15,7 +15,8 @@ metadata:
   name: allow-all-within-namespace
   namespace: &namespace flux-system
 spec:
-  endpointSelector: {}
+  endpointSelector:
+    "k8s:io.kubernetes.pod.namespace": *namespace
   egress:
   - toEndpoints:
     - matchLabels:
