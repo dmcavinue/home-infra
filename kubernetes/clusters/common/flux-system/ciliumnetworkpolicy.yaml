@@ -2,7 +2,7 @@
 apiVersion: cilium.io/v2
 kind: CiliumNetworkPolicy
 metadata:
-  name: allow-all-within-namespace
+  name: default-deny-outside-namespace
   namespace: &namespace flux-system
 spec:
   endpointSelector: {}
