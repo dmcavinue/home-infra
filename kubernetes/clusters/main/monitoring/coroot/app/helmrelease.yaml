@@ -76,10 +76,10 @@ spec:
       resources:
         limits:
           cpu: 100m
-          memory: 128Mi
+          memory: 1Gi
         requests:
           cpu: 100m
-          memory: 1Gi
+          memory: 128Mi
       persistentVolume:
         size: 10Gi
         storageClassName: ceph-pool
