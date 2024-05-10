@@ -1,0 +1,139 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: coroot
+spec:
+  interval: 30m
+  timeout: 15m
+  chart:
+    spec:
+      chart: coroot
+      version: 0.10.13
+      sourceRef:
+        kind: HelmRepository
+        name: coroot
+        namespace: flux-system
+  maxHistory: 2
+  install:
+    crds: CreateReplace
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    crds: CreateReplace
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    corootCE:
+      enabled: true
+      bootstrap:
+        refreshInterval: 15s
+        clickhouse:
+          database: default
+          username: default
+      replicas: 1
+      strategy:
+        type: Recreate
+      image:
+        repository: ghcr.io/coroot/coroot
+        pullPolicy: IfNotPresent
+        tag: ""
+      imagePullSecrets: []
+      nameOverride: ""
+      fullnameOverride: ""
+      serviceAccount:
+        create: true
+        annotations: {}
+        name: ""
+      podAnnotations: {}
+      podSecurityContext:
+        fsGroup: 2000
+      securityContext:
+        capabilities:
+          drop:
+          - ALL
+        readOnlyRootFilesystem: true
+        runAsNonRoot: true
+      runAsUser: 1000
+      service:
+        type: ClusterIP
+        port: 8080
+        annotations: {}
+      ingress:
+        enabled: true
+        className: nginx
+        hostname: "coroot.${DOMAIN}"
+        path: /
+        pathType: ImplementationSpecific
+        hosts:
+         - host: "coroot.${DOMAIN}"
+           paths:
+             - path: /
+               pathType: ImplementationSpecific
+      resources:
+        limits:
+          cpu: 100m
+          memory: 128Mi
+        requests:
+          cpu: 100m
+          memory: 1Gi
+      persistentVolume:
+        size: 10Gi
+        storageClassName: ceph-pool
+    corootClusterAgent:
+      enabled: true
+      fullnameOverride: ""
+      config:
+        listen: :8080
+        coroot_url: http://coroot:8080
+        profiles:
+          scrape:
+            interval: 1m
+      image:
+        repository: ghcr.io/coroot/coroot-cluster-agent
+        pullPolicy: IfNotPresent
+        tag: "0.2.0"
+      podSecurityContext: {}
+      securityContext: {}
+      resources:
+        requests:
+          cpu: 100m
+          memory: 1Gi
+    prometheus:
+      enabled: false
+    existingPrometheus:
+      enabled: true
+      service:
+        serviceName: prom-main-prometheus
+        servicePort: 9090
+        serviceNamespace: monitoring
+      node-agent-podmonitor:
+        enabled: true
+    node-agent:
+      enabled: true
+      tracesEndpoint: "http://coroot:8080/v1/traces"
+      logsEndpoint: "http://coroot:8080/v1/logs"
+      profilesEndpoint: "http://coroot:8080/v1/profiles"
+    clickhouse:
+      enabled: true
+      persistence:
+        size: 50Gi
+      replicaCount: 1
+      shards: 1
+      zookeeper:
+        enabled: false
+      extraOverrides: |
+        <clickhouse>
+          <asynchronous_metric_log remove="1"/>
+          <metric_log remove="1"/>
+          <query_log remove="1" />
+          <query_thread_log remove="1" />  
+          <query_views_log remove="1" />
+          <part_log remove="1"/>
+          <text_log remove="1" />
+          <trace_log remove="1"/>
+          <opentelemetry_span_log remove="1"/>
+        </clickhouse>
