@@ -121,7 +121,7 @@ spec:
       enabled: true
       persistence:
         size: 50Gi
-        storageClassName: ceph-pool
+        storageClass: ceph-pool
       replicaCount: 1
       shards: 1
       zookeeper:
