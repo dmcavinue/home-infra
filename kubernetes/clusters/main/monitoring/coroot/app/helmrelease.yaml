@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: coroot
-      version: 0.10.13
+      version: 0.10.14
       sourceRef:
         kind: HelmRepository
         name: coroot
@@ -75,10 +75,10 @@ spec:
                pathType: ImplementationSpecific
       resources:
         limits:
-          cpu: 100m
+          cpu: 300m
           memory: 1Gi
         requests:
-          cpu: 100m
+          cpu: 200m
           memory: 128Mi
       persistentVolume:
         size: 10Gi

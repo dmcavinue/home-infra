@@ -32,7 +32,7 @@ spec:
           app:
             image:
               repository: dmcavinue/music-assistant
-              tag: 0.0.1
+              tag: 0.0.2
             probes:
               liveness:
                 enabled: false
