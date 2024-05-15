@@ -36,7 +36,8 @@ spec:
   postRenderers:
     - kustomize:
         patches:
-          - apiVersion: apps/v1
+        - patch: |-
+            apiVersion: apps/v1
             kind: DaemonSet
             metadata:
               name: multus
