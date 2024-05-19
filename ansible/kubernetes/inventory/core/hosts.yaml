@@ -8,5 +8,3 @@ kubernetes:
       hosts:
         k8s-core-1:
           ansible_host: 192.168.8.2
-          ceph_drives:
-            - /dev/disk/by-id/nvme-PM981_NVMe_Samsung_512GB_______S3ZHNA0KA01345
