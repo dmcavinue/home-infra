@@ -85,7 +85,7 @@ spec:
       name: "${ENVIRONMENT}"
       id: "${CILIUM_ID}"
     clustermesh:
-      useAPIServer: true
+      useAPIServer: false
       config:
         enabled: true
         clusters:
@@ -220,7 +220,7 @@ spec:
           enabled: true
           namespace: monitoring
       relay:
-        enabled: true
+        enabled: false
         rollOutPods: true
         prometheus:
           serviceMonitor:
