@@ -26,29 +26,74 @@ spec:
       retries: 3
   uninstall:
     keepHistory: false
+  dependsOn:
+    - name: local-path-provisioner
+      namespace: kube-system
   values:
-    fullnameOverride: "prom-${ENVIRONMENT}"
     crds:
       enabled: true
     cleanPrometheusOperatorObjectNames: true
     alertmanager:
-      enabled: false
-    defaultRules:
-      create: false
-    prometheusOperator:
-      resources:
-        limits:
-          memory: 128Mi
-        requests:
-          cpu: 100m
-          memory: 64Mi
-      prometheusConfigReloader:
-        resources:
-          requests:
-            cpu: 100m
-            memory: 64Mi
-          limits:            
-            memory: 128Mi
+      config:
+        global:
+          resolve_timeout: 5m
+        receivers:
+          - name: "null"
+          - name: "slack"
+            slack_configs:
+              - channel: "#prometheus-alerts"
+                icon_url: https://avatars3.githubusercontent.com/u/3380462
+                username: "Prometheus"
+                send_resolved: true
+                title: |-
+                  [{{ .Status | toUpper }}{{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{ end }}] {{ if ne .CommonAnnotations.summary ""}}{{ .CommonAnnotations.summary }}{{ else }}{{ .CommonLabels.alertname }}{{ end }}
+                text: >-
+                  {{ range .Alerts -}}
+                    **Cluster:** {{ .Annotations.title }}{{ if .Labels.cluster }} - `{{ .Labels.cluster }}`{{ end }}
+                    **Alert:** {{ .Annotations.title }}{{ if .Labels.severity }} - `{{ .Labels.severity }}`{{ end }}
+                  **Description:** {{ if ne .Annotations.description ""}}{{ .Annotations.description }}{{else}}N/A{{ end }}
+                  **Details:**
+                    {{ range .Labels.SortedPairs }} • *{{ .Name }}:* `{{ .Value }}`
+                    {{ end }}
+                  {{ end }}
+        route:
+          group_by: ["alertname", "job"]
+          group_wait: 30s
+          group_interval: 5m
+          repeat_interval: 6h
+          receiver: "slack"
+          routes:
+            - receiver: "null"
+              match:
+                alertname: Watchdog
+            - receiver: "slack"
+              match_re:
+                severity: critical
+              continue: true
+        inhibit_rules:
+          - source_match:
+              severity: "critical"
+            target_match:
+              severity: "warning"
+            equal: ["alertname", "namespace"]
+      ingress:
+        enabled: true
+        pathType: Prefix
+        ingressClassName: nginx
+        hosts:
+          - &host alertmanager.${DOMAIN}
+        tls:
+          - hosts:
+              - *host
+      alertmanagerSpec:
+        replicas: 1
+        storage:
+          volumeClaimTemplate:
+            spec:
+              storageClassName: local-path
+              resources:
+                requests:
+                  storage: 1Gi
     kubelet:
       enabled: true
       serviceMonitor:
@@ -94,7 +139,7 @@ spec:
             sourceLabels: ["__name__"]
             regex: "(apiserver_audit|apiserver_client|apiserver_delegated|apiserver_envelope|apiserver_storage|apiserver_webhooks|attachdetach_controller|authenticated_user|authentication|cronjob_controller|disabled_metric|endpoint_slice|ephemeral_volume|garbagecollector_controller|get_token|go|hidden_metric|job_controller|kubernetes_build|kubernetes_feature|leader_election|node_collector|node_ipam|process_cpu|process_max|process_open|process_resident|process_start|process_virtual|pv_collector|registered_metric|replicaset_controller|rest_client|retroactive_storageclass|root_ca|running_managed|scrape_duration|scrape_samples|scrape_series|service_controller|storage_count|storage_operation|ttl_after|volume_operation|workqueue)_(.+)"
     kubeEtcd:
-      enabled: true
+      enabled: false
       endpoints: *cp
     kubeScheduler:
       enabled: true
@@ -109,12 +154,26 @@ spec:
       enabled: false
     prometheus:
       ingress:
-        enabled: false
-      service:
-        annotations:
-          io.cilium/global-service: "true"
+        enabled: true
+        ingressClassName: nginx
+        pathType: Prefix
+        hosts:
+          - &host prometheus.${DOMAIN}
+        tls:
+          - hosts:
+              - *host
+      thanosService:
+        enabled: true
+      thanosServiceMonitor:
+        enabled: true
       prometheusSpec:
         replicas: 1
+        podMetadata:
+          annotations:
+            secret.reloader.stakater.com/reload: &secret thanos-objstore-config
+            vault.hashicorp.com/agent-inject: 'true'
+            vault.hashicorp.com/agent-inject-token: 'true'
+            vault.hashicorp.com/role: monitoring
         replicaExternalLabelName: __replica__
         scrapeInterval: 1m
         ruleSelectorNilUsesHelmValues: false
@@ -132,23 +191,39 @@ spec:
           registry: quay.io
           repository: prometheus/prometheus
           tag: v2.51.0-dedupelabels
+        thanos:
+          image: quay.io/thanos/thanos:${THANOS_VERSION}
+          version: "${THANOS_VERSION#v}"
+          objectStorageConfig:
+            existingSecret:
+              name: *secret
+              key: config
         retention: 2d
         retentionSize: 15GB
         externalLabels:
           cluster: "${ENVIRONMENT}"
         resources:
-          limits:
-            memory: 7Gi
           requests:
-            cpu: 400m
-            memory: 4Gi
+            cpu: 100m
+          limits:
+            memory: 1500Mi
         storageSpec:
           volumeClaimTemplate:
             spec:
-              storageClassName: openebs-hostpath
+              storageClassName: local-path
               resources:
                 requests:
                   storage: 20Gi
+        additionalScrapeConfigs:
+          - job_name: vault
+            metrics_path: /v1/sys/metrics
+            params:
+              format: ['prometheus']
+            scheme: https
+            authorization:
+              credentials_file: /vault/secrets/token
+            static_configs:
+              - targets: ["vault.${DOMAIN}"]
     nodeExporter:
       enabled: true
     prometheus-node-exporter:
@@ -467,3 +542,8 @@ spec:
           multicluster:
             etcd:
               enabled: true
+  valuesFrom:
+    - targetPath: alertmanager.config.global.slack_api_url
+      kind: Secret
+      name: alertmanager
+      valuesKey: SLACK_WEBHOOK

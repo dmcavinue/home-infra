@@ -1,0 +1,36 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/monitoring.coreos.com/scrapeconfig_v1alpha1.json
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: ScrapeConfig
+metadata:
+  name: main
+spec:
+  honorLabels: false
+  scrapeInterval: 60s
+  staticConfigs:
+    - targets: ["prom-main-prometheus:9090"]
+  metricsPath: /federate
+  params:
+    "match[]":
+      - '{job="home-automation/home-assistant"}'
+      - '{job="cert-manager"}'
+      - '{job="cilium-agent"}'
+      - '{job="cilium-operator"}'
+      - '{job="csi-rbdplugin-metrics"}'
+      - '{job="database/cloudnative-pg-controller"}'
+      - '{job="database/flux-system/flux-system"}'
+      - '{job="hubble-metrics"}'
+      - '{job="kube-controller-manager"}'
+      - '{job="kube-etcd"}'
+      - '{job="kube-scheduler"}'
+      - '{job="kube-state-metrics"}'
+      - '{job="kubelet"}'
+      - '{job="metrics-server"}'
+      - '{job="nginx-ingress-controller-metrics"}'
+      - '{job="node-exporter"}'
+      - '{job="rook-ceph-exporter"}'
+      - '{job="rook-ceph-mgr"}'
+      - '{job="snapshot-controller"}'
+      - '{job="spegel"}'
+      - '{job="tetragon"}'
+      - '{job="volsync-metrics"}'
