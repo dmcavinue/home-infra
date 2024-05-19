@@ -1,0 +1,17 @@
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: kube-prometheus-stack
+spec:
+  description: Allow Prometheus to egress to pods labelled with metrics exporters, no port restrictions
+  endpointSelector:
+    matchLabels:
+      prometheus: prom-core
+  egress:
+    - toEndpoints:
+        - matchLabels:
+            prom.home.arpa/prometheus: allow
+          matchExpressions:
+            - key: io.kubernetes.pod.namespace
+              operator: Exists
