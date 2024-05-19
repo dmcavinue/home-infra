@@ -8,7 +8,6 @@ resources:
   - ./ciliumnetworkpolicy.yaml
   - ./externalsecret.yaml
   # Flux-Kustomizations
-  # - ./glauth/ks.yaml
+  - ./glauth/ks.yaml
   - ./oauth2-proxy/ks.yaml
-  - ./lldap/ks.yaml
   - ./dex/ks.yaml
