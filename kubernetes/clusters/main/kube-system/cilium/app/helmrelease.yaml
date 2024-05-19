@@ -89,6 +89,9 @@ spec:
       config:
         enabled: true
         clusters:
+        - name: core
+          address: core.mesh.cilium.io
+          port: 2379
         - name: k0s
           address: k0s.mesh.cilium.io
           port: 2379
