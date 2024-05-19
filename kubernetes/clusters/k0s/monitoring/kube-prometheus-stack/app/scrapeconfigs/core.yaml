@@ -1,0 +1,27 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/monitoring.coreos.com/scrapeconfig_v1alpha1.json
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: ScrapeConfig
+metadata:
+  name: core
+spec:
+  honorLabels: false
+  scrapeInterval: 60s
+  staticConfigs:
+    - targets: ["prom-core-prometheus:9090"]
+  metricsPath: /federate
+  params:
+    "match[]":
+      - '{job="cert-manager"}'
+      - '{job="cilium-agent"}'
+      - '{job="cilium-operator"}'
+      - '{job="hubble-metrics"}'
+      - '{job="kube-controller-manager"}'
+      - '{job="kube-etcd"}'
+      - '{job="kube-scheduler"}'
+      - '{job="kube-state-metrics"}'
+      - '{job="kubelet"}'
+      - '{job="metrics-server"}'
+      - '{job="nginx-ingress-controller-metrics"}'
+      - '{job="node-exporter"}'
+      - '{job="snapshot-controller"}'
