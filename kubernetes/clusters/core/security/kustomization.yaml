@@ -9,5 +9,6 @@ resources:
   - ./externalsecret.yaml
   # Flux-Kustomizations
   - ./glauth/ks.yaml
+  - ./lldap/ks.yaml
   - ./oauth2-proxy/ks.yaml
   - ./dex/ks.yaml
