@@ -7,4 +7,5 @@ resources:
   - ./namespace.yaml
   - ./ciliumnetworkpolicy.yaml
   # Flux-Kustomizations
+  - ./cloudflare-ddns/ks.yaml
   - ./nginx/ks.yaml
