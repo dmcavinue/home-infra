@@ -32,7 +32,7 @@ spec:
         ingress.home.arpa/world: allow
       service:
         annotations:
-          io.cilium/lb-ipam-ips: "192.168.8.242"
+          io.cilium/lb-ipam-ips: "192.168.8.17"
         externalTrafficPolicy: Cluster
       ingressClassResource:
         default: true
