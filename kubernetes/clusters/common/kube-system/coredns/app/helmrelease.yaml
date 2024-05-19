@@ -56,6 +56,7 @@ spec:
           - name: hosts
             configBlock: |-
               # cluster mesh
+              192.168.8.17 core.mesh.cilium.io
               192.168.8.241 k0s.mesh.cilium.io
               192.168.8.51 main.mesh.cilium.io
               # synology services              
