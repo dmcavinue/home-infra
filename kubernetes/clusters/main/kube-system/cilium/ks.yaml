@@ -9,7 +9,7 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *appname
-  path: ./kubernetes/clusters/main/kube-system/cilium/app
+  path: ./kubernetes/clusters/${ENVIRONMENT}/kube-system/cilium/app
   prune: true
   sourceRef:
     kind: GitRepository
