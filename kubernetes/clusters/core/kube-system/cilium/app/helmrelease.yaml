@@ -185,7 +185,7 @@ spec:
       - name: hubble-exporter
         mountPath: /var/log/hubble-flows
     hubble:
-      enabled: false
+      enabled: true
       export:
         enabled: true
         fileMaxSizeMb: 1
@@ -220,7 +220,7 @@ spec:
           enabled: true
           namespace: monitoring
       relay:
-        enabled: true
+        enabled: false
         rollOutPods: true
         prometheus:
           serviceMonitor:
