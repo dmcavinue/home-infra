@@ -2,19 +2,19 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &appname cilium
+  name: &appname cert-manager
   namespace: flux-system
 spec:
-  targetNamespace: kube-system
+  targetNamespace: cert-manager
   commonMetadata:
     labels:
       app.kubernetes.io/name: *appname
-  path: ./kubernetes/clusters/${ENVIRONMENT}/kube-system/cilium/app
+  path: ./kubernetes/clusters/${ENVIRONMENT}/cert-manager/cert-manager/app
   prune: false
   sourceRef:
     kind: GitRepository
     name: home-kubernetes
-  wait: false
+  wait: true
   interval: 30m
   retryInterval: 1m
   timeout: 5m
@@ -22,18 +22,21 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &appname cilium-network-policies
+  name: &appname cert-manager-issuers
   namespace: flux-system
 spec:
-  targetNamespace: kube-system
+  dependsOn:
+    - name: cert-manager
+  targetNamespace: cert-manager
   commonMetadata:
     labels:
-      app.kubernetes.io/name: cilium
-      app.kubernetes.io/component: netpols
-  path: ./kubernetes/clusters/${ENVIRONMENT}/kube-system/cilium/network-policies
-  prune: true
+      app.kubernetes.io/name: *appname
+  path: ./kubernetes/clusters/${ENVIRONMENT}/cert-manager/cert-manager/issuers
+  prune: false
   sourceRef:
     kind: GitRepository
     name: home-kubernetes
-  wait: false
+  wait: true
   interval: 30m
+  retryInterval: 1m
+  timeout: 5m

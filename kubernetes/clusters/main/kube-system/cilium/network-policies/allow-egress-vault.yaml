@@ -1,0 +1,22 @@
+---
+apiVersion: cilium.io/v2
+kind: CiliumClusterwideNetworkPolicy
+metadata:
+  name: allow-egress-vault
+spec:
+  endpointSelector:
+    matchLabels:
+      egress.home.arpa/vault: allow
+  egress:
+    - toFQDNs:
+        - matchName: vault.logfold.com
+      toPorts:
+        - ports:
+            - port: "443"
+              protocol: TCP
+    - toCIDRSet:
+        - cidr: 192.168.8.242/32
+      toPorts:
+        - ports:
+            - port: "443"
+              protocol: TCP

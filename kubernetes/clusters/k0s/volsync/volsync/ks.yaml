@@ -2,14 +2,16 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &appname grafana
+  name: &appname volsync
   namespace: flux-system
 spec:
-  targetNamespace: monitoring
+  dependsOn:
+    - name: snapshot-controller
+  targetNamespace: volsync
   commonMetadata:
     labels:
       app.kubernetes.io/name: *appname
-  path: ./kubernetes/clusters/${ENVIRONMENT}/monitoring/grafana/app
+  path: ./kubernetes/clusters/${ENVIRONMENT}/volsync/volsync/app
   prune: false
   sourceRef:
     kind: GitRepository
