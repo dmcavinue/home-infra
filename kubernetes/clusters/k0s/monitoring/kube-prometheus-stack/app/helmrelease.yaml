@@ -32,6 +32,9 @@ spec:
   values:
     crds:
       enabled: true
+    defaultRules:
+      disabled:
+        InfoInhibitor: true
     cleanPrometheusOperatorObjectNames: true
     alertmanager:
       config:
