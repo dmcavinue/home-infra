@@ -201,6 +201,7 @@ spec:
           # renovate: depName="podman-exporter"
           gnetId: 17138
           revision: 2
+          datasource:
             - { name: DS_PROMETHEUS, value: Prometheus }
         spegel:
           # renovate: depName="Spegel"
