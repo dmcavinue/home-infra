@@ -197,6 +197,11 @@ spec:
           revision: 33
           datasource:
             - { name: DS_PROMETHEUS, value: Prometheus }
+        podman-exporter:
+          # renovate: depName="podman-exporter"
+          gnetId: 17138
+          revision: 2
+          datasource: Prometheus
         spegel:
           # renovate: depName="Spegel"
           gnetId: 18089
