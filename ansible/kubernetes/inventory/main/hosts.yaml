@@ -8,12 +8,12 @@ kubernetes:
       hosts:
         k8s-main-1:
           ansible_host: 192.168.8.36
+    workers:
+      hosts:
         k8s-main-2:
           ansible_host: 192.168.8.37
         k8s-main-3:
           ansible_host: 192.168.8.38
-    workers:
-      hosts:
         k8s-main-4:
           ansible_host: 192.168.8.39
           ceph_drives:
