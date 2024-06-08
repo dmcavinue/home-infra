@@ -21,7 +21,6 @@ spec:
       - '{job="database/flux-system/flux-system"}'
       - '{job="hubble-metrics"}'
       - '{job="kube-controller-manager"}'
-      - '{job="kube-etcd"}'
       - '{job="kube-scheduler"}'
       - '{job="kube-state-metrics"}'
       - '{job="kubelet"}'
