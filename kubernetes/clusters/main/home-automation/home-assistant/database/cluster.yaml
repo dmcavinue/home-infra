@@ -22,7 +22,7 @@ spec:
     #   secret:
     #     name: home-assistant-database-user
     recovery:
-      source: &previousCluster home-assistant-17
+      source: &previousCluster home-assistant-18
   storage:
     pvcTemplate:
       accessModes:
@@ -67,7 +67,7 @@ spec:
         maxParallel: 8
       destinationPath: s3://home-assistant
       endpointURL: "https://minio.logfold.com"
-      serverName: &currentCluster home-assistant-18
+      serverName: &currentCluster home-assistant-19
       s3Credentials:
         accessKeyId:
           name: home-assistant-database-superuser
