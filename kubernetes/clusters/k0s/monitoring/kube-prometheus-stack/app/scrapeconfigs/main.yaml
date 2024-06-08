@@ -31,5 +31,4 @@ spec:
       - '{job="rook-ceph-mgr"}'
       - '{job="snapshot-controller"}'
       - '{job="spegel"}'
-      - '{job="tetragon"}'
       - '{job="volsync-metrics"}'
