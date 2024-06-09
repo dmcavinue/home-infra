@@ -20,8 +20,6 @@ spec:
       - '{job="database/cloudnative-pg-controller"}'
       - '{job="database/flux-system/flux-system"}'
       - '{job="hubble-metrics"}'
-      - '{job="kube-controller-manager"}'
-      - '{job="kube-scheduler"}'
       - '{job="kube-state-metrics"}'
       - '{job="kubelet"}'
       - '{job="metrics-server"}'
