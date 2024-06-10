@@ -28,7 +28,7 @@ spec:
     keepHistory: false
   values:
     corootCE:
-      enabled: true
+      enabled: false
       bootstrap:
         refreshInterval: 15s
         clickhouse:
@@ -63,7 +63,7 @@ spec:
         port: 8080
         annotations: {}
       ingress:
-        enabled: true
+        enabled: false
         className: nginx
         hostname: "coroot.${DOMAIN}"
         path: /
@@ -88,7 +88,7 @@ spec:
       fullnameOverride: ""
       config:
         listen: :8080
-        coroot_url: http://coroot:8080
+        coroot_url: https://coroot.feelingsmachine.com
         profiles:
           scrape:
             interval: 1m
@@ -105,20 +105,20 @@ spec:
     prometheus:
       enabled: false
     existingPrometheus:
-      enabled: true
+      enabled: false
       service:
         serviceName: prom-main-prometheus
         servicePort: 9090
         serviceNamespace: monitoring
       node-agent-podmonitor:
-        enabled: true
+        enabled: false
     node-agent:
       enabled: true
-      tracesEndpoint: "http://coroot:8080/v1/traces"
-      logsEndpoint: "http://coroot:8080/v1/logs"
-      profilesEndpoint: "http://coroot:8080/v1/profiles"
+      tracesEndpoint: "https://coroot.feelingsmachine.com/v1/traces"
+      logsEndpoint: "https://coroot.feelingsmachine.com/v1/logs"
+      profilesEndpoint: "https://coroot.feelingsmachine.com/v1/profiles"
     clickhouse:
-      enabled: true
+      enabled: false
       persistence:
         size: 50Gi
         storageClass: ceph-pool
