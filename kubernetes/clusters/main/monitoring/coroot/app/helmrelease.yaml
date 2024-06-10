@@ -84,7 +84,7 @@ spec:
         size: 10Gi
         storageClassName: ceph-pool
     corootClusterAgent:
-      enabled: true
+      enabled: false
       fullnameOverride: ""
       config:
         listen: :8080
