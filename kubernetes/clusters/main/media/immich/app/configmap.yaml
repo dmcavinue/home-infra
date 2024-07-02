@@ -10,7 +10,7 @@ data:
   IMMICH_SERVER_URL: http://immich-server.media.svc.cluster.local:3001
   #IMMICH_WEB_URL: http://immich-web.media.svc.cluster.local:3000
   LOG_LEVEL: verbose
-  REDIS_URL: ioredis://eyJkYiI6MSwic2VudGluZWxzIjpbeyJob3N0IjoiZHJhZ29uZmx5LmRhdGFiYXNlLnN2Yy5jbHVzdGVyLmxvY2FsOjYzNzl9XSwibmFtZSI6ImRyYWdvbmZseSJ9Cg==
+  REDIS_URL: ioredis://eyJkYiI6MTUsInNlbnRpbmVscyI6W3siaG9zdCI6ImRyYWdvbmZseS0wLmRhdGFiYXNlLnN2Yy5jbHVzdGVyLmxvY2FsIiwicG9ydCI6NjM3OX0seyJob3N0IjoiZHJhZ29uZmx5LTEuZGF0YWJhc2Uuc3ZjLmNsdXN0ZXIubG9jYWwiLCJwb3J0Ijo2Mzc5fSx7Imhvc3QiOiJkcmFnb25mbHktMi5kYXRhYmFzZS5zdmMuY2x1c3Rlci5sb2NhbCIsInBvcnQiOjYzNzl9XSwibmFtZSI6ImRyYWdvbmZseSJ9Cg==
 
 
 
