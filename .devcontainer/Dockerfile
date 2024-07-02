@@ -70,11 +70,11 @@ COPY --from=vault       /bin/vault                       /usr/local/bin/vault
 COPY --from=yq          /usr/bin/yq                      /usr/local/bin/yq
 
 # gcloud
-RUN wget https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-444.0.0-linux-x86_64.tar.gz \
-    -O /tmp/google-cloud-sdk.tar.gz | bash && \
-    mkdir -p /usr/local/gcloud \
-    && tar -C /usr/local/gcloud -xvzf /tmp/google-cloud-sdk.tar.gz \
-    && /usr/local/gcloud/google-cloud-sdk/install.sh -q
+# RUN wget https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-444.0.0-linux-x86_64.tar.gz \
+#     -O /tmp/google-cloud-sdk.tar.gz | bash && \
+#     mkdir -p /usr/local/gcloud \
+#     && tar -C /usr/local/gcloud -xvzf /tmp/google-cloud-sdk.tar.gz \
+#     && /usr/local/gcloud/google-cloud-sdk/install.sh -q
 
 # npm packages
 RUN npm install -g @bitwarden/cli@2023.12.0
