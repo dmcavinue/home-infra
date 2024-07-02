@@ -8,7 +8,7 @@ metadata:
     kyverno.io/ignore: "true"
 spec:
   instances: 1
-  imageName: ghcr.io/tensorchord/cloudnative-pgvecto.rs:16-v0.3.0
+  imageName: docker.io/tensorchord/pgvecto-rs:pg14-v0.2.0@sha256:90724186f0a3517cf6914295b5ab410db9ce23190a2d9d0b9dd6463e3fa298f0
   imagePullPolicy: Always
   inheritedMetadata:
     labels:
@@ -51,7 +51,7 @@ spec:
         maxParallel: 8
       destinationPath: s3://immich
       endpointURL: "https://minio.logfold.com"
-      serverName: &currentCluster immich-7
+      serverName: &currentCluster immich-1
       s3Credentials:
         accessKeyId:
           name: immich-database-superuser
