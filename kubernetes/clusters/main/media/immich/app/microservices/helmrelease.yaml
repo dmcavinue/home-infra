@@ -54,7 +54,7 @@ spec:
           app:
             image:
               repository: ghcr.io/immich-app/immich-server
-              tag: v1.99.0
+              tag: v1.107.1
             args: ["start-microservices.sh"]
             envFrom:
               - configMapRef:
