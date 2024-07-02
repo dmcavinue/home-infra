@@ -4,11 +4,11 @@ FROM docker.io/fluxcd/flux-cli:v2.3.0 as flux
 FROM docker.io/alpine/helm:3.15.2 as helm
 FROM docker.io/kopia/kopia:20240611.0.4953 as kopia
 FROM docker.io/bitnami/kubectl:1.30.2 as kubectl
-FROM docker.io/hashicorp/vault:1.17.0 as vault
+FROM docker.io/hashicorp/vault:1.17.1 as vault
 FROM docker.io/mikefarah/yq:4.44.2 as yq
 
 # base image
-FROM docker:26.1.4-dind-rootless
+FROM docker:27.0.3-dind-rootless
 
 ENV EDITOR=nano \
     LANG=en_US.UTF-8 \
