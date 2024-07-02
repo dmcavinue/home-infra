@@ -24,7 +24,7 @@ spec:
     #   source: &previousCluster immich-6
   storage:
     size: 10Gi
-    storageClass: local-path
+    storageClass: openebs-hostpath
   enableSuperuserAccess: true
   superuserSecret:
     name: immich-database-superuser
