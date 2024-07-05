@@ -8,7 +8,7 @@ metadata:
     kyverno.io/ignore: "true"
 spec:
   instances: 1
-  imageName: docker.io/tensorchord/pgvecto-rs:pg14-v0.2.0
+  imageName: ghcr.io/tensorchord/cloudnative-pgvecto.rs:14-v0.2.0
   imagePullPolicy: Always
   inheritedMetadata:
     labels:
