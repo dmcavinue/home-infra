@@ -16,6 +16,9 @@ spec:
   primaryUpdateStrategy: unsupervised
   bootstrap:
     initdb:
+      postInitSQL:
+        - ALTER SYSTEM SET search_path TO "$user", public, vectors;
+        - CREATE EXTENSION IF NOT EXISTS "vectors";
       database: immich
       owner: immich
       secret:
