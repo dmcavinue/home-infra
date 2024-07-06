@@ -37,7 +37,7 @@ spec:
       limits:
         cpu: "1"
         memory: "1Gi"
-    collectorEndpoint: "https://coroot.lodfold.com"
+    collectorEndpoint: "https://coroot.logfold.com"
     scrapeInterval: "30s"
   valuesFrom:
     - targetPath: apiKey
