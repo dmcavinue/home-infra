@@ -69,6 +69,7 @@ spec:
               192.168.8.2 prometheus.feelingsmachine.com
               # k0s services
               192.168.8.242 alertmanager.logfold.com
+              192.168.8.242 coroot.logfold.com
               192.168.8.242 dex.logfold.com
               192.168.8.242 grafana.logfold.com
               192.168.8.242 hubble.logfold.com
