@@ -8,8 +8,8 @@ spec:
   timeout: 15m
   chart:
     spec:
-      chart: coroot
-      version: 0.13.0
+      chart: node-agent
+      version: 0.1.79
       sourceRef:
         kind: HelmRepository
         name: coroot
@@ -27,114 +27,20 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    corootCE:
-      enabled: false
-      bootstrap:
-        refreshInterval: 15s
-        clickhouse:
-          database: default
-          username: default
-      replicas: 1
-      strategy:
-        type: Recreate
-      image:
-        repository: ghcr.io/coroot/coroot
-        pullPolicy: IfNotPresent
-        tag: ""
-      imagePullSecrets: []
-      nameOverride: ""
-      fullnameOverride: ""
-      serviceAccount:
-        create: true
-        annotations: {}
-        name: ""
-      podAnnotations: {}
-      # podSecurityContext:
-      #   fsGroup: 2000
-      # securityContext:
-      #   capabilities:
-      #     drop:
-      #     - ALL
-      #   readOnlyRootFilesystem: true
-      #   runAsNonRoot: true
-      runAsUser: 1000
-      service:
-        type: ClusterIP
-        port: 8080
-        annotations: {}
-      ingress:
-        enabled: false
-        className: nginx
-        hostname: "coroot.${DOMAIN}"
-        path: /
-        pathType: ImplementationSpecific
-        hosts:
-         - host: "coroot.${DOMAIN}"
-           paths:
-             - path: /
-               pathType: ImplementationSpecific
-      resources:
-        limits:
-          cpu: 300m
-          memory: 1Gi
-        requests:
-          cpu: 200m
-          memory: 128Mi
-      persistentVolume:
-        size: 10Gi
-        storageClassName: ceph-pool
-    corootClusterAgent:
-      enabled: false
-      fullnameOverride: ""
-      config:
-        listen: :8080
-        coroot_url: https://coroot.feelingsmachine.com
-        profiles:
-          scrape:
-            interval: 1m
-      image:
-        repository: ghcr.io/coroot/coroot-cluster-agent
-        pullPolicy: IfNotPresent
-        tag: "1.0.3"
-      podSecurityContext: {}
-      securityContext: {}
-      resources:
-        requests:
-          cpu: 100m
-          memory: 1Gi
-    prometheus:
-      enabled: false
-    existingPrometheus:
-      enabled: false
-      service:
-        serviceName: prom-main-prometheus
-        servicePort: 9090
-        serviceNamespace: monitoring
-      node-agent-podmonitor:
-        enabled: false
-    node-agent:
-      enabled: true
-      tracesEndpoint: "https://coroot.feelingsmachine.com/v1/traces"
-      logsEndpoint: "https://coroot.feelingsmachine.com/v1/logs"
-      profilesEndpoint: "https://coroot.feelingsmachine.com/v1/profiles"
-    clickhouse:
-      enabled: false
-      persistence:
-        size: 50Gi
-        storageClass: ceph-pool
-      replicaCount: 1
-      shards: 1
-      zookeeper:
-        enabled: false
-      extraOverrides: |
-        <clickhouse>
-          <asynchronous_metric_log remove="1"/>
-          <metric_log remove="1"/>
-          <query_log remove="1" />
-          <query_thread_log remove="1" />  
-          <query_views_log remove="1" />
-          <part_log remove="1"/>
-          <text_log remove="1" />
-          <trace_log remove="1"/>
-          <opentelemetry_span_log remove="1"/>
-        </clickhouse>
+    image:
+      repository: ghcr.io/coroot/coroot-node-agent
+      tag: ""
+    resources:
+      requests:
+        cpu: "100m"
+        memory: "50Mi"
+      limits:
+        cpu: "1"
+        memory: "1Gi"
+    collectorEndpoint: "https://coroot.feelingsmachine.com"
+    scrapeInterval: "30s"
+  valuesFrom:
+    - targetPath: apiKey
+      kind: Secret
+      name: coroot
+      valuesKey: API_KEY
