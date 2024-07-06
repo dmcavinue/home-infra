@@ -142,6 +142,15 @@
               auto vlan40-iot
               iface vlan40-iot inet manual
               bridge_ports {{ multus_interface }}.40
+
+              # user vlan
+              auto {{ multus_interface }}.50
+              iface {{ multus_interface }}.50 inet manual 
+              vlan-raw-device {{ multus_interface }}
+
+              auto vlan50-user
+              iface vlan50-user inet manual
+              bridge_ports {{ multus_interface }}.50
             owner: root
             group: root
             mode: "0644"

@@ -60,10 +60,10 @@ spec:
           annotations:
             k8s.v1.cni.cncf.io/networks: |
               [{
-                "name":"multus-iot",
+                "name":"multus-user",
                 "namespace": "kube-system",
                 "mac": "be:f7:c1:a0:0a:fb",
-                "ips": ["192.168.4.242/24"]
+                "ips": ["192.168.5.242/24"]
               }]
           securityContext:
             runAsUser: 1001
