@@ -34,7 +34,7 @@ spec:
               repository: dmcavinue/music-assistant
               tag: 0.0.2
             env:
-              MASS_BASE_URL: &host music.${DOMAIN}
+              MASS_BASE_URL: https://music.${DOMAIN}
             probes:
               liveness:
                 enabled: false
@@ -85,7 +85,7 @@ spec:
         #   nginx.ingress.kubernetes.io/auth-url: https://oauth.nucstack.com/oauth2/auth
         #   nginx.ingress.kubernetes.io/auth-signin: https://oauth.nucstack.com/oauth2/start
         hosts:
-          - host: *host
+          - host: &host music.${DOMAIN}
             paths:
               - path: /
                 pathType: Prefix
