@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: node-agent
-      version: 0.1.83
+      version: 0.1.86
       sourceRef:
         kind: HelmRepository
         name: coroot
