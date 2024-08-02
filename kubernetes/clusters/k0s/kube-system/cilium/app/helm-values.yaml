@@ -5,12 +5,12 @@ bandwidthManager:
   bbr: true
 cni:
   exclusive: false
-# authentication:
-#   mutual:
-#     spire:
-#       enabled: true
-#       install:
-#         enabled: true
+authentication:
+  mutual:
+    spire:
+      enabled: true
+      install:
+        enabled: true
 #         agent:
 #           securityContext:
 #             allowPrivilegeEscalation: false
