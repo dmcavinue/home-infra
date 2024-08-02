@@ -11,20 +11,9 @@ authentication:
       enabled: true
       install:
         enabled: true
-#         agent:
-#           securityContext:
-#             allowPrivilegeEscalation: false
-#             readOnlyRootFilesystem: false
-#             capabilities:
-#               drop: ["ALL"]
-#         server:
-#           dataStorage:
-#             storageClass: local-path
-#           securityContext:
-#             allowPrivilegeEscalation: false
-#             readOnlyRootFilesystem: true
-#             capabilities:
-#               drop: ["ALL"]
+        server:
+          dataStorage:
+            storageClass: local-path
 bpf:
   masquerade: true
   tproxy: true
@@ -36,7 +25,7 @@ cluster:
   name: "main"
   id: 1
 clustermesh:
-  useAPIServer: false
+  useAPIServer: true
   config:
     enabled: true
     clusters:
