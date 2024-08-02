@@ -68,6 +68,8 @@ clustermesh:
       address: main.mesh.cilium.io
       port: 2379
   apiserver:
+    updateStrategy:
+      type: Recreate
     tls:
       auto:
         method: certmanager
