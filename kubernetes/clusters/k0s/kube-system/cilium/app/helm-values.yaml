@@ -60,7 +60,7 @@ cluster:
   name: "k0s"
   id: 2
 clustermesh:
-  useAPIServer: true
+  useAPIServer: false
   config:
     enabled: true
     clusters:
@@ -68,6 +68,7 @@ clustermesh:
       address: main.mesh.cilium.io
       port: 2379
   apiserver:
+    rollOutPods: true
     tls:
       auto:
         method: certmanager
