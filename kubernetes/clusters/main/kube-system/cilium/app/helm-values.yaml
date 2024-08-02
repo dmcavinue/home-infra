@@ -10,7 +10,7 @@ authentication:
     spire:
       enabled: false
       install:
-        enabled: true
+        enabled: false
         agent:
           securityContext:
             allowPrivilegeEscalation: false
