@@ -68,7 +68,6 @@ clustermesh:
       address: main.mesh.cilium.io
       port: 2379
   apiserver:
-    rollOutPods: true
     tls:
       auto:
         method: certmanager
