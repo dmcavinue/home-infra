@@ -17,9 +17,9 @@ authentication:
 #             readOnlyRootFilesystem: false
 #             capabilities:
 #               drop: ["ALL"]
-#         server:
-#           dataStorage:
-#             storageClass: local-path
+        server:
+          dataStorage:
+            storageClass: local-path
 #           securityContext:
 #             allowPrivilegeEscalation: false
 #             readOnlyRootFilesystem: true
