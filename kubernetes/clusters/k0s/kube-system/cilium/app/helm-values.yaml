@@ -58,7 +58,7 @@ cgroup:
 #   enabled: false
 cluster:
   name: "k0s"
-  id: "2"
+  id: 2
 clustermesh:
   useAPIServer: true
   config:
