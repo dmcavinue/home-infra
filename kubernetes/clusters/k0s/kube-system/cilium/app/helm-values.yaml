@@ -176,7 +176,7 @@ loadBalancer:
 localRedirectPolicy: true
 operator:
   replicas: 1
-  rollOutPods: true
+  rollOutPods: false
   prometheus:
     enabled: true
     serviceMonitor:
@@ -195,7 +195,7 @@ prometheus:
     enabled: true
 dashboards:
   enabled: true
-rollOutCiliumPods: false
+rollOutCiliumPods: true
 policyAuditMode: true
 securityContext:
   capabilities:
