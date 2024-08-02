@@ -7,15 +7,13 @@ metadata:
 spec:
   repo: https://helm.cilium.io/
   chart: cilium
-  # renovate: datasource=helm depName=cilium registryUrl=https://helm.cilium.io
-  version: 1.15.0
+  version: 1.16.0
   targetNamespace: kube-system
   bootstrap: true
   valuesContent: |-
     bpf:
       masquerade: true
-    bgp:
-      enabled: false
+      tproxy: true
     cgroup:
       automount:
         enabled: false
@@ -26,9 +24,13 @@ spec:
     containerRuntime:
       integration: containerd
       socketPath: /var/run/k3s/containerd/containerd.sock
+    devices: enp+
+    enable-ipv4-masquerade: true
     enableRuntimeDeviceDetection: true
     endpointRoutes:
       enabled: true
+    envoy:
+      enabled: false
     hubble:
       enabled: false
     ipam:
@@ -40,12 +42,8 @@ spec:
     kubeProxyReplacementHealthzBindAddr: 0.0.0.0:10256
     l2announcements:
       enabled: true
-      leaseDuration: 120s
-      leaseRenewDeadline: 60s
-      leaseRetryPeriod: 1s
     loadBalancer:
       algorithm: maglev
-      serviceTopology: true
       mode: snat
     localRedirectPolicy: true
     operator:

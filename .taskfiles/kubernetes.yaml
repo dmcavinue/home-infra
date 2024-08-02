@@ -90,3 +90,9 @@ tasks:
       - "kubectl --context {{.ENVIRONMENT}} apply -f https://raw.githubusercontent.com/kubernetes-sigs/gateway-api/v1.0.0/config/crd/experimental/gateway.networking.k8s.io_tcproutes.yaml"
       - "kubectl --context {{.ENVIRONMENT}} apply -f https://raw.githubusercontent.com/kubernetes-sigs/gateway-api/v1.0.0/config/crd/experimental/gateway.networking.k8s.io_udproutes.yaml"
       - "kubectl --context {{.ENVIRONMENT}} apply -f https://raw.githubusercontent.com/external-secrets/kubernetes-external-secrets/master/charts/kubernetes-external-secrets/crds/kubernetes-client.io_externalsecrets_crd.yaml"
+
+  deploy-manual-resources:
+    desc: Add manual resources
+    cmds:  
+      - "kubectl --context {{.ENVIRONMENT}} apply -n kube-system -f {{.CLUSTER_DIR}}/clusters/{{.ENVIRONMENT}}/kube-system/cilium/config/CiliumL2AnnouncementPolicy.yaml"
+      - "kubectl --context {{.ENVIRONMENT}} apply -n kube-system -f {{.CLUSTER_DIR}}/clusters/{{.ENVIRONMENT}}/kube-system/cilium/config/CiliumLoadBalancerIPPool.yaml"

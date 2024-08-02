@@ -37,6 +37,8 @@ tasks:
     cmds:
       - "ansible-playbook -i {{.ANSIBLE_HOSTS_FILE}} {{.ANSIBLE_PLAYBOOK_DIR}}/cluster-installation.yaml -b"
       - "task kubernetes:install-crds"
+      - "sleep 60"
+      - "task kubernetes:deploy-manual-resources"
     silent: true
 
   bootstrap-parent:

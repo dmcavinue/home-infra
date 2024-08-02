@@ -4,6 +4,10 @@ apiVersion: cilium.io/v2
 kind: CiliumLocalRedirectPolicy
 metadata:
   name: kube-dns
+  labels:
+    app.kubernetes.io/name: cilium-config
+    kustomize.toolkit.fluxcd.io/name: cilium-config
+    kustomize.toolkit.fluxcd.io/namespace: flux-system
 spec:
   redirectFrontend:
     serviceMatcher:

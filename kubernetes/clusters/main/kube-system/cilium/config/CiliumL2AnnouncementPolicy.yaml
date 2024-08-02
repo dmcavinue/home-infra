@@ -4,6 +4,10 @@ apiVersion: cilium.io/v2alpha1
 kind: CiliumL2AnnouncementPolicy
 metadata:
   name: policy
+  labels:
+    app.kubernetes.io/name: cilium-config
+    kustomize.toolkit.fluxcd.io/name: cilium-config
+    kustomize.toolkit.fluxcd.io/namespace: flux-system
 spec:
   loadBalancerIPs: true
   interfaces:

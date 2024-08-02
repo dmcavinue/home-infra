@@ -4,6 +4,10 @@ apiVersion: cilium.io/v2alpha1
 kind: CiliumLoadBalancerIPPool
 metadata:
   name: pool
+  labels:
+    app.kubernetes.io/name: cilium-config
+    kustomize.toolkit.fluxcd.io/name: cilium-config
+    kustomize.toolkit.fluxcd.io/namespace: flux-system
 spec:
   allowFirstLastIPs: "Yes"
   blocks:
