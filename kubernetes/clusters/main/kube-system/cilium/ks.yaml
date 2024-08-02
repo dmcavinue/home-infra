@@ -1,37 +1,66 @@
 ---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &appname cilium
+  name: &app cilium
   namespace: flux-system
 spec:
   targetNamespace: kube-system
   commonMetadata:
     labels:
-      app.kubernetes.io/name: *appname
+      app.kubernetes.io/name: *app
   path: ./kubernetes/clusters/${ENVIRONMENT}/kube-system/cilium/app
-  prune: true
+  prune: false
   sourceRef:
     kind: GitRepository
     name: home-kubernetes
-  wait: false
+  wait: true
   interval: 30m
+  retryInterval: 1m
+  timeout: 5m
 ---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &appname cilium-network-policies
+  name: &app cilium-config
   namespace: flux-system
 spec:
   targetNamespace: kube-system
   commonMetadata:
     labels:
-      app.kubernetes.io/name: cilium
-      app.kubernetes.io/component: netpols
-  path: ./kubernetes/clusters/${ENVIRONMENT}/kube-system/cilium/network-policies
-  prune: true
+      app.kubernetes.io/name: *app
+  # dependsOn:
+  #   - name: cilium
+  path: ./kubernetes/clusters/${ENVIRONMENT}/kube-system/cilium/config
+  prune: false
   sourceRef:
     kind: GitRepository
     name: home-kubernetes
   wait: false
   interval: 30m
+  retryInterval: 1m
+  timeout: 5m
+# ---
+# # yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+# apiVersion: kustomize.toolkit.fluxcd.io/v1
+# kind: Kustomization
+# metadata:
+#   name: cilium-network-policies
+#   namespace: flux-system
+# spec:
+#   targetNamespace: kube-system
+#   commonMetadata:
+#     labels:
+#       app.kubernetes.io/name: cilium
+#       app.kubernetes.io/component: netpols
+#   path: ./kubernetes/clusters/${ENVIRONMENT}/kube-system/cilium/network-policies
+#   prune: true
+#   sourceRef:
+#     kind: GitRepository
+#     name: home-kubernetes
+#   wait: false
+#   interval: 30m
+#   retryInterval: 1m
+#   timeout: 5m
