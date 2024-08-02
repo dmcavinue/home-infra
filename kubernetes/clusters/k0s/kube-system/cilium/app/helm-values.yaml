@@ -11,20 +11,9 @@ authentication:
       enabled: true
       install:
         enabled: true
-#         agent:
-#           securityContext:
-#             allowPrivilegeEscalation: false
-#             readOnlyRootFilesystem: false
-#             capabilities:
-#               drop: ["ALL"]
         server:
           dataStorage:
             storageClass: local-path
-#           securityContext:
-#             allowPrivilegeEscalation: false
-#             readOnlyRootFilesystem: true
-#             capabilities:
-#               drop: ["ALL"]
 bpf:
   masquerade: true
   tproxy: true
