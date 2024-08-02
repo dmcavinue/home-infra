@@ -26,12 +26,12 @@ cluster:
   id: 1
 clustermesh:
   useAPIServer: true
-  config:
-    enabled: true
-    clusters:
-    - name: k0s
-      address: k0s.mesh.cilium.io
-      port: 2379
+  # config:
+  #   enabled: true
+  #   clusters:
+  #   - name: k0s
+  #     address: k0s.mesh.cilium.io
+  #     port: 2379
   apiserver:
     updateStrategy:
       rollingUpdate: null
@@ -129,7 +129,7 @@ extraContainers:
 ipam:
   mode: kubernetes
 ipv4NativeRoutingCIDR: 10.0.0.0/8
-k8sServiceHost: "192.168.8.227"
+k8sServiceHost: "192.168.8.34"
 k8sServicePort: 443
 kubeProxyReplacement: true
 kubeProxyReplacementHealthzBindAddr: 0.0.0.0:10256
