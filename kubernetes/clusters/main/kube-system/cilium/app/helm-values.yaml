@@ -36,12 +36,12 @@ cluster:
   name: "main"
   id: 1
 clustermesh:
-  useAPIServer: true
+  useAPIServer: false
   config:
     enabled: true
     clusters:
-    - name: main
-      address: main.mesh.cilium.io
+    - name: k0s
+      address: k0s.mesh.cilium.io
       port: 2379
   apiserver:
     updateStrategy:
