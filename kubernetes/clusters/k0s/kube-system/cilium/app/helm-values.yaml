@@ -69,7 +69,7 @@ clustermesh:
       port: 2379
   apiserver:
     updateStrategy:
-      rollingUpdate:
+      rollingUpdate: null
       type: Recreate
     tls:
       auto:
