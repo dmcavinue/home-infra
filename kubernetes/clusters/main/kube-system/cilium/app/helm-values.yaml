@@ -19,14 +19,12 @@ authentication:
               drop: ["ALL"]
         server:
           dataStorage:
-            size: 1Gi
-            accessMode: ReadWriteOnce
             storageClass: local-path
-          securityContext:
-            allowPrivilegeEscalation: false
-            readOnlyRootFilesystem: true
-            capabilities:
-              drop: ["ALL"]
+          # securityContext:
+          #   allowPrivilegeEscalation: false
+          #   readOnlyRootFilesystem: true
+          #   capabilities:
+          #     drop: ["ALL"]
 bpf:
   masquerade: true
   tproxy: true

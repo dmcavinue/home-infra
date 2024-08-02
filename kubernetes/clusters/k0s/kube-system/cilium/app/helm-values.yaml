@@ -19,8 +19,6 @@ authentication:
               drop: ["ALL"]
         server:
           dataStorage:
-            size: 1Gi
-            accessMode: ReadWriteOnce
             storageClass: local-path
           securityContext:
             allowPrivilegeEscalation: false
