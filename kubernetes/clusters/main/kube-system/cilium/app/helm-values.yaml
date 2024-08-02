@@ -20,11 +20,11 @@ authentication:
         server:
           dataStorage:
             storageClass: local-path
-          # securityContext:
-          #   allowPrivilegeEscalation: false
-          #   readOnlyRootFilesystem: true
-          #   capabilities:
-          #     drop: ["ALL"]
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop: ["ALL"]
 bpf:
   masquerade: true
   tproxy: true
