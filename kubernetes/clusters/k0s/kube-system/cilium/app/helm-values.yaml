@@ -60,7 +60,7 @@ cluster:
   name: "k0s"
   id: 2
 clustermesh:
-  useAPIServer: false
+  useAPIServer: true
   config:
     enabled: true
     clusters:
