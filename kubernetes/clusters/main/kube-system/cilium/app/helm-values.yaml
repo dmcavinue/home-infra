@@ -13,7 +13,7 @@ authentication:
         enabled: true
         server:
           dataStorage:
-            storageClass: local-path
+            storageClass: openebs-hostpath
 bpf:
   masquerade: true
   tproxy: true
