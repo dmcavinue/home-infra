@@ -8,7 +8,7 @@ cni:
 authentication:
   mutual:
     spire:
-      enabled: false
+      enabled: true
       install:
         enabled: true
 #         agent:
