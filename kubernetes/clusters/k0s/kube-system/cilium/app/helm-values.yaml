@@ -195,7 +195,7 @@ prometheus:
     enabled: true
 dashboards:
   enabled: true
-rollOutCiliumPods: true
+rollOutCiliumPods: false
 policyAuditMode: true
 securityContext:
   capabilities:
