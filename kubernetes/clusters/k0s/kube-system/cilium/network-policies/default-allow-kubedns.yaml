@@ -5,7 +5,8 @@ metadata:
   name: default-allow-kubedns-egress
 spec:
   description: "Policy for egress allow from all Cilium managed endpoints in the cluster to kube-dns"
-  endpointSelector: {}
+  endpointSelector:
+    matchLabels: {}
   egress:
     - toEndpoints:
         - matchLabels:
