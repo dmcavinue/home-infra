@@ -17,7 +17,8 @@ metadata:
   name: allow-all-within-namespace
   namespace: &namespace ingress
 spec:
-  endpointSelector: {}
+  endpointSelector:
+    matchLabels: {}
   egress:
   - toEndpoints:
     - matchLabels:
@@ -50,7 +51,8 @@ metadata:
   name: allow-all-within-namespace
   namespace: &namespace cert-manager
 spec:
-  endpointSelector: {}
+  endpointSelector:
+    matchLabels: {}
   egress:
   - toEndpoints:
     - matchLabels:
