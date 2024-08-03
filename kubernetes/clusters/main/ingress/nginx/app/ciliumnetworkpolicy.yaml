@@ -15,6 +15,3 @@ spec:
     - toEndpoints:
         - matchLabels:
             ingress.home.arpa/nginx: allow
-          matchExpressions:
-            - key: io.kubernetes.pod.namespace
-              operator: Exists
