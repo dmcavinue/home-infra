@@ -23,11 +23,11 @@ spec:
   - toEndpoints:
     - matchLabels:
         "k8s:io.kubernetes.pod.namespace": *namespace
-    authentication:
-      mode: required
+    # authentication:
+    #   mode: required
   ingress:
   - fromEndpoints:
     - matchLabels:
         "k8s:io.kubernetes.pod.namespace": *namespace
-    authentication:
-      mode: required
+    # authentication:
+    #   mode: required
