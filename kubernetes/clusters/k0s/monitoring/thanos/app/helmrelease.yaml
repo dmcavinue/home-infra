@@ -58,6 +58,8 @@ spec:
         - --retention.resolution-raw=14d
         - --retention.resolution-5m=30d
         - --retention.resolution-1h=60d
+      podLabels:
+        ingress.home.arpa/minio: allow
       persistence: &persistence
         enabled: true
         storageClass: local-path
