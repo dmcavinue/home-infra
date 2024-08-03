@@ -14,5 +14,5 @@ spec:
             app.kubernetes.io/name: ingress-nginx
             app.kubernetes.io/instance: nginx
             io.kubernetes.pod.namespace: ingress
-      authentication:
-        mode: required
+      # authentication:
+      #   mode: required
