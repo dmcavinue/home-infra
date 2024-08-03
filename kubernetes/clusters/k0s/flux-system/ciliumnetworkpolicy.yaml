@@ -5,7 +5,8 @@ metadata:
   name: default-deny-outside-namespace
   namespace: &namespace flux-system
 spec:
-  endpointSelector: {}
+  endpointSelector:
+    matchLabels: {}
   egress:
   - toEndpoints:
     - matchLabels:
