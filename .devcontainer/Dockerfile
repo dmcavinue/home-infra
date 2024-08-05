@@ -5,7 +5,7 @@ FROM docker.io/alpine/helm:3.15.3 as helm
 FROM docker.io/kopia/kopia:20240804.0.10445 as kopia
 FROM docker.io/bitnami/kubectl:1.30.3 as kubectl
 FROM docker.io/hashicorp/vault:1.17.2 as vault
-FROM docker.io/mikefarah/yq:4.44.2 as yq
+FROM docker.io/mikefarah/yq:4.44.3 as yq
 
 # base image
 FROM docker:27.1.1-dind-rootless
