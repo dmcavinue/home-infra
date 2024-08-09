@@ -8,6 +8,7 @@ pkgs.mkShellNoCC {
     ansible
     dyff
     fluxcd
+    google-cloud-sdk
     git
     go-task
     helm
