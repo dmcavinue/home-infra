@@ -10,7 +10,7 @@ spec:
   egress:
     # TODO: Figure out why this one doesn't work
     - toFQDNs:
-        - matchName: restic.logfold.com
+        - matchName: restic.feelingsmachine.com
       toPorts:
         - ports:
             - port: "80"
