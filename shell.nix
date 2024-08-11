@@ -14,8 +14,10 @@ pkgs.mkShellNoCC {
     helm
     jq
     k9s
+    kopia
     kubectl
     python3
+    restic
     vault
     yq
   ];
