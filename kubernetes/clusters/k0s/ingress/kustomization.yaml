@@ -9,4 +9,4 @@ resources:
   - ./externalsecret.yaml
   # Flux-Kustomizations
   - ./nginx/ks.yaml
-  #- ./cloudflare-ddns/ks.yaml
+  - ./cloudflare-ddns/ks.yaml
