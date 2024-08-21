@@ -7,8 +7,6 @@ vars:
 
 env:
   ENVIRONMENT: '{{default "main" .ENVIRONMENT}}'
-  KUBECONFIG:
-    sh: "find .kubeconfigs -type f | tr '\n' ':'"
 
 dotenv: [".env"]
 
