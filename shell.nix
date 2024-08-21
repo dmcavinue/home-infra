@@ -33,4 +33,8 @@ pkgs.mkShellNoCC {
   LC_MESSAGES="C.UTF-8";
   LC_ALL="C.UTF-8";
   KUBECTL_EXTERNAL_DIFF = "dyff between --omit-header --set-exit-code";
+  shellHook =
+  ''
+    export KUBECONFIG="$(find ~/.kube/kubeconfigs -type f | tr '\n' ':')"
+  '';
 }
