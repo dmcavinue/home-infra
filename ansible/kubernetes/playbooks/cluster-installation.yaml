@@ -40,14 +40,14 @@
 
     - name: Creates kubeconfigs dir
       file:
-        path: ~/workspace/.kubeconfigs
+        path: ~/.kube/kubeconfigs
         state: directory
 
     - name: Copy kubeconfig to provision folder
       run_once: true
       ansible.builtin.fetch:
         src: /etc/rancher/k3s/k3s.yaml
-        dest: "~/workspace/.kubeconfigs/{{ lookup('env', 'ENVIRONMENT') }}.kubeconfig"
+        dest: "~/.kube/kubeconfigs/{{ lookup('env', 'ENVIRONMENT') }}.kubeconfig"
         flat: true
       when:
         - k3s_primary_control_node is defined
@@ -58,7 +58,7 @@
       become: false
       run_once: true
       ansible.builtin.replace:
-        path: "~/workspace/.kubeconfigs/{{ lookup('env', 'ENVIRONMENT') }}.kubeconfig"
+        path: "~/.kube/kubeconfigs/{{ lookup('env', 'ENVIRONMENT') }}.kubeconfig"
         regexp: "https://127.0.0.1:6443"
         replace: "https://{{ k3s_registration_address }}"
 
@@ -67,7 +67,7 @@
       become: false
       run_once: true
       ansible.builtin.replace:
-        path: "~/workspace/.kubeconfigs/{{ lookup('env', 'ENVIRONMENT') }}.kubeconfig"
+        path: "~/.kube/kubeconfigs/{{ lookup('env', 'ENVIRONMENT') }}.kubeconfig"
         regexp: "default"
         replace: "{{ lookup('env', 'ENVIRONMENT') }}"
 
