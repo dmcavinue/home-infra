@@ -35,6 +35,9 @@ pkgs.mkShellNoCC {
   KUBECTL_EXTERNAL_DIFF = "dyff between --omit-header --set-exit-code";
   shellHook =
   ''
-    export KUBECONFIG="$(find ~/.kube/kubeconfigs -type f | tr '\n' ':')"
+    # load up kube contexts if they exist
+    if [ ! -d ~/.kube/kubeconfigs ]; then
+      export KUBECONFIG="$(find ~/.kube/kubeconfigs -type f | tr '\n' ':')"
+    fi
   '';
 }
