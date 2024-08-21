@@ -6,6 +6,8 @@ in
 pkgs.mkShellNoCC {
   packages = with pkgs; [
     ansible
+    cilium-cli
+    cloudflared
     dyff
     fluxcd
     google-cloud-sdk
@@ -16,6 +18,7 @@ pkgs.mkShellNoCC {
     k9s
     kopia
     kubectl
+    minio-client
     python3
     restic
     vault
