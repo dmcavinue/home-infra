@@ -5,7 +5,6 @@ kind: ScrapeConfig
 metadata:
   name: main
 spec:
-  honorLabels: false
   scrapeInterval: 60s
   staticConfigs:
     - targets: ["prom-main-prometheus:9090"]
