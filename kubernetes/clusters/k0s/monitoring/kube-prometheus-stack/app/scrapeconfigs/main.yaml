@@ -9,6 +9,8 @@ spec:
   scrapeInterval: 60s
   staticConfigs:
     - targets: ["prom-main-prometheus:9090"]
+      labels:
+        clusterID: main
   metricsPath: /federate
   params:
     "match[]":
