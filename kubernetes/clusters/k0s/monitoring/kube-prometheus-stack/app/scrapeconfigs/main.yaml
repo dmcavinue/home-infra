@@ -9,7 +9,7 @@ spec:
   staticConfigs:
     - targets: ["prom-main-prometheus:9090"]
       labels:
-        clusterID: main
+        cluster: main
   metricsPath: /federate
   params:
     "match[]":
