@@ -52,13 +52,12 @@
     ]
   },
   "nix": {
-    "enabled": true
+    "enabled": true,
     "fileMatch": [
-      "(^|/)shell\\.nix$"
+      "(^|/).+\\.nix$"
     ],
     "commitMessageTopic": "nixpkgs",
-    "commitMessageExtra": "to {{newValue}}",
-    "enabled": false
+    "commitMessageExtra": "to {{newValue}}"
   }
   "regexManagers": [
     {
