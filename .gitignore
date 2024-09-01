@@ -17,3 +17,5 @@ ca.crt
 .cloudflared-tunnel-creds.json
 .cloudflared-tunnel-config.json
 .bitwarden_session
+# venv
+.venv/*

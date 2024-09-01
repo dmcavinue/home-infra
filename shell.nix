@@ -3,6 +3,15 @@ let
   pkgs = import nixpkgs { config.allowUnfree = true; overlays = []; };
 in
 
+let vscode = (pkgs.vscode-with-extensions.override {
+  vscodeExtensions = with pkgs.vscode-extensions; [
+    bbenoist.nix
+    ms-kubernetes-tools.vscode-kubernetes-tools
+    ms-vscode-remote.remote-containers
+    signageos.signageos-vscode-sops
+  ];
+  });
+in
 pkgs.mkShellNoCC {
   packages = with pkgs; [
     ansible
@@ -20,11 +29,15 @@ pkgs.mkShellNoCC {
     kubectl
     minio-client
     python3
+    python3Packages.pip
     restic
+    sops
     vault
+    vscode
     yq
   ];
 
+  DONT_PROMPT_WSL_INSTALL="true";
   EDITOR = "nano";
   LANGUAGE = "C.UTF-8";
   LANG="C.UTF-8";
@@ -38,9 +51,20 @@ pkgs.mkShellNoCC {
   KUBECTL_EXTERNAL_DIFF = "dyff between --omit-header --set-exit-code";
   shellHook =
   ''
+    # load up python packages
+    if [ -f ./.devcontainer/pip-requirements.txt ]; then
+      python -m venv .venv
+      source .venv/bin/activate
+      pip install -r ./.devcontainer/pip-requirements.txt
+    fi
     # load up kube contexts if they exist
     if [ ! -d ~/.kube/kubeconfigs ]; then
       export KUBECONFIG="$(find ~/.kube/kubeconfigs -type f | tr '\n' ':')"
+    fi
+    # load up our ssh key if it exists
+    if [ -f ~/.ssh/id_ed25519 ]; then
+      eval $(ssh-agent -s)
+      ssh-add ~/.ssh/id_ed25519
     fi
   '';
 }
