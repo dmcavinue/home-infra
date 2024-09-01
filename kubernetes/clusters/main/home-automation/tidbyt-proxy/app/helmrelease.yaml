@@ -54,6 +54,8 @@ spec:
             image:
               repository: dmcavinue/tidbyt-proxy
               tag: v0.0.4
+            env:
+              DEBUG_MODE: "false"
             envFrom:
               - secretRef:
                   name: tidbyt-proxy
