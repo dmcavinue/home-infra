@@ -53,6 +53,12 @@
   },
   "nix": {
     "enabled": true
+    "fileMatch": [
+      "(^|/)shell\\.nix$"
+    ],
+    "commitMessageTopic": "nixpkgs",
+    "commitMessageExtra": "to {{newValue}}",
+    "enabled": false
   }
   "regexManagers": [
     {
