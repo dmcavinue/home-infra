@@ -51,6 +51,9 @@
       "(^|/)[\\w-]*requirements(-\\w+)?\\.(txt|pip)(\\.j2)?$"
     ]
   },
+  "nix": {
+    "enabled": true
+  }
   "regexManagers": [
     {
       "description": "Process various other dependencies",
