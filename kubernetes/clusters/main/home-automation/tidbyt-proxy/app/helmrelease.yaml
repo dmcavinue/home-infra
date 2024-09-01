@@ -63,6 +63,11 @@ spec:
         ports:
           http:
             port: 8080
+    persistence:
+      tmp:
+        type: emptyDir
+        globalMounts:
+          - path: /tmp
     serviceAccount:
       create: true
       name: *appname
