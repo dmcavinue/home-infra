@@ -54,7 +54,7 @@
   "nix": {
     "enabled": true,
     "fileMatch": [
-      "(^|/).+\\.nix$"
+      "(^|/)shell\\.nix$"
     ],
     "commitMessageTopic": "nixpkgs",
     "commitMessageExtra": "to {{newValue}}"
