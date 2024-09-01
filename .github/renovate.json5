@@ -58,7 +58,7 @@
     ],
     "commitMessageTopic": "nixpkgs",
     "commitMessageExtra": "to {{newValue}}"
-  }
+  },
   "regexManagers": [
     {
       "description": "Process various other dependencies",
