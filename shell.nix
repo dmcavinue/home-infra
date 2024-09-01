@@ -6,6 +6,7 @@ in
 let vscode = (pkgs.vscode-with-extensions.override {
   vscodeExtensions = with pkgs.vscode-extensions; [
     bbenoist.nix
+    eamodio.gitlens
     ms-kubernetes-tools.vscode-kubernetes-tools
     ms-vscode-remote.remote-containers
     signageos.signageos-vscode-sops

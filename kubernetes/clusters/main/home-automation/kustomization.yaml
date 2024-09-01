@@ -12,5 +12,6 @@ resources:
   - ./home-assistant/ks.yaml
   - ./music-assistant/ks.yaml
   - ./ser2net/ks.yaml
+  - ./tidbyt-proxy/ks.yaml
   - ./unifi-downloader/ks.yaml
   - ./zwave-js-ui/ks.yaml
