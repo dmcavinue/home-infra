@@ -33,10 +33,10 @@ spec:
               tag: alpine
             command: ["steamcmd"]
             args: [
-              "+login",
-              "anonymous",
               "+force_install_dir",
               "/data",
+              "+login",
+              "anonymous",
               "+app_update",
               "294420",
               "+quit"
