@@ -41,14 +41,10 @@ spec:
               "294420",
               "+quit"
             ]
-            env:
-              PORTTCP: 26900
-              PORTUDP: 26900-26903
-              PORTALLOCMOD: 8080
-            securityContext:
-              allowPrivilegeEscalation: false
+            #securityContext:
+              #allowPrivilegeEscalation: false
               # readOnlyRootFilesystem: true
-              capabilities: { drop: ["ALL"] }
+              #capabilities: { drop: ["ALL"] }
             resources:
               limits:
                 cpu: 500m
