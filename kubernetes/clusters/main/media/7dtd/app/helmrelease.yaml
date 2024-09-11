@@ -52,12 +52,12 @@ spec:
               requests:
                 cpu: 300m
                 memory: 256Mi
-    defaultPodOptions:
-      securityContext:
-        runAsNonRoot: true
-        runAsUser: 1001
-        runAsGroup: 1001
-        seccompProfile: { type: RuntimeDefault }
+    # defaultPodOptions:
+    #   securityContext:
+    #     runAsNonRoot: true
+    #     runAsUser: 1001
+    #     runAsGroup: 1001
+    #     seccompProfile: { type: RuntimeDefault }
     persistence:
       data:
         existingClaim: 7dtd
