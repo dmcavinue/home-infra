@@ -10,4 +10,3 @@ resources:
   # Flux-Kustomizations
   - ./immich/ks.yaml
   - ./miniflux/ks.yaml
-  - ./7dtd/ks.yaml
