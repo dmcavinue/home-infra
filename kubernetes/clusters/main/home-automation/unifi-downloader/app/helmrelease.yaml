@@ -67,8 +67,8 @@ spec:
               limits:
                 memory: "128Mi"
             image:
-              repository: "dmcavinue/unifi-downloader"
-              tag: 0.1.2
+              repository: ghcr.io/dmcavinue/unifi-downloader
+              tag: 0.1.3
             envFrom:
               - secretRef:
                   name: unifi-downloader

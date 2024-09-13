@@ -49,8 +49,8 @@ spec:
                 cpu: 500m
                 memory: 64Mi
             image:
-              repository: dmcavinue/ser2net
-              tag: 0.0.3
+              repository: ghcr.io/dmcavinue/ser2net
+              tag: 0.0.4
     service:
       app:
         controller: ser2net
