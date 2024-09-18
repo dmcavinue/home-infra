@@ -9,4 +9,3 @@ resources:
   - ./externalsecret.yaml
   # Flux-Kustomizations
   - ./immich/ks.yaml
-  - ./miniflux/ks.yaml
