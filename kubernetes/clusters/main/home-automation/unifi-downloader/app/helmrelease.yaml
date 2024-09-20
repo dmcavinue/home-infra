@@ -65,7 +65,7 @@ spec:
                 memory: "64Mi"
                 cpu: "250m"
               limits:
-                memory: "128Mi"
+                memory: "256Mi"
             image:
               repository: ghcr.io/dmcavinue/unifi-downloader
               tag: 0.1.3
