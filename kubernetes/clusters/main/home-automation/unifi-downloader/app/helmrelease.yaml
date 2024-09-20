@@ -62,10 +62,10 @@ spec:
           app:
             resources:
               requests:
-                memory: "64Mi"
+                memory: "128Mi"
                 cpu: "250m"
               limits:
-                memory: "256Mi"
+                memory: "512Mi"
             image:
               repository: ghcr.io/dmcavinue/unifi-downloader
               tag: 0.1.3
