@@ -8,7 +8,7 @@ FROM docker.io/hashicorp/vault:1.17.5 as vault
 FROM docker.io/mikefarah/yq:4.44.3 as yq
 
 # base image
-FROM docker:27.3.0-dind-rootless
+FROM docker:27.3.1-dind-rootless
 
 ENV EDITOR=nano \
     LANG=en_US.UTF-8 \
