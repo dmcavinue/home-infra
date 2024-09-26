@@ -82,9 +82,6 @@ enable-ipv4-masquerade: true
 enableRuntimeDeviceDetection: true
 endpointRoutes:
   enabled: true
-endpointStatus:
-  enabled: true
-  status: "policy"
 envoy:
   enabled: false
 gatewayAPI:
