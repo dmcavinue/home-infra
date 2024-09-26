@@ -74,9 +74,6 @@ clustermesh:
       requests:
         cpu: 50m
         memory: 256Mi
-containerRuntime:
-  integration: containerd
-  socketPath: /var/run/k3s/containerd/containerd.sock
 devices: enp+
 enable-ipv4-masquerade: true
 enableRuntimeDeviceDetection: true
