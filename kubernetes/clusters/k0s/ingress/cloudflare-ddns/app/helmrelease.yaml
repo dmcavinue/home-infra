@@ -33,7 +33,7 @@ spec:
           app:
             image:
               repository: ghcr.io/onedr0p/kubanetics
-              tag: 2024.10.1@sha256:ac1df568e6530f0317e42ea80c97b632b14fe34b84cf79d56f881c07361fd464
+              tag: 2024.10.3@sha256:9e8e70ac686e9256686e372b27d9a39ab92d6d4c651e67aacedc8ec077a71a66
             command: ["/app/cloudflare-ddns.sh"]
             resources:
               requests:
