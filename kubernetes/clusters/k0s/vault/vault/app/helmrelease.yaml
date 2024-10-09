@@ -29,7 +29,7 @@ spec:
     server:
       image:
         repository: "hashicorp/vault"
-        tag: "1.17.6"
+        tag: "1.18.0"
       dataStorage:
         storageClass: local-path
       standalone:
