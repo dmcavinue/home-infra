@@ -60,6 +60,12 @@ spec:
                   name: *configMap
               - secretRef:
                   name: *secret
+            env:
+              - name: HOST
+                valueFrom:
+                  fieldRef:
+                    apiVersion: v1
+                    fieldPath: status.podIP
             resources:
               limits:                
                 memory: 3000Mi
