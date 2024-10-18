@@ -93,7 +93,7 @@ spec:
                 pathType: Prefix
                 service:
                   identifier: app
-                  port: 2283
+                  port: http
         tls:
           - hosts:
               - *host
