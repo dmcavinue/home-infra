@@ -15,5 +15,3 @@ spec:
       - ports:
         - port: "53"
           protocol: UDP
-      authentication:
-        mode: required
