@@ -5,16 +5,13 @@ metadata:
   name: default-allow-kubedns-egress
 spec:
   description: "Policy for egress allow from all Cilium managed endpoints in the cluster to kube-dns"
-  endpointSelector:
-    matchLabels: {}
+  endpointSelector: {}
   egress:
     - toEndpoints:
-        - matchLabels:
-            k8s:io.kubernetes.pod.namespace: kube-system
-            k8s:k8s-app: kube-dns
+      - matchLabels:
+          io.cilium.k8s.policy.serviceaccount: coredns
+          k8s:io.kubernetes.pod.namespace: kube-system
       toPorts:
-        - ports:
-            - port: "53"
-              protocol: "TCP"
-            - port: "53"
-              protocol: "UDP"
+      - ports:
+        - port: "53"
+          protocol: UDP
