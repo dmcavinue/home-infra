@@ -8,6 +8,6 @@ resources:
   - ./ciliumnetworkpolicy.yaml
   - ./externalsecret.yaml
   # Flux-Kustomizations
-  - ./certificates
+  #- ./certificates
   - ./synology
   - ./nginx/ks.yaml

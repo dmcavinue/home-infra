@@ -6,7 +6,6 @@ k3s_become: true
 k3s_registration_address: "192.168.8.3"
 k3s_server_manifests_templates:
   - custom-cilium-helmchart.yaml.j2
-  - custom-cilium-l2.yaml.j2
   - custom-coredns-helmchart.yaml.j2
   - custom-external-secrets-helmchart.yaml.j2
   - custom-flux-system-namespace.yaml.j2

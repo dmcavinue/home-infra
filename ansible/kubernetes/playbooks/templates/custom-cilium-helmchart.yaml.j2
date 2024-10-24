@@ -21,9 +21,6 @@ spec:
     cluster:
       id: 1
       name: {{ lookup('env', 'ENVIRONMENT') }}
-    containerRuntime:
-      integration: containerd
-      socketPath: /var/run/k3s/containerd/containerd.sock
     devices: enp+
     enable-ipv4-masquerade: true
     enableRuntimeDeviceDetection: true
@@ -38,7 +35,7 @@ spec:
     ipv4NativeRoutingCIDR: "{{ k3s_server['cluster-cidr'] }}"
     k8sServiceHost: "{{ k3s_registration_address }}"
     k8sServicePort: 443
-    kubeProxyReplacement: strict
+    kubeProxyReplacement: true
     kubeProxyReplacementHealthzBindAddr: 0.0.0.0:10256
     l2announcements:
       enabled: true
