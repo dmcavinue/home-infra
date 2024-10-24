@@ -8,10 +8,12 @@ spec:
   endpointSelector: {}
   egress:
     - toEndpoints:
-      - matchLabels:
-          k8s:io.cilium.k8s.policy.serviceaccount: coredns
-          k8s:io.kubernetes.pod.namespace: kube-system
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: kube-system
+            k8s:k8s-app: kube-dns
       toPorts:
-      - ports:
-        - port: "53"
-          protocol: UDP
+        - ports:
+            - port: "53"
+              protocol: "TCP"
+            - port: "53"
+              protocol: "UDP"
