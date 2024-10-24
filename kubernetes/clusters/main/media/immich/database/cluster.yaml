@@ -15,16 +15,16 @@ spec:
       kube-image-keeper.enix.io/image-caching-policy: ignore
   primaryUpdateStrategy: unsupervised
   bootstrap:
-    initdb:
-      postInitSQL:
-        - ALTER SYSTEM SET search_path TO "$user", public, vectors;
-        - CREATE EXTENSION IF NOT EXISTS "vectors";
-      database: immich
-      owner: immich
-      secret:
-        name: immich-database-user
-    # recovery:
-    #   source: &previousCluster immich-6
+    # initdb:
+    #   postInitSQL:
+    #     - ALTER SYSTEM SET search_path TO "$user", public, vectors;
+    #     - CREATE EXTENSION IF NOT EXISTS "vectors";
+    #   database: immich
+    #   owner: immich
+    #   secret:
+    #     name: immich-database-user
+    recovery:
+      source: &previousCluster immich-1
   storage:
     size: 10Gi
     storageClass: openebs-hostpath
@@ -54,7 +54,7 @@ spec:
         maxParallel: 8
       destinationPath: s3://immich
       endpointURL: "https://minio.logfold.com"
-      serverName: &currentCluster immich-1
+      serverName: &currentCluster immich-2
       s3Credentials:
         accessKeyId:
           name: immich-database-superuser
