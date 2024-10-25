@@ -46,7 +46,7 @@ spec:
   egress:
   - toEndpoints:
     - matchLabels:
-        "k8s:io.kubernetes.pod.namespace": home-automation
+        ingress.home.arpa/nginx: allow
     authentication:
       mode: required
 # todo: move to common
