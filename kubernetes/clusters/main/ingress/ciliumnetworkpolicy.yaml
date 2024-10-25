@@ -41,13 +41,12 @@ metadata:
 spec:
   endpointSelector:
     matchLabels:
-      k8s:io.kubernetes.pod.namespace: *namespace
       app.kubernetes.io/name: ingress-nginx
       app.kubernetes.io/instance: nginx
   egress:
   - toEndpoints:
     - matchLabels:
-        k8s:io.kubernetes.pod.namespace: home-automation
+        "k8s:io.kubernetes.pod.namespace": home-automation
     authentication:
       mode: required
 # todo: move to common
