@@ -14,5 +14,5 @@ spec:
             prometheus: kube-prometheus-stack
         - matchLabels:
             prometheus: prom-main
-      authentication:
-        mode: required
+      # authentication:
+      #   mode: required
