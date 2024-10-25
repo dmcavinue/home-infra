@@ -45,7 +45,8 @@ spec:
       app.kubernetes.io/name: ingress-nginx
       app.kubernetes.io/instance: nginx
       io.kubernetes.pod.namespace: ingress
-  egress: {}
+  egress:
+   - {}
 # todo: move to common
 ---
 apiVersion: cilium.io/v2
