@@ -52,12 +52,12 @@ pkgs.mkShellNoCC {
   KUBECTL_EXTERNAL_DIFF = "dyff between --omit-header --set-exit-code";
   shellHook =
   ''
-    ansible-galaxy install -r ./.devcontainer/ansible-requirements.yml
+    ansible-galaxy install -r ./ansible-requirements.yml
     # load up python packages
-    if [ -f ./.devcontainer/pip-requirements.txt ]; then
+    if [ -f ./pip-requirements.txt ]; then
       python -m venv .venv
       source .venv/bin/activate
-      pip install -r ./.devcontainer/pip-requirements.txt
+      pip install -r ./pip-requirements.txt
     fi
     # load up kube contexts if they exist
     if [ ! -d ~/.kube/kubeconfigs ]; then
