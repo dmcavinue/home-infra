@@ -52,7 +52,7 @@ pkgs.mkShellNoCC {
   KUBECTL_EXTERNAL_DIFF = "dyff between --omit-header --set-exit-code";
   shellHook =
   ''
-    ansible-galaxy install -r ./ansible-requirements.yml
+    ansible-galaxy install -r ./ansible/requirements.yaml
     # load up python packages
     if [ -f ./pip-requirements.txt ]; then
       python -m venv .venv
