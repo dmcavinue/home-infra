@@ -82,6 +82,7 @@ spec:
           grpc_server_max_recv_msg_size: 8388608
           grpc_server_max_send_msg_size: 8388608
         limits_config:
+          max_streams_per_user: 1000000
           ingestion_burst_size_mb: 128
           ingestion_rate_mb: 64
           max_query_parallelism: 100
