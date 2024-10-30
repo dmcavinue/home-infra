@@ -29,9 +29,6 @@ spec:
     certmanager:
       install: false
     global:
-      hosts:
-        domain:
-          "git.nucstack.com"
       ingress:
         configureCertmanager: false
         tls:
