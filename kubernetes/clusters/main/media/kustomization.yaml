@@ -8,5 +8,4 @@ resources:
   - ./ciliumnetworkpolicy.yaml
   - ./externalsecret.yaml
   # Flux-Kustomizations
-  - ./gitlab/ks.yaml
   - ./immich/ks.yaml
