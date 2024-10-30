@@ -33,6 +33,7 @@ spec:
         configureCertmanager: false
         tls:
           enabled: false
+        ingressClassName: nginx
       edition: ce
       hosts:
         domain: nucstack.com
@@ -41,18 +42,3 @@ spec:
         enabled: false
     gitlab-runner:
       enabled: false
-    gitlab:
-      webservice:
-        ingress:
-          ingressClassName: nginx
-      kas:
-        global:
-          ingress:
-            spec:
-              ingressClassName: nginx
-    registry:
-      ingress:
-        ingressClassName: nginx
-    minio:
-      ingress:
-        ingressClassName: nginx
