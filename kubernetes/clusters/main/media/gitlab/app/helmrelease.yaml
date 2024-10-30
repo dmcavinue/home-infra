@@ -41,3 +41,16 @@ spec:
         enabled: false
     gitlab-runner:
       enabled: false
+    gitlab:
+      webservice:
+        ingress:
+          ingressClassName: nginx
+      kas:
+        ingress:
+          ingressClassName: nginx
+    registry:
+      ingress:
+        ingressClassName: nginx
+    minio:
+      ingress:
+        ingressClassName: nginx
