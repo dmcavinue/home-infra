@@ -48,7 +48,8 @@ spec:
       kas:
         global:
           ingress:
-            ingressClassName: nginx
+            spec:
+              ingressClassName: nginx
     registry:
       ingress:
         ingressClassName: nginx
