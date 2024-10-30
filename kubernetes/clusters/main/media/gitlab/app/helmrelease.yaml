@@ -35,7 +35,7 @@ spec:
           enabled: false
       edition: ce
       hosts:
-        domain: git.nucstack.com
+        domain: nucstack.com
         https: true
       clickhouse:
         enabled: false
