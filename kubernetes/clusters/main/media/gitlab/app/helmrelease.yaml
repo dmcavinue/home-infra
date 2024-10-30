@@ -26,7 +26,16 @@ spec:
   uninstall:
     keepHistory: false
   values:
+    certmanager:
+      install: false
     global:
+      hosts:
+        domain:
+          "git.nucstack.com"
+      ingress:
+        configureCertmanager: false
+        tls:
+          enabled: false
       edition: ce
       hosts:
         domain: git.nucstack.com
