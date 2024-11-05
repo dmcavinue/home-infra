@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-sleep 6000
-
 set -o nounset
 set -o errexit
 
