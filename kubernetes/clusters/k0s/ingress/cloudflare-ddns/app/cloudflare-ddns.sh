@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+sleep 6000
+
 set -o nounset
 set -o errexit
 
@@ -38,4 +40,3 @@ else
     exit 1
 fi
 
-sleep 6000
