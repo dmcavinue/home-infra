@@ -37,3 +37,5 @@ else
     printf "%s - Yikes - Updating IP Address '%s' has failed" "$(date -u)" "$current_ipv4"
     exit 1
 fi
+
+sleep 6000
