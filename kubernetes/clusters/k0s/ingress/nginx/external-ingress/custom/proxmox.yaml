@@ -49,3 +49,4 @@ spec:
   tls:
   - hosts:
     - "proxmox.${DOMAIN}"
+    - "nas.dmca.internal"
