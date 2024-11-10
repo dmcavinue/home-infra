@@ -12,6 +12,8 @@ spec:
     targetPort: 443
   clusterIP: None
   type: ClusterIP
+  externalIPs: 
+    - 192.168.8.2
 ---
 apiVersion: v1
 kind: Endpoints
