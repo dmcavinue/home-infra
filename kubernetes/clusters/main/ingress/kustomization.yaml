@@ -10,4 +10,5 @@ resources:
   # Flux-Kustomizations
   - ./certificates
   - ./synology
+  - ./external-dns/ks.yaml
   - ./nginx/ks.yaml

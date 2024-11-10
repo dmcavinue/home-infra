@@ -61,9 +61,9 @@ spec:
       - --ignore-ingress-tls-spec
     policy: sync
     sources: ["ingress", "service"]
-    txtOwnerId: k0s
-    txtPrefix: k8s.k0s.
-    domainFilters: ["logfold.com"]
+    txtOwnerId: main
+    txtPrefix: k8s.main.
+    domainFilters: ["nucstack.com"]
     serviceMonitor:
       enabled: true
     podAnnotations:
