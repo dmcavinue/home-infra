@@ -4,6 +4,8 @@ kind: Service
 metadata:
   name: frigate
   namespace: ingress
+  annotations:
+    external-dns.alpha.kubernetes.io/hostname: frigate.feelingsmachine.com
 spec:
   ports:
   - name: http
