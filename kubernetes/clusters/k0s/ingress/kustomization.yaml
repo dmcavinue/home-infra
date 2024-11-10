@@ -8,5 +8,6 @@ resources:
   - ./ciliumnetworkpolicy.yaml
   - ./externalsecret.yaml
   # Flux-Kustomizations
+  - ./external-dns/ks.yaml
   - ./nginx/ks.yaml
   - ./cloudflare-ddns/ks.yaml

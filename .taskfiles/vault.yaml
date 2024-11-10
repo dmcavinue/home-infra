@@ -306,6 +306,10 @@ tasks:
           CLOUDFLARE_EMAIL="{{.CLOUDFLARE_EMAIL}}"
           CLOUDFLARE_TOKEN="{{.CLOUDFLARE_TOKEN}}"
           CLOUDFLARE_RECORD_NAME="{{.CLOUDFLARE_RECORD_NAME}}"
+      # ingress/external-dns-unifi
+      - vault kv put -mount=secret ingress/external-dns-unifi
+          UNIFI_USER="{{.EXTERNAL_DNS_UNIFI_USER}}"
+          UNIFI_PASS="{{.EXTERNAL_DNS_UNIFI_PASS}}"
       # media/immich
       - vault kv put -mount=secret media/immich
           IMMICH_JWT_SECRET="$(vault read -field=password sys/policies/password/default/generate)"
