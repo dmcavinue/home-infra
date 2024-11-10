@@ -64,6 +64,7 @@ spec:
     txtOwnerId: k0s
     txtPrefix: k8s.k0s.
     domainFilters: [
+      "dmca.internal",
       "feelingsmachine.com",
       "logfold.com"
     ]
