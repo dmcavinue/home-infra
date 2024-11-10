@@ -9,7 +9,7 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *appname
-  path: ./kubernetes/clusters/${ENVIRONMENT}/external-dns/unifi
+  path: ./kubernetes/clusters/${ENVIRONMENT}/ingress/external-dns/unifi
   prune: false
   sourceRef:
     kind: GitRepository
