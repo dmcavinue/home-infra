@@ -25,27 +25,3 @@ subsets:
   - name: http
     port: 443
     protocol: TCP
----
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: prometheus
-  namespace: ingress
-  annotations:
-    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
-spec:
-  ingressClassName: nginx
-  rules:
-  - host: "prometheus.feelingsmachine.com"
-    http:
-      paths:
-      - backend:
-          service:
-            name: prometheus
-            port:
-              number: 443
-        path: /
-        pathType: Prefix
-  tls:
-  - hosts:
-    - "prometheus.feelingsmachine.com"
