@@ -63,7 +63,10 @@ spec:
     sources: ["ingress", "service"]
     txtOwnerId: k0s
     txtPrefix: k8s.k0s.
-    domainFilters: ["logfold.com"]
+    domainFilters: [
+      "feelingsmachine.com",
+      "logfold.com"
+    ]
     serviceMonitor:
       enabled: true
     podAnnotations:
