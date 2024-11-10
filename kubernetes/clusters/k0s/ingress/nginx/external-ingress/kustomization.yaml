@@ -3,13 +3,6 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - ./core-services/frigate.yaml
-  - ./core-services/minio.yaml
-  - ./core-services/prometheus.yaml
-  - ./core-services/restic.yaml
-  - ./core-services/synology.yaml
-  - ./core-services/traefik.yaml
-  - ./core-services/vault.yaml
   - ./custom/drac.yaml
   - ./custom/proxmox.yaml
   - ./custom/unifi.yaml
