@@ -12,40 +12,5 @@ spec:
     targetPort: 443
   clusterIP: None
   type: ClusterIP
----
-apiVersion: v1
-kind: Endpoints
-metadata:
-  name: vault
-  namespace: ingress
-subsets:
-- addresses:
-  - ip: "192.168.8.2"
-  ports:
-  - name: http
-    port: 443
-    protocol: TCP
----
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: vault
-  namespace: ingress
-  annotations:
-    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
-spec:
-  ingressClassName: nginx
-  rules:
-  - host: "vault.feelingsmachine.com"
-    http:
-      paths:
-      - backend:
-          service:
-            name: vault
-            port:
-              number: 443
-        path: /
-        pathType: Prefix
-  tls:
-  - hosts:
-    - "vault.feelingsmachine.com"
+  externalIPs: 
+    - 192.168.8.2
