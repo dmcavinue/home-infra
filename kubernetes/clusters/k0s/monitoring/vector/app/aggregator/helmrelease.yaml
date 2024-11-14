@@ -65,6 +65,9 @@ spec:
             port: 6020
           mikrotik:
             port: 6030
+          syslog:
+            port: 6040
+            protocol: UDP
           metrics:
             port: 9598
     persistence:
