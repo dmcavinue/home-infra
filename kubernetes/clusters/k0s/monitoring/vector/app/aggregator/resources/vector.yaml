@@ -80,7 +80,7 @@ transforms:
     inputs: ["syslog_source"]
     route:
       firewall: |
-        match!(.message, r'^kernel: 2IN.*')
+        match!(.message, r'^[a-zA-Z0-9 :-]+\[(.*?)\].(.*)')
       # auth: |
       #   .file == "/logs/udm/auth.log"
       # bash_history: |
@@ -93,7 +93,7 @@ transforms:
     inputs: ["unifi_route.firewall"]
     source: |
       # Parse firewall rule message
-      split_message, split_err = parse_regex(.message, r'^kernel: 2(?P<fields>.*)')
+      split_message, split_err = parse_regex(.message, r'^[a-zA-Z0-9 :-]+\[(?P<RULE>.*?)\](?P<fields>.*)')
       if split_err != null {
           abort
       }
@@ -176,9 +176,8 @@ sinks:
       app: 'unifi-firewall'
       interface_in: '{{ message.IN }}'
       interface_out: '{{ message.OUT }}'
-      #mac: '{{ message.MAC }}'
       protocol: '{{ message.PROTO }}'
-      #description: '{{ message.DESCR }}'
+      description: '{{ message.DESCR }}'
       source_ip: '{{ message.SRC }}'
       source_port: '{{ message.SPT }}'
       dest_ip: '{{ message.DST }}'
