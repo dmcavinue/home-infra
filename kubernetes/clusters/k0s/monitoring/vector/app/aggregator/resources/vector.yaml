@@ -173,7 +173,7 @@ sinks:
     remove_label_fields: false
     remove_timestamp: true
     labels:
-      appname: 'unifi-firewall'
+      app: 'unifi-firewall'
       interface_in: '{{ message.IN }}'
       interface_out: '{{ message.OUT }}'
       mac: '{{ message.MAC }}'
