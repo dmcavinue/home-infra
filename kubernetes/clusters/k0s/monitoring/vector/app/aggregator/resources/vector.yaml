@@ -102,7 +102,7 @@ transforms:
       if split_err != null {
           abort
       }
-      .message, parse_err = parse_key_value(split_message.fields, whitespace: "lenient")
+      .message, parse_err = parse_key_value!(split_message.fields, field_delimiter: " ", key_value_delimiter:"=")
       if parse_err != null {
           abort
       }
