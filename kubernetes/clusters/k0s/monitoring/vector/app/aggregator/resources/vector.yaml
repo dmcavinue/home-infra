@@ -80,7 +80,7 @@ transforms:
     inputs: ["syslog_source"]
     route:
       firewall: |
-        match!(.message, r'^kernel: 2IN.*')
+        match!(.message, r'^.*')
       # auth: |
       #   .file == "/logs/udm/auth.log"
       # bash_history: |
