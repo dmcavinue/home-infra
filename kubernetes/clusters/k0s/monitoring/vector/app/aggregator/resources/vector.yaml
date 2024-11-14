@@ -23,10 +23,10 @@ sources:
     version: "2"
     address: 0.0.0.0:6010
 
-  unifi_source:
-    type: vector
-    version: "2"
-    address: 0.0.0.0:6020
+  # unifi_source:
+  #   type: vector
+  #   version: "2"
+  #   address: 0.0.0.0:6020
 
   mikrotik_source:
     type: vector
@@ -77,16 +77,16 @@ transforms:
 
   unifi_route:
     type: route
-    inputs: ["unifi_source"]
+    inputs: ["syslog_source"]
     route:
       firewall: |
-        .file == "/logs/udm/ulog/syslogemu.log" && match!(.message, r'^[a-zA-Z0-9 :-]+\[(.*?)\].(.*)')
-      auth: |
-        .file == "/logs/udm/auth.log"
-      bash_history: |
-        .file == "/logs/udm/bash_history.log"
-      protect_client_notify: |
-        .file == "/logs/unifi-protect/clientnotify.log"
+        match!(.message, r'^[a-zA-Z0-9 :-]+\[(.*?)\].(.*)')
+      # auth: |
+      #   .file == "/logs/udm/auth.log"
+      # bash_history: |
+      #   .file == "/logs/udm/bash_history.log"
+      # protect_client_notify: |
+      #   .file == "/logs/unifi-protect/clientnotify.log"
 
   unifi_firewall_remap:
     type: remap
