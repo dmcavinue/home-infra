@@ -80,7 +80,7 @@ transforms:
     inputs: ["syslog_source"]
     route:
       firewall: |
-        match!(.message, r'^[a-zA-Z0-9 :-]+\[(.*?)\].(.*)')
+        .appname == "udm-pro" && .facility="kern" && match!(.message, r'^kernel: 2.+PROTO=.*')
       # auth: |
       #   .file == "/logs/udm/auth.log"
       # bash_history: |
@@ -173,7 +173,7 @@ sinks:
     remove_label_fields: false
     remove_timestamp: true
     labels:
-      app: 'unifi-firewall'
+      appname: 'unifi-firewall'
       interface_in: '{{ message.IN }}'
       interface_out: '{{ message.OUT }}'
       protocol: '{{ message.PROTO }}'
