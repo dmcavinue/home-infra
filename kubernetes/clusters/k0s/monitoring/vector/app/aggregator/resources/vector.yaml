@@ -80,7 +80,7 @@ transforms:
     inputs: ["syslog_source"]
     route:
       firewall: |
-        host == "udm-pro" facility == "kern" && match!(.message, r'^kernel: 2IN.*')
+        host == "udm-pro" && facility == "kern" && match!(.message, r'^kernel: 2IN.*')
       # auth: |
       #   .file == "/logs/udm/auth.log"
       # bash_history: |
