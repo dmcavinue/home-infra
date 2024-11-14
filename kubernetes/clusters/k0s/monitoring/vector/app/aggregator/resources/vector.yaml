@@ -93,7 +93,7 @@ transforms:
     inputs: ["unifi_route.firewall"]
     source: |
       # Parse firewall rule message
-      split_message, split_err = parse_regex(.message, r'^[a-zA-Z0-9 :-]+\[(?P<RULE>.*?)\](?P<fields>.*)')
+      split_message, split_err = parse_regex(.message, r'^(?P<fields>.*)')
       if split_err != null {
           abort
       }
