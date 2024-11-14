@@ -176,7 +176,7 @@ sinks:
       app: 'unifi-firewall'
       interface_in: '{{ message.IN }}'
       interface_out: '{{ message.OUT }}'
-      mac: '{{ message.MAC }}'
+      #mac: '{{ message.MAC }}'
       protocol: '{{ message.PROTO }}'
       #description: '{{ message.DESCR }}'
       source_ip: '{{ message.SRC }}'
