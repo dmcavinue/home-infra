@@ -177,7 +177,7 @@ sinks:
       interface_in: '{{ message.IN }}'
       interface_out: '{{ message.OUT }}'
       protocol: '{{ message.PROTO }}'
-      description: '{{ message.DESCR }}'
+      #description: '{{ message.DESCR }}'
       source_ip: '{{ message.SRC }}'
       source_port: '{{ message.SPT }}'
       dest_ip: '{{ message.DST }}'
