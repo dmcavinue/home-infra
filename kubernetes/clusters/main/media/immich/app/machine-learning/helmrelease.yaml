@@ -55,7 +55,7 @@ spec:
               MPLCONFIGDIR: /tmp
             image:
               repository: ghcr.io/immich-app/immich-machine-learning
-              tag: v1.120.2
+              tag: v1.121.0
             envFrom:
               - configMapRef:
                   name: *configMap
