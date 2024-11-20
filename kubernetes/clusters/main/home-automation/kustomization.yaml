@@ -13,4 +13,5 @@ resources:
   - ./ser2net/ks.yaml
   - ./tidbyt-proxy/ks.yaml
   - ./unifi-downloader/ks.yaml
+  - ./zigbee2mqtt/ks.yaml
   - ./zwave-js-ui/ks.yaml

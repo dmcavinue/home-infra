@@ -301,6 +301,11 @@ tasks:
           UNIFI_DOWNLOADER_HOST="{{.UNIFI_DOWNLOADER_HOST}}"
           UNIFI_DOWNLOADER_USERNAME="{{.UNIFI_DOWNLOADER_USERNAME}}"
           UNIFI_DOWNLOADER_PASSWORD="{{.UNIFI_DOWNLOADER_PASSWORD}}"
+      # home-automation/zigbee2mqtt
+      - vault kv put -mount=secret home-automation/zigbee2mqtt
+          ZIGBEE2MQTT_CONFIG_ADVANCED_EXT_PAN_ID="{{.ZIGBEE2MQTT_CONFIG_ADVANCED_EXT_PAN_ID}}"
+          ZIGBEE2MQTT_CONFIG_ADVANCED_PAN_ID="{{.ZIGBEE2MQTT_CONFIG_ADVANCED_PAN_ID}}"
+          ZIGBEE2MQTT_CONFIG_ADVANCED_NETWORK_KEY="{{.ZIGBEE2MQTT_CONFIG_ADVANCED_NETWORK_KEY}}"
       # ingress/cloudflare
       - vault kv put -mount=secret ingress/cloudflare
           CLOUDFLARE_EMAIL="{{.CLOUDFLARE_EMAIL}}"
