@@ -111,7 +111,7 @@ spec:
         controller: zigbee2mqtt
         ports:
           http:
-            port: *port
+            port: 80
     ingress:
       app:
         annotations:
