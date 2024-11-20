@@ -33,7 +33,7 @@ spec:
           volumeClaimTemplates:
             - name: config
               globalMounts:
-                - path: /usr/src/app/store
+                - path: /config
               accessMode: ReadWriteOnce
               size: 1Gi
               storageClass: ceph-pool
