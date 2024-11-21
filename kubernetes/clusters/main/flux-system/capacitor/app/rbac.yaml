@@ -5,6 +5,14 @@ metadata:
   name: capacitor
 rules:
 - apiGroups:
+    - infra.contrib.fluxcd.io
+  resources:
+    - terraforms
+  verbs:
+    - get
+    - watch
+    - list
+- apiGroups:
     - networking.k8s.io
     - apps
     - ""
