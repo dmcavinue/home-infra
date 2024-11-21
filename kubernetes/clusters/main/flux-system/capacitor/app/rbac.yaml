@@ -35,6 +35,7 @@ rules:
     - helm.toolkit.fluxcd.io
   resources:
     - gitrepositories
+    - helmrepositories
     - ocirepositories
     - buckets
     - kustomizations
