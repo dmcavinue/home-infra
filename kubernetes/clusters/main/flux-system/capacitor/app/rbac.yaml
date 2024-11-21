@@ -39,6 +39,7 @@ rules:
     - ocirepositories
     - buckets
     - kustomizations
+    - helmcharts
     - helmreleases
   verbs:
     - get
