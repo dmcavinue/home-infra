@@ -20,6 +20,7 @@ ENVIRONMENT="main" task ansible:bootstrap-child
 
 # restoring pv data from backups 
 ENVIRONMENT="main" task vs:restore namespace=home-automation rsrc=esphome
+ENVIRONMENT="main" task vs:restore namespace=home-automation rsrc=zigbee
 ENVIRONMENT="main" task vs:restore namespace=home-automation rsrc=zwavejs
 ENVIRONMENT="main" task vs:restore namespace=home-automation rsrc=home-assistant
 ```

@@ -1,0 +1,44 @@
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: zigbee-restic
+  namespace: home-automation
+spec:
+  refreshInterval: "30m"
+  secretStoreRef:
+    name: vault-kv-backend
+    kind: SecretStore
+  target:
+    name: zigbee-restic-secret
+    template:
+      engineVersion: v2
+      data:
+        RESTIC_REPOSITORY: '{{ .RESTIC_URL }}/zigbee'
+        RESTIC_PASSWORD: '{{ .RESTIC_ZIGBEE_PASSWORD }}'
+  dataFrom:
+    - extract:
+        key: /volsync/volsync
+    - extract:
+        key: /volsync/zigbee
+---
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationSource
+metadata:
+  name: zigbee
+  namespace: home-automation
+spec:
+  sourcePVC: config-zigbee2mqtt-0
+  trigger:
+    schedule: "0 7 * * *"
+  restic:
+    copyMethod: Snapshot
+    pruneIntervalDays: 7
+    repository: zigbee-restic-secret
+    cacheCapacity: 8Gi
+    cacheStorageClassName: openebs-hostpath
+    volumeSnapshotClassName: csi-ceph-blockpool
+    storageClassName: ceph-pool
+    retain:
+      daily: 7
+      within: 3d
