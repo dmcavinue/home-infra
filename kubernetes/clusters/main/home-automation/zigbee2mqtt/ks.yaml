@@ -10,7 +10,7 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  path: ./kubernetes/clusters/${ENVIRONMENT}/home-automation/zigbee2mqtt/z2m
+  path: ./kubernetes/clusters/${ENVIRONMENT}/home-automation/zigbee2mqtt/app
   prune: true
   sourceRef:
     kind: GitRepository

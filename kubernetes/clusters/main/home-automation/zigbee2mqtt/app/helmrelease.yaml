@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: zigbee2mqtt
+  name: zigbee
 spec:
   interval: 30m
   chart:
@@ -27,7 +27,7 @@ spec:
       namespace: rook-ceph
   values:
     controllers:
-      zigbee2mqtt:
+      zigbee:
         type: statefulset
         statefulset:
           volumeClaimTemplates:
@@ -54,7 +54,10 @@ spec:
               ZIGBEE2MQTT_CONFIG_ADVANCED_LAST_SEEN: ISO_8601
               ZIGBEE2MQTT_CONFIG_ADVANCED_LEGACY_API: "false"
               ZIGBEE2MQTT_CONFIG_ADVANCED_LEGACY_AVAILABILITY_PAYLOAD: "false"
-              ZIGBEE2MQTT_CONFIG_ADVANCED_LOG_LEVEL: info # debug
+              ZIGBEE2MQTT_CONFIG_ADVANCED_LOG_LEVEL: error
+              #ZIGBEE2MQTT_CONFIG_ADVANCED_ADAPTER_CONCURRENT: "null"
+              #ZIGBEE2MQTT_CONFIG_ADVANCED_ADAPTER_DELAY: "0"
+              #ZIGBEE2MQTT_CONFIG_ADVANCED_TRANSMIT_POWER: "5"
               ZIGBEE2MQTT_CONFIG_ADVANCED_LOG_OUTPUT: '["console"]'
               ZIGBEE2MQTT_CONFIG_AVAILABILITY_ACTIVE_TIMEOUT: 60
               ZIGBEE2MQTT_CONFIG_AVAILABILITY_PASSIVE_TIMEOUT: 2000
@@ -63,22 +66,20 @@ spec:
               ZIGBEE2MQTT_CONFIG_EXPERIMENTAL_NEW_API: "true"
               ZIGBEE2MQTT_CONFIG_FRONTEND: "false"
               ZIGBEE2MQTT_CONFIG_FRONTEND_PORT: 80
-              ZIGBEE2MQTT_CONFIG_FRONTEND_URL: https://zigbee.${DOMAIN}
+              ZIGBEE2MQTT_CONFIG_FRONTEND_URL: https://z2m.${DOMAIN}
               ZIGBEE2MQTT_CONFIG_HOMEASSISTANT: "true"
               ZIGBEE2MQTT_CONFIG_MQTT_INCLUDE_DEVICE_INFORMATION: "true"
               ZIGBEE2MQTT_CONFIG_MQTT_KEEPALIVE: 60
               ZIGBEE2MQTT_CONFIG_MQTT_REJECT_UNAUTHORIZED: "true"
               ZIGBEE2MQTT_CONFIG_MQTT_SERVER: mqtt://emqx.database.svc.cluster.local:1883
               ZIGBEE2MQTT_CONFIG_MQTT_VERSION: 5
+              ZIGBEE2MQTT_CONFIG_MQTT_BASE_TOPIC: "z2m"
               ZIGBEE2MQTT_CONFIG_PERMIT_JOIN: "false"
-              # ZIGBEE2MQTT_CONFIG_SERIAL_BAUDRATE: 115200
-              # ZIGBEE2MQTT_CONFIG_SERIAL_DISABLE_LED: "false"
-              ZIGBEE2MQTT_CONFIG_SERIAL_ADAPTER: "ember"
-              ZIGBEE2MQTT_CONFIG_SERIAL_PORT: tcp://ser2net.home-automation.svc.cluster.local:3334
-              # DEBUG: "zigbee-herdsman*"
+              ZIGBEE2MQTT_CONFIG_SERIAL_DISABLE_LED: "false"
+              ZIGBEE2MQTT_CONFIG_SERIAL_PORT: tcp://192.168.4.107:6638
             envFrom:
               - secretRef:
-                  name: zigbee2mqtt
+                  name: zigbee
             probes:
               liveness:
                 enabled: true
@@ -108,7 +109,7 @@ spec:
         seccompProfile: { type: RuntimeDefault }
     service:
       app:
-        controller: zigbee2mqtt
+        controller: zigbee
         ports:
           http:
             port: 80
@@ -119,7 +120,7 @@ spec:
           nginx.ingress.kubernetes.io/auth-signin: https://oauth.nucstack.com/oauth2/start
         className: nginx
         hosts:
-          - host: &host zigbee.${DOMAIN}
+          - host: &host z2m.${DOMAIN}
             paths:
               - path: /
                 service:
