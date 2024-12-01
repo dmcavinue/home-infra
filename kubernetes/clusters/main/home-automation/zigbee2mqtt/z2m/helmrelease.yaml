@@ -78,7 +78,7 @@ spec:
               ZIGBEE2MQTT_CONFIG_SERIAL_PORT: tcp://192.168.4.107:6638
             envFrom:
               - secretRef:
-                  name: zigbee2mqtt
+                  name: zigbee
             probes:
               liveness:
                 enabled: true
