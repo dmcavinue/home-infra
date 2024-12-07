@@ -14,6 +14,8 @@ authentication:
         server:
           dataStorage:
             storageClass: local-path
+bgpControlPlane:
+  enabled: true
 bpf:
   masquerade: true
   tproxy: true

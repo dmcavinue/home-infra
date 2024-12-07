@@ -14,6 +14,8 @@ authentication:
         server:
           dataStorage:
             storageClass: openebs-hostpath
+bgpControlPlane:
+  enabled: true
 bpf:
   masquerade: true
   tproxy: true
