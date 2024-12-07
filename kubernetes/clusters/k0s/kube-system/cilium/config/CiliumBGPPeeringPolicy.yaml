@@ -11,7 +11,7 @@ spec:
     matchLabels:
       kubernetes.io/os: "linux"
   virtualRouters:
-    - localASN: 64514
+    - localASN: 64515
       exportPodCIDR: false
       serviceSelector: # this replaces address-pools, instead of defining the range of IPs that can be assigned to LoadBalancer services, now services have to match below selectors for their LB IPs to be announced
         matchExpressions:
