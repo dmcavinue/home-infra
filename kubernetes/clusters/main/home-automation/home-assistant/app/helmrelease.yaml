@@ -124,6 +124,7 @@ spec:
           - hosts:
               - *host
       code-server:
+        enabled: true
         annotations:
           nginx.ingress.kubernetes.io/auth-url: https://oauth.nucstack.com/oauth2/auth
           nginx.ingress.kubernetes.io/auth-signin: https://oauth.nucstack.com/oauth2/start
@@ -135,6 +136,9 @@ spec:
                 service:
                   identifier: app
                   port: code-server
+        tls:
+          - hosts:
+              - hass-code.${DOMAIN}
     serviceAccount:
       create: true
       name: hass
