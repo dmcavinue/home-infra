@@ -116,7 +116,6 @@ spec:
           - host: &host hass.${DOMAIN}
             paths:
               - path: /
-                pathType: Prefix
                 service:
                   identifier: app
                   port: *port
