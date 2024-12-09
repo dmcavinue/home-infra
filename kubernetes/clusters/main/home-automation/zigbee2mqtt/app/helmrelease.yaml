@@ -118,6 +118,10 @@ spec:
         annotations:
           nginx.ingress.kubernetes.io/auth-url: https://oauth.nucstack.com/oauth2/auth
           nginx.ingress.kubernetes.io/auth-signin: https://oauth.nucstack.com/oauth2/start
+          nginx.ingress.kubernetes.io/configuration-snippet: |
+            proxy_http_version 1.1;
+            proxy_set_header Upgrade "websocket";
+            proxy_set_header Connection "Upgrade";
         className: nginx
         hosts:
           - host: &host z2m.${DOMAIN}
