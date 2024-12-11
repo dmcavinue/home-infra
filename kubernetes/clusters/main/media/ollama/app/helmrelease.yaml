@@ -67,6 +67,7 @@ spec:
               limits:
                 memory: 4Gi
                 # gpu.intel.com/i915: "1"i
+        pod:  
           securityContext:
             runAsUser: 66534
             runAsGroup: 66534
