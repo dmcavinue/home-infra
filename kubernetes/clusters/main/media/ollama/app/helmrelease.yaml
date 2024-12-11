@@ -59,6 +59,7 @@ spec:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
               capabilities: { drop: ["ALL"] }
+            workingDir: /tmp
             resources:
               requests:
                 cpu: 200m
