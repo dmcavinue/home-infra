@@ -7,7 +7,6 @@ metadata:
 spec:
   dependsOn:
     - name: home-assistant-database
-    - name: ser2net
   targetNamespace: home-automation
   commonMetadata:
     labels:

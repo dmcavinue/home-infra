@@ -325,6 +325,9 @@ tasks:
           IMMICH_POSTGRES_SUPER_PASSWORD="{{.IMMICH_POSTGRES_SUPER_PASSWORD}}"
           IMMICH_POSTGRES_USER="{{.IMMICH_POSTGRES_USER}}"
           IMMICH_POSTGRES_PASSWORD="{{.IMMICH_POSTGRES_PASSWORD}}"
+      # media/ollama
+      - vault kv put -mount=secret media/ollama
+          FOO="$(vault read -field=password sys/policies/password/default/generate)"
       # monitoring/grafana
       - vault kv put -mount=secret monitoring/grafana
           GRAFANA_ADMIN_USER="admin"

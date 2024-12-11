@@ -9,3 +9,4 @@ resources:
   - ./externalsecret.yaml
   # Flux-Kustomizations
   - ./immich/ks.yaml
+  - ./ollama/ks.yaml
