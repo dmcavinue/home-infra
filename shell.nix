@@ -33,6 +33,7 @@ pkgs.mkShellNoCC {
     python3Packages.pip
     restic
     sops
+    talosctl
     vault
     vscode
     yq
