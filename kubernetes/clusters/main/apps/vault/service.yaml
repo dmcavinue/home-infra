@@ -4,7 +4,8 @@ metadata:
   name: vault
   namespace: vault
   annotations:
-    io.cilium/global-service: true
+    service.cilium.io/global: "true"
+    service.cilium.io/shared: "false"
 spec:
   ports:
     - name: http
