@@ -1,0 +1,55 @@
+{
+    "editor.bracketPairColorization.enabled": true,
+    "editor.fontFamily": "FiraCode Nerd Font",
+    "editor.fontLigatures": true,
+    "editor.guides.bracketPairs": true,
+    "editor.guides.bracketPairsHorizontal": true,
+    "editor.guides.highlightActiveBracketPair": true,
+    "editor.hover.delay": 1500,
+    "editor.rulers": [
+      100
+    ],
+    "editor.stickyScroll.enabled": false,
+    "explorer.autoReveal": false,
+    "files.associations": {
+        "**/*.json5": "jsonc"
+    },
+    "files.trimTrailingWhitespace": true,
+    "material-icon-theme.files.associations": {
+      // TODO: https://github.com/PKief/vscode-material-icon-theme/issues/330
+      "*.sops.env": "lock",
+      "*.sops.yaml": "lock"
+    },
+    "material-icon-theme.folders.associations": {
+        // top level
+        ".archive": "archive",
+        // .github
+        ".github/workflows": "robot",
+        // namespaces
+        "cert-manager": "guard",
+        "home-automation": "home",
+        "external-secrets": "secure",
+        "flux-system": "pipe",
+        "ingress": "connection",
+        "kube-system": "kubernetes",
+        "media": "event",
+        "monitoring": "event",
+        "networking": "connection",
+        "observability": "event",
+        "rook-ceph": "base",
+        "storage": "dump",
+        "system-upgrade": "update",
+        "tools": "tools",
+        "volsync": "aws"
+    },
+    "vs-kubernetes": {
+      "vs-kubernetes.kubeconfig": "~/.kube/kubeconfigs",
+      "vs-kubernetes.knownKubeconfigs": [
+        "~/.kube/kubeconfigs"
+      ]
+    },
+    "yaml.schemaStore.enable": true,
+    "yaml.schemas": {
+      "kubernetes": "./kubernetes/**/*.yaml"
+    }
+}
