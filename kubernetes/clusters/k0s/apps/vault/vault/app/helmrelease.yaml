@@ -54,7 +54,8 @@ spec:
         prom.home.arpa/prometheus: allow
       service:
         annotations:
-          io.cilium/global-service: "true"
+          service.cilium.io/global: "true"
+          service.cilium.io/shared: "false"
     injector:
       metrics:
         enabled: true
