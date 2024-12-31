@@ -4,8 +4,6 @@ kind: Cluster
 metadata:
   name: grafana
   namespace: monitoring
-  annotations:
-    kyverno.io/ignore: "true"
 spec:
   instances: 1
   inheritedMetadata:
