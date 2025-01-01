@@ -87,7 +87,6 @@ spec:
               192.168.8.242 restic.logfold.com
               192.168.8.242 unifi.logfold.com
               192.168.8.242 vacuum.logfold.com
-              192.168.8.243 lldap.logfold.com
               # k8s services
               192.168.8.49 code.nucstack.com
               192.168.8.49 esphome.nucstack.com

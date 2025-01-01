@@ -6,6 +6,5 @@ namespace: home-automation
 resources:
   - ./externalsecret.yaml
   - ./persistentvolumeclaim.yaml
-  - ./configmap.yaml
   - ./helmrelease.yaml
   - ./volsync.yaml

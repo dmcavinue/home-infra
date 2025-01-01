@@ -3,7 +3,7 @@ version: '3'
 
 env:
   VAULT_ADDR: https://vault.logfold.com
-  VAULT_TOKEN: 
+  VAULT_TOKEN:
     sh: if [ -f {{.ROOT_DIR}}/.vault.json ] && [ -z "$VAULT_TOKEN" ]; then cat {{.ROOT_DIR}}/.vault.json | jq -r '.root_token'; fi
 
 tasks:
@@ -69,25 +69,6 @@ tasks:
     cmds:
       - vault write identity/oidc/provider/default
           allowed_client_ids="*"
-  # ldap
-  enable-ldap:
-    desc: configure vault ldap auth
-    cmds:
-      - vault auth disable ldap
-      - vault auth enable ldap
-      - vault write auth/ldap/config
-          url="ldaps://lldap.logfold.com"
-          userattr=uid
-          userdn="ou=people,{{.LLDAP_LDAP_BASE_DN}}"
-          discoverdn=true
-          groupdn="ou=groups,{{.LLDAP_LDAP_BASE_DN}}"
-          groupfilter='(member={{printf "{{.UserDN}}"}})'
-          groupattr="cn"
-          binddn="uid=admin,ou=people,{{.LLDAP_LDAP_BASE_DN}}"
-          bindpass="{{.LLDAP_LDAP_USER_PASS}}"
-          insecure_tls=false
-          starttls=true
-      - vault write auth/ldap/groups/vault-admin policies=admin
   # k8s auth backend
   enable-k8s-auth:
     desc: configure vault k8s auth
@@ -158,7 +139,7 @@ tasks:
       - echo -e "path \"secret/data/home-automation/*\" { capabilities = [\"read\", \"list\"] }" | vault policy write home-automation -
       - echo -e "path \"secret/data/ingress/*\" { capabilities = [\"read\", \"list\"] }" | vault policy write ingress -
       - echo -e "path \"secret/data/kube-system/*\" { capabilities = [\"read\", \"list\"] }" | vault policy write kube-system -
-      - echo -e "path \"secret/data/media/*\" { capabilities = [\"read\", \"list\"] }" | vault policy write media -      
+      - echo -e "path \"secret/data/media/*\" { capabilities = [\"read\", \"list\"] }" | vault policy write media -
       - echo -e "path \"secret/data/monitoring/*\" { capabilities = [\"read\", \"list\"] }\npath \"sys/metrics\" { capabilities = [\"read\", \"list\"] }" | vault policy write monitoring -
       - echo -e "path \"secret/data/security/*\" { capabilities = [\"read\", \"list\"] }" | vault policy write security -
       - echo -e "path \"secret/data/storage/*\" { capabilities = [\"read\", \"list\"] }" | vault policy write storage -
@@ -388,7 +369,7 @@ tasks:
       SECRET_PATH: secret/
       OUTPUT_FILE: .env
     cmds:
-    - echo "" > {{.OUTPUT_FILE}}      
+    - echo "" > {{.OUTPUT_FILE}}
     # vault kv secrets
     - |
       function traverse {
