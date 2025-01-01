@@ -52,7 +52,7 @@ spec:
       GF_SECURITY_COOKIE_SAMESITE: grafana
     admin:
       existingSecret: grafana
-    ldap:
+    generic_oauth:
       enabled: true
       existingSecret: grafana
     serviceAccount:
@@ -66,10 +66,8 @@ spec:
         enabled: false
       auth.anonymous:
         enabled: false
-      auth.ldap:
+      auth.generic_oauth:
         enabled: true
-        allow_sign_up: true
-        config_file: /etc/grafana/ldap.toml
       news:
         news_feed_enabled: false
     dashboardProviders:
