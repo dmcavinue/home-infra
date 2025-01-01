@@ -313,9 +313,7 @@ tasks:
       - vault kv put -mount=secret monitoring/grafana
           GRAFANA_ADMIN_USER="admin"
           GRAFANA_ADMIN_PASSWORD="$(vault read -field=password sys/policies/password/default/generate)"
-          GRAFANA_LDAP_USERNAME="{{.GRAFANA_LDAP_USERNAME}}"
-          GRAFANA_LDAP_PASSWORD="{{.GRAFANA_LDAP_PASSWORD}}"
-          GRAFANA_LDAP_ROOT="{{.GRAFANA_LDAP_ROOT}}"
+          GRAFANA_OIDC_CLIENT_SECRET="{{.GRAFANA_OIDC_CLIENT_SECRET}}"
           GRAFANA_POSTGRES_SUPER_USER="{{.GRAFANA_POSTGRES_SUPER_USER}}"
           GRAFANA_POSTGRES_SUPER_PASSWORD="{{.GRAFANA_POSTGRES_SUPER_PASSWORD}}"
           GRAFANA_POSTGRES_USER="{{.GRAFANA_POSTGRES_USER}}"
