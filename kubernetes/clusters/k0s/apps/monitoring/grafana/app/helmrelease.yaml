@@ -69,14 +69,12 @@ spec:
         enabled: true
         allow_sign_up: true
         name: dex
-        # client_id: '${GRAFANA_AUTH_GENERIC_CLIENT_ID}'
-        # client_secret: '${GRAFANA_AUTH_GENERIC_CLIENT_SECRET}'
         scopes: openid profile email groups
         auth_url: 'https://dex.feelingsmachine.com/auth'
         token_url: 'https://dex.feelingsmachine.com/token'
         api_url: 'https://dex.feelingsmachine.com/userinfo'
       auth.generic_oauth.group_mapping:
-        role_attribute_path: "contains(groups[*], 'system:admin') && 'Admin' || contains(groups[*], 'user') && 'Viewer'"
+        role_attribute_path: "'Admin'"
         org_id: 1
       news:
         news_feed_enabled: false
