@@ -58,11 +58,12 @@ spec:
       GF_DATE_FORMATS_INTERVAL_MONTH: "MM-YYYY"
       GF_DATE_FORMATS_INTERVAL_YEAR: "YYYY"
       GF_SECURITY_COOKIE_SAMESITE: grafana
+    envFromSecrets:
+      - name: grafana
     admin:
       existingSecret: grafana
     generic_oauth:
       enabled: true
-      existingSecret: grafana
     serviceAccount:
       autoMount: true
     grafana.ini:
