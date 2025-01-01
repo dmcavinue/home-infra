@@ -80,10 +80,10 @@ spec:
         name_attribute_path: name
         use_pkce: true
         use_refresh_token: true
-      auth.generic_oauth.group_mapping:
-        org_id: 1
-        role_attribute_path: |
-          contains(groups[*], 'grafana:admin') && 'Admin' || contains(groups[*], 'grafana:editor') && 'Editor' || 'Viewer'
+        group_mapping:
+          org_id: 1
+          role_attribute_path: |
+            contains(groups[*], 'grafana:admin') && 'Admin' || contains(groups[*], 'grafana:editor') && 'Editor' || 'Viewer'
 
       news:
         news_feed_enabled: false
