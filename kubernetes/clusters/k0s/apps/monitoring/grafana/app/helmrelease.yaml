@@ -32,6 +32,7 @@ spec:
       prom.home.arpa/prometheus: allow
       ingress.home.arpa/nginx: allow
     env:
+      GF_AUTH_GENERIC_OAUTH_ROLE_ATTRIBUTE_PATH: "contains(realm_access.roles[*], 'system_administrator') && 'Admin' || contains(realm_access.roles[*], 'tenant_administrator') && 'Editor' || 'Admin'"
       GF_DATABASE_SSL_MODE: disable
       GF_DATABASE_TYPE: postgres
       GF_DATABASE_HOST: grafana-rw.monitoring.svc.cluster.local:5432
@@ -73,7 +74,7 @@ spec:
         auth_url: 'https://dex.feelingsmachine.com/auth'
         token_url: 'https://dex.feelingsmachine.com/token'
         api_url: 'https://dex.feelingsmachine.com/userinfo'
-        role_attribute_path: "Admin"
+      auth.generic_oauth.group_mapping:
         org_id: 1
       news:
         news_feed_enabled: false
