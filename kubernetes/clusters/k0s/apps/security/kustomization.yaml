@@ -10,4 +10,3 @@ resources:
   # Flux-Kustomizations
   - ./oauth2-proxy/ks.yaml
   - ./lldap/ks.yaml
-  - ./dex/ks.yaml
