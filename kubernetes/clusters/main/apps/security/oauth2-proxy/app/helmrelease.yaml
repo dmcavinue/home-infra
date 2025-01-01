@@ -70,7 +70,7 @@ spec:
       existingSecret: oauth2-proxy-secret
       configFile: |-
         provider = "oidc"
-        oidc_issuer_url = "https://dex.logfold.com"
+        oidc_issuer_url = "https://dex.feelingsmachine.com"
         auth_logging = true
         cookie_samesite = "lax"
         cookie_httponly = true
