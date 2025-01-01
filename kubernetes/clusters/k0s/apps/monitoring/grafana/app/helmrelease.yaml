@@ -73,10 +73,8 @@ spec:
         auth_url: 'https://dex.feelingsmachine.com/auth'
         token_url: 'https://dex.feelingsmachine.com/token'
         api_url: 'https://dex.feelingsmachine.com/userinfo'
-        allow_assign_grafana_admin: true
       auth.generic_oauth.group_mapping:
         role_attribute_path: "'Admin'"
-        allow_assign_grafana_admin: true
         org_id: 1
       news:
         news_feed_enabled: false
