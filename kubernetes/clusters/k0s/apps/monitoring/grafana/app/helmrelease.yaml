@@ -79,7 +79,7 @@ spec:
         token_url: 'https://dex.feelingsmachine.com/token'
         api_url: 'https://dex.feelingsmachine.com/userinfo'
       auth.generic_oauth.group_mapping:
-        role_attribute_path: "contains(groups[*], 'system:admin') && 'Admin' || 'Viewer'"
+        role_attribute_path: "contains(groups[*], 'system:admin') && 'Admin' || contains(groups[*], 'user') && 'Viewer'"
         org_id: 1
       news:
         news_feed_enabled: false
