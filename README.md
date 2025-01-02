@@ -18,7 +18,7 @@ This cluster is used for production services
 ```bash
 ENVIRONMENT="main" task ansible:bootstrap-child
 
-# restoring pv data from backups 
+# restoring pv data from backups
 ENVIRONMENT="main" task vs:restore namespace=home-automation rsrc=esphome
 ENVIRONMENT="main" task vs:restore namespace=home-automation rsrc=z2m
 ENVIRONMENT="main" task vs:restore namespace=home-automation rsrc=zwavejs
