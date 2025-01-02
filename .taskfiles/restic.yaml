@@ -3,6 +3,17 @@ version: "3"
 
 tasks:
 
+  initialize:
+    desc: initialize restic repo
+    cmds:
+      - restic init
+    vars:
+      name: '{{ or .name (fail "name `name` is required") }}'
+      password: '{{ or .password (fail "password `password` is required") }}'
+    env:
+      RESTIC_REPOSITORY: "{{.RESTIC_URL}}/{{.name}}"
+      RESTIC_PASSWORD: '{{.password}}'
+
   list-snapshots:
     cmds:
       - restic list snapshots
