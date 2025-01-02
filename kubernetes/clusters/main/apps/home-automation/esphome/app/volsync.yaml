@@ -37,6 +37,7 @@ spec:
     repository: esphome-restic-secret
     cacheCapacity: 8Gi
     cacheStorageClassName: openebs-hostpath
+    cacheAccessModes: ["ReadWriteOnce"]
     volumeSnapshotClassName: csi-ceph-blockpool
     storageClassName: ceph-pool
     retain:
